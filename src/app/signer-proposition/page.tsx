@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { Loader2, AlertTriangle, ArrowLeft, CheckCircle2, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
 
 export const dynamic = 'force-dynamic';
@@ -14,26 +14,32 @@ export default function SignerPropositionPage() {
   const [error, setError] = useState<string | null>(null);
   const [signUrl, setSignUrl] = useState<string | null>(null);
 
-  // 1. ESPION : Écouteur d'événements pour la signature
+  // Fonction pour aller au paiement (utilisée par l'auto-détection ET le bouton manuel)
+  const goToPayment = () => {
+    console.log("🚀 Redirection vers le paiement...");
+    sessionStorage.setItem('propositionSigned', 'true');
+    toast.success("Contrat signé ! Redirection vers le paiement...");
+    router.push('/paiement');
+  };
+
+  // 1. L'ESPION : Écouteur d'événements AMÉLIORÉ
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      // eSignatures.io envoie un message "es:signed" quand c'est fini
-      if (event.data?.event === 'es:signed') {
-        console.log("✅ Signature détectée !");
-        
-        // On note que c'est signé pour débloquer le paiement
-        sessionStorage.setItem('propositionSigned', 'true');
-        toast.success("Contrat signé avec succès !");
+      // On regarde tous les messages pour le debug
+      console.log("Message reçu de l'iframe:", event.data);
 
-        // Redirection FORCÉE vers le paiement
-        window.location.href = '/paiement';
+      // Détection du signal officiel eSignatures.io
+      if (event.data?.event === 'es:signed') {
+        goToPayment();
+      }
+      
+      // Parfois le format change légèrement, on vérifie aussi ça :
+      if (typeof event.data === 'string' && event.data.includes('es:signed')) {
+        goToPayment();
       }
     };
 
-    // On active l'écoute
     window.addEventListener('message', handleMessage);
-
-    // On nettoie quand on quitte la page
     return () => window.removeEventListener('message', handleMessage);
   }, [router]);
 
@@ -116,21 +122,29 @@ export default function SignerPropositionPage() {
 
   return (
     <div className="min-h-screen bg-[#02040a] flex flex-col">
-      <div className="h-16 border-b border-white/10 flex items-center px-6 bg-[#02040a]">
+      {/* Header */}
+      <div className="h-16 border-b border-white/10 flex items-center px-6 bg-[#02040a] justify-between">
         <button onClick={handleBack} className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
           <ArrowLeft className="w-4 h-4" />
           Retour
         </button>
-        <div className="ml-auto text-xs text-slate-500">
-          En attente de signature...
-        </div>
+        
+        {/* BOUTON DE SECOURS - Apparaît dans le header */}
+        <button 
+          onClick={goToPayment}
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white text-sm font-medium rounded-lg transition-all animate-pulse"
+        >
+          <span>J'ai terminé la signature</span>
+          <CreditCard className="w-4 h-4" />
+        </button>
       </div>
 
-      <div className="flex-1 w-full h-full relative">
+      {/* Zone Iframe */}
+      <div className="flex-1 w-full h-full relative bg-white">
         {signUrl && (
           <iframe 
             src={signUrl} 
-            className="absolute inset-0 w-full h-full border-0 bg-white"
+            className="absolute inset-0 w-full h-full border-0"
             allow="camera; microphone"
           />
         )}
