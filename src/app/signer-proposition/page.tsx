@@ -21,25 +21,27 @@ export default function SignerPropositionPage() {
     router.push('/paiement');
   };
 
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.data?.event === 'es:signed' || (typeof event.data === 'string' && event.data.includes('es:signed'))) {
-        setIsSigned(true);
-        toast.success("Contrat signé !");
-      }
-    };
+    useEffect(() => {
+      let redirectTimer: NodeJS.Timeout | null = null;
 
-    window.addEventListener('message', handleMessage);
+      const handleMessage = (event: MessageEvent) => {
+        if (event.data?.event === 'es:signed' || (typeof event.data === 'string' && event.data.includes('es:signed'))) {
+          setIsSigned(true);
+          toast.success("Contrat signé !");
+          
+          redirectTimer = setTimeout(() => {
+            setShowManualButton(true);
+          }, 5000);
+        }
+      };
 
-    const timer = setTimeout(() => {
-      setShowManualButton(true);
-    }, 5000);
+      window.addEventListener('message', handleMessage);
 
-    return () => {
-      window.removeEventListener('message', handleMessage);
-      clearTimeout(timer);
-    };
-  }, []);
+      return () => {
+        window.removeEventListener('message', handleMessage);
+        if (redirectTimer) clearTimeout(redirectTimer);
+      };
+    }, []);
 
   useEffect(() => {
     const initContract = async () => {
