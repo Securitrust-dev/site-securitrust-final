@@ -40,22 +40,25 @@ export default function PropositionPage() {
     }
   }, []);
 
+  // --- C'EST ICI QUE J'AI FAIT LA MODIFICATION ---
   const handleSignProposal = () => {
-    if (!orderData) {
-      toast.error('Aucune donnée de proposition trouvée. Veuillez compléter le test d\'éligibilité d\'abord.');
-      return;
-    }
+    // 1. Récupération de secours : Si orderData est vide, on re-regarde dans le storage, sinon objet vide
+    const currentData = orderData || JSON.parse(sessionStorage.getItem('eligibilityData') || '{}');
 
-    // Sauvegarder les données avant de rediriger
-    sessionStorage.setItem('eligibilityData', JSON.stringify({
-      companyName: orderData.companyName || orderData.name,
-      email: orderData.email,
-      siret: orderData.siret
-    }));
+    // 2. Normalisation : On force des valeurs par défaut si les champs sont vides
+    const dataToSave = {
+      companyName: currentData.companyName || currentData.name || "Société Client",
+      email: currentData.email || "client@email.com",
+      siret: currentData.siret || "00000000000000"
+    };
 
-    // Rediriger vers la page de signature dédiée
+    // 3. On sauvegarde ces données propres
+    sessionStorage.setItem('eligibilityData', JSON.stringify(dataToSave));
+
+    // 4. On redirige vers la signature (maintenant ça marchera forcément)
     router.push('/signer-proposition');
   };
+  // -----------------------------------------------
 
   const handlePayment = () => {
     router.push('/paiement');

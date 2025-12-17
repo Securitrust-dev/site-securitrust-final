@@ -3,38 +3,59 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { toast } from 'sonner';
 
 export const dynamic = 'force-dynamic';
 
 export default function SignerPropositionPage() {
   const router = useRouter();
   
-  // États pour gérer le chargement et les données
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [signUrl, setSignUrl] = useState<string | null>(null);
 
+  // 1. L'ESPION : Écouteur d'événements pour la signature
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      // eSignatures.io envoie un message "es:signed" quand c'est fini
+      if (event.data?.event === 'es:signed') {
+        console.log("✅ Signature détectée !");
+        
+        // On note que c'est signé pour débloquer le paiement
+        sessionStorage.setItem('propositionSigned', 'true');
+        toast.success("Contrat signé avec succès !");
+
+        // Redirection vers le paiement
+        router.push('/paiement');
+      }
+    };
+
+    // On active l'écoute
+    window.addEventListener('message', handleMessage);
+
+    // On nettoie quand on quitte la page
+    return () => window.removeEventListener('message', handleMessage);
+  }, [router]);
+
+  // 2. Chargement initial du contrat
   useEffect(() => {
     const initContract = async () => {
       try {
-        // 1. Récupérer les données du stockage local
         const storedData = sessionStorage.getItem('eligibilityData');
         
         if (!storedData) {
-          setError("Aucune donnée de proposition trouvée. Veuillez recommencer le parcours.");
+          setError("Aucune donnée de proposition trouvée.");
           setLoading(false);
           return;
         }
 
         const data = JSON.parse(storedData);
         
-        // 2. Appeler notre API pour avoir l'URL de signature
-        // Note: On utilise les données du session storage
         const response = await fetch('/api/esignatures/sign-url', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            companyName: data.companyName || "Société Inconnue",
+            companyName: data.companyName,
             email: data.email,
             siret: data.siret
           })
@@ -42,19 +63,16 @@ export default function SignerPropositionPage() {
 
         const result = await response.json();
 
-        if (!response.ok) {
-          throw new Error(result.error || "Erreur lors de la préparation du contrat");
-        }
-
+        if (!response.ok) throw new Error(result.error);
         if (result.url) {
           setSignUrl(result.url);
         } else {
-          throw new Error("L'URL de signature n'a pas été générée");
+          throw new Error("Pas d'URL reçue");
         }
 
       } catch (err: any) {
-        console.error("Erreur page signature:", err);
-        setError(err.message || "Une erreur est survenue");
+        console.error("Erreur:", err);
+        setError(err.message || "Erreur de chargement");
       } finally {
         setLoading(false);
       }
@@ -67,19 +85,17 @@ export default function SignerPropositionPage() {
     router.push('/proposition');
   };
 
-  // CAS 1 : Chargement en cours (Le vrai "moulinage", mais qui va s'arrêter)
   if (loading) {
     return (
       <div className="min-h-screen bg-[#02040a] flex items-center justify-center">
         <div className="text-center space-y-4">
           <Loader2 className="w-12 h-12 text-cyan-500 animate-spin mx-auto" />
-          <p className="text-slate-400 animate-pulse">Préparation de votre contrat sécurisé...</p>
+          <p className="text-slate-400 animate-pulse">Préparation du contrat...</p>
         </div>
       </div>
     );
   }
 
-  // CAS 2 : Erreur (Données manquantes ou API plantée)
   if (error) {
     return (
       <div className="min-h-screen bg-[#02040a] flex items-center justify-center px-6">
@@ -87,38 +103,35 @@ export default function SignerPropositionPage() {
           <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <AlertTriangle className="w-8 h-8 text-red-500" />
           </div>
-          <h2 className="text-xl font-semibold text-white mb-3">Impossible d'afficher le contrat</h2>
+          <h2 className="text-xl font-semibold text-white mb-3">Erreur</h2>
           <p className="text-red-200/80 mb-8">{error}</p>
-          <button 
-            onClick={handleBack}
-            className="w-full py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors flex items-center justify-center gap-2 font-medium"
-          >
+          <button onClick={handleBack} className="w-full py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors flex items-center justify-center gap-2 font-medium">
             <ArrowLeft className="w-4 h-4" />
-            Retour à la proposition
+            Retour
           </button>
         </div>
       </div>
     );
   }
 
-  // CAS 3 : Succès -> On affiche l'Iframe Esignature
   return (
     <div className="min-h-screen bg-[#02040a] flex flex-col">
-      {/* En-tête simple */}
       <div className="h-16 border-b border-white/10 flex items-center px-6 bg-[#02040a]">
         <button onClick={handleBack} className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
           <ArrowLeft className="w-4 h-4" />
           Retour
         </button>
+        <div className="ml-auto text-xs text-slate-500">
+          En attente de signature...
+        </div>
       </div>
 
-      {/* Zone du contrat plein écran */}
       <div className="flex-1 w-full h-full relative">
         {signUrl && (
           <iframe 
             src={signUrl} 
-            className="absolute inset-0 w-full h-full border-0"
-            allow="camera; microphone" // Nécessaire pour certaines signatures
+            className="absolute inset-0 w-full h-full border-0 bg-white"
+            allow="camera; microphone"
           />
         )}
       </div>
