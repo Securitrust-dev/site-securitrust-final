@@ -240,37 +240,34 @@ export default function EligibilitePage() {
         let isEligible = true;
         let reason = '';
 
-        if (hadPentestAnswer === 'Oui') {
-          isEligible = false;
-          reason = 'Vous avez déjà bénéficié d\'un pentest avec SecuriTrust.';
-        } else if (locationAnswer === 'Non') {
-          isEligible = false;
-          reason = 'L\'offre est réservée aux entreprises établies et domiciliées en France.';
-        } else if (employeeCountAnswer === 'Moins de 250') {
-          isEligible = false;
-          reason = 'Votre entreprise doit compter entre 250 et 999 employés.';
-        } else if (employeeCountAnswer === '1000 ou plus') {
-          isEligible = false;
-          reason = 'Votre entreprise doit compter moins de 1000 employés.';
-        } else if (revenueAnswer === '20 millions d\'euros ou plus') {
-          isEligible = false;
-          reason = 'Votre chiffre d\'affaires annuel doit être inférieur à 20 millions d\'euros.';
-        } else if (Array.isArray(sectorAnswer) && sectorAnswer.some(s => s !== 'Aucun de ces secteurs')) {
-          isEligible = false;
-          reason = 'Votre secteur d\'activité n\'est pas éligible à cette offre.';
-        } else if (previousPentestAnswer === 'Oui') {
-          isEligible = false;
-          reason = 'Un test d\'intrusion professionnel a déjà été réalisé au cours des 36 derniers mois.';
-        } else if (ownershipAnswer === 'Non') {
-          isEligible = false;
-          reason = 'Vous devez être propriétaire ou détenir les autorisations nécessaires sur tous les systèmes à tester.';
-        } else if (thirdPartySystemAnswer === 'Oui') {
-          isEligible = false;
-          reason = 'Le périmètre ne doit pas inclure de systèmes appartenant à des tiers.';
-        } else if (cloudServicesAnswer === 'Oui') {
-          isEligible = false;
-          reason = 'Le test ne peut porter sur des services cloud, SaaS ou infrastructures gérées par un fournisseur externe.';
-        }
+          if (hadPentestAnswer === 'Oui') {
+            isEligible = false;
+            reason = 'Vous avez déjà bénéficié d\'un pentest avec SecuriTrust.';
+          } else if (locationAnswer === 'Non') {
+            isEligible = false;
+            reason = 'L\'offre est réservée aux entreprises établies et domiciliées en France.';
+          } else if (employeeCountAnswer === '250 à 999' || employeeCountAnswer === '1000 ou plus') {
+            isEligible = false;
+            reason = 'Votre entreprise doit employer moins de 250 salariés.';
+          } else if (revenueAnswer === '20 millions d\'euros ou plus') {
+            isEligible = false;
+            reason = 'Votre chiffre d\'affaires annuel doit être inférieur à 20 millions d\'euros.';
+          } else if (Array.isArray(sectorAnswer) && sectorAnswer.some(s => s !== 'Aucun de ces secteurs')) {
+            isEligible = false;
+            reason = 'Votre secteur d\'activité n\'est pas éligible à cette offre.';
+          } else if (previousPentestAnswer === 'Oui') {
+            isEligible = false;
+            reason = 'Un test d\'intrusion professionnel a déjà été réalisé au cours des 36 derniers mois.';
+          } else if (ownershipAnswer === 'Non') {
+            isEligible = false;
+            reason = 'Vous devez être propriétaire ou détenir les autorisations nécessaires sur tous les systèmes à tester.';
+          } else if (thirdPartySystemAnswer === 'Oui') {
+            isEligible = false;
+            reason = 'Le périmètre ne doit pas inclure de systèmes appartenant à des tiers.';
+          } else if (cloudServicesAnswer === 'Oui') {
+            isEligible = false;
+            reason = 'Le test ne peut porter sur des services cloud, SaaS ou infrastructures gérées par un fournisseur externe.';
+          }
 
         if (!isEligible || companyInfo.status !== 'ACTIVE') {
           sessionStorage.setItem('eligibilityData', JSON.stringify({
