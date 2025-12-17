@@ -23,6 +23,7 @@ interface SearchResult {
   icon: any;
 }
 
+// --- CORRECTION ICI : Ajout des champs manquants dans l'interface ---
 interface CompanyData {
   legalInfo: {
     siret: string;
@@ -34,6 +35,13 @@ interface CompanyData {
     siegeSocial: string;
     codeNaf: string;
     statut: string;
+    // Nouveaux champs ajoutés pour éviter l'erreur TypeScript
+    effectif?: string;
+    etablissementSiege?: string;
+    categorieEntreprise?: string;
+    caractereEmployeur?: string;
+    economieSocialeSolidaire?: string;
+    societeMission?: string;
   };
   financialData?: {
     annee: number;
@@ -303,12 +311,12 @@ export default function VotreEntreprisePage() {
               { label: 'Siège social', value: companyData.legalInfo.siegeSocial },
               { label: 'Code NAF', value: companyData.legalInfo.codeNaf },
               { label: 'Statut', value: companyData.legalInfo.statut },
-              { label: 'Effectif', value: companyData.legalInfo.effectif },
-              { label: 'Établissement siège', value: companyData.legalInfo.etablissementSiege },
-              { label: 'Catégorie entreprise', value: companyData.legalInfo.categorieEntreprise },
-              { label: 'Caractère employeur', value: companyData.legalInfo.caractereEmployeur },
-              { label: 'Économie sociale solidaire', value: companyData.legalInfo.economieSocialeSolidaire },
-              { label: 'Société à mission', value: companyData.legalInfo.societeMission }
+              { label: 'Effectif', value: companyData.legalInfo.effectif || 'Non renseigné' },
+              { label: 'Établissement siège', value: companyData.legalInfo.etablissementSiege || 'Non renseigné' },
+              { label: 'Catégorie entreprise', value: companyData.legalInfo.categorieEntreprise || 'Non renseigné' },
+              { label: 'Caractère employeur', value: companyData.legalInfo.caractereEmployeur || 'Non renseigné' },
+              { label: 'Économie sociale solidaire', value: companyData.legalInfo.economieSocialeSolidaire || 'Non' },
+              { label: 'Société à mission', value: companyData.legalInfo.societeMission || 'Non' }
             ]
           };
         } else if (result.id === '2') {
