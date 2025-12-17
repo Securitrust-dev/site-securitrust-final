@@ -9,10 +9,9 @@ export const dynamic = 'force-dynamic';
 export default function SignerPropositionPage() {
   const router = useRouter();
   const [orderData, setOrderData] = useState<any>(null);
-  const [hasData, setHasData] = useState(false);
+  const [hasData, setHasData] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Récupérer les données de la proposition depuis sessionStorage
     const storedData = sessionStorage.getItem('eligibilityData');
     if (storedData) {
       try {
@@ -32,8 +31,11 @@ export default function SignerPropositionPage() {
     router.push('/proposition');
   };
 
-  // Si pas de données, afficher un message d'erreur
-  if (!hasData) {
+  if (hasData === null) {
+    return null;
+  }
+
+  if (hasData === false) {
     return (
       <div className="min-h-screen bg-[#02040a] flex items-center justify-center px-6">
         <div className="max-w-md w-full">
