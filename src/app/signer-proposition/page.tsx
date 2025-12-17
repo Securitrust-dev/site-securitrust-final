@@ -21,16 +21,17 @@ export default function SignerPropositionPage() {
     router.push('/paiement');
   };
 
-    useEffect(() => {
+      useEffect(() => {
       let redirectTimer: NodeJS.Timeout | null = null;
 
       const handleMessage = (event: MessageEvent) => {
         if (event.data?.event === 'es:signed' || (typeof event.data === 'string' && event.data.includes('es:signed'))) {
           setIsSigned(true);
           toast.success("Contrat signé !");
+          setShowManualButton(true);
           
           redirectTimer = setTimeout(() => {
-            setShowManualButton(true);
+            goToPayment();
           }, 5000);
         }
       };
