@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
-import { proposals } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { esignatureEvents } from '@/db/schema';
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    
+
     console.log('eSignatures.io webhook received:', JSON.stringify(body, null, 2));
 
-    const eventType = body.event_type;
-    const contractId = body.contract?.contract_id;
-    const status = body.contract?.status;
+    const eventType: string | undefined = body?.event_type;
+    const contractId: string | undefined = body?.contract?.contract_id;
+    const eventId: string =
+      body?.event_id ?? `${contractId ?? 'unknown'}:${eventType ?? 'unknown'}:${Date.now()}`;
 
     if (!contractId) {
       return NextResponse.json(
@@ -20,44 +20,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const [proposal] = await db
-      .select()
-      .from(proposals)
-      .where(eq(proposals.contractId, contractId))
-      .limit(1);
-
-    if (!proposal) {
-      console.warn(`No proposal found for contract_id: ${contractId}`);
-      return NextResponse.json({ received: true, message: 'Contract not found' });
-    }
-
-    if (eventType === 'signer_viewed') {
-      await db
-        .update(proposals)
-        .set({ 
-          contractStatus: 'viewed',
-          updatedAt: new Date()
-        })
-        .where(eq(proposals.id, proposal.id));
-      
-      console.log(`Contract ${contractId} marked as viewed`);
-    }
-
-    if (eventType === 'contract_signed' || eventType === 'all_signers_completed') {
-      await db
-        .update(proposals)
-        .set({ 
-          contractStatus: 'completed',
-          updatedAt: new Date()
-        })
-        .where(eq(proposals.id, proposal.id));
-      
-      console.log(`Contract ${contractId} marked as completed`);
-    }
-
-    if (status) {
-      console.log(`Contract ${contractId} status updated to: ${status}`);
-    }
+    // Persist the webhook event (idempotent via unique eventId)
+    await db
+      .insert(esignatureEvents)
+      .values({
+        eventId,
+        contractId,
+        eventType: eventType ?? 'unknown',
+        payload: JSON.stringify(body),
+        createdAt: new Date().toISOString(),
+      })
+      .onConflictDoNothing();
 
     return NextResponse.json({ received: true });
   } catch (error) {
