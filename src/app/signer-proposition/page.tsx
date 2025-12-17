@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import { ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
-
+export const dynamic = 'force-dynamic';
 export default function SignerPropositionPage() {
   const router = useRouter();
   const [orderData, setOrderData] = useState<any>(null);
