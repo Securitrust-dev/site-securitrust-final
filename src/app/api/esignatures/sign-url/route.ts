@@ -30,26 +30,31 @@ export async function POST(request: Request) {
         // Créer le contrat via l'API eSignatures.io (token dans URL)
         const apiUrl = `https://esignatures.io/api/contracts?token=${apiToken}`;
         
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            template_id: templateId,
-            title: `Proposition SecuriTrust - ${companyName}`,
-            signers: [{
-              name: companyName,
-              email: email,
-              mobile: '+33600000000'
-            }],
-            placeholder_fields: siret ? [{
-              api_key: 'siret',
-              value: siret
-            }] : [],
-            test: 'yes'
-          })
-        });
+          const webhookUrl = process.env.NEXT_PUBLIC_APP_URL 
+            ? `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/esignatures`
+            : 'https://site-securitrust-final.vercel.app/api/webhooks/esignatures';
+
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              template_id: templateId,
+              title: `Proposition SecuriTrust - ${companyName}`,
+              custom_webhook_url: webhookUrl,
+              signers: [{
+                name: companyName,
+                email: email,
+                mobile: '+33600000000'
+              }],
+              placeholder_fields: siret ? [{
+                api_key: 'siret',
+                value: siret
+              }] : [],
+              test: 'yes'
+            })
+          });
 
     if (!response.ok) {
       const errorText = await response.text();
