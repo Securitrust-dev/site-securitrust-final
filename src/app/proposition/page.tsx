@@ -46,6 +46,13 @@ export default function PropositionPage() {
       return;
     }
 
+    // Sauvegarder les données avant de rediriger
+    sessionStorage.setItem('eligibilityData', JSON.stringify({
+      companyName: orderData.companyName || orderData.name,
+      email: orderData.email,
+      siret: orderData.siret
+    }));
+
     // Rediriger vers la page de signature dédiée
     router.push('/signer-proposition');
   };
