@@ -40,25 +40,16 @@ export default function PropositionPage() {
     }
   }, []);
 
-  // --- C'EST ICI QUE J'AI FAIT LA MODIFICATION ---
-  const handleSignProposal = () => {
-    // 1. Récupération de secours : Si orderData est vide, on re-regarde dans le storage, sinon objet vide
-    const currentData = orderData || JSON.parse(sessionStorage.getItem('eligibilityData') || '{}');
-
-    // 2. Normalisation : On force des valeurs par défaut si les champs sont vides
-    const dataToSave = {
-      companyName: currentData.companyName || currentData.name || "Société Client",
-      email: currentData.email || "client@email.com",
-      siret: currentData.siret || "00000000000000"
+    const handleSignProposal = () => {
+      const currentData = orderData || JSON.parse(sessionStorage.getItem('eligibilityData') || '{}');
+      const dataToSave = {
+        companyName: currentData.companyName || currentData.name || "Société Client",
+        email: currentData.email || "client@email.com",
+        siret: currentData.siret || "00000000000000"
+      };
+      sessionStorage.setItem('eligibilityData', JSON.stringify(dataToSave));
+      router.push('/signer-proposition');
     };
-
-    // 3. On sauvegarde ces données propres
-    sessionStorage.setItem('eligibilityData', JSON.stringify(dataToSave));
-
-    // 4. On redirige vers la signature (maintenant ça marchera forcément)
-    router.push('/signer-proposition');
-  };
-  // -----------------------------------------------
 
   const handlePayment = () => {
     router.push('/paiement');
