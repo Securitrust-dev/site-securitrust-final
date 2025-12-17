@@ -81,6 +81,30 @@ export function ESignatureEmbed({ companyName, email, siret }: ESignatureEmbedPr
     return () => window.removeEventListener('message', handleMessage);
   }, [router]);
 
+  useEffect(() => {
+    if (!contractId || isSigned) return;
+
+    const checkContractStatus = async () => {
+      try {
+        const response = await fetch(`/api/esignatures/sign-url?contractId=${contractId}`);
+        if (!response.ok) return;
+
+        const data = await response.json();
+        if (data.success && data.status === 200) {
+          setIsSigned(true);
+          sessionStorage.setItem('propositionSigned', 'true');
+          toast.success('Contrat signé avec succès !');
+          setTimeout(() => router.push('/proposition'), 2000);
+        }
+      } catch (error) {
+        console.error('Erreur vérification statut:', error);
+      }
+    };
+
+    const interval = setInterval(checkContractStatus, 3000);
+    return () => clearInterval(interval);
+  }, [contractId, isSigned, router]);
+
   if (loading) {
     return (
       <div className="rounded-2xl bg-zinc-900/50 border border-white/10 p-12 text-center">
