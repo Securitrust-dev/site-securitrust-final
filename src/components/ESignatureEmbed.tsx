@@ -88,25 +88,30 @@ export function ESignatureEmbed({ companyName, email, siret }: ESignatureEmbedPr
 
       const checkContractStatus = async () => {
         try {
-          const response = await fetch(`/api/esignatures/sign-url?contractId=${contractId}`);
+          const response = await fetch(`/api/esignatures/sign-url?contractId=${contractId}&t=${Date.now()}`);
           if (!response.ok) return;
 
           const data = await response.json();
           console.log('📊 Réponse API complète:', data);
-          console.log('📊 Statut du contrat:', data.contract?.status);
           
-          // Vérifier le statut du contrat dans la réponse de l'API
+          // ✅ NOUVELLE LOGIQUE : Peu importe le statut, si on a un URL de signature, on l'affiche
           const contractStatus = data.contract?.status;
+          const signUrl = data.contract?.signers?.[0]?.sign_page_url;
           
-          if (data.success && (contractStatus === 'completed' || contractStatus === 'signed')) {
+          console.log('📊 Statut:', contractStatus);
+          console.log('🔗 URL de signature:', signUrl);
+          
+          // Si le contrat est signé/complété → redirection
+          if (contractStatus === 'completed' || contractStatus === 'signed') {
             setIsSigned(true);
             sessionStorage.setItem('propositionSigned', 'true');
             toast.success('Contrat signé avec succès !');
             setTimeout(() => router.push('/proposition'), 2000);
-          } else if (contractStatus === 'sent' || contractStatus === 'pending') {
-            console.log('⏳ En attente de signature');
-          } else {
-            console.log('📋 Statut actuel:', contractStatus);
+          } 
+          // Si on a une URL de signature ET que le statut est "queued" ou "sent", on la met à jour
+          else if (signUrl && (contractStatus === 'queued' || contractStatus === 'sent')) {
+            console.log('✅ Contrat prêt avec URL de signature (statut:', contractStatus, ')');
+            setSignUrl(signUrl);
           }
         } catch (error) {
           console.error('Erreur vérification statut:', error);
