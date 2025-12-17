@@ -32,31 +32,33 @@ export async function POST(req: NextRequest) {
 
     const origin = req.headers.get('origin') || req.headers.get('referer')?.split('/').slice(0, 3).join('/') || 'http://localhost:3000';
     
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      mode: 'payment',
-      line_items: [
-        {
-          price_data: {
-            currency: 'eur',
-            product_data: {
-              name: `Audit Cybersécurité SECURITRUST - ${validated.plan}`,
-              description: 'Test d\'intrusion complet, OSINT, Rapport détaillé',
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        mode: 'payment',
+        line_items: [
+          {
+            price_data: {
+              currency: 'eur',
+              product_data: {
+                name: `Audit Cybersécurité SECURITRUST - ${validated.plan}`,
+                description: 'Test d\'intrusion complet, OSINT, Rapport détaillé',
+              },
+              unit_amount: validated.amount * 100,
             },
-            unit_amount: validated.amount * 100,
+            quantity: 1,
           },
-          quantity: 1,
+        ],
+        customer_email: validated.email,
+        payment_intent_data: {
+          receipt_email: 'jad.joumblat@securitrust.fr',
         },
-      ],
-      customer_email: validated.email,
         metadata: {
           plan: validated.plan,
           customer_name: validated.name,
         },
         success_url: `${origin}/paiement/success?session_id={CHECKOUT_SESSION_ID}&email=${encodeURIComponent(validated.email)}`,
-        receipt_email: 'jad.joumblat@securitrust.fr',
-      cancel_url: `${origin}/paiement?canceled=true`,
-    });
+        cancel_url: `${origin}/paiement?canceled=true`,
+      });
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
