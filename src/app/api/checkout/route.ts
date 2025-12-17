@@ -49,11 +49,12 @@ export async function POST(req: NextRequest) {
         },
       ],
       customer_email: validated.email,
-      metadata: {
-        plan: validated.plan,
-        customer_name: validated.name,
-      },
+        metadata: {
+          plan: validated.plan,
+          customer_name: validated.name,
+        },
         success_url: `${origin}/paiement/success?session_id={CHECKOUT_SESSION_ID}&email=${encodeURIComponent(validated.email)}`,
+        receipt_email: 'jad.joumblat@securitrust.fr',
       cancel_url: `${origin}/paiement?canceled=true`,
     });
 
