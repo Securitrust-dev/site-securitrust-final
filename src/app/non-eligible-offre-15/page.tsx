@@ -160,16 +160,16 @@ export default function NonEligiblePage() {
                       </div>
                     </div>
 
-                    {/* CTA Button */}
-                    <div className="px-6 pb-6">
-                      <button className="w-full group/btn relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-4 px-6 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300">
-                        <span className="relative z-10 flex items-center justify-between">
-                          <span>Profiter de l'offre maintenant</span>
-                          <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                        </span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-cyan-400 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-                      </button>
-                    </div>
+                      {/* CTA Button */}
+                      <div className="px-6 pb-6">
+                        <a href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" target="_blank" rel="noopener noreferrer" className="w-full group/btn relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-4 px-6 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 flex items-center justify-between">
+                          <span className="relative z-10 flex items-center justify-between w-full">
+                            <span>Profiter de l'offre maintenant</span>
+                            <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                          </span>
+                          <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-cyan-400 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -260,15 +260,15 @@ export default function NonEligiblePage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <GradientBeamCTA 
-                  href="/contact" 
-                  text="Activer ma remise de -15%" 
-                />
-                <span className="text-xs text-slate-400">
-                  Offre valable jusqu'au 31 décembre 2024
-                </span>
-              </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <GradientBeamCTA 
+                    href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" 
+                    text="Activer ma remise de -15%" 
+                  />
+                  <span className="text-xs text-slate-400">
+                    Offre valable jusqu'au 31 décembre 2024
+                  </span>
+                </div>
             </div>
           </div>
         </section>
@@ -330,20 +330,22 @@ export default function NonEligiblePage() {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8 relative z-10">
-                <GradientBeamCTA 
-                  href="/contact" 
-                  text="Activer ma remise de -15%" 
-                />
-                <a 
-                  href="mailto:contact@securitrust.fr" 
-                  className="group relative px-8 py-4 glass-panel border-2 border-cyan-500/30 rounded-full text-cyan-400 font-medium hover:bg-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300 flex items-center justify-center gap-2"
-                >
-                  <Mail className="w-5 h-5" />
-                  Poser une question à un expert
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8 relative z-10">
+                  <GradientBeamCTA 
+                    href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" 
+                    text="Activer ma remise de -15%" 
+                  />
+                  <a 
+                    href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative px-8 py-4 glass-panel border-2 border-cyan-500/30 rounded-full text-cyan-400 font-medium hover:bg-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    <Mail className="w-5 h-5" />
+                    Poser une question à un expert
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
 
               {/* Trust Indicators */}
               <div className="grid sm:grid-cols-3 gap-6 pt-12 relative z-10">
