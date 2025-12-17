@@ -83,36 +83,40 @@ export function ESignatureEmbed({ companyName, email, siret }: ESignatureEmbedPr
     return () => window.removeEventListener('message', handleMessage);
   }, [router]);
 
-  useEffect(() => {
-    if (!contractId || isSigned) return;
+    useEffect(() => {
+      if (!contractId || isSigned) return;
 
-    const checkContractStatus = async () => {
-      try {
-        const response = await fetch(`/api/esignatures/sign-url?contractId=${contractId}`);
-        if (!response.ok) return;
+      const checkContractStatus = async () => {
+        try {
+          const response = await fetch(`/api/esignatures/sign-url?contractId=${contractId}`);
+          if (!response.ok) return;
 
-        const data = await response.json();
-        console.log('📊 Statut du contrat:', data.status);
-        
-        if (data.success && data.status === 200) {
-          setIsSigned(true);
-          sessionStorage.setItem('propositionSigned', 'true');
-          toast.success('Contrat signé avec succès !');
-          setTimeout(() => router.push('/proposition'), 2000);
-        } else if (data.status === 103) {
-          console.log('⏳ En attente de signature (status 103)');
-        } else if (data.status === 304) {
-          console.log('📋 Document non modifié (status 304)');
+          const data = await response.json();
+          console.log('📊 Réponse API complète:', data);
+          console.log('📊 Statut du contrat:', data.contract?.status);
+          
+          // Vérifier le statut du contrat dans la réponse de l'API
+          const contractStatus = data.contract?.status;
+          
+          if (data.success && (contractStatus === 'completed' || contractStatus === 'signed')) {
+            setIsSigned(true);
+            sessionStorage.setItem('propositionSigned', 'true');
+            toast.success('Contrat signé avec succès !');
+            setTimeout(() => router.push('/proposition'), 2000);
+          } else if (contractStatus === 'sent' || contractStatus === 'pending') {
+            console.log('⏳ En attente de signature');
+          } else {
+            console.log('📋 Statut actuel:', contractStatus);
+          }
+        } catch (error) {
+          console.error('Erreur vérification statut:', error);
         }
-      } catch (error) {
-        console.error('Erreur vérification statut:', error);
-      }
-    };
+      };
 
-    const interval = setInterval(checkContractStatus, 5000);
-    checkContractStatus();
-    return () => clearInterval(interval);
-  }, [contractId, isSigned, router]);
+      const interval = setInterval(checkContractStatus, 5000);
+      checkContractStatus();
+      return () => clearInterval(interval);
+    }, [contractId, isSigned, router]);
 
   if (loading) {
     return (
