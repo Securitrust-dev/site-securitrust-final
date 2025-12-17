@@ -53,6 +53,7 @@ export function ESignatureEmbed({ companyName, email, siret }: ESignatureEmbedPr
             console.log('🆔 Contract ID:', data.contractId);
             setSignUrl(data.url);
             setContractId(data.contractId);
+            setLoading(false); // ✅ Arrêter le loading immédiatement
           } else {
             throw new Error('URL de signature non disponible');
           }
