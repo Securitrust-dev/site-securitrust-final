@@ -3,12 +3,13 @@ import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
+// --- GET ---
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } // <-- Changement ici (Promise)
 ) {
   try {
-    const id = params.id;
+    const { id } = await params; // <-- Changement ici (await)
 
     if (!id || isNaN(parseInt(id)) || parseInt(id) <= 0) {
       return NextResponse.json(
@@ -48,12 +49,13 @@ export async function GET(
   }
 }
 
+// --- PUT ---
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } // <-- Changement ici (Promise)
 ) {
   try {
-    const id = params.id;
+    const { id } = await params; // <-- Changement ici (await)
 
     if (!id || isNaN(parseInt(id)) || parseInt(id) <= 0) {
       return NextResponse.json(
@@ -142,93 +144,3 @@ export async function PUT(
     }
 
     if (body.image !== undefined) {
-      updates.image = body.image;
-    }
-
-    if (body.author !== undefined) {
-      updates.author = body.author.trim();
-    }
-
-    if (body.slug !== undefined) {
-      updates.slug = body.slug.trim();
-    }
-
-    if (body.published !== undefined) {
-      updates.published = body.published;
-    }
-
-    updates.updatedAt = new Date().toISOString();
-
-    const updatedArticle = await db
-      .update(articles)
-      .set(updates)
-      .where(eq(articles.id, parseInt(id)))
-      .returning();
-
-    return NextResponse.json(updatedArticle[0], { status: 200 });
-  } catch (error) {
-    console.error('PUT error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error')
-      },
-      { status: 500 }
-    );
-  }
-}
-
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    const id = params.id;
-
-    if (!id || isNaN(parseInt(id)) || parseInt(id) <= 0) {
-      return NextResponse.json(
-        { 
-          error: 'Valid ID is required',
-          code: 'INVALID_ID' 
-        },
-        { status: 400 }
-      );
-    }
-
-    const existingArticle = await db
-      .select()
-      .from(articles)
-      .where(eq(articles.id, parseInt(id)))
-      .limit(1);
-
-    if (existingArticle.length === 0) {
-      return NextResponse.json(
-        { 
-          error: 'Article not found',
-          code: 'ARTICLE_NOT_FOUND' 
-        },
-        { status: 404 }
-      );
-    }
-
-    const deletedArticle = await db
-      .delete(articles)
-      .where(eq(articles.id, parseInt(id)))
-      .returning();
-
-    return NextResponse.json(
-      {
-        message: 'Article deleted successfully',
-        article: deletedArticle[0]
-      },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('DELETE error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error')
-      },
-      { status: 500 }
-    );
-  }
-}
