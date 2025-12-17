@@ -14,10 +14,13 @@ export default function SignerPropositionPage() {
   const [error, setError] = useState<string | null>(null);
   const [signUrl, setSignUrl] = useState<string | null>(null);
 
+  const [contractSigned, setContractSigned] = useState(false);
+
   // Fonction pour aller au paiement (utilisée par l'auto-détection ET le bouton manuel)
   const goToPayment = () => {
     console.log("🚀 Redirection vers le paiement...");
     sessionStorage.setItem('propositionSigned', 'true');
+    setContractSigned(true);
     toast.success("Contrat signé ! Redirection vers le paiement...");
     router.push('/paiement');
   };
@@ -129,14 +132,16 @@ export default function SignerPropositionPage() {
           Retour
         </button>
         
-        {/* BOUTON DE SECOURS - Apparaît dans le header */}
-        <button 
-          onClick={goToPayment}
-          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white text-sm font-medium rounded-lg transition-all animate-pulse"
-        >
-          <span>J'ai terminé la signature</span>
-          <CreditCard className="w-4 h-4" />
-        </button>
+          {/* BOUTON DE SECOURS - N'apparaît QUE si le contrat est signé */}
+          {contractSigned && (
+            <button 
+              onClick={goToPayment}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white text-sm font-medium rounded-lg transition-all animate-pulse"
+            >
+              <span>J'ai terminé la signature</span>
+              <CreditCard className="w-4 h-4" />
+            </button>
+          )}
       </div>
 
       {/* Zone Iframe */}
