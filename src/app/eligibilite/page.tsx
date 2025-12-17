@@ -33,88 +33,69 @@ export default function EligibilitePage() {
   const [error, setError] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
 
-  const questions: Question[] = [
-    { id: 'email', text: 'Email de contact', type: 'email', placeholder: 'contact@entreprise.fr' },
-    { 
-      id: 'hadPentest', 
-      text: 'Avons-nous déjà réalisé un pentest au sein de votre entreprise ?', 
-      type: 'radio',
-      options: ['Oui', 'Non']
-    },
-    { 
-      id: 'hasAD', 
-      text: 'Disposez-vous d\'un Active Directory (AD) ?', 
-      type: 'radio',
-      options: ['Oui', 'Non', 'Je ne sais pas']
-    },
-    { 
-      id: 'adComplexity', 
-      text: 'Complexité de votre AD', 
-      type: 'radio',
-      options: ['1 forêt, 1 domaine', '1 forêt, plusieurs domaines', '2–3 forêts', '3 forêts ou plus', 'Je ne sais pas'],
-      condition: (answers) => answers.find(a => a.questionId === 'hasAD')?.answer === 'Oui'
-    },
-    { 
-      id: 'externalExposure', 
-      text: 'Quels services sont exposés sur Internet ?', 
-      type: 'checkbox',
-      options: ['VPN', 'Webmail (OWA / Exchange / autre)', 'Applications web internes accessibles à distance', 'Aucun / Je ne sais pas']
-    },
-    { 
-      id: 'securityMaturity', 
-      text: 'Niveau de maturité sécurité', 
-      type: 'radio',
-      options: [
-        'Pas de RSSI / pas de politique sécurité',
-        'Politique minimale mais non formalisée',
-        'Politique sécurité documentée',
-        'Certification (ex : ISO 27001) ou SOC dédié'
-      ]
-    },
-    { 
-      id: 'testObjectives', 
-      text: 'Objectifs principaux du test', 
-      type: 'checkbox',
-      options: [
-        'Respect d\'une exigence client / contractuelle',
-        'Conformité réglementaire (RGPD, finance, santé…)',
-        'Valider la sécurité après un projet IT',
-        'Évaluer la posture sécurité globale',
-        'Investigation après un incident',
-        'Autre'
-      ]
-    },
-    { 
-      id: 'dataSensitivity', 
-      text: 'Sensibilité des données manipulées', 
-      type: 'radio',
-      options: [
-        'Faible (peu de données personnelles)',
-        'Moyenne (RH, clients, internes)',
-        'Élevée (données sensibles, santé, finance, secrets industriels)',
-        'Très élevée / critique',
-        'Je ne sais pas'
-      ]
-    },
-    { 
-      id: 'userAccounts', 
-      text: 'Combien de comptes utilisateurs actifs avez-vous au total ?', 
-      type: 'radio',
-      options: ['Moins de 100', '100 à 500', '500 à 2000', '2000 à 10 000', 'Plus de 10 000', 'Je ne sais pas']
-    },
-    { 
-      id: 'workstations', 
-      text: 'Nombre total de postes de travail (PC fixes, portables)', 
-      type: 'radio',
-      options: ['Moins de 50', '50 à 250', '250 à 1000', '1000 à 5000', 'Plus de 5000', 'Je ne sais pas']
-    },
-    { 
-      id: 'servers', 
-      text: 'Nombre de serveurs (physiques ou virtuels) dans votre infrastructure', 
-      type: 'radio',
-      options: ['Moins de 20', '20 à 100', '100 à 500', 'Plus de 500', 'Je ne sais pas']
-    },
-  ];
+    const questions: Question[] = [
+      { id: 'email', text: 'Email de contact', type: 'email', placeholder: 'contact@entreprise.fr' },
+      { 
+        id: 'hadPentest', 
+        text: 'Avons-nous déjà réalisé un pentest au sein de votre entreprise ?', 
+        type: 'radio',
+        options: ['Oui', 'Non']
+      },
+      { 
+        id: 'location', 
+        text: 'Êtes-vous établi et domicilié en France ?', 
+        type: 'radio',
+        options: ['Oui', 'Non']
+      },
+      { 
+        id: 'employeeCount', 
+        text: 'Combien d\'employés compte votre entreprise ?', 
+        type: 'radio',
+        options: ['Moins de 250', '250 à 999', '1000 ou plus']
+      },
+      { 
+        id: 'revenue', 
+        text: 'Quel est votre chiffre d\'affaires annuel ?', 
+        type: 'radio',
+        options: ['Moins de 20 millions d\'euros', '20 millions d\'euros ou plus']
+      },
+      { 
+        id: 'sector', 
+        text: 'Votre entreprise relève-t-elle de l\'un des secteurs suivants ?', 
+        type: 'checkbox',
+        options: [
+          'Santé',
+          'Banque, assurance et services financiers réglementés',
+          'Énergie, utilities, transport aérien, ferroviaire ou maritime',
+          'Secteur réglementé ou soumis à agrément',
+          'Aucun de ces secteurs'
+        ]
+      },
+      { 
+        id: 'previousPentest', 
+        text: 'Un test d\'intrusion professionnel a-t-il été réalisé sur votre infrastructure au cours des 36 derniers mois ?', 
+        type: 'radio',
+        options: ['Oui', 'Non']
+      },
+      { 
+        id: 'ownership', 
+        text: 'Êtes-vous propriétaire ou titulaire des autorisations nécessaires sur tous les systèmes à tester ?', 
+        type: 'radio',
+        options: ['Oui', 'Non']
+      },
+      { 
+        id: 'thirdPartySystem', 
+        text: 'Le périmètre de test inclut-il des systèmes appartenant à des tiers ?', 
+        type: 'radio',
+        options: ['Oui', 'Non']
+      },
+      { 
+        id: 'cloudServices', 
+        text: 'Le périmètre de test porte-t-il sur des services cloud, plateformes SaaS ou infrastructures gérées par un fournisseur externe ?', 
+        type: 'radio',
+        options: ['Oui', 'Non']
+      },
+    ];
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -241,53 +222,91 @@ export default function EligibilitePage() {
     }
   };
 
-  const checkEligibility = async (finalAnswers: Answer[]) => {
-    setIsChecking(true);
-    setCurrentStep('complete');
+    const checkEligibility = async (finalAnswers: Answer[]) => {
+      setIsChecking(true);
+      setCurrentStep('complete');
 
-    try {
-      const hadPentestAnswer = finalAnswers.find(a => a.questionId === 'hadPentest')?.answer;
-      const isFirstTimeClient = hadPentestAnswer === 'Non';
-      const isEligible = companyInfo.status === 'ACTIVE' && isFirstTimeClient;
-      
-      if (!isEligible) {
-        // Store data and redirect to non-eligible page
-        sessionStorage.setItem('eligibilityData', JSON.stringify({
+      try {
+        const hadPentestAnswer = finalAnswers.find(a => a.questionId === 'hadPentest')?.answer;
+        const locationAnswer = finalAnswers.find(a => a.questionId === 'location')?.answer;
+        const employeeCountAnswer = finalAnswers.find(a => a.questionId === 'employeeCount')?.answer;
+        const revenueAnswer = finalAnswers.find(a => a.questionId === 'revenue')?.answer;
+        const sectorAnswer = finalAnswers.find(a => a.questionId === 'sector')?.answer;
+        const previousPentestAnswer = finalAnswers.find(a => a.questionId === 'previousPentest')?.answer;
+        const ownershipAnswer = finalAnswers.find(a => a.questionId === 'ownership')?.answer;
+        const thirdPartySystemAnswer = finalAnswers.find(a => a.questionId === 'thirdPartySystem')?.answer;
+        const cloudServicesAnswer = finalAnswers.find(a => a.questionId === 'cloudServices')?.answer;
+
+        let isEligible = true;
+        let reason = '';
+
+        if (hadPentestAnswer === 'Oui') {
+          isEligible = false;
+          reason = 'Vous avez déjà bénéficié d\'un pentest avec SecuriTrust.';
+        } else if (locationAnswer === 'Non') {
+          isEligible = false;
+          reason = 'L\'offre est réservée aux entreprises établies et domiciliées en France.';
+        } else if (employeeCountAnswer === 'Moins de 250') {
+          isEligible = false;
+          reason = 'Votre entreprise doit compter entre 250 et 999 employés.';
+        } else if (employeeCountAnswer === '1000 ou plus') {
+          isEligible = false;
+          reason = 'Votre entreprise doit compter moins de 1000 employés.';
+        } else if (revenueAnswer === '20 millions d\'euros ou plus') {
+          isEligible = false;
+          reason = 'Votre chiffre d\'affaires annuel doit être inférieur à 20 millions d\'euros.';
+        } else if (Array.isArray(sectorAnswer) && sectorAnswer.some(s => s !== 'Aucun de ces secteurs')) {
+          isEligible = false;
+          reason = 'Votre secteur d\'activité n\'est pas éligible à cette offre.';
+        } else if (previousPentestAnswer === 'Oui') {
+          isEligible = false;
+          reason = 'Un test d\'intrusion professionnel a déjà été réalisé au cours des 36 derniers mois.';
+        } else if (ownershipAnswer === 'Non') {
+          isEligible = false;
+          reason = 'Vous devez être propriétaire ou détenir les autorisations nécessaires sur tous les systèmes à tester.';
+        } else if (thirdPartySystemAnswer === 'Oui') {
+          isEligible = false;
+          reason = 'Le périmètre ne doit pas inclure de systèmes appartenant à des tiers.';
+        } else if (cloudServicesAnswer === 'Oui') {
+          isEligible = false;
+          reason = 'Le test ne peut porter sur des services cloud, SaaS ou infrastructures gérées par un fournisseur externe.';
+        }
+
+        if (!isEligible || companyInfo.status !== 'ACTIVE') {
+          sessionStorage.setItem('eligibilityData', JSON.stringify({
+            company: companyInfo,
+            answers: finalAnswers,
+            eligible: false,
+            reason: companyInfo.status !== 'ACTIVE' ? 'Entreprise inactive.' : reason
+          }));
+          router.push('/non-eligible-offre-15');
+          return;
+        }
+        
+        const result = {
+          eligible: true,
           company: companyInfo,
           answers: finalAnswers,
-          eligible: false,
-          reason: !isFirstTimeClient 
-            ? 'Vous avez déjà bénéficié d\'un pentest avec SecuriTrust.' 
-            : 'Entreprise inactive.'
-        }));
-        router.push('/non-eligible-offre-15');
-        return;
-      }
-      
-      const result = {
-        eligible: true,
-        company: companyInfo,
-        answers: finalAnswers,
-        message: `✓ Félicitations ! ${companyInfo.name} est éligible à notre programme de cybersécurité.`,
-        benefits: [
-          'Audit de sécurité complet ISO 27001',
-          'Accompagnement RGPD personnalisé',
-          'Tests d\'intrusion avancés',
-          'Formation cybersécurité incluse',
-          'Support prioritaire 24/7',
-        ],
-      };
+          message: `✓ Félicitations ! ${companyInfo.name} est éligible à notre offre promotionnelle.`,
+          benefits: [
+            'Test d\'intrusion complet',
+            'Remboursement intégral si aucune vulnérabilité CVSS ≥7',
+            'Rapport détaillé et recommandations',
+            'Accompagnement personnalisé',
+            'Support prioritaire',
+          ],
+        };
 
-      setEligibilityResult(result);
-    } catch (err) {
-      setEligibilityResult({
-        eligible: false,
-        message: 'Erreur lors de la vérification',
-      });
-    } finally {
-      setIsChecking(false);
-    }
-  };
+        setEligibilityResult(result);
+      } catch (err) {
+        setEligibilityResult({
+          eligible: false,
+          message: 'Erreur lors de la vérification',
+        });
+      } finally {
+        setIsChecking(false);
+      }
+    };
 
   const handleViewProposal = () => {
     sessionStorage.setItem('eligibilityData', JSON.stringify({
