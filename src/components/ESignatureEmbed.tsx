@@ -145,40 +145,35 @@ export function ESignatureEmbed({ companyName, email, siret }: ESignatureEmbedPr
 
     return (
       <div className="rounded-2xl bg-zinc-900/50 border border-white/10 overflow-hidden">
-        <div className="p-8 text-center space-y-6">
-          <div className="w-20 h-20 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto">
-            <ExternalLink className="w-10 h-10 text-cyan-400" />
+        <div className="p-4 border-b border-white/10 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-sm text-zinc-400">Contrat prêt à signer</span>
           </div>
-          
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Votre contrat est prêt à être signé
-            </h3>
-            <p className="text-zinc-400 mb-4">
-              Cliquez sur le bouton ci-dessous pour ouvrir le document et apposer votre signature électronique
-            </p>
-            <p className="text-xs text-zinc-500">
-              ID du contrat: {contractId?.slice(0, 8)}...
-            </p>
-          </div>
+          <a 
+            href={signUrl || '#'} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+          >
+            <ExternalLink size={14} />
+            Ouvrir dans un nouvel onglet
+          </a>
+        </div>
+        
+        {signUrl && (
+          <iframe
+            src={signUrl}
+            className="w-full h-[600px] bg-white"
+            title="Signature du contrat"
+            allow="clipboard-write"
+          />
+        )}
 
-          {signUrl && (
-            <a 
-              href={signUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold rounded-xl transition-all transform hover:scale-105 shadow-lg"
-            >
-              <ExternalLink size={20} />
-              Ouvrir le contrat et signer
-            </a>
-          )}
-
-          <div className="pt-6 border-t border-white/10">
-            <p className="text-xs text-zinc-500">
-              Une fois signé, vous serez automatiquement redirigé vers la page de paiement
-            </p>
-          </div>
+        <div className="p-4 border-t border-white/10 bg-zinc-900/80">
+          <p className="text-xs text-zinc-500 text-center">
+            Une fois signé, vous serez automatiquement redirigé vers la page de paiement
+          </p>
         </div>
       </div>
     );
