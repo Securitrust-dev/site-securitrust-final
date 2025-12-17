@@ -144,36 +144,49 @@ export function ESignatureEmbed({ companyName, email, siret }: ESignatureEmbedPr
   }
 
     return (
-      <div className="rounded-2xl bg-zinc-900/50 border border-white/10 overflow-hidden">
-        <div className="p-4 border-b border-white/10 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-sm text-zinc-400">Contrat prêt à signer</span>
+      <div className="rounded-2xl bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 border border-white/10 overflow-hidden shadow-2xl">
+        <div className="p-12 text-center space-y-8">
+          <div className="w-24 h-24 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto">
+            <ExternalLink className="w-12 h-12 text-cyan-400" />
           </div>
-          <a 
-            href={signUrl || '#'} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
-          >
-            <ExternalLink size={14} />
-            Ouvrir dans un nouvel onglet
-          </a>
-        </div>
-        
-        {signUrl && (
-          <iframe
-            src={signUrl}
-            className="w-full h-[600px] bg-white"
-            title="Signature du contrat"
-            allow="clipboard-write"
-          />
-        )}
+          
+          <div className="space-y-4">
+            <h3 className="text-3xl font-bold text-white">
+              Votre contrat est prêt
+            </h3>
+            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
+              Cliquez sur le bouton ci-dessous pour ouvrir votre contrat et apposer votre signature électronique sécurisée
+            </p>
+            {contractId && (
+              <p className="text-xs text-zinc-600 font-mono">
+                ID: {contractId.slice(0, 8)}...
+              </p>
+            )}
+          </div>
 
-        <div className="p-4 border-t border-white/10 bg-zinc-900/80">
-          <p className="text-xs text-zinc-500 text-center">
-            Une fois signé, vous serez automatiquement redirigé vers la page de paiement
-          </p>
+          {signUrl && (
+            <div className="flex flex-col items-center gap-4">
+              <a 
+                href={signUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 hover:from-cyan-400 hover:via-blue-400 hover:to-purple-400 text-white text-lg font-bold rounded-xl transition-all transform hover:scale-105 shadow-2xl hover:shadow-cyan-500/50"
+              >
+                <ExternalLink size={24} />
+                Ouvrir et signer mon contrat
+              </a>
+              <p className="text-xs text-zinc-500">
+                Le document s'ouvrira dans un nouvel onglet
+              </p>
+            </div>
+          )}
+
+          <div className="pt-8 border-t border-white/5">
+            <p className="text-sm text-zinc-500 flex items-center justify-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-400" />
+              Une fois signé, revenez ici pour continuer vers le paiement
+            </p>
+          </div>
         </div>
       </div>
     );
