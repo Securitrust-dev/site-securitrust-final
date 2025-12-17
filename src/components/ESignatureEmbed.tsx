@@ -124,14 +124,14 @@ export function ESignatureEmbed({ companyName, email, siret }: ESignatureEmbedPr
       return () => clearInterval(interval);
     }, [contractId, isSigned, router]);
 
-  if (loading) {
-    return (
-      <div className="rounded-2xl bg-zinc-900/50 border border-white/10 p-12 text-center">
-        <Loader2 className="w-10 h-10 text-cyan-400 animate-spin mx-auto mb-4" />
-        <p className="text-zinc-400">Préparation de votre contrat sécurisé...</p>
-      </div>
-    );
-  }
+    if (loading && !signUrl) {
+      return (
+        <div className="rounded-2xl bg-zinc-900/50 border border-white/10 p-12 text-center">
+          <Loader2 className="w-10 h-10 text-cyan-400 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-400">Préparation de votre contrat sécurisé...</p>
+        </div>
+      );
+    }
 
   if (error) {
     return (
