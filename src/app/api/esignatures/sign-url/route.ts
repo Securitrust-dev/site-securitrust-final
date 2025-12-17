@@ -11,8 +11,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // On prépare l'envoi à eSignatures.io
-    const response = await fetch(`https://esignatures.io/api/contracts?token=${process.env.ESIGNATURES_API_TOKEN}`, {
+    const response = await fetch(`https://esignatures.io/api/contracts?token=${process.env.ESIGNATURES_SECRET}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
