@@ -118,7 +118,6 @@ function PaymentSuccessContent() {
             <OrangeBeamCTA 
               href="/" 
               text="Retour à l'accueil"
-              className="w-full sm:w-auto"
             />
             <button
               onClick={() => router.push('/contact')}
