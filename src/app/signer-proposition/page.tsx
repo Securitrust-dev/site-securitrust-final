@@ -14,28 +14,7 @@ export default function SignerPropositionPage() {
   const [error, setError] = useState<string | null>(null);
   const [signUrl, setSignUrl] = useState<string | null>(null);
 
-  // 1. L'ESPION : Écouteur d'événements pour la signature
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      // eSignatures.io envoie un message "es:signed" quand c'est fini
-      if (event.data?.event === 'es:signed') {
-        console.log("✅ Signature détectée !");
-        
-        // On note que c'est signé pour débloquer le paiement
-        sessionStorage.setItem('propositionSigned', 'true');
-        toast.success("Contrat signé avec succès !");
-
-        // Redirection vers le paiement
-        router.push('/paiement');
-      }
-    };
-
-    // On active l'écoute
-    window.addEventListener('message', handleMessage);
-
-    // On nettoie quand on quitte la page
-    return () => window.removeEventListener('message', handleMessage);
-  }, [router]);
+  // Pas de redirection automatique - l'utilisateur reste sur cette page
 
   // 2. Chargement initial du contrat
   useEffect(() => {
