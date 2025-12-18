@@ -158,22 +158,22 @@ export default function SignerPropositionPage() {
         )}
       </div>
 
-      {showManualButton && (
-        <div className="fixed bottom-0 left-0 w-full p-4 bg-[#02040a]/90 border-t border-white/10 backdrop-blur-md z-50 animate-in slide-in-from-bottom-10 fade-in duration-500">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-zinc-400 text-center sm:text-left">
-              Une fois le document signé, cliquez ici pour continuer :
-            </p>
-            <button 
-              onClick={goToPayment}
-              className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 transition-transform hover:scale-105"
-            >
-              <span>J'ai signé, procéder au paiement</span>
-              <CreditCard className="w-5 h-5" />
-            </button>
+      {signUrl && (
+          <div className="fixed bottom-0 left-0 w-full p-4 bg-[#02040a]/90 border-t border-white/10 backdrop-blur-md z-50">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-sm text-zinc-400 text-center sm:text-left">
+                Une fois le document signé, cliquez ici pour continuer :
+              </p>
+              <button 
+                onClick={goToPayment}
+                className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 transition-transform hover:scale-105"
+              >
+                <span>J'ai signé, procéder au paiement</span>
+                <CreditCard className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }
