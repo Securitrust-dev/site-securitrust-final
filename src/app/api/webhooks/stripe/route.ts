@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
 
           try {
             await resend.emails.send({
-              from: 'Securitrust <contact@securitrust.fr>',
+              from: 'Securitrust <onboarding@resend.dev>',
               to: [customerEmail, 'jad.joumblat@securitrust.fr'],
               subject: 'Confirmation de paiement - Securitrust',
             html: `
