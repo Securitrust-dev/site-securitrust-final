@@ -21,27 +21,26 @@ export default function SignerPropositionPage() {
     router.push('/paiement');
   };
 
-    useEffect(() => {
-      let redirectTimer: NodeJS.Timeout | null = null;
-
-      const handleMessage = (event: MessageEvent) => {
-        if (event.data?.event === 'es:signed' || (typeof event.data === 'string' && event.data.includes('es:signed'))) {
-          setIsSigned(true);
-          toast.success("Contrat signé !");
-          
-          redirectTimer = setTimeout(() => {
+      useEffect(() => {
+        const handleMessage = (event: MessageEvent) => {
+          const data = event.data;
+          if (
+            data?.event === 'es:signed' || 
+            data?.event === 'es:document:signed' ||
+            data?.type === 'es:signed' ||
+            (typeof data === 'string' && data.includes('signed'))
+          ) {
             setShowManualButton(true);
-          }, 5000);
-        }
-      };
+            toast.success("Contrat signé ! Vous pouvez maintenant procéder au paiement.");
+          }
+        };
 
-      window.addEventListener('message', handleMessage);
+        window.addEventListener('message', handleMessage);
 
-      return () => {
-        window.removeEventListener('message', handleMessage);
-        if (redirectTimer) clearTimeout(redirectTimer);
-      };
-    }, []);
+        return () => {
+          window.removeEventListener('message', handleMessage);
+        };
+      }, []);
 
   useEffect(() => {
     const initContract = async () => {
@@ -158,22 +157,22 @@ export default function SignerPropositionPage() {
         )}
       </div>
 
-      {signUrl && (
-          <div className="fixed bottom-0 left-0 w-full p-4 bg-[#02040a]/90 border-t border-white/10 backdrop-blur-md z-50">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-sm text-zinc-400 text-center sm:text-left">
-                Une fois le document signé, cliquez ici pour continuer :
-              </p>
-              <button 
-                onClick={goToPayment}
-                className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 transition-transform hover:scale-105"
-              >
-                <span>J'ai signé, procéder au paiement</span>
-                <CreditCard className="w-5 h-5" />
-              </button>
+        {showManualButton && (
+            <div className="fixed bottom-0 left-0 w-full p-4 bg-[#02040a]/90 border-t border-white/10 backdrop-blur-md z-50 animate-in slide-in-from-bottom duration-300">
+              <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-sm text-zinc-400 text-center sm:text-left">
+                  Signature détectée ! Cliquez pour continuer :
+                </p>
+                <button 
+                  onClick={goToPayment}
+                  className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 transition-transform hover:scale-105"
+                >
+                  <span>Procéder au paiement</span>
+                  <CreditCard className="w-5 h-5" />
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
     </div>
   );
 }
