@@ -416,13 +416,13 @@ export async function POST(request: Request) {
         }, { status: 500 });
       }
 
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
-        from: 'Securitrust <onboarding@resend.dev>',
-        to: 'jad.joumblat@securitrust.fr',
-        subject: `⚠️ Proposition Refusée - ${company.name}`,
-        html: emailHtml,
-      });
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        await resend.emails.send({
+          from: 'Securitrust <jad.joumblat@securitrust.fr>',
+          to: 'jad.joumblat@securitrust.fr',
+          subject: `⚠️ Proposition Refusée - ${company.name}`,
+          html: emailHtml,
+        });
 
       console.log('📧 Email de refus envoyé à: jad.joumblat@securitrust.fr');
       console.log('🏢 Entreprise:', company.name);
