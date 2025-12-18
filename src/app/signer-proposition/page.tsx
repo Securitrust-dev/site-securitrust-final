@@ -21,26 +21,41 @@ export default function SignerPropositionPage() {
     router.push('/paiement');
   };
 
-      useEffect(() => {
-        const handleMessage = (event: MessageEvent) => {
-          const data = event.data;
-          if (
-            data?.event === 'es:signed' || 
-            data?.event === 'es:document:signed' ||
-            data?.type === 'es:signed' ||
-            (typeof data === 'string' && data.includes('signed'))
-          ) {
-            setShowManualButton(true);
-            toast.success("Contrat signé ! Vous pouvez maintenant procéder au paiement.");
-          }
-        };
+        useEffect(() => {
+          const handleMessage = (event: MessageEvent) => {
+            const data = event.data;
+            console.log('Message reçu de l\'iframe:', data);
+            
+            // Détecter tous les événements possibles de signature
+            if (
+              data?.event === 'es:signed' || 
+              data?.event === 'es:document:signed' ||
+              data?.type === 'es:signed' ||
+              data?.type === 'signed' ||
+              data === 'es:signed' ||
+              data === 'signed' ||
+              (typeof data === 'string' && data.includes('signed')) ||
+              (typeof data === 'object' && JSON.stringify(data).includes('signed'))
+            ) {
+              setShowManualButton(true);
+              toast.success("Contrat signé ! Vous pouvez maintenant procéder au paiement.");
+            }
+          };
 
-        window.addEventListener('message', handleMessage);
+          window.addEventListener('message', handleMessage);
 
-        return () => {
-          window.removeEventListener('message', handleMessage);
-        };
-      }, []);
+          // Afficher le bouton après 8 secondes si l'iframe est chargée (au cas où le message n'est pas détecté)
+          const timer = setTimeout(() => {
+            if (signUrl) {
+              setShowManualButton(true);
+            }
+          }, 8000);
+
+          return () => {
+            window.removeEventListener('message', handleMessage);
+            clearTimeout(timer);
+          };
+        }, [signUrl]);
 
   useEffect(() => {
     const initContract = async () => {
