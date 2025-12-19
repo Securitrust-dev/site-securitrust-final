@@ -15,47 +15,54 @@ export default function SignerPropositionPage() {
   const [signUrl, setSignUrl] = useState<string | null>(null);
   const [isSigned, setIsSigned] = useState(false);
   const [showManualButton, setShowManualButton] = useState(false);
+  const [isSignatureDone, setIsSignatureDone] = useState(false);
+  
+  // États pour les informations du signataire
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [position, setPosition] = useState('');
+
+  const isFormValid = firstName.trim() !== '' && lastName.trim() !== '' && position.trim() !== '';
 
   const goToPayment = () => {
+    if (!isFormValid) {
+      toast.error("Veuillez remplir toutes les informations du signataire.");
+      return;
+    }
     sessionStorage.setItem('propositionSigned', 'true');
+    sessionStorage.setItem('signerInfo', JSON.stringify({ firstName, lastName, position }));
     router.push('/paiement');
   };
 
-        useEffect(() => {
-          const handleMessage = (event: MessageEvent) => {
-            const data = event.data;
-            console.log('Message reçu de l\'iframe:', data);
-            
-            // Détecter tous les événements possibles de signature
-            if (
-              data?.event === 'es:signed' || 
-              data?.event === 'es:document:signed' ||
-              data?.type === 'es:signed' ||
-              data?.type === 'signed' ||
-              data === 'es:signed' ||
-              data === 'signed' ||
-              (typeof data === 'string' && data.includes('signed')) ||
-              (typeof data === 'object' && JSON.stringify(data).includes('signed'))
-            ) {
-              setShowManualButton(true);
-              toast.success("Contrat signé ! Vous pouvez maintenant procéder au paiement.");
-            }
-          };
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      const data = event.data;
+      console.log('Message reçu de l\'iframe:', data);
+      
+      // Détecter tous les événements possibles de signature
+      if (
+        data?.event === 'es:signed' || 
+        data?.event === 'es:document:signed' ||
+        data?.type === 'es:signed' ||
+        data?.type === 'signed' ||
+        data === 'es:signed' ||
+        data === 'signed' ||
+        (typeof data === 'string' && data.includes('signed')) ||
+        (typeof data === 'object' && JSON.stringify(data).includes('signed'))
+      ) {
+        setIsSignatureDone(true);
+        setIsSigned(true);
+        setShowManualButton(true);
+        toast.success("Contrat signé ! Vous pouvez maintenant procéder au paiement.");
+      }
+    };
 
-          window.addEventListener('message', handleMessage);
+    window.addEventListener('message', handleMessage);
 
-          // Afficher le bouton après 8 secondes si l'iframe est chargée (au cas où le message n'est pas détecté)
-          const timer = setTimeout(() => {
-            if (signUrl) {
-              setShowManualButton(true);
-            }
-          }, 8000);
-
-          return () => {
-            window.removeEventListener('message', handleMessage);
-            clearTimeout(timer);
-          };
-        }, [signUrl]);
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [signUrl]);
 
   useEffect(() => {
     const initContract = async () => {
@@ -129,26 +136,6 @@ export default function SignerPropositionPage() {
     );
   }
 
-  if (isSigned) {
-    return (
-      <div className="min-h-screen bg-[#02040a] flex items-center justify-center px-6">
-        <div className="max-w-lg w-full bg-gradient-to-br from-green-900/20 to-emerald-900/20 border border-green-500/30 rounded-2xl p-10 text-center backdrop-blur-md shadow-2xl">
-          <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30">
-            <ShieldCheck className="w-10 h-10 text-green-400" />
-          </div>
-          <h2 className="text-3xl font-bold text-white mb-4">Contrat Signé !</h2>
-          <p className="text-zinc-300 mb-8 text-lg">
-            Votre document est validé. Vous pouvez passer au paiement.
-          </p>
-          <button onClick={goToPayment} className="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-3 transition-transform hover:scale-[1.02]">
-            <span>Procéder au Paiement</span>
-            <CreditCard className="w-6 h-6" />
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-[#02040a] flex flex-col relative">
       <div className="h-14 border-b border-white/10 flex items-center px-6 bg-[#02040a] justify-between z-10">
@@ -162,7 +149,68 @@ export default function SignerPropositionPage() {
         </div>
       </div>
 
+      <div className="bg-[#0b0e14] border-b border-white/10 p-6 z-10">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-8 h-8 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+              <ShieldCheck className="w-4 h-4 text-cyan-400" />
+            </div>
+            <div>
+              <h2 className="text-sm font-semibold text-white">Informations du Signataire</h2>
+              <p className="text-[10px] text-slate-500 uppercase tracking-wider">Ces informations sont obligatoires pour valider le contrat</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 ml-1">Prénom</label>
+              <input 
+                type="text" 
+                value={firstName} 
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="Votre prénom"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 ml-1">Nom</label>
+              <input 
+                type="text" 
+                value={lastName} 
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Votre nom"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 ml-1">Qualité / Fonction</label>
+              <input 
+                type="text" 
+                value={position} 
+                onChange={(e) => setPosition(e.target.value)}
+                placeholder="Ex: Gérant, DSI..."
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="flex-1 w-full relative bg-white pb-24">
+        {!isFormValid && (
+          <div className="absolute inset-0 z-20 bg-[#02040a]/60 backdrop-blur-[2px] flex items-center justify-center p-6 text-center">
+            <div className="max-w-sm bg-[#0b0e14] border border-white/10 p-8 rounded-2xl shadow-2xl">
+              <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/20">
+                <AlertTriangle className="w-8 h-8 text-amber-500" />
+              </div>
+              <h3 className="text-white font-bold text-lg mb-2">Informations Requises</h3>
+              <p className="text-slate-400 text-sm">
+                Veuillez remplir les champs <strong>Prénom, Nom et Fonction</strong> ci-dessus pour débloquer la signature du contrat.
+              </p>
+            </div>
+          </div>
+        )}
+        
         {signUrl && (
           <iframe 
             src={signUrl} 
@@ -172,22 +220,34 @@ export default function SignerPropositionPage() {
         )}
       </div>
 
-        {showManualButton && (
-            <div className="fixed bottom-0 left-0 w-full p-4 bg-[#02040a]/90 border-t border-white/10 backdrop-blur-md z-50 animate-in slide-in-from-bottom duration-300">
-              <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-sm text-zinc-400 text-center sm:text-left">
-                  Signature détectée ! Cliquez pour continuer :
-                </p>
-                <button 
-                  onClick={goToPayment}
-                  className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-green-900/20 flex items-center justify-center gap-2 transition-transform hover:scale-105"
-                >
-                  <span>Procéder au paiement</span>
-                  <CreditCard className="w-5 h-5" />
-                </button>
+      {isSignatureDone && (
+        <div className="fixed bottom-0 left-0 w-full p-4 bg-[#02040a]/95 border-t border-white/10 backdrop-blur-md z-50 animate-in slide-in-from-bottom duration-300">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
+                <ShieldCheck className="w-6 h-6 text-green-400" />
+              </div>
+              <div>
+                <p className="text-white font-bold">Contrat Signé !</p>
+                <p className="text-slate-400 text-xs">Toutes les étapes sont complétées.</p>
               </div>
             </div>
-          )}
+
+            <button 
+              onClick={goToPayment}
+              disabled={!isFormValid}
+              className={`w-full sm:w-auto px-10 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all duration-300 ${
+                isFormValid 
+                ? "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-lg shadow-green-900/40 hover:scale-105 active:scale-95" 
+                : "bg-white/5 text-slate-500 cursor-not-allowed border border-white/10"
+              }`}
+            >
+              <span>Procéder au paiement</span>
+              <CreditCard className={`w-5 h-5 ${isFormValid ? "animate-pulse" : ""}`} />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
