@@ -60,14 +60,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ received: true });
     }
 
-    try {
-      console.log('📧 Tentative envoi email à:', customerEmail);
-      
-      // Email de confirmation (client + admin)
-      const emailResult = await resend.emails.send({
-        from: 'SecuriTrust <onboarding@resend.dev>', // ⚠️ Utilisez onboarding@resend.dev pour tester
-        to: [customerEmail, 'jad.joumblat@securitrust.fr'],
-        subject: '✅ Confirmation de paiement - SecuriTrust',
+      try {
+        console.log('📧 Tentative envoi email à:', customerEmail);
+        
+        // Email de confirmation (client + admin)
+        const emailResult = await resend.emails.send({
+          from: 'SecuriTrust <jad.joumblat@securitrust.fr>', // ✅ Utilisation du domaine vérifié
+          to: [customerEmail, 'jad.joumblat@securitrust.fr'],
+          subject: '✅ Confirmation de paiement - SecuriTrust',
         html: `
           <!DOCTYPE html>
           <html>

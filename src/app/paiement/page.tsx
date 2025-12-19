@@ -43,9 +43,20 @@ export default function PaiementPage() {
       try {
         const data = JSON.parse(storedData);
         setOrderData(data);
+        
+        // Try to get email from answers or direct field
         const emailAnswer = data.answers?.find((a: any) => a.questionId === 'email')?.answer;
-        if (emailAnswer) {
-          setFormData(prev => ({ ...prev, email: emailAnswer }));
+        const email = emailAnswer || data.email;
+        
+        // Try to get name from company info or direct field
+        const name = data.company?.name || data.companyName || data.name;
+
+        if (email || name) {
+          setFormData(prev => ({ 
+            ...prev, 
+            email: email || prev.email,
+            name: name || prev.name
+          }));
         }
       } catch (error) {
         console.error('Error parsing order data:', error);

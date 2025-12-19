@@ -42,10 +42,12 @@ export default function PropositionPage() {
 
     const handleSignProposal = () => {
       const currentData = orderData || JSON.parse(sessionStorage.getItem('eligibilityData') || '{}');
+      const emailFromAnswers = currentData.answers?.find((a: any) => a.questionId === 'email')?.answer;
       const dataToSave = {
-        companyName: currentData.companyName || currentData.name || "Société Client",
-        email: currentData.email || "client@email.com",
-        siret: currentData.siret || "00000000000000"
+        ...currentData,
+        companyName: currentData.company?.name || currentData.companyName || currentData.name || "Société Client",
+        email: emailFromAnswers || currentData.email || "client@email.com",
+        siret: currentData.company?.siret || currentData.siret || "00000000000000"
       };
       sessionStorage.setItem('eligibilityData', JSON.stringify(dataToSave));
       router.push('/signer-proposition');
