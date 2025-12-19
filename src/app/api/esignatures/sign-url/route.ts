@@ -34,20 +34,25 @@ export async function POST(request: Request) {
             ? `${process.env.NEXT_PUBLIC_APP_URL}/api/webhooks/esignatures`
             : 'https://site-securitrust-final.vercel.app/api/webhooks/esignatures';
 
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              template_id: templateId,
-              title: `Proposition SecuriTrust - ${companyName}`,
-              custom_webhook_url: webhookUrl,
-              signers: [{
-                name: companyName,
-                email: email,
-                mobile: '+33600000000'
-              }],
+            const redirectUrl = process.env.NEXT_PUBLIC_APP_URL 
+              ? `${process.env.NEXT_PUBLIC_APP_URL}/signer-proposition/success`
+              : 'https://site-web-aura-3d-s-curitrust.vercel.app/signer-proposition/success';
+
+            const response = await fetch(apiUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                template_id: templateId,
+                title: `Proposition SecuriTrust - ${companyName}`,
+                custom_webhook_url: webhookUrl,
+                signers: [{
+                  name: companyName,
+                  email: email,
+                  mobile: '+33600000000',
+                  redirect_url: redirectUrl
+                }],
               placeholder_fields: siret ? [{
                 api_key: 'siret',
                 value: siret
