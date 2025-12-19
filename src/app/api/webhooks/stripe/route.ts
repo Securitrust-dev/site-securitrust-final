@@ -8,15 +8,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-// Configuration SMTP OVH (Sécurisée SSL Port 465)
+// Configuration SMTP OVH
 const transporter = nodemailer.createTransport({
   host: 'ssl0.ovh.net',
-  port: 465,   // Port SSL recommandé pour OVH
-  secure: true, // "true" obligatoire pour le port 465
+  port: 587,
+  secure: false,
   auth: {
-    // IMPORTANT : Assurez-vous que SMTP_USER dans .env est bien 'rayen.ben-ghorbal@securitrust.fr'
-    user: process.env.SMTP_USER, 
-    pass: process.env.SMTP_PASSWORD, 
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
   },
 });
 
@@ -72,9 +71,11 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-      console.log('📧 Envoi email via OVH SMTP à:', customerEmail);
+      console.log('📧 Envoi récapitulatif de paiement à:', customerEmail);
       
-      // Email HTML pour le Client
+      // ============================================================
+      // EMAIL CLIENT : RÉCAPITULATIF DE PAIEMENT UNIQUEMENT
+      // ============================================================
       const htmlContent = `
         <!DOCTYPE html>
         <html>
@@ -98,8 +99,8 @@ export async function POST(req: NextRequest) {
           <body>
             <div class="container">
               <div class="header">
-                <h1>✅ Paiement Confirmé</h1>
-                <p style="margin: 10px 0 0 0; font-size: 16px;">Merci pour votre confiance</p>
+                <h1>🧾 Paiement Confirmé</h1>
+                <p style="margin: 10px 0 0 0; font-size: 16px;">Récapitulatif de votre transaction</p>
               </div>
               
               <div class="content">
@@ -109,7 +110,7 @@ export async function POST(req: NextRequest) {
                   ✅ Votre paiement a été traité avec succès !
                 </div>
                 
-                <p>Nous avons bien reçu votre paiement. Voici le récapitulatif de votre transaction :</p>
+                <p>Nous vous confirmons la bonne réception de votre paiement.</p>
                 
                 <div class="amount">
                   ${amountTotal.toFixed(2)} ${currency}
@@ -117,7 +118,7 @@ export async function POST(req: NextRequest) {
                 
                 <div class="payment-details">
                   <div class="detail-row">
-                    <span class="detail-label">📋 Numéro de transaction</span>
+                    <span class="detail-label">📋 Référence de transaction</span>
                     <span>${session.id}</span>
                   </div>
                   <div class="detail-row">
@@ -125,7 +126,7 @@ export async function POST(req: NextRequest) {
                     <span>${customerEmail}</span>
                   </div>
                   <div class="detail-row">
-                    <span class="detail-label">📅 Date</span>
+                    <span class="detail-label">📅 Date du paiement</span>
                     <span>${new Date().toLocaleDateString('fr-FR', { 
                       year: 'numeric', 
                       month: 'long', 
@@ -135,28 +136,34 @@ export async function POST(req: NextRequest) {
                     })}</span>
                   </div>
                   <div class="detail-row">
-                    <span class="detail-label">💳 Statut</span>
+                    <span class="detail-label">💳 Statut du paiement</span>
                     <span style="color: #28a745; font-weight: bold;">Payé</span>
                   </div>
                 </div>
                 
                 <h3 style="color: #667eea;">📋 Prochaines étapes</h3>
                 <ul style="line-height: 1.8;">
-                  <li>Notre équipe vous contactera dans les <strong>24 heures</strong></li>
+                  <li>Votre paiement est enregistré dans nos systèmes</li>
+                  <li>Notre équipe vous contactera dans les <strong>24 heures</strong> pour planifier l'intervention</li>
+                  <li>Vous recevrez une confirmation avec la date et les détails de l'audit</li>
                   <li>Un expert SecuriTrust sera assigné à votre dossier</li>
-                  <li>Vous recevrez un email de confirmation avec les détails de l'intervention</li>
                 </ul>
                 
-                <p style="margin-top: 30px;">Si vous avez des questions, n'hésitez pas à nous contacter :</p>
+                <p style="margin-top: 30px; padding: 15px; background: #f0f9ff; border-left: 4px solid #0ea5e9; border-radius: 4px;">
+                  💡 <strong>Conservez cet email</strong> comme reçu de paiement pour vos dossiers comptables.
+                </p>
+                
+                <p style="margin-top: 30px;">Pour toute question concernant votre paiement :</p>
                 <p style="text-align: center;">
-                  📧 <a href="mailto:rayen.ben-ghorbal@securitrust.fr" style="color: #667eea;">rayen.ben-ghorbal@securitrust.fr</a>
+                  📧 <a href="mailto:jad.joumblat@securitrust.fr" style="color: #667eea;">jad.joumblat@securitrust.fr</a>
                 </p>
                 
                 <p style="margin-top: 30px;">Cordialement,<br><strong>L'équipe SecuriTrust</strong></p>
               </div>
               
               <div class="footer">
-                <p>Cet email a été envoyé automatiquement suite à votre paiement.</p>
+                <p>Reçu de paiement - SecuriTrust</p>
+                <p>Ce document peut servir de justificatif pour votre comptabilité</p>
                 <p>© ${new Date().getFullYear()} SecuriTrust - Tous droits réservés</p>
               </div>
             </div>
@@ -164,23 +171,23 @@ export async function POST(req: NextRequest) {
         </html>
       `;
 
-      // 1. Envoi au CLIENT
+      // Envoi au client
       const clientEmailInfo = await transporter.sendMail({
-        // L'expéditeur DOIT correspondre au user SMTP
-        from: '"SecuriTrust" <rayen.ben-ghorbal@securitrust.fr>',
+        from: '"SecuriTrust" <jad.joumblat@securitrust.fr>',
         to: customerEmail,
-        subject: '✅ Confirmation de paiement - SecuriTrust',
+        subject: '🧾 Récapitulatif de paiement - SecuriTrust',
         html: htmlContent,
       });
       
-      console.log('✅ Email client envoyé:', clientEmailInfo.messageId);
+      console.log('✅ Récapitulatif de paiement envoyé au client:', clientEmailInfo.messageId);
 
-      // 2. Envoi à L'ADMIN (Rayen)
+      // ============================================================
+      // EMAIL ADMIN : NOTIFICATION DE PAIEMENT
+      // ============================================================
       const adminEmailInfo = await transporter.sendMail({
-        from: '"SecuriTrust Notifications" <rayen.ben-ghorbal@securitrust.fr>',
-        // C'est Rayen qui reçoit l'alerte
-        to: 'rayen.ben-ghorbal@securitrust.fr',
-        subject: '🔔 Nouvelle commande SecuriTrust',
+        from: '"SecuriTrust Notifications" <jad.joumblat@securitrust.fr>',
+        to: 'jad.joumblat@securitrust.fr',
+        subject: '💰 Paiement reçu - SecuriTrust',
         html: `
           <!DOCTYPE html>
           <html>
@@ -201,13 +208,13 @@ export async function POST(req: NextRequest) {
             <body>
               <div class="container">
                 <div class="header">
-                  <h1>🔔 Nouvelle Commande Reçue</h1>
+                  <h1>💰 Paiement Reçu</h1>
                 </div>
                 <div class="content">
                   <div class="info-box">
-                    <h2 style="margin-top: 0; color: #2c3e50;">📊 Informations de la commande</h2>
+                    <h2 style="margin-top: 0; color: #2c3e50;">📊 Détails du paiement</h2>
                     <div class="info-row">
-                      <span class="label">ID Session Stripe :</span>
+                      <span class="label">ID Transaction Stripe :</span>
                       <span>${session.id}</span>
                     </div>
                     <div class="info-row">
@@ -229,16 +236,17 @@ export async function POST(req: NextRequest) {
                   </div>
 
                   <div class="highlight">
-                    💰 Montant : ${amountTotal.toFixed(2)} ${currency}
+                    💰 Montant encaissé : ${amountTotal.toFixed(2)} ${currency}
                   </div>
 
                   <div class="info-box">
-                    <h3 style="margin-top: 0; color: #2c3e50;">📋 Prochaines actions :</h3>
+                    <h3 style="margin-top: 0; color: #2c3e50;">📋 Actions à effectuer :</h3>
                     <ol>
-                      <li>Contacter le client dans les 24h</li>
-                      <li>Planifier l'audit de cybersécurité</li>
-                      <li>Assigner un expert au dossier</li>
-                      <li>Envoyer la confirmation d'intervention</li>
+                      <li><strong>Contacter le client</strong> sous 24h pour planifier l'intervention</li>
+                      <li><strong>Vérifier</strong> que le contrat a bien été signé</li>
+                      <li><strong>Assigner</strong> un expert au dossier</li>
+                      <li><strong>Envoyer</strong> la confirmation de rendez-vous</li>
+                      <li><strong>Préparer</strong> les outils d'audit nécessaires</li>
                     </ol>
                   </div>
 
@@ -254,7 +262,7 @@ export async function POST(req: NextRequest) {
         `,
       });
       
-      console.log('✅ Email admin envoyé:', adminEmailInfo.messageId);
+      console.log('✅ Notification admin envoyée:', adminEmailInfo.messageId);
       
     } catch (error: any) {
       console.error('❌ Erreur envoi email:', {
