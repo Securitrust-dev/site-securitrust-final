@@ -55,36 +55,18 @@ export const HeroSection = () => {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-              <a
-                href="/eligibilite"
-                className="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all group"
-              >
-                <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse flex-shrink-0"></span>
-                <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wide">
-                  JE RÉSERVE MON PENTEST AU RÉSULTAT
-                </span>
-              </a>
-              <a
-                href="https://devis-expert-securitrust-simulation.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 via-cyan-400 to-cyan-500 text-background font-semibold text-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50 hover:scale-105 active:scale-100"
-              >
-                {/* Animated gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-cyan-300 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Button content */}
-                <span className="relative z-10 tracking-wide uppercase text-sm text-black">
-                  Mon devis sur mesure
-                </span>
-                <ArrowRight className="relative z-10 w-5 h-5 text-black group-hover:translate-x-1 transition-transform duration-300" />
-                
-                {/* Shine effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-              </a>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
+                <a
+                  href="/eligibilite"
+                  className="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all group"
+                >
+                  <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse flex-shrink-0"></span>
+                  <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wide">
+                    JE RÉSERVE MON PENTEST AU RÉSULTAT
+                  </span>
+                </a>
+              </div>
             </div>
-          </div>
 
           {/* Right Content - Video */}
           <div className="relative hidden lg:block">

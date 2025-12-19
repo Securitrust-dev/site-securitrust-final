@@ -95,37 +95,12 @@ export const OfficialAuditorSection = () => {
                 />
               </div>
 
-              {/* Title */}
-              <h3 className="text-base font-medium text-white mb-4">
-                {cert.title}
-              </h3>
-
-              {/* CTA Button for CEH card */}
-              {cert.hasCTA && (
-                <a
-                  href="https://devis-expert-securitrust-simulation.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto px-6 py-3 bg-cyan-500 text-black rounded-full font-bold text-sm uppercase tracking-wide hover:bg-cyan-400 transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 flex items-center gap-2"
-                >
-                    Je réserve mon pentest au résultat
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </a>
-              )}
-            </div>
-          ))}
+                {/* Title */}
+                <h3 className="text-base font-medium text-white mb-4">
+                  {cert.title}
+                </h3>
+              </div>
+            ))}
         </div>
       </div>
     </section>

@@ -57,10 +57,6 @@ export const ServicesSection = () => {
     },
   ];
 
-  const handleQuoteClick = () => {
-    window.open('https://devis-expert-securitrust-simulation.vercel.app/', '_blank', 'noopener,noreferrer');
-  };
-
   const ServiceCard = ({ feature, index }: { feature: typeof features[0]; index: number }) => {
     const [isHovered, setIsHovered] = useState(false);
 
@@ -136,23 +132,6 @@ export const ServicesSection = () => {
           {features.map((feature, index) => (
             <ServiceCard key={index} feature={feature} index={index} />
           ))}
-        </div>
-
-        <div className="mt-16 flex flex-col items-center justify-center text-center space-y-6 p-12 glass-panel rounded-2xl border-cyan-500/20">
-          <h3 className="text-3xl font-semibold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Prêt à renforcer votre cybersécurité ?
-          </h3>
-          <p className="text-slate-400 text-base max-w-2xl">
-            Profitez d'un audit de sécurité gratuit et découvrez comment nous pouvons transformer la cybersécurité en avantage concurrentiel pour votre entreprise.
-          </p>
-          <div className="pt-4">
-            <button
-              onClick={handleQuoteClick}
-              className="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm tracking-wider uppercase rounded transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50"
-            >
-              Mon devis sur mesure
-            </button>
-          </div>
         </div>
       </div>
     </section>
