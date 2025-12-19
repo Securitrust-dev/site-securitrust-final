@@ -41,7 +41,12 @@ export default function SignerPropositionPage() {
         setIsSignatureDone(true);
         setIsSigned(true);
         setShowManualButton(true);
-        toast.success("Contrat signé ! Vous pouvez maintenant procéder au paiement.");
+        toast.success("Contrat signé ! Redirection vers le paiement...");
+        
+        // Redirection immédiate
+        setTimeout(() => {
+          goToPayment();
+        }, 1500); // Petit délai pour laisser voir le toast
       }
     };
 
@@ -50,7 +55,7 @@ export default function SignerPropositionPage() {
     return () => {
       window.removeEventListener('message', handleMessage);
     };
-  }, [signUrl]);
+  }, [router]);
 
   useEffect(() => {
     const initContract = async () => {
