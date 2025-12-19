@@ -16,21 +16,9 @@ export default function SignerPropositionPage() {
   const [isSigned, setIsSigned] = useState(false);
   const [showManualButton, setShowManualButton] = useState(false);
   const [isSignatureDone, setIsSignatureDone] = useState(false);
-  
-  // États pour les informations du signataire
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [position, setPosition] = useState('');
-
-  const isFormValid = firstName.trim() !== '' && lastName.trim() !== '' && position.trim() !== '';
 
   const goToPayment = () => {
-    if (!isFormValid) {
-      toast.error("Veuillez remplir toutes les informations du signataire.");
-      return;
-    }
     sessionStorage.setItem('propositionSigned', 'true');
-    sessionStorage.setItem('signerInfo', JSON.stringify({ firstName, lastName, position }));
     router.push('/paiement');
   };
 
@@ -149,68 +137,7 @@ export default function SignerPropositionPage() {
         </div>
       </div>
 
-      <div className="bg-[#0b0e14] border-b border-white/10 p-6 z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
-              <ShieldCheck className="w-4 h-4 text-cyan-400" />
-            </div>
-            <div>
-              <h2 className="text-sm font-semibold text-white">Informations du Signataire</h2>
-              <p className="text-[10px] text-slate-500 uppercase tracking-wider">Ces informations sont obligatoires pour valider le contrat</p>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 ml-1">Prénom</label>
-              <input 
-                type="text" 
-                value={firstName} 
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="Votre prénom"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 ml-1">Nom</label>
-              <input 
-                type="text" 
-                value={lastName} 
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="Votre nom"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 ml-1">Qualité / Fonction</label>
-              <input 
-                type="text" 
-                value={position} 
-                onChange={(e) => setPosition(e.target.value)}
-                placeholder="Ex: Gérant, DSI..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="flex-1 w-full relative bg-white pb-24">
-        {!isFormValid && (
-          <div className="absolute inset-0 z-20 bg-[#02040a]/60 backdrop-blur-[2px] flex items-center justify-center p-6 text-center">
-            <div className="max-w-sm bg-[#0b0e14] border border-white/10 p-8 rounded-2xl shadow-2xl">
-              <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-500/20">
-                <AlertTriangle className="w-8 h-8 text-amber-500" />
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2">Informations Requises</h3>
-              <p className="text-slate-400 text-sm">
-                Veuillez remplir les champs <strong>Prénom, Nom et Fonction</strong> ci-dessus pour débloquer la signature du contrat.
-              </p>
-            </div>
-          </div>
-        )}
-        
         {signUrl && (
           <iframe 
             src={signUrl} 
@@ -235,15 +162,10 @@ export default function SignerPropositionPage() {
 
             <button 
               onClick={goToPayment}
-              disabled={!isFormValid}
-              className={`w-full sm:w-auto px-10 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all duration-300 ${
-                isFormValid 
-                ? "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-lg shadow-green-900/40 hover:scale-105 active:scale-95" 
-                : "bg-white/5 text-slate-500 cursor-not-allowed border border-white/10"
-              }`}
+              className="w-full sm:w-auto px-10 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all duration-300 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-lg shadow-green-900/40 hover:scale-105 active:scale-95"
             >
               <span>Procéder au paiement</span>
-              <CreditCard className={`w-5 h-5 ${isFormValid ? "animate-pulse" : ""}`} />
+              <CreditCard className="w-5 h-5 animate-pulse" />
             </button>
           </div>
         </div>
