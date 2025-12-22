@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { companyName, email, siret } = body;
+    const { companyName, email, siret, signerName } = body;
 
     if (!companyName || !email) {
       return NextResponse.json(
@@ -25,6 +25,7 @@ export async function POST(request: Request) {
       console.log('📄 Création du contrat eSignatures.io');
       console.log('📧 Email:', email);
       console.log('🏢 Entreprise:', companyName);
+      console.log('👤 Signataire:', signerName || companyName);
       console.log('📋 Template ID:', templateId);
 
         // Créer le contrat via l'API eSignatures.io (token dans URL)
@@ -48,15 +49,15 @@ export async function POST(request: Request) {
                 title: `Proposition SecuriTrust - ${companyName}`,
                 custom_webhook_url: webhookUrl,
                 signers: [{
-                  name: companyName,
+                  name: signerName || companyName,
                   email: email,
                   mobile: '+33600000000',
                   redirect_url: redirectUrl
                 }],
-              placeholder_fields: siret ? [{
-                api_key: 'siret',
-                value: siret
-              }] : [],
+              placeholder_fields: [
+                ...(siret ? [{ api_key: 'siret', value: siret }] : []),
+                ...(signerName ? [{ api_key: 'signer_name', value: signerName }] : [])
+              ],
                 test: 'no'
               })
             });

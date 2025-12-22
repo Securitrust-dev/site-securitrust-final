@@ -27,17 +27,15 @@ export default function SignerPropositionPage() {
       const data = event.data;
       console.log('Message reçu de l\'iframe:', data);
       
-      // Détecter tous les événements possibles de signature
-      if (
+      // Détecter les événements de signature réussie uniquement
+      const isActuallySigned = 
         data?.event === 'es:signed' || 
         data?.event === 'es:document:signed' ||
         data?.type === 'es:signed' ||
-        data?.type === 'signed' ||
         data === 'es:signed' ||
-        data === 'signed' ||
-        (typeof data === 'string' && data.includes('signed')) ||
-        (typeof data === 'object' && JSON.stringify(data).includes('signed'))
-      ) {
+        (typeof data === 'string' && (data === 'signed' || data === 'es:signed'));
+      
+      if (isActuallySigned) {
         setIsSignatureDone(true);
         setIsSigned(true);
         setShowManualButton(true);
@@ -69,15 +67,16 @@ export default function SignerPropositionPage() {
 
         const data = JSON.parse(storedData);
         
-        const response = await fetch('/api/esignatures/sign-url', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            companyName: data.companyName,
-            email: data.email,
-            siret: data.siret
-          })
-        });
+          const response = await fetch('/api/esignatures/sign-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              companyName: data.companyName,
+              email: data.email,
+              siret: data.siret,
+              signerName: data.signerName
+            })
+          });
 
         const result = await response.json();
 
