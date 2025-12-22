@@ -10,17 +10,6 @@ export default function PropositionPage() {
   const router = useRouter();
   const [orderData, setOrderData] = useState<any>(null);
   const [isSigned, setIsSigned] = useState(false);
-    const [companyName, setCompanyName] = useState('');
-    const [email, setEmail] = useState('');
-    const [siret, setSiret] = useState('');
-    const [signerName, setSignerName] = useState('');
-  
-    // Form validity check
-    const isFormValid = companyName.trim().length > 0 && 
-                        email.trim().length > 5 && 
-                        email.includes('@') &&
-                        siret.trim().length >= 9 &&
-                        signerName.trim().length > 2;
   
   // Format date in French
   const getCurrentDate = () => {
@@ -39,14 +28,7 @@ export default function PropositionPage() {
       try {
         const data = JSON.parse(storedData);
         setOrderData(data);
-        
-        // Initialize form fields
-        const emailFromAnswers = data.answers?.find((a: any) => a.questionId === 'email')?.answer;
-          setCompanyName(data.company?.name || data.companyName || data.name || "");
-          setEmail(emailFromAnswers || data.email || "");
-          setSiret(data.company?.siret || data.siret || "");
-          setSignerName(data.signerName || "");
-        } catch (error) {
+      } catch (error) {
         console.error('Error parsing order data:', error);
       }
     }
@@ -58,22 +40,9 @@ export default function PropositionPage() {
     }
   }, []);
 
-      const handleSignProposal = () => {
-        if (!isFormValid) {
-          toast.error("Veuillez remplir tous les champs obligatoires.");
-          return;
-        }
-        const currentData = orderData || JSON.parse(sessionStorage.getItem('eligibilityData') || '{}');
-        const dataToSave = {
-          ...currentData,
-          companyName: companyName,
-          email: email,
-          siret: siret,
-          signerName: signerName
-        };
-        sessionStorage.setItem('eligibilityData', JSON.stringify(dataToSave));
-        router.push('/signer-proposition');
-      };
+  const handleSignProposal = () => {
+    router.push('/signer-proposition');
+  };
 
   const handlePayment = () => {
     router.push('/paiement');
@@ -695,64 +664,13 @@ export default function PropositionPage() {
                     </button>
                   </div>
                 ) : (
-                  <>
-                      {/* Formulaire de validation */}
-                      <div className="space-y-4 mb-8 text-left max-w-md mx-auto bg-white/5 p-6 rounded-2xl border border-white/10">
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium text-zinc-400">Prénom & Nom du signataire <span className="text-red-500">*</span></label>
-                          <input
-                            type="text"
-                            value={signerName}
-                            onChange={(e) => setSignerName(e.target.value)}
-                            placeholder="Ex: Jean Dupont"
-                            className="w-full p-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:border-blue-500 transition-colors outline-none"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium text-zinc-400">Nom de votre entreprise <span className="text-red-500">*</span></label>
-                          <input
-                            type="text"
-                            value={companyName}
-                            onChange={(e) => setCompanyName(e.target.value)}
-                            placeholder="Ex: SecuriTrust"
-                            className="w-full p-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:border-blue-500 transition-colors outline-none"
-                          />
-                        </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-zinc-400">Email de contact <span className="text-red-500">*</span></label>
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="votre@email.com"
-                          className="w-full p-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:border-blue-500 transition-colors outline-none"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-zinc-400">Numéro SIRET <span className="text-red-500">*</span></label>
-                        <input
-                          type="text"
-                          value={siret}
-                          onChange={(e) => setSiret(e.target.value)}
-                          placeholder="Numéro SIRET (14 chiffres)"
-                          className="w-full p-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:border-blue-500 transition-colors outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <button 
-                      onClick={handleSignProposal}
-                      disabled={!isFormValid}
-                      className={`w-full py-4 rounded-xl font-semibold text-lg transition-all shadow-lg flex items-center justify-center gap-2 ${
-                        isFormValid 
-                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white cursor-pointer hover:shadow-blue-500/50 hover:scale-[1.02]' 
-                          : 'bg-zinc-800 text-zinc-500 cursor-not-allowed opacity-50'
-                      }`}
-                    >
-                      <FileSignature className="w-5 h-5" />
-                      <span>{isFormValid ? 'Signer ma proposition' : 'Remplissez les infos pour signer'}</span>
-                    </button>
-                  </>
+                  <button 
+                    onClick={handleSignProposal}
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-blue-500/50 hover:scale-[1.02] flex items-center justify-center gap-2"
+                  >
+                    <FileSignature className="w-5 h-5" />
+                    <span>Signer ma proposition</span>
+                  </button>
                 )}
 
               {/* Info Text */}
