@@ -61,14 +61,33 @@ export default function PayButton({
       }
 
       if (data.url) {
-        // Gérer la compatibilité iframe
-        const isInIframe = window.self !== window.top;
-        if (isInIframe) {
-          window.parent.postMessage(
-            { type: 'OPEN_EXTERNAL_URL', data: { url: data.url } },
-            '*'
-          );
-        } else {
+        // Handle iframe compatibility more robustly
+        try {
+          const isInIframe = window.self !== window.top;
+          if (isInIframe) {
+            // Signal parent for handling
+            window.parent.postMessage({ type: 'OPEN_EXTERNAL_URL', data: { url: data.url } }, '*');
+            
+            // Attempt top-level navigation
+            try {
+              window.top!.location.href = data.url;
+            } catch (e) {
+              // CORS or other restriction, try current window
+              window.location.href = data.url;
+            }
+          } else {
+            window.location.href = data.url;
+          }
+
+          // Fallback if stuck
+          setTimeout(() => {
+            if (window.location.href !== data.url) {
+              window.open(data.url, '_blank');
+              setIsProcessing(false);
+            }
+          }, 3000);
+        } catch (err) {
+          console.error('Redirection error:', err);
           window.location.href = data.url;
         }
       } else {

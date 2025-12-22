@@ -12,6 +12,7 @@ export default function PaiementPage() {
   const [isSigned, setIsSigned] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState('Pro');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     email: '',
     name: '',
@@ -101,13 +102,38 @@ export default function PaiementPage() {
       }
 
       if (data.url) {
-        const isInIframe = window.self !== window.top;
-        if (isInIframe) {
-          window.parent.postMessage(
-            { type: 'OPEN_EXTERNAL_URL', data: { url: data.url } },
-            '*'
-          );
-        } else {
+        setCheckoutUrl(data.url);
+        // Redirection priority: 
+        // 1. window.location.href (standard)
+        // 2. window.top.location.href (if in iframe and allowed)
+        // 3. window.open (fallback)
+        
+        try {
+          const isInIframe = window.self !== window.top;
+          if (isInIframe) {
+            // First send the message for parent handling
+            window.parent.postMessage({ type: 'OPEN_EXTERNAL_URL', data: { url: data.url } }, '*');
+            
+            // Try top-level navigation (might be blocked by CORS but worth a shot)
+            try {
+              window.top!.location.href = data.url;
+            } catch (e) {
+              // Failed to redirect top, try replacing current location
+              window.location.href = data.url;
+            }
+          } else {
+            window.location.href = data.url;
+          }
+
+          // Security: If the page hasn't unloaded after 2 seconds, we might be stuck
+          setTimeout(() => {
+            if (window.location.href !== data.url) {
+              window.open(data.url, '_blank');
+              setIsProcessing(false);
+            }
+          }, 3000);
+        } catch (err) {
+          console.error('Redirection error:', err);
           window.location.href = data.url;
         }
       }
@@ -230,23 +256,35 @@ export default function PaiementPage() {
               </div>
 
               {/* Summary */}
-              <div className="pt-4 border-t border-white/10">
-                <dl className="text-sm space-y-2">
-                  <div className="flex items-center justify-between">
-                    <dt className="text-gray-400">Formule sélectionnée</dt>
-                    <dd className="text-gray-200">{selectedPlan}</dd>
-                  </div>
-                  <div className="flex items-center justify-between font-medium pt-2 border-t border-white/10">
-                    <dt className="text-white">Total HT</dt>
-                    <dd className="text-white">{currentAmount.toLocaleString('fr-FR')} €</dd>
-                  </div>
-                </dl>
+                <div className="pt-4 border-t border-white/10">
+                  <dl className="text-sm space-y-2">
+                    <div className="flex items-center justify-between">
+                      <dt className="text-gray-400">Formule sélectionnée</dt>
+                      <dd className="text-gray-200">{selectedPlan}</dd>
+                    </div>
+                    <div className="flex items-center justify-between font-medium pt-2 border-t border-white/10">
+                      <dt className="text-white">Total HT</dt>
+                      <dd className="text-white">{currentAmount.toLocaleString('fr-FR')} €</dd>
+                    </div>
+                  </dl>
 
-                <button
-                  type="submit"
-                  disabled={isProcessing}
-                  className="mt-4 inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm bg-blue-400 text-black hover:bg-blue-300 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                >
+                  {isProcessing && checkoutUrl && (
+                    <div className="mt-4 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 text-center animate-in fade-in duration-500">
+                      <p className="text-xs text-blue-300 mb-2">Si vous n'êtes pas redirigé(e) automatiquement...</p>
+                      <a 
+                        href={checkoutUrl} 
+                        className="text-sm text-white underline hover:text-blue-200 font-medium"
+                      >
+                        Cliquez ici pour accéder au paiement Stripe
+                      </a>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isProcessing}
+                    className="mt-4 inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm bg-blue-400 text-black hover:bg-blue-300 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                   {isProcessing ? (
                     <>
                       <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
