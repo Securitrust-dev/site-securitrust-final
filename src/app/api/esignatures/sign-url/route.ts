@@ -57,9 +57,9 @@ export async function POST(request: Request) {
                 api_key: 'siret',
                 value: siret
               }] : [],
-              test: 'yes'
-            })
-          });
+                test: 'no'
+              })
+            });
 
     if (!response.ok) {
       const errorText = await response.text();
