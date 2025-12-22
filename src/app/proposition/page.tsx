@@ -10,6 +10,15 @@ export default function PropositionPage() {
   const router = useRouter();
   const [orderData, setOrderData] = useState<any>(null);
   const [isSigned, setIsSigned] = useState(false);
+  const [companyName, setCompanyName] = useState('');
+  const [email, setEmail] = useState('');
+  const [siret, setSiret] = useState('');
+
+  // Form validity check
+  const isFormValid = companyName.trim().length > 0 && 
+                      email.trim().length > 0 && 
+                      email.includes('@') &&
+                      siret.trim().length >= 9;
 
   // Format date in French
   const getCurrentDate = () => {
@@ -28,6 +37,12 @@ export default function PropositionPage() {
       try {
         const data = JSON.parse(storedData);
         setOrderData(data);
+        
+        // Initialize form fields
+        const emailFromAnswers = data.answers?.find((a: any) => a.questionId === 'email')?.answer;
+        setCompanyName(data.company?.name || data.companyName || data.name || "");
+        setEmail(emailFromAnswers || data.email || "");
+        setSiret(data.company?.siret || data.siret || "");
       } catch (error) {
         console.error('Error parsing order data:', error);
       }
@@ -41,13 +56,16 @@ export default function PropositionPage() {
   }, []);
 
     const handleSignProposal = () => {
+      if (!isFormValid) {
+        toast.error("Veuillez remplir tous les champs obligatoires.");
+        return;
+      }
       const currentData = orderData || JSON.parse(sessionStorage.getItem('eligibilityData') || '{}');
-      const emailFromAnswers = currentData.answers?.find((a: any) => a.questionId === 'email')?.answer;
       const dataToSave = {
         ...currentData,
-        companyName: currentData.company?.name || currentData.companyName || currentData.name || "Société Client",
-        email: emailFromAnswers || currentData.email || "client@email.com",
-        siret: currentData.company?.siret || currentData.siret || "00000000000000"
+        companyName: companyName,
+        email: email,
+        siret: siret
       };
       sessionStorage.setItem('eligibilityData', JSON.stringify(dataToSave));
       router.push('/signer-proposition');
@@ -649,38 +667,79 @@ export default function PropositionPage() {
                 </ul>
               </div>
 
-              {/* Action Buttons */}
-              {isSigned ? (
-                <div className="space-y-4">
-                  {/* Confirmation de signature */}
-                  <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-                    <div className="flex items-center justify-center gap-3 mb-3">
-                      <CheckCircle2 className="w-8 h-8 text-green-400" />
-                      <p className="text-green-300 font-semibold text-lg">Proposition Signée !</p>
+                {/* Action Buttons */}
+                {isSigned ? (
+                  <div className="space-y-4">
+                    {/* Confirmation de signature */}
+                    <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
+                      <div className="flex items-center justify-center gap-3 mb-3">
+                        <CheckCircle2 className="w-8 h-8 text-green-400" />
+                        <p className="text-green-300 font-semibold text-lg">Proposition Signée !</p>
+                      </div>
+                      <p className="text-green-200 text-sm">
+                        Votre signature a été enregistrée avec succès
+                      </p>
                     </div>
-                    <p className="text-green-200 text-sm">
-                      Votre signature a été enregistrée avec succès
-                    </p>
-                  </div>
 
-                  {/* Bouton de paiement */}
-                  <button 
-                    onClick={handlePayment}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2"
-                  >
-                    <CreditCard className="w-5 h-5" />
-                    <span>Procéder au Paiement</span>
-                  </button>
-                </div>
-              ) : (
-                <button 
-                  onClick={handleSignProposal}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg hover:shadow-blue-500/50 flex items-center justify-center gap-2"
-                >
-                  <FileSignature className="w-5 h-5" />
-                  <span>Signer ma proposition</span>
-                </button>
-              )}
+                    {/* Bouton de paiement */}
+                    <button 
+                      onClick={handlePayment}
+                      className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2"
+                    >
+                      <CreditCard className="w-5 h-5" />
+                      <span>Procéder au Paiement</span>
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    {/* Formulaire de validation */}
+                    <div className="space-y-4 mb-8 text-left max-w-md mx-auto bg-white/5 p-6 rounded-2xl border border-white/10">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-zinc-400">Nom de votre entreprise <span className="text-red-500">*</span></label>
+                        <input
+                          type="text"
+                          value={companyName}
+                          onChange={(e) => setCompanyName(e.target.value)}
+                          placeholder="Ex: SecuriTrust"
+                          className="w-full p-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:border-blue-500 transition-colors outline-none"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-zinc-400">Email de contact <span className="text-red-500">*</span></label>
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="votre@email.com"
+                          className="w-full p-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:border-blue-500 transition-colors outline-none"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-zinc-400">Numéro SIRET <span className="text-red-500">*</span></label>
+                        <input
+                          type="text"
+                          value={siret}
+                          onChange={(e) => setSiret(e.target.value)}
+                          placeholder="Numéro SIRET (14 chiffres)"
+                          className="w-full p-3 bg-zinc-900 border border-white/10 rounded-xl text-white focus:border-blue-500 transition-colors outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={handleSignProposal}
+                      disabled={!isFormValid}
+                      className={`w-full py-4 rounded-xl font-semibold text-lg transition-all shadow-lg flex items-center justify-center gap-2 ${
+                        isFormValid 
+                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white cursor-pointer hover:shadow-blue-500/50 hover:scale-[1.02]' 
+                          : 'bg-zinc-800 text-zinc-500 cursor-not-allowed opacity-50'
+                      }`}
+                    >
+                      <FileSignature className="w-5 h-5" />
+                      <span>{isFormValid ? 'Signer ma proposition' : 'Remplissez les infos pour signer'}</span>
+                    </button>
+                  </>
+                )}
 
               {/* Info Text */}
               <div className="mt-8 pt-8 border-t border-white/10">
