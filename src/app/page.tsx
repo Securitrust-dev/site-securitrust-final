@@ -7,7 +7,6 @@ import { PromoBanner } from '@/components/sections/promo-banner';
 import { MetricsSection } from '@/components/sections/metrics-section';
 import { ServicesSection } from '@/components/sections/services-section';
 import { TrustedClientsCarousel } from '@/components/sections/trusted-clients-carousel';
-import { TestimonialsAurora } from '@/components/sections/testimonials-aurora';
 import { OfficialAuditorSection } from '@/components/sections/official-auditor-section';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 
@@ -20,7 +19,6 @@ export default function Page() {
       <MetricsSection />
       <ServicesSection />
       <TrustedClientsCarousel />
-      <TestimonialsAurora />
       <OfficialAuditorSection />
       
       <section className="relative py-16 px-6 text-center">
