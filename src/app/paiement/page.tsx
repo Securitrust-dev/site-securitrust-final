@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, CheckCircle2, AlertCircle, FileSignature } from 'lucide-react';
+import { Lock, CheckCircle2, AlertCircle, FileSignature, Feather } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function PaiementPage() {
@@ -141,13 +141,13 @@ export default function PaiementPage() {
             <p className="text-zinc-400 mb-6">
               Vous devez d'abord signer la proposition commerciale avant d'accéder au paiement.
             </p>
-            <button
-              onClick={() => router.push('/signer-proposition')}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-blue-400 transition-all"
-            >
-              <FileSignature className="w-5 h-5" />
-              Signer la proposition
-            </button>
+              <button
+                onClick={() => router.push('/signer-proposition')}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-blue-400 transition-all"
+              >
+                <span>Signer</span>
+                <Feather className="w-5 h-5" />
+              </button>
           </div>
         </div>
       </div>

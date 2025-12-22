@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Loader2, AlertTriangle, ArrowLeft, CreditCard, ShieldCheck, FileSignature, Building2, User, Mail, Hash } from 'lucide-react';
+import { Loader2, AlertTriangle, ArrowLeft, CreditCard, ShieldCheck, FileSignature, Building2, User, Mail, Hash, Feather } from 'lucide-react';
 import { toast } from 'sonner';
 
 export const dynamic = 'force-dynamic';
@@ -230,8 +230,8 @@ export default function SignerPropositionPage() {
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
                     <>
-                      <span>Accéder au contrat</span>
-                      <ArrowLeft className="w-5 h-5 rotate-180" />
+                      <span>Signer</span>
+                      <Feather className="w-5 h-5" />
                     </>
                   )}
                 </button>
