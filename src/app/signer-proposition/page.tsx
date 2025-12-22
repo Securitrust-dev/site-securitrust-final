@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, AlertTriangle, ArrowLeft, CreditCard, ShieldCheck, FileSignature, Building2, User, Mail, Hash, Feather } from 'lucide-react';
 import { toast } from 'sonner';
@@ -16,6 +16,7 @@ export default function SignerPropositionPage() {
   const [isSigned, setIsSigned] = useState(false);
   const [showManualButton, setShowManualButton] = useState(false);
   const [isSignatureDone, setIsSignatureDone] = useState(false);
+  const [isRedirectingToStripe, setIsRedirectingToStripe] = useState(false);
   
   const [step, setStep] = useState<'sign'>('sign');
   const [companyName, setCompanyName] = useState('');
@@ -23,10 +24,50 @@ export default function SignerPropositionPage() {
   const [siret, setSiret] = useState('');
   const [signerName, setSignerName] = useState('');
 
-  const goToPayment = () => {
+  const goToPayment = useCallback(async () => {
     sessionStorage.setItem('propositionSigned', 'true');
-    router.push('/paiement');
-  };
+    setIsRedirectingToStripe(true);
+    toast.info("Signature confirmée ! Préparation de votre paiement sécurisé...");
+    
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: 'Pro', 
+          amount: 4999,
+          email: email,
+          name: signerName || companyName || "Client SecuriTrust",
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.url) {
+        // Use multiple redirection strategies to bail out of iframe
+        try {
+          if (window.top) {
+            window.top.location.href = data.url;
+          } else {
+            window.location.href = data.url;
+          }
+        } catch (e) {
+          window.location.href = data.url;
+        }
+        
+        // Safety fallback if redirection fails
+        setTimeout(() => {
+          setIsRedirectingToStripe(false);
+          router.push('/paiement');
+        }, 3000);
+      } else {
+        router.push('/paiement');
+      }
+    } catch (err) {
+      console.error("Error creating checkout session:", err);
+      router.push('/paiement');
+    }
+  }, [router, email, signerName, companyName]);
 
   useEffect(() => {
     const storedData = sessionStorage.getItem('eligibilityData');
@@ -126,18 +167,28 @@ export default function SignerPropositionPage() {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [router]);
+  }, [router, goToPayment]);
 
   const handleBack = () => {
     router.push('/proposition');
   };
 
-  if (loading) {
+  if (loading || isRedirectingToStripe) {
     return (
       <div className="min-h-screen bg-[#02040a] flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto" />
-          <p className="text-slate-400 animate-pulse">Chargement de votre contrat en cours...</p>
+        <div className="text-center space-y-6">
+          <div className="relative">
+            <Loader2 className="w-16 h-16 text-blue-500 animate-spin mx-auto" />
+            <ShieldCheck className="w-6 h-6 text-green-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-white text-xl font-medium">
+              {isRedirectingToStripe ? "Confirmation de la signature..." : "Chargement de votre contrat..."}
+            </p>
+            <p className="text-slate-400 animate-pulse">
+              {isRedirectingToStripe ? "Redirection vers le paiement Stripe sécurisé" : "Veuillez patienter un instant"}
+            </p>
+          </div>
         </div>
       </div>
     );
