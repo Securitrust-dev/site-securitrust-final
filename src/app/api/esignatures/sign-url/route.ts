@@ -57,23 +57,49 @@ export async function POST(request: Request) {
           mobile: '+33600000000',
           redirect_url: redirectUrl,
           // CONFIGURATION SANS CHECKBOX
-          fields: [
-            {
-              api_key: 'siret',
-              // IMPORTANT : On laisse "value" vide pour forcer l'utilisateur à taper.
-              // Si vous mettez une valeur ici, le bouton "Signer" s'activera tout seul.
-              value: '', 
-              required: true
-            },
-            {
-              api_key: 'signer_name',
-              value: '', 
-              required: true
-            }
-          ]
-        }],
+            fields: [
+              {
+                api_key: 'siret',
+                // On laisse "value" vide pour forcer l'utilisateur à taper.
+                value: '', 
+                required: true
+              },
+              {
+                api_key: 'signer_name',
+                value: '', 
+                required: true
+              },
+              {
+                api_key: 'active_directory_list',
+                value: activeDirectoryList || '',
+                required: false
+              },
+              {
+                api_key: 'test_accounts',
+                value: testAccounts || '',
+                required: false
+              },
+              {
+                api_key: 'time_slots',
+                value: timeSlots || '',
+                required: false
+              },
+              {
+                api_key: 'urgency_contact',
+                value: urgencyContact || '',
+                required: false
+              },
+              {
+                api_key: 'tech_restrictions',
+                value: techRestrictions || '',
+                required: false
+              }
+            ]
+          }],
           placeholder_fields: [
             { api_key: 'company_name', value: companyName },
+            { api_key: 'siret', value: siret },
+            { api_key: 'signer_name', value: signerName },
             { api_key: 'active_directory_list', value: activeDirectoryList || 'À préciser' },
             { api_key: 'test_accounts', value: testAccounts || 'À préciser' },
             { api_key: 'time_slots', value: timeSlots || 'À préciser' },

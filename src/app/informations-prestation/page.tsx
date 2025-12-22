@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Server, ShieldAlert, Clock, PhoneCall, Info, ArrowRight, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
@@ -16,6 +16,20 @@ export default function InformationsPrestationPage() {
     urgencyContact: '',
     techRestrictions: ''
   });
+
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('eligibilityData');
+    if (storedData) {
+      try {
+        const data = JSON.parse(storedData);
+        if (data.prestationInfo) {
+          setFormData(data.prestationInfo);
+        }
+      } catch (error) {
+        console.error("Error loading stored data:", error);
+      }
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = e.target;
