@@ -664,13 +664,14 @@ export default function PropositionPage() {
                     </button>
                   </div>
                 ) : (
-                    <button 
-                      onClick={handleSignProposal}
-                      className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-blue-500/50 hover:scale-[1.02] flex items-center justify-center gap-2"
-                    >
-                      <span>Signer</span>
-                      <Feather className="w-5 h-5" />
-                    </button>
+                      <button 
+                        disabled
+                        onClick={handleSignProposal}
+                        className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 opacity-50 cursor-not-allowed text-white font-semibold text-lg transition-all shadow-lg flex items-center justify-center gap-2"
+                      >
+                        <span>Signer</span>
+                        <Feather className="w-5 h-5" />
+                      </button>
                 )}
 
               {/* Info Text */}
