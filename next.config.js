@@ -26,10 +26,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'randomuser.me',
       },
-      {
-        protocol: 'https',
-        hostname: 'logo.clearbit.com',
-      },
+        {
+          protocol: 'https',
+          hostname: 'logo.clearbit.com',
+        },
+        {
+          protocol: 'https',
+          hostname: 'blogger.googleusercontent.com',
+        },
     ],
   },
 };
