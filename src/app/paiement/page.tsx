@@ -141,11 +141,10 @@ export default function PaiementPage() {
             <p className="text-zinc-400 mb-6">
               Vous devez d'abord signer la proposition commerciale avant d'accéder au paiement.
             </p>
-                <button
-                  disabled
-                  onClick={() => router.push('/signer-proposition')}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-50 cursor-not-allowed text-white font-semibold rounded-lg shadow-lg transition-all"
-                >
+                  <button
+                    onClick={() => router.push('/signer-proposition')}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                  >
                   <span>Signer</span>
                   <Feather className="w-5 h-5" />
                 </button>

@@ -6,14 +6,9 @@ import { usePathname } from 'next/navigation';
 export const FloatingCTA = () => {
   const pathname = usePathname();
   
-  const hiddenPaths = [
-    '/eligibilite',
-    '/proposition',
-    '/paiement',
-    '/signer-proposition',
-    '/non-eligible-offre-15',
-    '/paiement/success'
-  ];
+    const hiddenPaths = [
+      '/signer-proposition',
+    ];
 
   if (hiddenPaths.some(path => pathname.startsWith(path))) {
     return null;
