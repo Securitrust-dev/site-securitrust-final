@@ -16,7 +16,7 @@ export function ExpertCTAButton({ className = '', variant = 'default' }: ExpertC
 
   return (
     <Link 
-      href="https://calendly.com/rayen-ben-ghorbal-securitrust/expert-securitrust"
+      href="https://calendly.com/expert-securitrust"
       className={`${baseStyles} ${variantStyles[variant]} ${className}`}
       target="_blank"
       rel="noopener noreferrer"

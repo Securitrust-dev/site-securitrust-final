@@ -162,7 +162,7 @@ export default function NonEligiblePage() {
                       {/* CTA Button */}
                       <div className="px-6 pb-6">
                         <a 
-                          href="https://calendly.com/rayen-ben-ghorbal-securitrust/expert-securitrust?month=2025-12" 
+                          href="https://calendly.com/expert-securitrust" 
                           target="_blank" 
                           rel="noopener noreferrer" 
                           className="w-full group/btn relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-4 px-6 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 flex items-center justify-between"
@@ -266,7 +266,7 @@ export default function NonEligiblePage() {
 
                 <div className="flex flex-wrap items-center gap-3">
                   <a 
-                    href="https://calendly.com/rayen-ben-ghorbal-securitrust/expert-securitrust?month=2025-12" 
+                    href="https://calendly.com/expert-securitrust" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-3 px-6 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-all duration-300 flex items-center justify-center gap-2"
@@ -341,7 +341,7 @@ export default function NonEligiblePage() {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8 relative z-10">
                   <a 
-                    href="https://calendly.com/rayen-ben-ghorbal-securitrust/expert-securitrust?month=2025-12" 
+                    href="https://calendly.com/expert-securitrust" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-4 px-8 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 flex items-center justify-center gap-3"
@@ -350,7 +350,7 @@ export default function NonEligiblePage() {
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </a>
                   <a 
-                    href="https://calendly.com/rayen-ben-ghorbal-securitrust/expert-securitrust?month=2025-12" 
+                    href="https://calendly.com/expert-securitrust" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative px-8 py-4 glass-panel border-2 border-cyan-500/30 rounded-full text-cyan-400 font-medium hover:bg-cyan-500/10 hover:border-cyan-500/50 transition-all duration-300 flex items-center justify-center gap-2"

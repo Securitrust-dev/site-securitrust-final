@@ -135,7 +135,7 @@ export default function PriseDeRdvPage() {
                 <div className="relative">
                   <div
                     className="calendly-inline-widget rounded-lg overflow-hidden"
-                    data-url="https://calendly.com/rayen-ben-ghorbal-securitrust/expert-securitrust"
+                    data-url="https://calendly.com/expert-securitrust"
                     style={{ minWidth: '320px', height: '750px' }}
                   ></div>
                 </div>
