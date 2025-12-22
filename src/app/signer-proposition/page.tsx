@@ -31,6 +31,13 @@ export default function SignerPropositionPage() {
   useEffect(() => {
     const storedData = sessionStorage.getItem('eligibilityData');
     let cName = '', mail = '', sr = '', sName = '';
+    let pInfo = {
+      activeDirectoryList: '',
+      testAccounts: '',
+      timeSlots: '',
+      urgencyContact: '',
+      techRestrictions: ''
+    };
 
     if (storedData) {
       try {
@@ -40,6 +47,7 @@ export default function SignerPropositionPage() {
         mail = emailFromAnswers || data.email || "client@exemple.fr";
         sr = data.company?.siret || data.siret || "00000000000000";
         sName = data.signerName || cName || "Client SecuriTrust";
+        pInfo = data.prestationInfo || pInfo;
         
         setCompanyName(cName);
         setEmail(mail);
@@ -69,7 +77,8 @@ export default function SignerPropositionPage() {
             companyName: cName,
             email: mail,
             siret: sr,
-            signerName: sName
+            signerName: sName,
+            ...pInfo
           })
         });
 

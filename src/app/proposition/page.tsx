@@ -41,7 +41,7 @@ export default function PropositionPage() {
   }, []);
 
   const handleSignProposal = () => {
-    router.push('/signer-proposition');
+    router.push('/informations-prestation');
   };
 
   const handlePayment = () => {
