@@ -39,7 +39,7 @@ export default function SignerPropositionPage() {
         cName = data.company?.name || data.companyName || data.name || "Entreprise";
         mail = emailFromAnswers || data.email || "client@exemple.fr";
         sr = data.company?.siret || data.siret || "00000000000000";
-        sName = data.signerName || "Client SecuriTrust";
+        sName = data.signerName || cName || "Client SecuriTrust";
         
         setCompanyName(cName);
         setEmail(mail);
@@ -52,7 +52,7 @@ export default function SignerPropositionPage() {
       cName = "Entreprise";
       mail = "client@exemple.fr";
       sr = "00000000000000";
-      sName = "Client SecuriTrust";
+      sName = cName;
       setCompanyName(cName);
       setEmail(mail);
       setSiret(sr);
