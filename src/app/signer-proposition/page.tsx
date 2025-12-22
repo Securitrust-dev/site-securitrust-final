@@ -17,17 +17,11 @@ export default function SignerPropositionPage() {
   const [showManualButton, setShowManualButton] = useState(false);
   const [isSignatureDone, setIsSignatureDone] = useState(false);
   
-  const [step, setStep] = useState<'info' | 'sign'>('info');
+  const [step, setStep] = useState<'sign'>('sign');
   const [companyName, setCompanyName] = useState('');
   const [email, setEmail] = useState('');
   const [siret, setSiret] = useState('');
   const [signerName, setSignerName] = useState('');
-
-  const isFormValid = companyName.trim().length > 0 && 
-                      email.trim().length > 5 && 
-                      email.includes('@') &&
-                      siret.trim().length >= 9 &&
-                      signerName.trim().length > 2;
 
   const goToPayment = () => {
     sessionStorage.setItem('propositionSigned', 'true');
@@ -36,64 +30,72 @@ export default function SignerPropositionPage() {
 
   useEffect(() => {
     const storedData = sessionStorage.getItem('eligibilityData');
+    let cName = '', mail = '', sr = '', sName = '';
+
     if (storedData) {
       try {
         const data = JSON.parse(storedData);
-        // Initialize form fields from session storage if available
         const emailFromAnswers = data.answers?.find((a: any) => a.questionId === 'email')?.answer;
-        setCompanyName(data.company?.name || data.companyName || data.name || "");
-        setEmail(emailFromAnswers || data.email || "");
-        setSiret(data.company?.siret || data.siret || "");
-        setSignerName(data.signerName || "");
+        cName = data.company?.name || data.companyName || data.name || "Entreprise";
+        mail = emailFromAnswers || data.email || "client@exemple.fr";
+        sr = data.company?.siret || data.siret || "00000000000000";
+        sName = data.signerName || "Client SecuriTrust";
+        
+        setCompanyName(cName);
+        setEmail(mail);
+        setSiret(sr);
+        setSignerName(sName);
       } catch (error) {
         console.error('Error parsing order data:', error);
       }
+    } else {
+      cName = "Entreprise";
+      mail = "client@exemple.fr";
+      sr = "00000000000000";
+      sName = "Client SecuriTrust";
+      setCompanyName(cName);
+      setEmail(mail);
+      setSiret(sr);
+      setSignerName(sName);
     }
-  }, []);
 
-  const handleStartSigning = async () => {
-    if (!isFormValid) {
-      toast.error("Veuillez remplir tous les champs obligatoires.");
-      return;
-    }
+    const triggerSign = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/esignatures/sign-url', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            companyName: cName,
+            email: mail,
+            siret: sr,
+            signerName: sName
+          })
+        });
 
-    setLoading(true);
-    setStep('sign');
-    
-    try {
-      const response = await fetch('/api/esignatures/sign-url', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          companyName,
-          email,
-          siret,
-          signerName
-        })
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) throw new Error(result.error);
-      if (result.url) {
-        setSignUrl(result.url);
-      } else {
-        throw new Error("Erreur de génération du lien");
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+        if (result.url) {
+          setSignUrl(result.url);
+        } else {
+          throw new Error("Erreur de génération du lien");
+        }
+      } catch (err: any) {
+        console.error("Erreur:", err);
+        setError(err.message || "Erreur inconnue");
+      } finally {
+        setLoading(false);
       }
-    } catch (err: any) {
-      console.error("Erreur:", err);
-      setError(err.message || "Erreur inconnue");
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    triggerSign();
+  }, []);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       const data = event.data;
       console.log('Message reçu de l\'iframe:', data);
       
-      // Détecter les événements de signature réussie uniquement
       const isActuallySigned = 
         data?.event === 'es:signed' || 
         data?.event === 'es:document:signed' ||
@@ -107,152 +109,26 @@ export default function SignerPropositionPage() {
         setShowManualButton(true);
         toast.success("Contrat signé ! Redirection vers le paiement...");
         
-        // Redirection immédiate
         setTimeout(() => {
           goToPayment();
-        }, 1500); // Petit délai pour laisser voir le toast
+        }, 1500);
       }
     };
 
     window.addEventListener('message', handleMessage);
-
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
+    return () => window.removeEventListener('message', handleMessage);
   }, [router]);
 
   const handleBack = () => {
-    if (step === 'sign' && !isSigned) {
-      setStep('info');
-      setSignUrl(null);
-    } else {
-      router.push('/proposition');
-    }
+    router.push('/proposition');
   };
-
-  if (step === 'info') {
-    return (
-      <div className="min-h-screen bg-[#02040a] flex items-center justify-center p-6">
-        <div className="fixed inset-0 z-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.05),transparent_70%)]" />
-        </div>
-
-        <div className="w-full max-w-xl relative z-10">
-          <button 
-            onClick={() => router.push('/proposition')}
-            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Retour à la proposition
-          </button>
-
-          <div className="bg-zinc-900/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-                <FileSignature className="w-6 h-6 text-blue-400" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-white">Vérification d'identité</h1>
-                <p className="text-slate-400 text-sm">Complétez vos informations avant de signer</p>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  Prénom & Nom du signataire
-                </label>
-                <input
-                  type="text"
-                  value={signerName}
-                  onChange={(e) => setSignerName(e.target.value)}
-                  placeholder="Ex: Jean Dupont"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-blue-500 transition-colors outline-none placeholder:text-zinc-600"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
-                  <Building2 className="w-4 h-4" />
-                  Nom de l'entreprise
-                </label>
-                <input
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="Ex: SecuriTrust"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-blue-500 transition-colors outline-none placeholder:text-zinc-600"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
-                    <Mail className="w-4 h-4" />
-                    Email professionnel
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="jean@entreprise.fr"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-blue-500 transition-colors outline-none placeholder:text-zinc-600"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
-                    <Hash className="w-4 h-4" />
-                    Numéro SIRET
-                  </label>
-                  <input
-                    type="text"
-                    value={siret}
-                    onChange={(e) => setSiret(e.target.value)}
-                    placeholder="14 chiffres"
-                    maxLength={14}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-blue-500 transition-colors outline-none placeholder:text-zinc-600"
-                  />
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <button
-                  onClick={handleStartSigning}
-                  disabled={!isFormValid || loading}
-                  className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all duration-300 ${
-                    isFormValid 
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-900/40 hover:scale-[1.02]' 
-                      : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
-                  }`}
-                >
-                  {loading ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                  ) : (
-                    <>
-                      <span>Signer</span>
-                      <Feather className="w-5 h-5" />
-                    </>
-                  )}
-                </button>
-              </div>
-
-              <p className="text-center text-xs text-zinc-500 mt-6 italic">
-                La signature électronique est légalement contraignante. Vos informations sont traitées de manière sécurisée.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#02040a] flex items-center justify-center">
         <div className="text-center space-y-4">
-          <Loader2 className="w-12 h-12 text-cyan-500 animate-spin mx-auto" />
-          <p className="text-slate-400 animate-pulse">Chargement du contrat sécurisé...</p>
+          <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto" />
+          <p className="text-slate-400 animate-pulse">Chargement de votre contrat en cours...</p>
         </div>
       </div>
     );
