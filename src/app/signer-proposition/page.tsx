@@ -228,10 +228,19 @@ export default function SignerPropositionPage() {
   return (
     <div className="min-h-screen bg-[#02040a] flex flex-col relative">
       <div className="h-14 border-b border-white/10 flex items-center px-6 bg-[#02040a] justify-between z-10">
-        <button onClick={handleBack} className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
-          <ArrowLeft className="w-4 h-4" />
-          Retour
-        </button>
+        <div className="flex items-center gap-4">
+          <button onClick={handleBack} className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
+            <ArrowLeft className="w-4 h-4" />
+            Retour
+          </button>
+          <div className="h-4 w-[1px] bg-white/10" />
+          <div className="flex items-center gap-2">
+            <Building2 className="w-4 h-4 text-blue-400" />
+            <span className="text-sm font-medium text-slate-200">
+              {companyName || "Entreprise"}
+            </span>
+          </div>
+        </div>
         <div className="flex items-center gap-2 text-xs text-cyan-400/80 bg-cyan-950/30 px-3 py-1 rounded-full border border-cyan-500/20">
           <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
           Signature Sécurisée

@@ -67,18 +67,21 @@ export default function PropositionPage() {
       {/* Navigation */}
       <header className="relative z-10 border-b border-white/5">
         <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Image 
-              src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-1764601146487.png?width=8000&height=8000&resize=contain"
-              alt="SecuriTrust Logo"
-              width={180}
-              height={60}
-              className="h-12 w-auto"
-            />
-            <div className="ml-4">
-              <p className="text-xs text-zinc-400">Proposition de Test de Sécurité et Conformité</p>
+            <div className="flex items-center gap-4">
+              <Image 
+                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-1764601146487.png?width=8000&height=8000&resize=contain"
+                alt="SecuriTrust Logo"
+                width={180}
+                height={60}
+                className="h-12 w-auto"
+              />
+              <div className="ml-4">
+                <p className="text-sm font-medium text-cyan-400">
+                  {orderData?.company?.name || orderData?.companyName || "Proposition Commerciale"}
+                </p>
+                <p className="text-xs text-zinc-500">Proposition de Test de Sécurité et Conformité</p>
+              </div>
             </div>
-          </div>
           <div className="flex items-center gap-4">
             <button
               onClick={() => router.push('/')}
@@ -97,17 +100,19 @@ export default function PropositionPage() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 space-y-16">
         
         {/* Hero Section */}
-        <section className="text-center py-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 mb-8">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-            <span className="text-sm text-blue-300">Proposition de Test de Sécurité et Conformité</span>
-          </div>
-          <h1 className="text-6xl lg:text-7xl font-light tracking-tight text-white mb-6">
-            <span className="font-semibold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Securitrust propose une offre unique et innovante, n'attendez plus
-            </span>
-          </h1>
-        </section>
+          <section className="text-center py-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 mb-8">
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+              <span className="text-sm text-blue-300">
+                Proposition personnalisée pour {orderData?.company?.name || orderData?.companyName || "votre entreprise"}
+              </span>
+            </div>
+            <h1 className="text-6xl lg:text-7xl font-light tracking-tight text-white mb-6">
+              <span className="font-semibold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+                Securitrust propose une offre unique et innovante pour {orderData?.company?.name || orderData?.companyName || "vous"}
+              </span>
+            </h1>
+          </section>
 
         {/* Proposal Summary Statistics */}
         <section className="rounded-3xl bg-gradient-to-br from-zinc-900/50 to-zinc-800/30 border border-white/10 p-12">
