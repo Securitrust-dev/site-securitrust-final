@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, CheckCircle2, AlertCircle, FileSignature, Feather } from 'lucide-react';
+import { Lock, CheckCircle2, AlertCircle, FileSignature, Feather, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function PaiementPage() {
@@ -101,42 +101,41 @@ export default function PaiementPage() {
         throw new Error(data.error || 'Erreur lors de la création de la session');
       }
 
-      if (data.url) {
-        setCheckoutUrl(data.url);
-        // Redirection priority: 
-        // 1. window.location.href (standard)
-        // 2. window.top.location.href (if in iframe and allowed)
-        // 3. window.open (fallback)
-        
-        try {
-          const isInIframe = window.self !== window.top;
-          if (isInIframe) {
-            // First send the message for parent handling
-            window.parent.postMessage({ type: 'OPEN_EXTERNAL_URL', data: { url: data.url } }, '*');
-            
-            // Try top-level navigation (might be blocked by CORS but worth a shot)
-            try {
-              window.top!.location.href = data.url;
-            } catch (e) {
-              // Failed to redirect top, try replacing current location
+        if (data.url) {
+          setCheckoutUrl(data.url);
+          
+          // Redirection priority: 
+          // 1. postMessage (for Orchids/Vercel preview)
+          // 2. window.top.location.href (to breakout of iframe)
+          // 3. window.location.href (fallback)
+          
+          try {
+            const isInIframe = window.self !== window.top;
+            if (isInIframe) {
+              window.parent.postMessage({ type: 'OPEN_EXTERNAL_URL', data: { url: data.url } }, '*');
+              
+              try {
+                if (window.top) {
+                  window.top.location.href = data.url;
+                }
+              } catch (e) {
+                window.location.href = data.url;
+              }
+            } else {
               window.location.href = data.url;
             }
-          } else {
+
+            // Security: If the page hasn't unloaded after 3 seconds, show fallback
+            setTimeout(() => {
+              if (window.location.pathname === '/paiement') {
+                setIsProcessing(false); // Stop the spinner to show the manual link
+              }
+            }, 3000);
+          } catch (err) {
+            console.error('Redirection error:', err);
             window.location.href = data.url;
           }
-
-          // Security: If the page hasn't unloaded after 2 seconds, we might be stuck
-          setTimeout(() => {
-            if (window.location.href !== data.url) {
-              window.open(data.url, '_blank');
-              setIsProcessing(false);
-            }
-          }, 3000);
-        } catch (err) {
-          console.error('Redirection error:', err);
-          window.location.href = data.url;
         }
-      }
     } catch (error: any) {
       console.error('Erreur paiement:', error);
       toast.error(error.message || 'Erreur lors de la création du paiement');
@@ -256,52 +255,62 @@ export default function PaiementPage() {
               </div>
 
               {/* Summary */}
-                <div className="pt-4 border-t border-white/10">
-                  <dl className="text-sm space-y-2">
-                    <div className="flex items-center justify-between">
-                      <dt className="text-gray-400">Formule sélectionnée</dt>
-                      <dd className="text-gray-200">{selectedPlan}</dd>
-                    </div>
-                    <div className="flex items-center justify-between font-medium pt-2 border-t border-white/10">
-                      <dt className="text-white">Total HT</dt>
-                      <dd className="text-white">{currentAmount.toLocaleString('fr-FR')} €</dd>
-                    </div>
-                  </dl>
+                  <div className="pt-4 border-t border-white/10">
+                    <dl className="text-sm space-y-2">
+                      <div className="flex items-center justify-between">
+                        <dt className="text-gray-400">Formule sélectionnée</dt>
+                        <dd className="text-gray-200">{selectedPlan}</dd>
+                      </div>
+                      <div className="flex items-center justify-between font-medium pt-2 border-t border-white/10">
+                        <dt className="text-white">Total HT</dt>
+                        <dd className="text-white">{currentAmount.toLocaleString('fr-FR')} €</dd>
+                      </div>
+                    </dl>
 
-                  {isProcessing && checkoutUrl && (
-                    <div className="mt-4 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20 text-center animate-in fade-in duration-500">
-                      <p className="text-xs text-blue-300 mb-2">Si vous n'êtes pas redirigé(e) automatiquement...</p>
-                      <a 
-                        href={checkoutUrl} 
-                        className="text-sm text-white underline hover:text-blue-200 font-medium"
-                      >
-                        Cliquez ici pour accéder au paiement Stripe
-                      </a>
-                    </div>
-                  )}
+                    {checkoutUrl && (
+                      <div className="mt-4 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-center animate-in fade-in zoom-in duration-500 shadow-lg shadow-blue-900/10">
+                        <p className="text-sm text-blue-300 mb-3 font-medium">Prêt pour le paiement sécurisé</p>
+                        <a 
+                          href={checkoutUrl} 
+                          target="_top"
+                          className="inline-flex items-center justify-center gap-2 px-6 py-2 bg-blue-500 hover:bg-blue-400 text-white rounded-lg transition-all font-bold text-sm hover:scale-105 active:scale-95 w-full shadow-md"
+                        >
+                          Aller sur Stripe <CreditCard className="w-4 h-4 ml-1" />
+                        </a>
+                        <p className="text-[10px] text-zinc-500 mt-3 italic">
+                          Cliquez ci-dessus si la redirection ne se fait pas automatiquement.
+                        </p>
+                      </div>
+                    )}
 
-                  <button
-                    type="submit"
-                    disabled={isProcessing}
-                    className="mt-4 inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm bg-blue-400 text-black hover:bg-blue-300 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                  {isProcessing ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
-                      Traitement...
-                    </>
-                  ) : (
-                    <>
-                      Payer en toute sécurité
-                      <Lock className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
+                    <button
+                      type="submit"
+                      disabled={isProcessing || !!checkoutUrl}
+                      className="mt-4 inline-flex w-full items-center justify-center gap-2 px-4 py-3 rounded-full text-sm bg-blue-400 text-black hover:bg-blue-300 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-400/20"
+                    >
+                    {isProcessing ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                        Traitement en cours...
+                      </>
+                    ) : checkoutUrl ? (
+                      <>
+                        Prêt pour Stripe
+                        <CheckCircle2 className="w-4 h-4" />
+                      </>
+                    ) : (
+                      <>
+                        Payer en toute sécurité
+                        <Lock className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
 
-                <p className="mt-3 text-xs text-gray-500 text-center">
-                  En continuant, vous acceptez les Conditions Générales et la Politique de Confidentialité.
-                </p>
-              </div>
+                  <p className="mt-4 text-[10px] text-gray-500 text-center leading-relaxed">
+                    En continuant, vous acceptez les Conditions Générales et la Politique de Confidentialité.
+                    <br />Paiement 100% sécurisé via Stripe.
+                  </p>
+                </div>
             </form>
           </div>
 

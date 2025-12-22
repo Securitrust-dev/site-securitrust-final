@@ -46,8 +46,21 @@ export default function SignerPropositionPage() {
       if (data.url) {
         // Use multiple redirection strategies to bail out of iframe
         try {
-          if (window.top) {
-            window.top.location.href = data.url;
+          const isInIframe = window.self !== window.top;
+          
+          if (isInIframe) {
+            // First send the message for parent handling (required for Orchids/Vercel preview)
+            window.parent.postMessage({ type: 'OPEN_EXTERNAL_URL', data: { url: data.url } }, '*');
+            
+            // Try top-level navigation as backup
+            try {
+              if (window.top) {
+                window.top.location.href = data.url;
+              }
+            } catch (e) {
+              console.warn("Could not redirect top window, falling back to location.href");
+              window.location.href = data.url;
+            }
           } else {
             window.location.href = data.url;
           }
@@ -55,11 +68,14 @@ export default function SignerPropositionPage() {
           window.location.href = data.url;
         }
         
-        // Safety fallback if redirection fails
+        // Safety fallback if redirection fails or is blocked
         setTimeout(() => {
           setIsRedirectingToStripe(false);
-          router.push('/paiement');
-        }, 3000);
+          // Only redirect to /paiement if we are still on the same page
+          if (window.location.pathname === '/signer-proposition') {
+            router.push('/paiement');
+          }
+        }, 5000);
       } else {
         router.push('/paiement');
       }
