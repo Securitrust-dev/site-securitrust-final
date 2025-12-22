@@ -1,7 +1,6 @@
 'use client';
 
 import { ArrowRight, Shield, Clock, CheckCircle2, Phone, Mail, Download, Lock, Zap, TrendingUp } from 'lucide-react';
-import { GradientBeamCTA } from '@/components/ui/gradient-beam-cta';
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
@@ -162,7 +161,12 @@ export default function NonEligiblePage() {
 
                       {/* CTA Button */}
                       <div className="px-6 pb-6">
-                        <a href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" target="_blank" rel="noopener noreferrer" className="w-full group/btn relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-4 px-6 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 flex items-center justify-between">
+                        <a 
+                          href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="w-full group/btn relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-4 px-6 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 flex items-center justify-between"
+                        >
                           <span className="relative z-10 flex items-center justify-between w-full">
                             <span>Profiter de l'offre maintenant</span>
                             <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
@@ -261,10 +265,15 @@ export default function NonEligiblePage() {
               </div>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <GradientBeamCTA 
+                  <a 
                     href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" 
-                    text="Activer ma remise de -15%" 
-                  />
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-3 px-6 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    <span>Activer ma remise de -15%</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
                   <span className="text-xs text-slate-400">
                     Offre valable jusqu'au 31 décembre 2024
                   </span>
@@ -331,10 +340,15 @@ export default function NonEligiblePage() {
               </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8 relative z-10">
-                  <GradientBeamCTA 
+                  <a 
                     href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" 
-                    text="Activer ma remise de -15%" 
-                  />
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm font-semibold py-4 px-8 hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 flex items-center justify-center gap-3"
+                  >
+                    <span>Activer ma remise de -15%</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
                   <a 
                     href="https://calendly.com/securitrust-pentest/consultation-cybersecurite" 
                     target="_blank"
