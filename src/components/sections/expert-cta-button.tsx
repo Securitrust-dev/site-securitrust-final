@@ -22,7 +22,7 @@ export function ExpertCTAButton({ className = '', variant = 'default' }: ExpertC
       rel="noopener noreferrer"
     >
       <Calendar className="h-5 w-5 group-hover:scale-110 transition-transform" />
-      <span>Je veux prendre RDV avec un expert</span>
+        <span>Prendre RDV avec un expert</span>
     </Link>
   );
 }
