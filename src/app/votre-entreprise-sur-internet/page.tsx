@@ -588,7 +588,7 @@ export default function VotreEntreprisePage() {
         <PromoBanner />
         <Navbar />
         
-        <section className="relative pt-32 sm:pt-36 md:pt-40 pb-12 md:pb-16 px-4 sm:px-6">
+        <section className="relative pt-32 sm:pt-36 md:pt-32 pb-12 md:pb-16 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 md:mb-16 border-b border-white/10 pb-4">
               <div className="mb-4 sm:mb-0">

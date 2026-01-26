@@ -178,7 +178,7 @@ export default function JobPostingPage({ params }: { params: { slug: string } })
         <MatrixRain />
         <Navbar />
 
-        <section className="relative z-10 pt-40 pb-20 px-6">
+        <section className="relative z-10 pt-32 pb-20 px-6">
           <div className="max-w-5xl mx-auto">
             <Link 
               href="/nous-rejoindre" 

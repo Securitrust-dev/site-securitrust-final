@@ -95,7 +95,7 @@ export default function PortfolioPage() {
         <Navbar />
         
         {/* Hero Section */}
-        <section className="relative pt-40 pb-20 px-6">
+        <section className="relative pt-32 pb-20 px-6">
           <div className="max-w-7xl mx-auto text-center">
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6">
               Nos Réalisations

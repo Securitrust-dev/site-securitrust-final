@@ -27,7 +27,7 @@ export default function GestionRisquesPage() {
         <PromoBanner />
         <Navbar />
         
-        <section className="relative pt-40 pb-20 px-6">
+        <section className="relative pt-32 pb-20 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">

@@ -64,7 +64,7 @@ export default function PriseDeRdvPage() {
         <Navbar />
         
         {/* Hero Section */}
-        <section className="relative pt-40 pb-16 px-6">
+        <section className="relative pt-32 pb-16 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-4">
               <div>

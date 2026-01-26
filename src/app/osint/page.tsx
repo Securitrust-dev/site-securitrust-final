@@ -19,7 +19,7 @@ export default function OSINTPage() {
         <Navbar />
         
         {/* Hero Section with Hacker Style */}
-        <div className="relative pt-32 sm:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="relative pt-32 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto text-center">
             <div className="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-2 bg-[#0b1221]/80 backdrop-blur-sm border border-[#00ff41]/30 rounded-lg shadow-[0_0_30px_rgba(0,255,65,0.3)]">
               <span className="text-[#00ff41] font-mono text-xs sm:text-sm md:text-base">

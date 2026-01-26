@@ -11,7 +11,7 @@ export const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <div className="fixed top-[40px] sm:top-[45px] lg:top-[50px] xl:top-[55px] w-full z-50">
+    <div className="fixed top-0 w-full z-50">
       <header className="bg-black/95 backdrop-blur-sm border-b border-white/5">
         <nav className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 lg:h-20 flex items-center justify-between gap-4">
           {/* Logo SecuriTrust - Left */}

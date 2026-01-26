@@ -68,7 +68,7 @@ export default function ArticlesPage() {
         <Navbar />
         
         {/* Hero Header */}
-        <div className="relative z-10 pt-40 pb-12 px-6">
+        <div className="relative z-10 pt-32 pb-12 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-4 border-b border-white/10 pb-4">
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-light text-white tracking-tight">

@@ -74,7 +74,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <Navbar />
         
         {/* Article Hero */}
-        <div className="relative z-10 pt-40 pb-12">
+        <div className="relative z-10 pt-32 pb-12">
           <div className="max-w-5xl mx-auto px-6">
             {/* Back Button */}
             <Link 

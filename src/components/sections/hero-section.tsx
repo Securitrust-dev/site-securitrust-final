@@ -18,7 +18,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-12 sm:pb-16">
+    <section className="relative min-h-[70vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16">
       {/* Background Image - Digital Dotted Globe */}
       <div className="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat" style={{
         backgroundImage: `url(https://qfihegeffntsxrwhvnlm.supabase.co/storage/v1/object/sign/Video_securitrust/digital-dotted-globe-showing-africa-and-europe-4k.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wYzAxOTEwZS02NzNlLTQ3ZmUtYTFjMC01MzlmYmQxOTczNTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWaWRlb19zZWN1cml0cnVzdC9kaWdpdGFsLWRvdHRlZC1nbG9iZS1zaG93aW5nLWFmcmljYS1hbmQtZXVyb3BlLTRrLndlYnAiLCJpYXQiOjE3NjQ5NDcwODEsImV4cCI6MjA4MDMwNzA4MX0.BIklRQ4djoWC3t1UKmMp-5pDz26Pw9HkczacVcEbHeU)`
