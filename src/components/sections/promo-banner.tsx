@@ -5,6 +5,7 @@ import { X, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 export const PromoBanner = () => {
+  return null;
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;
