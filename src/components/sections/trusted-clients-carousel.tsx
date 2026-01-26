@@ -116,16 +116,16 @@ export function TrustedClientsCarousel() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                   
-                  {/* Logo Badge */}
-                  <div className="absolute top-4 left-4 w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-white/98 backdrop-blur-sm rounded-lg p-3 sm:p-4 flex items-center justify-center shadow-lg">
-                    <Image
-                      src={client.logo}
-                      alt={client.name}
-                      width={160}
-                      height={160}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
+                    {/* Logo Badge */}
+                    <div className="absolute top-4 left-4 w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 bg-white/98 backdrop-blur-sm rounded-lg p-4 sm:p-5 flex items-center justify-center shadow-lg">
+                      <Image
+                        src={client.logo}
+                        alt={client.name}
+                        width={200}
+                        height={200}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                 </div>
 
                 {/* Content */}
