@@ -92,9 +92,6 @@ export const Navbar = () => {
               )}
             </div>
 
-            <a href="/votre-entreprise-sur-internet" className="px-3 py-2 text-xs xl:text-sm font-normal text-white/70 hover:text-white transition-colors uppercase tracking-wide whitespace-nowrap">
-              Votre image sur internet
-            </a>
             <a href="/articles" className="px-3 py-2 text-xs xl:text-sm font-normal text-white/70 hover:text-white transition-colors uppercase tracking-wide">
               Articles
             </a>
@@ -186,8 +183,7 @@ export const Navbar = () => {
                 )}
               </div>
 
-              <a href="/votre-entreprise-sur-internet" className="block text-base font-bold text-white py-2">Votre image sur internet</a>
-              <a href="/articles" className="block text-base font-bold text-white py-2">Articles</a>
+                <a href="/articles" className="block text-base font-bold text-white py-2">Articles</a>
               <a href="/nous-rejoindre" className="block text-base font-bold text-white py-2">Nous rejoindre</a>
               <a href="/contact" className="block text-base font-bold text-white py-2">Contact</a>
             </div>
