@@ -16,7 +16,7 @@ export const FloatingCTA = () => {
         onClick={(e) => isDisabled && e.preventDefault()}
       >
         <div className="shiny-cta text-xs sm:text-sm md:text-base py-3 px-5 sm:py-3.5 sm:px-6 md:py-4 md:px-8 inline-flex items-center gap-2 whitespace-nowrap shadow-[0_0_50px_rgba(6,182,212,0.5)] hover:shadow-[0_0_70px_rgba(6,182,212,0.7)] transition-shadow">
-          <span className="font-semibold">Je réserve mon pentest au résultat</span>
+          <span className="font-semibold">Commencer mon pentest au résultat</span>
           <ArrowRight className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
         </div>
       </a>

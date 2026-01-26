@@ -18,7 +18,7 @@ export const CTASection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 sm:gap-4">
-              <OrangeBeamCTA href="/eligibilite" text="Je réserve mon pentest au résultat" />
+              <OrangeBeamCTA href="/eligibilite" text="Commencer mon pentest au résultat" />
               <OrangeBeamCTA href="/contact" text="Nous contacter" />
             </div>
           </div>
