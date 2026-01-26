@@ -12,7 +12,7 @@ export const Footer = () => {
                 alt="SecuriTrust Logo"
                 width={160}
                 height={33}
-                className="neon-logo h-8 sm:h-9 lg:h-10 w-auto"
+                  className="h-8 sm:h-9 lg:h-10 w-auto"
               />
             </div>
             <p className="text-sm sm:text-base text-white/60 leading-relaxed max-w-xs font-light mb-4">
