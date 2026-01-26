@@ -73,17 +73,17 @@ export const ServicesSection = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-[#38bdf8]/0 via-[#38bdf8]/0 to-[#0ea5e9]/0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
           <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
           
-          <div className="relative z-10">
-            <div className="w-12 h-12 rounded bg-slate-900 border border-white/10 flex items-center justify-center mb-5 text-slate-300 group-hover:text-[#38bdf8] group-hover:border-[#38bdf8]/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-[360deg] group-hover:shadow-lg group-hover:shadow-cyan-500/50">
-              <feature.icon className="w-7 h-7" strokeWidth={1.5} />
+            <div className="relative z-10">
+              <div className="w-16 h-16 rounded bg-slate-900 border border-white/10 flex items-center justify-center mb-6 text-slate-300 group-hover:text-[#38bdf8] group-hover:border-[#38bdf8]/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-[360deg] group-hover:shadow-lg group-hover:shadow-cyan-500/50">
+                <feature.icon className="w-9 h-9" strokeWidth={1.5} />
+              </div>
+              <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-[#38bdf8] transition-colors duration-300">
+                {feature.title}
+              </h3>
+              <p className="text-lg text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">
+                {feature.description}
+              </p>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#38bdf8] transition-colors duration-300">
-              {feature.title}
-            </h3>
-            <p className="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">
-              {feature.description}
-            </p>
-          </div>
 
           <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 group-hover:w-full transition-all duration-700 ease-out"></div>
         </div>
