@@ -7,7 +7,7 @@ interface ExpertCTAButtonProps {
 }
 
 export function ExpertCTAButton({ className = '', variant = 'default' }: ExpertCTAButtonProps) {
-  const baseStyles = 'inline-flex items-center gap-3 px-8 py-4 font-medium tracking-widest uppercase transition-all rounded group';
+  const baseStyles = 'inline-flex items-center gap-4 px-10 py-5 text-lg font-bold tracking-widest uppercase transition-all rounded-full group';
   
   const variantStyles = {
     default: 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]',
