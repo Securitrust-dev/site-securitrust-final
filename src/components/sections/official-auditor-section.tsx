@@ -9,42 +9,42 @@ const certifications = [
     title: "Membre de l'ACN",
     logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/acn-logo-minimalist-black-text-acn-with--35bffffc-20251209154251.jpg',
   },
-  {
-    id: 'france-cyber',
-    title: 'Labellisé France Cybersecurity',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795709475.png?width=8000&height=8000&resize=contain',
-  },
-  {
-    id: 'boost-aerospace',
-    title: 'Boost Aerospace',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795655244.png?width=8000&height=8000&resize=contain',
-  },
     {
-      id: 'afnor',
-      title: 'AFNOR Certification',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=8000&height=8000&resize=contain',
+      id: 'france-cyber',
+      title: 'Labellisé France Cybersecurity',
+      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795709475.png?width=1024&height=1024&resize=contain',
     },
     {
-      id: 'oscp',
-      title: 'OSCP - OffSec Certified Professional',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg',
+      id: 'boost-aerospace',
+      title: 'Boost Aerospace',
+      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795655244.png?width=1024&height=1024&resize=contain',
+    },
+      {
+        id: 'afnor',
+        title: 'AFNOR Certification',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&height=1024&resize=contain',
+      },
+      {
+        id: 'oscp',
+        title: 'OSCP - OffSec Certified Professional',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg',
+      },
+      {
+        id: 'ceh',
+        title: 'CEH - Certified Ethical Hacker',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/certification-ceh-devensys-1764249692904.png?width=1024&height=1024&resize=contain',
+        hasCTA: true,
+      },
+    {
+      id: 'iso-implementer',
+      title: 'ISO 27001 Lead Implementer',
+      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765796267931.png?width=1024&height=1024&resize=contain',
     },
     {
-      id: 'ceh',
-      title: 'CEH - Certified Ethical Hacker',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/unnamed-1769527999793.png?width=8000&height=8000&resize=contain',
-      hasCTA: true,
+      id: 'iso-auditor',
+      title: 'ISO 27001 Lead Auditor',
+      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765796267931.png?width=1024&height=1024&resize=contain',
     },
-  {
-    id: 'iso-implementer',
-    title: 'ISO 27001 Lead Implementer',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765796267931.png?width=8000&height=8000&resize=contain',
-  },
-  {
-    id: 'iso-auditor',
-    title: 'ISO 27001 Lead Auditor',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765796267931.png?width=8000&height=8000&resize=contain',
-  },
   {
     id: 'secnum',
     title: 'SecNum Académie ANSSI',
@@ -84,16 +84,17 @@ export const OfficialAuditorSection = () => {
                 animationDelay: `${index * 100}ms`,
               }}
             >
-              {/* Logo */}
-              <div className="mb-6 h-32 flex items-center justify-center bg-white rounded-xl p-4">
-                <Image
-                  src={cert.logo}
-                  alt={cert.title}
-                  width={128}
-                  height={128}
-                  className="object-contain w-auto h-full max-h-32 transition-transform duration-300 group-hover:scale-110"
-                />
-              </div>
+                {/* Logo */}
+                <div className="mb-6 h-32 w-full flex items-center justify-center bg-white rounded-xl p-6">
+                  <Image
+                    src={cert.logo}
+                    alt={cert.title}
+                    width={256}
+                    height={256}
+                    quality={100}
+                    className="object-contain w-auto h-full transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
 
                 {/* Title */}
                 <h3 className="text-base font-medium text-white mb-4">

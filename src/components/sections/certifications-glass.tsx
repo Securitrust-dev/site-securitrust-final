@@ -17,15 +17,15 @@ const certifications = [
   },
   { 
     name: 'AFNOR Certification',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1764249628417.png?width=8000&height=8000&resize=contain'
+    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&height=1024&resize=contain'
   },
   { 
     name: 'OSCP - OffSec Certified Professional',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/1_fnuopUHP5QUdL6kVTjHbFg-1764249670179.png?width=8000&height=8000&resize=contain'
+    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/1_fnuopUHP5QUdL6kVTjHbFg-1764249670179.png?width=1024&height=1024&resize=contain'
   },
   { 
     name: 'CEH - Certified Ethical Hacker',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/certification-ceh-devensys-1764249692904.png?width=8000&height=8000&resize=contain'
+    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/certification-ceh-devensys-1764249692904.png?width=1024&height=1024&resize=contain'
   },
   { 
     name: 'ISO 27001 Lead Implementer',
