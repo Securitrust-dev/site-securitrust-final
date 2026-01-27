@@ -92,7 +92,7 @@ export default function ContactPage() {
               <span className="text-cyan-500 font-mono text-xs hidden sm:block">01 // CONTACT</span>
             </div>
             <p className="text-lg text-slate-400 max-w-3xl font-light tracking-wide border-l-2 border-cyan-500 pl-6">
-              Notre équipe d'experts en cybersécurité est à votre écoute pour répondre à vos questions et vous accompagner dans vos projets.
+              Partagez plus qu&apos;un métier : une vision. Rejoignez une équipe passionnée où l&apos;excellence du service est la norme. SecuriTrust s&apos;engage à être le catalyseur de votre carrière en vous offrant un espace où liberté d&apos;action rime avec évolution constante. Venez laisser votre empreinte dans la cybersécurité.
             </p>
           </div>
         </section>
