@@ -15,18 +15,18 @@ const certifications = [
     name: 'Boost Aerospace',
     logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1764249620954.png?width=8000&height=8000&resize=contain'
   },
-  { 
-    name: 'AFNOR Certification',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&height=1024&resize=contain'
-  },
-  { 
-    name: 'OSCP - OffSec Certified Professional',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/1_fnuopUHP5QUdL6kVTjHbFg-1764249670179.png?width=1024&height=1024&resize=contain'
-  },
-  { 
-    name: 'CEH - Certified Ethical Hacker',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/certification-ceh-devensys-1764249692904.png?width=1024&height=1024&resize=contain'
-  },
+    { 
+      name: 'AFNOR Certification',
+      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&quality=100'
+    },
+    { 
+      name: 'OSCP - OffSec Certified Professional',
+      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg'
+    },
+    { 
+      name: 'CEH - Certified Ethical Hacker',
+      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769527976036.png?width=1024&quality=100'
+    },
   { 
     name: 'ISO 27001 Lead Implementer',
     logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/iso-27001-lead-implementer-formation-1764249728549.png?width=8000&height=8000&resize=contain'
@@ -60,18 +60,18 @@ export function CertificationsGlass() {
             <div key={idx} className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-50 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300 opacity-50"></div>
               <div className="relative bg-white border border-neutral-200 rounded-xl p-6 hover:border-blue-300 hover:shadow-xl transition-all duration-300 h-full">
-                <div className="flex flex-col items-center gap-4 text-center">
-                  <div className="w-24 h-24 relative flex items-center justify-center bg-neutral-50 rounded-lg p-2">
-                    <Image
-                      src={cert.logo}
-                      alt={cert.name}
-                      width={96}
-                      height={96}
-                      className="object-contain"
-                    />
+                  <div className="flex flex-col items-center gap-4 text-center">
+                    <div className="w-32 h-32 relative flex items-center justify-center bg-neutral-50 rounded-lg p-1">
+                      <Image
+                        src={cert.logo}
+                        alt={cert.name}
+                        width={128}
+                        height={128}
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="text-sm text-neutral-700 font-medium">{cert.name}</span>
                   </div>
-                  <span className="text-sm text-neutral-700 font-medium">{cert.name}</span>
-                </div>
               </div>
             </div>
           ))}

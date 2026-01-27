@@ -19,22 +19,21 @@ const certifications = [
       title: 'Boost Aerospace',
       logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795655244.png?width=1024&height=1024&resize=contain',
     },
-      {
-        id: 'afnor',
-        title: 'AFNOR Certification',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&height=1024&resize=contain',
-      },
-      {
-        id: 'oscp',
-        title: 'OSCP - OffSec Certified Professional',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg',
-      },
-      {
-        id: 'ceh',
-        title: 'CEH - Certified Ethical Hacker',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/certification-ceh-devensys-1764249692904.png?width=1024&height=1024&resize=contain',
-        hasCTA: true,
-      },
+          id: 'afnor',
+          title: 'AFNOR Certification',
+          logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&quality=100',
+        },
+        {
+          id: 'oscp',
+          title: 'OSCP - OffSec Certified Professional',
+          logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg',
+        },
+        {
+          id: 'ceh',
+          title: 'CEH - Certified Ethical Hacker',
+          logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769527976036.png?width=1024&quality=100',
+          hasCTA: true,
+        },
     {
       id: 'iso-implementer',
       title: 'ISO 27001 Lead Implementer',
@@ -85,7 +84,7 @@ export const OfficialAuditorSection = () => {
               }}
             >
                 {/* Logo */}
-                <div className="mb-6 h-32 w-full flex items-center justify-center bg-white rounded-xl p-6">
+                <div className="mb-6 h-40 w-full flex items-center justify-center bg-white rounded-xl p-3">
                   <Image
                     src={cert.logo}
                     alt={cert.title}

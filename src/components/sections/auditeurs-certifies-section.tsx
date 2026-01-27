@@ -15,14 +15,14 @@ const certificationLogos = {
     },
   ],
     hacking: [
-      {
-        name: 'CEH - Certified Ethical Hacker',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/certification-ceh-devensys-1764249692904.png?width=1024&height=1024&resize=contain'
-      },
-      {
-        name: 'OSCP - OffSec Certified Professional',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/1_fnuopUHP5QUdL6kVTjHbFg-1764249670179.png?width=1024&height=1024&resize=contain'
-      },
+        {
+          name: 'CEH - Certified Ethical Hacker',
+          logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769527976036.png?width=1024&quality=100'
+        },
+        {
+          name: 'OSCP - OffSec Certified Professional',
+          logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg'
+        },
     ],
     official: [
       {
@@ -89,8 +89,8 @@ export function AuditeursCertifiesSection() {
             {/* Logo badges constellation */}
             <div className="overflow-hidden bg-center w-full h-48 sm:h-56 lg:h-64 bg-slate-800/30 border-0 rounded-2xl mt-4 sm:mt-5 flex items-center justify-center p-4 sm:p-5 lg:p-6">
               <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full h-full items-center justify-items-center">
-                {certificationLogos.iso.map((cert, idx) => (
-                  <div key={idx} className="flex items-center justify-center bg-white rounded-full w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 p-3 sm:p-4 shadow-lg">
+                  {certificationLogos.iso.map((cert, idx) => (
+                    <div key={idx} className="flex items-center justify-center bg-white rounded-full w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 p-2 sm:p-3 shadow-lg">
                     <Image
                       src={cert.logo}
                       alt={cert.name}
@@ -130,11 +130,11 @@ export function AuditeursCertifiesSection() {
               <span className="text-slate-500">#2</span>
             </div>
 
-            {/* Logo badges constellation */}
-            <div className="overflow-hidden bg-center w-full h-48 sm:h-56 lg:h-64 bg-slate-800/30 border-0 rounded-2xl mt-4 sm:mt-5 flex items-center justify-center p-4 sm:p-5 lg:p-6">
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full h-full items-center justify-items-center">
-                {certificationLogos.hacking.map((cert, idx) => (
-                  <div key={idx} className="flex items-center justify-center bg-white rounded-full w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 p-3 sm:p-4 shadow-lg">
+              {/* Logo badges constellation */}
+              <div className="overflow-hidden bg-center w-full h-48 sm:h-56 lg:h-64 bg-slate-800/30 border-0 rounded-2xl mt-4 sm:mt-5 flex items-center justify-center p-4 sm:p-5 lg:p-6">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full h-full items-center justify-items-center">
+                  {certificationLogos.hacking.map((cert, idx) => (
+                    <div key={idx} className="flex items-center justify-center bg-white rounded-full w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 p-2 sm:p-3 shadow-lg">
                     <Image
                       src={cert.logo}
                       alt={cert.name}
@@ -189,11 +189,11 @@ export function AuditeursCertifiesSection() {
                   ];
                   
                   return (
-                    <div 
-                      key={idx} 
-                      className="absolute flex items-center justify-center bg-white rounded-full w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 p-2 sm:p-3 shadow-lg"
-                      style={positions[idx]}
-                    >
+                      <div 
+                        key={idx} 
+                        className="absolute flex items-center justify-center bg-white rounded-full w-18 h-18 sm:w-20 sm:h-20 lg:w-24 lg:h-24 p-2 shadow-lg"
+                        style={positions[idx]}
+                      >
                       <Image
                         src={cert.logo}
                         alt={cert.name}
