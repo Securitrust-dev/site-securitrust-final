@@ -30,23 +30,31 @@ const certificationLogos = {
         logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1764249602665.png?width=1024&height=1024&resize=contain'
       },
       {
-        name: 'AFNOR Certification',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&height=1024&resize=contain'
+        name: 'SecNum Académie ANSSI',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/images-1764249836825.png?width=8000&height=8000&resize=contain'
       },
-    {
-      name: 'SecNum Académie ANSSI',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/images-1764249836825.png?width=8000&height=8000&resize=contain'
-    },
-    {
-      name: 'Labellisé France Cybersecurity',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1764249611173.png?width=8000&height=8000&resize=contain'
-    },
-    {
-      name: 'Boost Aerospace',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1764249620954.png?width=8000&height=8000&resize=contain'
-    },
-  ]
-};
+      {
+        name: 'Labellisé France Cybersecurity',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1764249611173.png?width=8000&height=8000&resize=contain'
+      },
+      {
+        name: 'Boost Aerospace',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795655244.png?width=1024&height=1024&resize=contain',
+      },
+      {
+        name: 'AFNOR Certification',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&quality=100',
+      },
+      {
+        name: 'OSCP - OffSec Certified Professional',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg',
+      },
+      {
+        name: 'CEH - Certified Ethical Hacker',
+        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769527976036.png?width=1024&quality=100',
+      },
+    ]
+  };
 
 export function AuditeursCertifiesSection() {
   return (
@@ -89,17 +97,18 @@ export function AuditeursCertifiesSection() {
             {/* Logo badges constellation */}
             <div className="overflow-hidden bg-center w-full h-48 sm:h-56 lg:h-64 bg-slate-800/30 border-0 rounded-2xl mt-4 sm:mt-5 flex items-center justify-center p-4 sm:p-5 lg:p-6">
               <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full h-full items-center justify-items-center">
-                  {certificationLogos.iso.map((cert, idx) => (
-                    <div key={idx} className="flex items-center justify-center bg-white rounded-full w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 p-2 sm:p-3 shadow-lg">
-                    <Image
-                      src={cert.logo}
-                      alt={cert.name}
-                      width={128}
-                      height={128}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
-                ))}
+                    {certificationLogos.iso.map((cert, idx) => (
+                      <div key={idx} className="flex items-center justify-center bg-white rounded-xl w-full h-24 sm:h-28 lg:h-32 p-3 shadow-lg">
+                      <Image
+                        src={cert.logo}
+                        alt={cert.name}
+                        width={256}
+                        height={256}
+                        quality={100}
+                        className="object-contain w-auto h-full"
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
 
@@ -130,22 +139,23 @@ export function AuditeursCertifiesSection() {
               <span className="text-slate-500">#2</span>
             </div>
 
-              {/* Logo badges constellation */}
-              <div className="overflow-hidden bg-center w-full h-48 sm:h-56 lg:h-64 bg-slate-800/30 border-0 rounded-2xl mt-4 sm:mt-5 flex items-center justify-center p-4 sm:p-5 lg:p-6">
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full h-full items-center justify-items-center">
-                  {certificationLogos.hacking.map((cert, idx) => (
-                    <div key={idx} className="flex items-center justify-center bg-white rounded-full w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 p-2 sm:p-3 shadow-lg">
-                    <Image
-                      src={cert.logo}
-                      alt={cert.name}
-                      width={128}
-                      height={128}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
-                ))}
+                {/* Logo badges constellation */}
+                <div className="overflow-hidden bg-center w-full h-48 sm:h-56 lg:h-64 bg-slate-800/30 border-0 rounded-2xl mt-4 sm:mt-5 flex items-center justify-center p-4 sm:p-5 lg:p-6">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6 w-full h-full items-center justify-items-center">
+                    {certificationLogos.hacking.map((cert, idx) => (
+                      <div key={idx} className="flex items-center justify-center bg-white rounded-xl w-full h-24 sm:h-28 lg:h-32 p-3 shadow-lg">
+                      <Image
+                        src={cert.logo}
+                        alt={cert.name}
+                        width={256}
+                        height={256}
+                        quality={100}
+                        className="object-contain w-auto h-full"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
             <h3 className="mt-5 sm:mt-6 lg:mt-7 text-sm sm:text-base lg:text-lg font-medium tracking-tight text-slate-50">
               Experts en Pentest
@@ -188,21 +198,22 @@ export function AuditeursCertifiesSection() {
                     { bottom: '10%', right: '20%' },
                   ];
                   
-                  return (
-                      <div 
-                        key={idx} 
-                        className="absolute flex items-center justify-center bg-white rounded-full w-18 h-18 sm:w-20 sm:h-20 lg:w-24 lg:h-24 p-2 shadow-lg"
-                        style={positions[idx]}
-                      >
-                      <Image
-                        src={cert.logo}
-                        alt={cert.name}
-                        width={96}
-                        height={96}
-                        className="object-contain w-full h-full"
-                      />
-                    </div>
-                  );
+                    return (
+                        <div 
+                          key={idx} 
+                          className="absolute flex items-center justify-center bg-white rounded-xl w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 p-2 shadow-lg"
+                          style={positions[idx]}
+                        >
+                        <Image
+                          src={cert.logo}
+                          alt={cert.name}
+                          width={256}
+                          height={256}
+                          quality={100}
+                          className="object-contain w-auto h-full"
+                        />
+                      </div>
+                    );
                 })}
               </div>
             </div>

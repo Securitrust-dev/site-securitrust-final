@@ -61,13 +61,14 @@ export function CertificationsGlass() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-50 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300 opacity-50"></div>
               <div className="relative bg-white border border-neutral-200 rounded-xl p-6 hover:border-blue-300 hover:shadow-xl transition-all duration-300 h-full">
                   <div className="flex flex-col items-center gap-4 text-center">
-                    <div className="w-32 h-32 relative flex items-center justify-center bg-neutral-50 rounded-lg p-1">
+                    <div className="w-full h-40 relative flex items-center justify-center bg-white rounded-xl p-3">
                       <Image
                         src={cert.logo}
                         alt={cert.name}
-                        width={128}
-                        height={128}
-                        className="object-contain"
+                        width={256}
+                        height={256}
+                        quality={100}
+                        className="object-contain w-auto h-full"
                       />
                     </div>
                     <span className="text-sm text-neutral-700 font-medium">{cert.name}</span>
