@@ -107,24 +107,25 @@ export function TrustedClientsCarousel() {
               >
                 {/* Image Container */}
                 <div className="relative h-48 sm:h-52 lg:h-60 w-full overflow-hidden">
-                  <Image
-                    src={client.image}
-                    alt={client.name}
-                    width={400}
-                    height={256}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                  
-                    {/* Logo Badge */}
-                    <div className="absolute top-4 left-4 w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 bg-white/98 backdrop-blur-sm rounded-lg p-4 sm:p-5 flex items-center justify-center shadow-lg">
-                      <Image
-                        src={client.logo}
-                        alt={client.name}
-                        width={200}
-                        height={200}
-                        className="w-full h-full object-contain"
-                      />
+                    <Image
+                      src={client.image}
+                      alt={`Projet cybersécurité pour ${client.name}`}
+                      width={400}
+                      height={256}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    
+                      {/* Logo Badge */}
+                      <div className="absolute top-4 left-4 w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 bg-white/98 backdrop-blur-sm rounded-lg p-4 sm:p-5 flex items-center justify-center shadow-lg">
+                        <Image
+                          src={client.logo}
+                          alt={`Logo ${client.name}`}
+                          width={200}
+                          height={200}
+                          className="w-full h-full object-contain"
+                        />
+
                     </div>
                 </div>
 

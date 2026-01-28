@@ -17,14 +17,15 @@ export const Navbar = () => {
           {/* Logo SecuriTrust - Left */}
           <a href="/" className="flex items-center cursor-pointer group flex-shrink-0">
             <div className="relative flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-              <Image 
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-768x158-1764257964299.png?width=8000&height=8000&resize=contain"
-                alt="SecuriTrust Logo"
-                width={180}
-                height={37}
-                  className="h-7 sm:h-8 lg:h-9 w-auto"
-                priority
-              />
+                <Image 
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-768x158-1764257964299.png?width=8000&height=8000&resize=contain"
+                  alt="SecuriTrust - Cabinet d'audit et conseil en cybersécurité"
+                  width={180}
+                  height={37}
+                    className="h-7 sm:h-8 lg:h-9 w-auto"
+                  priority
+                />
+
             </div>
           </a>
 
