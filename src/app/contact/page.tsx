@@ -91,9 +91,6 @@ export default function ContactPage() {
               </h1>
               <span className="text-cyan-500 font-mono text-xs hidden sm:block">01 // CONTACT</span>
             </div>
-            <p className="text-lg text-slate-400 max-w-3xl font-light tracking-wide border-l-2 border-cyan-500 pl-6">
-              Partagez plus qu&apos;un métier : une vision. Rejoignez une équipe passionnée où l&apos;excellence du service est la norme. SecuriTrust s&apos;engage à être le catalyseur de votre carrière en vous offrant un espace où liberté d&apos;action rime avec évolution constante. Venez laisser votre empreinte dans la cybersécurité.
-            </p>
           </div>
         </section>
 
