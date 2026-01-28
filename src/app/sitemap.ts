@@ -1,6 +1,9 @@
 import { MetadataRoute } from 'next';
+import { db } from '@/db';
+import { articles } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://site-web-aura-3d-s-curitrust.vercel.app';
   
   const staticRoutes = [
@@ -46,10 +49,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tisax-security',
   ];
 
-  return staticRoutes.map((route) => ({
+  const sitemapEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: route === '' ? 1 : 0.8,
   }));
+
+  try {
+    // Fetch only internal indexable articles (DB)
+    const dbArticles = await db
+      .select({ slug: articles.slugFr, updatedAt: articles.updatedAt })
+      .from(articles)
+      .where(eq(articles.published, true));
+
+    const articleEntries: MetadataRoute.Sitemap = dbArticles.map((article) => ({
+      url: `${baseUrl}/articles/${article.slug}`,
+      lastModified: article.updatedAt ? new Date(article.updatedAt) : new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    }));
+
+    return [...sitemapEntries, ...articleEntries];
+  } catch (error) {
+    console.error('Error generating article sitemap entries:', error);
+    return sitemapEntries;
+  }
 }

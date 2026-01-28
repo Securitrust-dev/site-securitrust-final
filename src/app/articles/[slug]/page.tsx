@@ -7,13 +7,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { JsonLd } from '@/components/json-ld';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
 async function getArticle(slug: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://site-web-aura-3d-s-curitrust.vercel.app';
   const response = await fetch(`${baseUrl}/api/articles/slug/${slug}`, {
     next: { revalidate: 3600 }
   });
@@ -35,9 +36,41 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     };
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://site-web-aura-3d-s-curitrust.vercel.app';
+  const isRss = article.sourceType === 'rss';
+
   return {
     title: `${article.title} | SecuriTrust`,
     description: article.excerpt,
+    robots: {
+      index: !isRss,
+      follow: true,
+    },
+    alternates: {
+      canonical: isRss ? article.sourceUrl : `${baseUrl}/articles/${article.slug}`,
+    },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      url: `${baseUrl}/articles/${article.slug}`,
+      type: 'article',
+      publishedTime: article.createdAt,
+      authors: [article.author],
+      images: [
+        {
+          url: article.image,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.excerpt,
+      images: [article.image],
+    },
   };
 }
 
@@ -58,8 +91,35 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     });
   };
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': article.sourceType === 'rss' ? 'NewsArticle' : 'Article',
+    headline: article.title,
+    description: article.excerpt,
+    image: article.image,
+    datePublished: article.createdAt,
+    dateModified: article.updatedAt || article.createdAt,
+    author: {
+      '@type': 'Person',
+      name: article.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'SecuriTrust',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-768x158-1764257964299.png',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${process.env.NEXT_PUBLIC_APP_URL || 'https://site-web-aura-3d-s-curitrust.vercel.app'}/articles/${article.slug}`,
+    },
+  };
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <PromoBanner />
       <div className="relative min-h-screen bg-[#030303]">
         {/* Background Effects */}
