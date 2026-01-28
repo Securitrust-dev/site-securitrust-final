@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, or, like } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
+import { classifyArticle } from '@/lib/articles';
 
 // Helper function to generate URL-friendly slugs
 function generateSlug(title: string): string {
@@ -29,12 +30,29 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 100);
+    const query = searchParams.get('q')?.toLowerCase() || '';
     
     // 1. Fetch from DB (Internal expertise)
-    const dbArticles = await db
+    let dbQuery = db
       .select()
       .from(articles)
-      .where(eq(articles.published, true))
+      .where(eq(articles.published, true));
+
+    if (query) {
+      dbQuery = db
+        .select()
+        .from(articles)
+        .where(
+          or(
+            like(articles.titleFr, `%${query}%`),
+            like(articles.excerptFr, `%${query}%`),
+            like(articles.category, `%${query}%`),
+            like(articles.tags, `%${query}%`)
+          )
+        );
+    }
+
+    const dbArticlesData = await dbQuery
       .orderBy(desc(articles.createdAt))
       .limit(limit);
 
@@ -43,57 +61,73 @@ export async function GET(request: NextRequest) {
     const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
     
     // Process RSS items with translation and caching
-    const rssArticles = await Promise.all(feed.items.slice(0, limit).map(async (item, index) => {
+    const rssArticles = await Promise.all(feed.items.slice(0, limit * 2).map(async (item, index) => {
       const cacheKey = item.guid || item.link || item.title || '';
       const cached = rssCache[cacheKey];
       
+      let article;
       if (cached && (Date.now() - cached.timestamp < CACHE_TTL)) {
-        return cached.data;
+        article = cached.data;
+      } else {
+        // Extract image
+        let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
+        if (item.enclosure?.url) {
+          imageUrl = item.enclosure.url;
+        } else if (item.content) {
+          const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+          if (imgMatch) imageUrl = imgMatch[1];
+        }
+
+        // Extract excerpt
+        const excerptEn = item.contentSnippet?.slice(0, 200) || item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '';
+        
+        // Translate to French
+        const titleFr = await translateToFrench(item.title || '');
+        const excerptFr = await translateToFrench(excerptEn);
+        const contentEn = item.content || item.description || '';
+        
+        // Classification
+        const classification = classifyArticle(titleFr || item.title || '', excerptFr || excerptEn, contentEn);
+        
+        article = {
+          id: `rss-${index}`,
+          title: titleFr || item.title || 'Sans titre',
+          titleEn: item.title,
+          excerpt: excerptFr || excerptEn,
+          excerptEn: excerptEn,
+          content: contentEn,
+          image: imageUrl,
+          createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
+          author: item.creator || 'The Hacker News',
+          category: classification.category,
+          tags: JSON.stringify(classification.tags),
+          slug: generateFrenchSlug(titleFr || item.title || ''),
+          sourceType: 'rss',
+          sourceUrl: item.link,
+          published: true
+        };
+
+        rssCache[cacheKey] = {
+          timestamp: Date.now(),
+          data: article
+        };
       }
-
-      // Extract image
-      let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
-      if (item.enclosure?.url) {
-        imageUrl = item.enclosure.url;
-      } else if (item.content) {
-        const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-        if (imgMatch) imageUrl = imgMatch[1];
-      }
-
-      // Extract excerpt
-      const excerptEn = item.contentSnippet?.slice(0, 200) || item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '';
-      
-      // Translate to French
-      const titleFr = await translateToFrench(item.title || '');
-      const excerptFr = await translateToFrench(excerptEn);
-      
-      const article = {
-        id: `rss-${index}`,
-        title: titleFr || item.title || 'Sans titre',
-        titleEn: item.title,
-        excerpt: excerptFr || excerptEn,
-        excerptEn: excerptEn,
-        content: item.content || item.description || '',
-        image: imageUrl,
-        createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
-        author: item.creator || 'The Hacker News',
-        category: 'Veille Cybersécurité',
-        slug: generateFrenchSlug(titleFr || item.title || ''),
-        sourceType: 'rss',
-        sourceUrl: item.link,
-        published: true
-      };
-
-      rssCache[cacheKey] = {
-        timestamp: Date.now(),
-        data: article
-      };
 
       return article;
     }));
 
+    // Filter RSS articles by query if needed
+    const filteredRssArticles = query 
+      ? rssArticles.filter(a => 
+          a.title.toLowerCase().includes(query) || 
+          a.excerpt.toLowerCase().includes(query) || 
+          a.category.toLowerCase().includes(query) ||
+          (a.tags && a.tags.toLowerCase().includes(query))
+        )
+      : rssArticles;
+
     // 3. Format DB articles to match the same interface
-    const formattedDbArticles = dbArticles.map(article => ({
+    const formattedDbArticles = dbArticlesData.map(article => ({
       ...article,
       id: `db-${article.id}`,
       title: article.titleFr || article.title,
@@ -103,11 +137,11 @@ export async function GET(request: NextRequest) {
       content: article.contentFr || article.content,
       slug: article.slugFr || article.slug,
       sourceType: 'db',
-      category: 'Expertise Cybersécurité'
+      tags: article.tags || '[]'
     }));
 
     // 4. Merge and sort by date
-    const allArticles = [...formattedDbArticles, ...rssArticles]
+    const allArticles = [...formattedDbArticles, ...filteredRssArticles]
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, limit);
 
@@ -118,7 +152,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST handler - Create new article with automatic translation
+// POST handler - Create new article with automatic translation and classification
 export async function POST(request: NextRequest) {
   try {
     if (!authenticateRequest(request)) {
@@ -126,9 +160,9 @@ export async function POST(request: NextRequest) {
     }
     
     const body = await request.json();
-    const { title, excerpt, content, image, category, author, published, slug } = body;
+    const { title, excerpt, content, image, author, published, slug, sourceUrl } = body;
     
-    if (!title || !excerpt || !content || !image || !category) {
+    if (!title || !excerpt || !content || !image) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
     
@@ -136,6 +170,14 @@ export async function POST(request: NextRequest) {
     const titleFr = body.titleFr || await translateToFrench(title);
     const excerptFr = body.excerptFr || await translateToFrench(excerpt);
     const contentFr = body.contentFr || await translateToFrench(content);
+    
+    // Automatic classification if category/tags not provided
+    let { category, tags } = body;
+    if (!category || !tags) {
+      const classification = classifyArticle(titleFr, excerptFr, contentFr);
+      category = category || classification.category;
+      tags = tags || JSON.stringify(classification.tags);
+    }
     
     const finalSlug = slug ? generateSlug(slug) : generateSlug(title);
     const finalSlugFr = body.slugFr || generateFrenchSlug(titleFr);
@@ -151,9 +193,13 @@ export async function POST(request: NextRequest) {
       contentFr: contentFr.trim(),
       image: image.trim(),
       category: category.trim(),
+      tags: typeof tags === 'string' ? tags : JSON.stringify(tags),
       author: author?.trim() || 'SecuriTrust',
       slug: finalSlug,
       slugFr: finalSlugFr,
+      source: 'internal',
+      sourceUrl: sourceUrl,
+      lang: body.lang || 'fr',
       published: published !== undefined ? published : false,
       createdAt: now,
       updatedAt: now,
@@ -166,7 +212,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT handler - Update article with automatic translation
+// PUT handler - Update article with automatic translation and classification
 export async function PUT(request: NextRequest) {
   try {
     if (!authenticateRequest(request)) {
@@ -186,8 +232,25 @@ export async function PUT(request: NextRequest) {
     if (updates.excerpt && !updates.excerptFr) updates.excerptFr = await translateToFrench(updates.excerpt);
     if (updates.content && !updates.contentFr) updates.contentFr = await translateToFrench(updates.content);
     
+    // Re-classify if content changes and no category/tags provided
+    if ((updates.titleFr || updates.excerptFr || updates.contentFr) && !updates.category && !updates.tags) {
+      const current = await db.select().from(articles).where(eq(articles.id, parseInt(id))).limit(1);
+      if (current[0]) {
+        const title = updates.titleFr || current[0].titleFr || '';
+        const excerpt = updates.excerptFr || current[0].excerptFr || '';
+        const content = updates.contentFr || current[0].contentFr || '';
+        const classification = classifyArticle(title, excerpt, content);
+        updates.category = classification.category;
+        updates.tags = JSON.stringify(classification.tags);
+      }
+    }
+    
     if (updates.slug) updates.slug = generateSlug(updates.slug);
     if (updates.titleFr && !updates.slugFr) updates.slugFr = generateFrenchSlug(updates.titleFr);
+    
+    if (updates.tags && typeof updates.tags !== 'string') {
+        updates.tags = JSON.stringify(updates.tags);
+    }
     
     updates.updatedAt = new Date().toISOString();
     
@@ -207,6 +270,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
 
 export async function DELETE(request: NextRequest) {
   try {
