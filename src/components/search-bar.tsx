@@ -64,6 +64,16 @@ export function SearchBar() {
     setQuery('');
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && query.trim()) {
+      e.preventDefault();
+      const params = new URLSearchParams(window.location.search);
+      params.set('q', query.trim());
+      router.push(`/articles?${params.toString()}`);
+      setIsOpen(false);
+    }
+  };
+
   return (
     <div ref={searchRef} className="relative w-full max-w-2xl mx-auto">
       {/* Search Input */}
@@ -75,6 +85,7 @@ export function SearchBar() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Rechercher une page... (ex: DORA, audit, pentest)"
           className="w-full pl-12 pr-12 py-4 bg-black/40 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition-all"
         />

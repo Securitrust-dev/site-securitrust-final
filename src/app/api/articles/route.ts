@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
-import { eq, desc, or, like } from 'drizzle-orm';
+import { eq, desc, or, like, and } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
-import { classifyArticle } from '@/lib/articles';
+import { classifyArticle, CYBER_CATEGORIES } from '@/lib/articles';
 
 // Helper function to generate URL-friendly slugs
 function generateSlug(title: string): string {
@@ -18,41 +18,41 @@ function generateSlug(title: string): string {
     .replace(/^-|-$/g, '');
 }
 
-// Authentication middleware
-function authenticateRequest(request: NextRequest): boolean {
-  const apiKey = request.headers.get('x-api-key');
-  const validApiKey = process.env.ARTICLE_API_KEY;
-  return !!(apiKey && validApiKey && apiKey === validApiKey);
-}
-
 // GET handler - Fetch articles from DB and RSS
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 100);
     const query = searchParams.get('q')?.toLowerCase() || '';
+    const categorySlug = searchParams.get('category')?.toLowerCase() || '';
     
-    // 1. Fetch from DB (Internal expertise)
-    let dbQuery = db
-      .select()
-      .from(articles)
-      .where(eq(articles.published, true));
+    // Find matching category from slug
+    const targetCategory = CYBER_CATEGORIES.find(cat => generateSlug(cat) === categorySlug);
 
+    // 1. Fetch from DB (Internal expertise)
+    let whereClause = eq(articles.published, true);
+    
+    const conditions = [eq(articles.published, true)];
+    
     if (query) {
-      dbQuery = db
-        .select()
-        .from(articles)
-        .where(
-          or(
-            like(articles.titleFr, `%${query}%`),
-            like(articles.excerptFr, `%${query}%`),
-            like(articles.category, `%${query}%`),
-            like(articles.tags, `%${query}%`)
-          )
-        );
+      conditions.push(
+        or(
+          like(articles.titleFr, `%${query}%`),
+          like(articles.excerptFr, `%${query}%`),
+          like(articles.category, `%${query}%`),
+          like(articles.tags, `%${query}%`)
+        )!
+      );
+    }
+    
+    if (targetCategory) {
+      conditions.push(eq(articles.category, targetCategory));
     }
 
-    const dbArticlesData = await dbQuery
+    const dbArticlesData = await db
+      .select()
+      .from(articles)
+      .where(and(...conditions))
       .orderBy(desc(articles.createdAt))
       .limit(limit);
 
@@ -116,15 +116,19 @@ export async function GET(request: NextRequest) {
       return article;
     }));
 
-    // Filter RSS articles by query if needed
-    const filteredRssArticles = query 
-      ? rssArticles.filter(a => 
-          a.title.toLowerCase().includes(query) || 
-          a.excerpt.toLowerCase().includes(query) || 
-          a.category.toLowerCase().includes(query) ||
-          (a.tags && a.tags.toLowerCase().includes(query))
-        )
-      : rssArticles;
+    // Filter RSS articles by query and category if needed
+    const filteredRssArticles = rssArticles.filter(a => {
+      const matchesQuery = !query || (
+        a.title.toLowerCase().includes(query) || 
+        a.excerpt.toLowerCase().includes(query) || 
+        a.category.toLowerCase().includes(query) ||
+        (a.tags && a.tags.toLowerCase().includes(query))
+      );
+      
+      const matchesCategory = !targetCategory || a.category === targetCategory;
+      
+      return matchesQuery && matchesCategory;
+    });
 
     // 3. Format DB articles to match the same interface
     const formattedDbArticles = dbArticlesData.map(article => ({
