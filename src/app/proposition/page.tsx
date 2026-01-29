@@ -1,23 +1,7 @@
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
-import Image from 'next/image';
-import { 
-  Shield, 
-  Lock, 
-  Terminal, 
-  Search, 
-  Calendar, 
-  CheckCircle2, 
-  ArrowRight,
-  Clock,
-  FileText,
-  User,
-  Zap,
-  Globe,
-  Award
-} from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
 
@@ -26,6 +10,7 @@ declare global {
     gsap: any;
     ScrollTrigger: any;
     Lenis: any;
+    UnicornStudio: any;
   }
 }
 
@@ -61,7 +46,7 @@ export default function PropositionPage() {
           if (preloader) preloader.style.display = 'none';
         }
       }
-    }, 50);
+    }, 100);
 
     function initAnimations() {
       if (!window.gsap || !window.ScrollTrigger) return;
@@ -91,14 +76,49 @@ export default function PropositionPage() {
             scrollTrigger: {
               trigger: el,
               start: "top 90%",
-              toggleActions: "play none none reverse"
+              end: "bottom 10%",
+              toggleActions: "play reverse play reverse"
             }
           }
         );
       });
+
+      // Token Chart Animation
+      const tokenRing = document.querySelector('.token-chart-ring');
+      if(tokenRing) {
+        gsap.to(tokenRing, {
+          strokeDashoffset: 100, 
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: '#token',
+            start: "top 70%",
+            toggleActions: "play reverse play reverse"
+          }
+        });
+      }
+
+      // Token Numbers Count Up
+      const tokenStats = document.querySelectorAll('.token-stat-number');
+      tokenStats.forEach(stat => {
+        const targetAttr = stat.getAttribute('data-target');
+        if (!targetAttr) return;
+        const target = parseFloat(targetAttr);
+        gsap.to(stat, {
+          innerText: target,
+          duration: 2,
+          snap: { innerText: 0.1 },
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: '#token',
+            start: "top 70%",
+            toggleActions: "play reverse play reverse"
+          }
+        });
+      });
     }
 
-    // --- 4. SMOOTH SCROLL ---
+    // --- SMOOTH SCROLL ---
     if (window.Lenis) {
       const lenis = new window.Lenis({
         duration: 1.2,
@@ -114,423 +134,481 @@ export default function PropositionPage() {
   }, []);
 
   return (
-    <div className="bg-[#030303] text-slate-300 font-sans selection:bg-cyan-500/30">
+    <div className="font-body bg-tech-grid grid-bg selection:bg-mint selection:text-void text-[#e0e0e0] overflow-x-hidden min-h-screen">
+      <Script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" strategy="afterInteractive" />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" strategy="afterInteractive" />
       <Script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" strategy="afterInteractive" />
+      <Script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.2/dist/unicornStudio.umd.js" strategy="afterInteractive" onLoad={() => {
+        if (window.UnicornStudio) window.UnicornStudio.init();
+      }} />
+
+      {/* CSS STYLES */}
+      <style jsx global>{`
+        :root {
+          --void: #030303;
+          --panel: #080808;
+          --mint: #00ffa3;
+          --mint-dark: #00b372;
+          --border: rgba(255, 255, 255, 0.08);
+          --border-strong: rgba(255, 255, 255, 0.15);
+          --sub: #888888;
+        }
+        body { background-color: #030303; color: #e0e0e0; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #030303; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar-thumb:hover { background: #00ffa3; }
+        .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25); color: transparent; }
+        .grid-bg { background-size: 50px 50px; }
+        .bg-tech-grid {
+          background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+        }
+        .hover-card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hover-card:hover { background: rgba(255, 255, 255, 0.03); border-color: #00ffa3; }
+        .scan-line {
+          position: absolute;
+          top: 0; left: 0; width: 100%; height: 5px;
+          background: linear-gradient(to right, transparent, #00ffa3, transparent);
+          opacity: 0.5; box-shadow: 0 0 15px #00ffa3;
+          animation: scan 4s linear infinite;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        .tech-separator {
+          width: 100%; height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+          position: relative; margin: 0 auto;
+        }
+        .tech-separator::after {
+          content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          width: 50px; height: 3px; background: #00ffa3; box-shadow: 0 0 10px rgba(0, 255, 163, 0.5);
+        }
+        .singularity-wrapper {
+          perspective: 800px; width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+          overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .tunnel-ring {
+          position: absolute; border-radius: 50%; border: 1px solid rgba(0, 255, 163, 0.15);
+          box-shadow: 0 0 20px rgba(0, 255, 163, 0.05); animation: tunnelMove 6s linear infinite; opacity: 0;
+        }
+        .tunnel-ring:nth-child(even) { border-style: dashed; border-width: 1px; border-color: rgba(255, 255, 255, 0.1); }
+        @keyframes tunnelMove {
+          0% { transform: translateZ(-500px) scale(0); opacity: 0; }
+          20% { opacity: 1; }
+          100% { transform: translateZ(800px) scale(2); opacity: 0; }
+        }
+        .tunnel-ring:nth-child(1) { animation-delay: 0s; }
+        .tunnel-ring:nth-child(2) { animation-delay: 0.5s; }
+        .tunnel-ring:nth-child(3) { animation-delay: 1s; }
+        .tunnel-ring:nth-child(4) { animation-delay: 1.5s; }
+        .tunnel-ring:nth-child(5) { animation-delay: 2s; }
+        .tunnel-ring:nth-child(6) { animation-delay: 2.5s; }
+        .tunnel-ring:nth-child(7) { animation-delay: 3s; }
+        .tunnel-ring:nth-child(8) { animation-delay: 3.5s; }
+        .tunnel-ring:nth-child(9) { animation-delay: 4s; }
+        .tunnel-ring:nth-child(10) { animation-delay: 4.5s; }
+        .tunnel-ring:nth-child(11) { animation-delay: 5s; }
+        .tunnel-ring:nth-child(12) { animation-delay: 5.5s; }
+      `}</style>
 
       {/* PRELOADER */}
-      <div className="preloader fixed inset-0 bg-[#030303] z-[9999] flex items-center justify-center" id="preloader">
-        <div className="text-center px-6">
-          <div className="font-mono text-3xl md:text-4xl font-bold mb-4 tracking-tighter text-white uppercase">INITIALIZING</div>
-          <div className="w-64 h-1 bg-white/10 mx-auto overflow-hidden rounded-full">
-            <div className="h-full bg-cyan-500 w-0 transition-all duration-300" id="loader-bar"></div>
+      <div className="preloader" id="preloader" role="status" aria-label="Loading Website">
+          <div className="text-center px-6">
+              <div className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tighter">INITIALIZING</div>
+              <div className="w-48 h-1 bg-gray-800 mx-auto overflow-hidden">
+                  <div className="h-full bg-mint w-0 transition-all duration-300" id="loader-bar"></div>
+              </div>
+              <div className="font-mono text-[10px] text-mint mt-2 tracking-widest uppercase animate-pulse">Establishing Secure Uplink...</div>
           </div>
-          <div className="font-mono text-[10px] text-cyan-500 mt-4 tracking-[0.3em] uppercase animate-pulse">Establishing Secure Uplink...</div>
-        </div>
+      </div>
+      
+      {/* HUD OVERLAY */}
+      <div className="fixed inset-0 pointer-events-none z-40 p-4 hidden md:block" aria-hidden="true">
+          <div className="absolute top-4 left-4 w-2 h-2 border-t border-l border-white/50"></div>
+          <div className="absolute top-4 right-4 w-2 h-2 border-t border-r border-white/50"></div>
+          <div className="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-white/50"></div>
+          <div className="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-white/50"></div>
       </div>
 
       <Navbar />
 
-      <main className="relative z-10 pt-32 pb-24">
-        {/* Background Effects */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.1),transparent_70%)]"></div>
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
-          <div className="absolute w-full h-full bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)]"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Header Info */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b border-white/10 pb-8 reveal">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4">
-                <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></div>
-                <span className="text-[10px] font-mono text-cyan-500 uppercase tracking-widest">Proposition personnalisée pour votre entreprise</span>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-none mb-4">
-                Securitrust propose une offre <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">unique et innovante</span> pour vous
-              </h1>
-            </div>
-            <div className="mt-6 md:mt-0 text-right font-mono">
-              <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Proposition Commerciale</div>
-              <div className="text-sm text-cyan-500 font-bold">29 JANVIER 2026</div>
-            </div>
+      {/* HERO */}
+      <header className="relative w-full h-screen min-h-[600px] bg-void overflow-hidden flex flex-col items-center justify-end pb-24 md:pb-32">
+          <div className="absolute top-0 left-0 w-full h-[65vh] z-0 pointer-events-none">
+               <div data-us-project="7zydvovZReD8YsoiUwj3" style={{width:'100%', height: '100%'}}></div>
+               <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-void via-void/80 to-transparent z-10"></div>
           </div>
-
-          {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20 reveal">
-            {[
-              { label: "jours R&D (Automotive)", value: "+2500" },
-              { label: "Conformité RGPD & DPO", value: "+40" },
-              { label: "Audits et Tests d'Intrusion", value: "+86" },
-              { label: "AMB & ISO 27001", value: "+105" }
-            ].map((stat, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-xl backdrop-blur-sm hover:border-cyan-500/30 transition-colors group">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors">{stat.value}</div>
-                <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest leading-tight">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Trust Section */}
-          <div className="mb-32 reveal text-center">
-            <h2 className="text-sm font-mono text-slate-500 uppercase tracking-[0.3em] mb-12 italic">Ils nous font <span className="text-white not-italic font-bold">confiance</span></h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                "SOCIÉTÉ GÉNÉRALE",
-                "ABEILLE ASSURANCES",
-                "GENDARMERIE NATIONALE",
-                "MINISTÈRE DES ARMÉES",
-                "VEOLIA",
-                "AVIVA",
-                "AFLUENS",
-                "SNCF"
-              ].map((logo, i) => (
-                <div key={i} className="h-24 bg-white/[0.03] border border-white/5 flex items-center justify-center p-8 rounded-lg grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all hover:bg-white/[0.05] hover:border-white/10">
-                   <span className="text-white font-bold text-sm tracking-tighter opacity-80">{logo}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Service Cards */}
-          <div className="mb-32">
-            <div className="text-center mb-16 reveal">
-              <h2 className="text-3xl font-bold text-white mb-4">Notre <span className="text-cyan-500">Proposition</span> pour la Sécurité et la Conformité</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto font-light">Services complets de tests de sécurité et de certification pour assurer votre résilience numérique.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Expertise en Attestation et Certification",
-                  icon: <Award className="h-6 w-6" />,
-                  items: ["Auditeur Principal ISO 27001", "Implémenteur Principal ISO 27001", "Gestionnaire de Risques EBIOS", "Certifié OSCP", "Certifié CEH", "Qualification PASSI (En cours)"]
-                },
-                {
-                  title: "Gouvernance, Risques & Conformité (GRC)",
-                  icon: <Shield className="h-6 w-6" />,
-                  items: ["Conformité ISO 27001", "RGPD & Protection des Données", "NIS 2 & DORA", "TISAX Automobile", "Conformité LPM", "Services DPO Externalisé"]
-                },
-                {
-                  title: "Cybersécurité Opérationnelle",
-                  icon: <Terminal className="h-6 w-6" />,
-                  items: ["Opérations Red Team", "Tests d'Intrusion (Pentest)", "Simulation de Ransomware", "Campagnes de Phishing", "Analyse OSINT", "Audits de Sécurité Technique"]
-                }
-              ].map((card, i) => (
-                <div key={i} className="bg-white/[0.02] border border-white/10 p-8 rounded-2xl reveal group hover:bg-white/[0.04] transition-all">
-                  <div className="w-12 h-12 bg-cyan-500/10 border border-cyan-500/20 rounded-xl flex items-center justify-center text-cyan-500 mb-6 group-hover:scale-110 transition-transform">
-                    {card.icon}
+          
+          <div className="relative z-20 flex flex-col items-center w-full max-w-[1920px] px-6 text-center">
+              <div className="flex flex-col items-center justify-center w-full">
+                  <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten">
+                      INFINITE
+                  </h1>
+                  <div className="h-2 md:h-4"></div>
+                  <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity" aria-label="SECURITY">
+                      SECURITY
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-6 leading-tight">{card.title}</h3>
-                  <ul className="space-y-3">
-                    {card.items.map((item, j) => (
-                      <li key={j} className="flex items-start gap-3 text-sm text-slate-400 font-light">
-                        <CheckCircle2 className="h-4 w-4 text-cyan-500 shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Methodology */}
-          <div className="mb-32">
-            <div className="text-center mb-16 reveal">
-               <h2 className="text-3xl font-bold text-white mb-4">La <span className="text-cyan-500">Méthodologie</span> Securitrust</h2>
-               <p className="text-slate-400 max-w-2xl mx-auto font-light italic">Nous vous proposons la réalisation de la prestation suivante</p>
-            </div>
-            
-            <div className="space-y-12 max-w-5xl mx-auto">
-              {/* Pentest Box */}
-              <div className="bg-cyan-950/20 border border-cyan-500/20 p-8 md:p-12 rounded-3xl reveal relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                   <Terminal className="h-32 w-32 text-cyan-500" />
-                </div>
-                <div className="flex items-center gap-4 mb-8">
-                   <div className="w-10 h-10 bg-cyan-500 text-black flex items-center justify-center font-bold rounded-lg">1</div>
-                   <div>
-                     <h3 className="text-2xl font-bold text-white tracking-tight">Test d'intrusion <span className="text-cyan-500">interne</span></h3>
-                     <p className="text-xs font-mono text-cyan-500/70 uppercase tracking-widest mt-1">Approche en boîte grise sur l'environnement Active Directory</p>
-                   </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                   <div>
-                     <h4 className="text-xs font-mono text-cyan-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                       <ArrowRight className="h-3 w-3" /> Objectifs
-                     </h4>
-                     <ul className="space-y-4">
-                        {[
-                          "Évaluer la sécurité de l'Active Directory et identifier les vulnérabilités critiques.",
-                          "Tester les mécanismes d'authentification, les administrateurs et la sécurité des comptes privilèges.",
-                          "Simuler des scénarios d'attaque réalistes depuis une position d'utilisateur authentifié (boîte grise)."
-                        ].map((text, i) => (
-                          <li key={i} className="text-sm text-slate-400 font-light flex items-start gap-3 leading-relaxed italic">
-                            <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full mt-1.5 shrink-0"></span>
-                            {text}
-                          </li>
-                        ))}
-                     </ul>
-                   </div>
-                   <div>
-                     <h4 className="text-xs font-mono text-cyan-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                       <ArrowRight className="h-3 w-3" /> Périmètre
-                     </h4>
-                     <div className="grid grid-cols-1 gap-4">
-                        <div className="bg-white/5 border border-white/5 p-4 rounded-xl">
-                          <div className="flex items-center gap-3 text-white text-sm font-semibold mb-2">
-                             <Globe className="h-4 w-4 text-cyan-500" /> Infrastructure Active Directory
-                          </div>
-                          <p className="text-xs text-slate-500 font-light">Contrôleurs de domaine, serveurs, architectures AD.</p>
-                        </div>
-                        <div className="bg-white/5 border border-white/5 p-4 rounded-xl">
-                          <div className="flex items-center gap-3 text-white text-sm font-semibold mb-2">
-                             <User className="h-4 w-4 text-cyan-500" /> Comptes Utilisateurs & Groupes
-                          </div>
-                          <p className="text-xs text-slate-500 font-light">Permissions, élévation de privilèges, comptes sensibles.</p>
-                        </div>
-                     </div>
-                   </div>
-                </div>
-
-                <div className="mt-12 pt-8 border-t border-white/10">
-                   <h4 className="text-xs font-mono text-cyan-500 uppercase tracking-widest mb-6 text-center">Méthode Utilisée</h4>
-                   <div className="bg-cyan-500/5 border border-cyan-500/20 p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6">
-                      <div className="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-500 shrink-0">
-                         <Lock className="h-8 w-8" />
-                      </div>
-                      <div className="text-center md:text-left">
-                        <h5 className="text-white font-bold mb-1 uppercase tracking-tight">Intrusion en boîte <span className="text-cyan-500">grise</span></h5>
-                        <p className="text-xs text-slate-400 font-light leading-relaxed italic">L'attaquant dispose d'accès authentifiés et d'informations privilégiées pour simuler une menace interne ou une compromission de poste utilisateur.</p>
-                      </div>
-                      <div className="flex gap-4 md:ml-auto">
-                         <div className="text-center">
-                            <div className="text-cyan-500 font-mono text-xs mb-1">ACCÈS</div>
-                            <div className="text-white font-bold text-xs uppercase bg-white/5 px-2 py-1 rounded">VPN / Physique</div>
-                         </div>
-                         <div className="text-center">
-                            <div className="text-cyan-500 font-mono text-xs mb-1">NIVEAU</div>
-                            <div className="text-white font-bold text-xs uppercase bg-white/5 px-2 py-1 rounded">Standard AD</div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
               </div>
 
-              {/* Initialisation Box */}
-              <div className="bg-purple-950/20 border border-purple-500/20 p-8 rounded-3xl reveal">
-                <div className="flex items-center gap-4 mb-6">
-                   <div className="w-10 h-10 bg-purple-500 text-black flex items-center justify-center font-bold rounded-lg">2</div>
-                   <div>
-                     <h3 className="text-xl font-bold text-white tracking-tight">Phase d'initialisation - <span className="text-purple-400">Réunion de cadrage</span></h3>
-                   </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
-                   <div className="space-y-4">
-                      <p className="text-slate-400 font-light italic">Identification des actifs à auditer (Contrôleurs, serveurs, users).</p>
-                      <p className="text-slate-400 font-light italic">Préparation des prérequis techniques pour un accès réseau fluide.</p>
-                   </div>
-                   <div className="bg-purple-500/5 border border-purple-500/20 p-4 rounded-xl">
-                      <div className="text-xs font-mono text-purple-400 uppercase mb-2">Objectif</div>
-                      <p className="text-xs text-slate-300 font-light leading-relaxed italic">Garantir le bon déroulement des tests et la sécurité opérationnelle durant toute la prestation.</p>
-                   </div>
-                </div>
+              <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
+                  Cabinet de conseil en cybersécurité spécialisé en pentest au résultat, audit de sécurité et conformité GRC. Sécurisez votre entreprise avec nos experts.
+              </p>
+
+              <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto hero-anim opacity-0 translate-y-4">
+                  <a href="/signer-proposition" className="group bg-mint text-void px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white transition-all hover:scale-[1.02] min-w-[180px] text-center shadow-[0_0_20px_rgba(0,255,163,0.3)]">
+                      Signer la proposition
+                  </a>
+                  <button className="group bg-void/50 backdrop-blur-md border border-white/20 text-white px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white/10 transition-all hover:border-white/40 min-w-[180px] text-center">
+                      Voir les audits
+                  </button>
               </div>
-            </div>
           </div>
+      </header>
 
-          {/* Table Section */}
-          <div className="mb-32 reveal overflow-x-auto">
-            <h2 className="text-2xl font-bold text-white mb-8 text-center uppercase tracking-widest">Périmètre des <span className="text-cyan-500">Travaux</span></h2>
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-white/10 text-xs font-mono text-cyan-500 uppercase tracking-widest">
-                  <th className="py-4 px-4 font-normal">Phase</th>
-                  <th className="py-4 px-4 font-normal">Activité</th>
-                  <th className="py-4 px-4 font-normal">Durée</th>
-                  <th className="py-4 px-4 font-normal">Livrables</th>
-                </tr>
-              </thead>
-              <tbody className="text-sm font-light italic">
-                {[
-                  { phase: "Reconnaissance", activity: "OSINT, Cartographie réseau, Découverte d'actifs", duration: "1 jour", delivery: "Rapport d'inventaire des actifs" },
-                  { phase: "Évaluation des Vulnérabilités", activity: "Analyse automatisée, Tests manuels", duration: "1 jour", delivery: "Rapport de vulnérabilités" },
-                  { phase: "Exploitation", activity: "Tests d'intrusion, Élévation de privilèges", duration: "2 jours", delivery: "Rapport d'exploitation" },
-                  { phase: "Rapport", activity: "Documentation, Recommandations", duration: "1 jour", delivery: "Rapport final & présentation" }
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                    <td className="py-4 px-4 text-white font-medium not-italic">{row.phase}</td>
-                    <td className="py-4 px-4 text-slate-400">{row.activity}</td>
-                    <td className="py-4 px-4 text-cyan-500 font-mono text-xs font-bold">{row.duration}</td>
-                    <td className="py-4 px-4 text-slate-400">{row.delivery}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <div className="tech-separator" aria-hidden="true"></div>
 
-          {/* Timeline Section */}
-          <div className="mb-32 reveal text-center">
-            <h2 className="text-2xl font-bold text-white mb-4 uppercase tracking-widest italic">Calendrier <span className="text-cyan-500 not-italic">Estimé</span></h2>
-            <div className="inline-block px-6 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-12">
-               <span className="text-xs font-mono text-cyan-500 font-bold uppercase tracking-widest">5 Jours — Durée Totale</span>
-            </div>
-            
-            <div className="max-w-4xl mx-auto space-y-4">
-               {[
-                 { label: "Lancement du Projet", progress: 20, start: 0 },
-                 { label: "Reconnaissance & OSINT", progress: 20, start: 20 },
-                 { label: "Évaluation des Vulnérabilités", progress: 20, start: 40 },
-                 { label: "Tests d'intrusion", progress: 40, start: 60 },
-                 { label: "Rapport Final", progress: 20, start: 80 }
-               ].map((item, i) => (
-                 <div key={i} className="flex items-center gap-6 group">
-                   <div className="w-48 text-right text-xs font-mono text-slate-500 group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{item.label}</div>
-                   <div className="flex-1 h-3 bg-white/5 rounded-full overflow-hidden relative border border-white/5">
-                      <div 
-                        className="absolute h-full bg-cyan-500/50 border-r-2 border-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.5)] group-hover:bg-cyan-500 transition-all duration-500"
-                        style={{ width: `${item.progress}%`, left: `${item.start}%` }}
-                      ></div>
-                   </div>
-                 </div>
-               ))}
-               <div className="flex justify-between px-4 mt-2 text-[10px] font-mono text-slate-600 uppercase tracking-widest ml-48">
-                  <span>Jour 1</span>
-                  <span>Jour 2</span>
-                  <span>Jour 3</span>
-                  <span>Jour 4</span>
-                  <span>Jour 5</span>
-               </div>
-            </div>
-          </div>
-
-          {/* Next Steps */}
-          <div className="mb-32">
-            <h2 className="text-2xl font-bold text-white mb-12 text-center uppercase tracking-widest">Prochaines <span className="text-cyan-500">Étapes</span></h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {[
-                { n: 1, title: "Signature du Contrat", icon: <FileText className="h-5 w-5" />, desc: "Examen et signature de l'accord de service." },
-                { n: 2, title: "Réunion de Lancement", icon: <User className="h-5 w-5" />, desc: "Rencontre de l'équipe et définition des objectifs." },
-                { n: 3, title: "Évaluation", icon: <Search className="h-5 w-5" />, desc: "Réalisation des tests de sécurité complets." },
-                { n: 4, title: "Livraison", icon: <Zap className="h-5 w-5" />, desc: "Réception du rapport détaillé et des recommandations." }
-              ].map((step, i) => (
-                <div key={i} className="bg-white/[0.02] border border-white/10 p-6 rounded-xl reveal hover:bg-white/[0.04] transition-all group">
-                   <div className="w-10 h-10 bg-cyan-500 text-black flex items-center justify-center font-bold rounded-lg mb-6 group-hover:scale-110 transition-transform">
-                      {step.n}
-                   </div>
-                   <h3 className="text-lg font-bold text-white mb-2 leading-tight flex items-center gap-2">
-                     {step.icon}
-                     {step.title}
-                   </h3>
-                   <p className="text-xs text-slate-500 font-light italic leading-relaxed">{step.desc}</p>
+      {/* PARTNERS */}
+      <section className="border-b border-border bg-void" aria-label="Trusted Partners">
+          <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 divide-x divide-y md:divide-y-0 divide-border">
+              {["SOCIÉTÉ GÉNÉRALE", "ABEILLE", "GENDARMERIE", "ARMÉES", "VEOLIA", "AVIVA", "AFLUENS", "SNCF"].map((partner, i) => (
+                <div key={i} className="p-6 md:p-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+                    <span className="font-display font-semibold text-xs md:text-sm tracking-tight text-center">{partner}</span>
                 </div>
               ))}
-            </div>
+          </div>
+      </section>
+
+      <div className="tech-separator" aria-hidden="true"></div>
+
+      {/* CORE FEATURES */}
+      <section id="features" className="py-16 md:py-24 relative" aria-label="Expertise Sections">
+          <div className="max-w-7xl mx-auto px-6">
+              <div className="mb-12 flex items-end justify-between reveal">
+                  <div className="">
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tight">Notre Proposition</h2>
+                      <p className="text-[#888888] text-sm md:text-base max-w-md italic font-light">Services complets de tests de sécurité et de certification.</p>
+                  </div>
+                  <div className="hidden md:block text-right">
+                      <div className="font-mono text-[10px] text-mint uppercase tracking-widest">Sys_Arch_v4.2</div>
+                  </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-border">
+                  <article className="group border-b md:border-b-0 md:border-r border-border p-6 md:p-8 hover-card bg-[#080808] reveal">
+                      <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
+                          <iconify-icon icon="solar:shield-check-linear" width="24" height="24"></iconify-icon>
+                      </div>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Attestation & Certification</h3>
+                      <ul className="text-sm text-[#888888] space-y-2 italic font-light">
+                        <li>• Auditeur Principal ISO 27001</li>
+                        <li>• Implémenteur Principal ISO 27001</li>
+                        <li>• Gestionnaire de Risques EBIOS</li>
+                        <li>• Certifié OSCP & CEH</li>
+                      </ul>
+                  </article>
+                  <article className="group border-b md:border-b-0 md:border-r border-border p-6 md:p-8 hover-card bg-[#080808] reveal">
+                      <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
+                          <iconify-icon icon="solar:document-linear" width="24" height="24"></iconify-icon>
+                      </div>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Gouvernance (GRC)</h3>
+                      <ul className="text-sm text-[#888888] space-y-2 italic font-light">
+                        <li>• Conformité ISO 27001 & RGPD</li>
+                        <li>• NIS 2 & DORA Architecture</li>
+                        <li>• TISAX Automobile Security</li>
+                        <li>• DPO Externalisé</li>
+                      </ul>
+                  </article>
+                  <article className="group border-b md:border-b-0 border-border p-6 md:p-8 hover-card bg-[#080808] reveal">
+                      <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
+                          <iconify-icon icon="solar:bolt-linear" width="24" height="24"></iconify-icon>
+                      </div>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Cyber Opérationnelle</h3>
+                      <ul className="text-sm text-[#888888] space-y-2 italic font-light">
+                        <li>• Opérations Red Team</li>
+                        <li>• Pentest Web & Mobile</li>
+                        <li>• Simulation Ransomware</li>
+                        <li>• Analyse OSINT & Audits</li>
+                      </ul>
+                  </article>
+              </div>
+          </div>
+      </section>
+
+      <div className="tech-separator" aria-hidden="true"></div>
+
+      {/* INVESTMENT / STATS */}
+      <section id="token" className="grid grid-cols-1 md:grid-cols-2" aria-label="Investment Details">
+          <div className="bg-[#080808] p-8 md:p-24 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center items-center relative overflow-hidden reveal order-2 md:order-1">
+              <div className="relative w-56 h-56 md:w-64 md:h-64">
+                  <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+                      <circle cx="50" cy="50" r="45" stroke="#1a1a1a" stroke-width="8" fill="none"></circle>
+                      <circle cx="50" cy="50" r="45" stroke="#00ffa3" stroke-width="8" fill="none" strokeDasharray="283" strokeDashoffset="283" className="token-chart-ring"></circle>
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-3xl md:text-4xl font-semibold text-white tracking-tighter">4 999€</span>
+                      <span className="text-[10px] text-[#888888] uppercase tracking-wider">Investissement HT</span>
+                  </div>
+              </div>
+              
+              <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
+                  <div className="">
+                      <div className="text-xl md:text-2xl font-semibold text-white tracking-tight">+<span className="token-stat-number" data-target="2500">0</span></div>
+                      <div className="text-[10px] text-[#888888] uppercase tracking-widest">Jours R&D</div>
+                  </div>
+                  <div className="">
+                      <div className="text-xl md:text-2xl font-semibold text-mint tracking-tight">+<span className="token-stat-number" data-target="86">0</span></div>
+                      <div className="text-[10px] text-[#888888] uppercase tracking-widest">Audits Réalisés</div>
+                  </div>
+              </div>
           </div>
 
-          {/* Investment Section */}
-          <div className="reveal">
-            <div className="bg-gradient-to-br from-slate-900 to-black border border-white/10 p-8 md:p-16 rounded-[2.5rem] relative overflow-hidden text-center group">
-               <div className="absolute top-0 right-0 p-16 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <Shield className="h-64 w-64 text-cyan-500" />
-               </div>
-               
-               <div className="relative z-10">
-                 <h2 className="text-xl font-mono text-cyan-500 uppercase tracking-[0.3em] mb-4">Votre <span className="text-white font-bold not-italic">Investissement</span></h2>
-                 
-                 <div className="max-w-2xl mx-auto bg-white/[0.03] border border-white/10 p-8 md:p-12 rounded-3xl backdrop-blur-md mb-12 hover:border-cyan-500/30 transition-all">
-                    <h3 className="text-2xl font-bold text-white mb-2">Évaluation de Sécurité Complète</h3>
-                    <div className="text-6xl font-bold text-white mb-4 tracking-tighter">
-                       4 999 €
-                    </div>
-                    <div className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-8">Hors taxes</div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left mb-10">
-                       {[
-                         "Test d'intrusion Complet",
-                         "OSINT & Reconnaissance Étendue",
-                         "Évaluation des Vulnérabilités",
-                         "Exploitation & Tests de Sécurité",
-                         "Rapport de Sécurité Complet",
-                         "Résumé Exécutif & Recommandations",
-                         "Délai de Livraison de 5 Jours",
-                         "Support Post-Évaluation"
-                       ].map((item, i) => (
-                         <div key={i} className="flex items-center gap-2 text-xs text-slate-400 font-light italic">
-                           <CheckCircle2 className="h-3.5 w-3.5 text-cyan-500 shrink-0" />
-                           <span>{item}</span>
-                         </div>
-                       ))}
-                    </div>
-
-                    <a 
-                      href="/signer-proposition"
-                      className="w-full inline-flex items-center justify-center gap-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold uppercase tracking-widest py-5 px-8 rounded-xl transition-all shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] hover:scale-[1.02] group/btn"
-                    >
-                       <span>Signer la proposition</span>
-                       <ArrowRight className="h-5 w-5 group-hover/btn:translate-x-2 transition-transform" />
-                    </a>
-                 </div>
-
-                 <p className="text-[10px] text-slate-500 font-mono uppercase tracking-widest italic max-w-lg mx-auto leading-relaxed">
-                    Pour toute question ou commentaire, veuillez contacter <span className="text-cyan-500 underline">contact@securitrust.io</span> ou au <span className="text-cyan-500">07 56 83 23 74</span>.
-                    La signature électronique est équivalente à la signature manuscrite. Cette proposition est valable 30 jours calendaires.
-                 </p>
-               </div>
-            </div>
+          <div className="bg-void p-8 md:p-24 flex flex-col justify-center reveal order-1 md:order-2">
+              <h3 className="font-display text-2xl md:text-3xl font-semibold mb-8 tracking-tight">Détails de la Prestation</h3>
+              <div className="space-y-6">
+                  <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">1</div>
+                      <div className="">
+                          <h4 className="font-semibold text-white text-lg">Test d'intrusion Interne</h4>
+                          <p className="text-sm md:text-base text-[#888888] font-light italic leading-relaxed">Approche en boîte grise sur l'environnement Active Directory pour identifier les menaces réelles.</p>
+                      </div>
+                  </div>
+                  <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">2</div>
+                      <div className="">
+                          <h4 className="font-semibold text-white text-lg">Évaluation & Exploitation</h4>
+                          <p className="text-sm md:text-base text-[#888888] font-light italic leading-relaxed">Cartographie OSINT et tests d'intrusion manuels avec élévation de privilèges.</p>
+                      </div>
+                  </div>
+                  <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">3</div>
+                      <div className="">
+                          <h4 className="font-semibold text-white text-lg">Livrables & Accompagnement</h4>
+                          <p className="text-sm md:text-base text-[#888888] font-light italic leading-relaxed">Rapport final détaillé, résumé exécutif et support post-évaluation de 5 jours.</p>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-      </main>
+      </section>
+
+      <div className="tech-separator" aria-hidden="true"></div>
+
+      {/* ROADMAP / TIMELINE */}
+      <section id="roadmap" className="py-16 md:py-24 bg-void" aria-label="Project Timeline">
+          <div className="max-w-6xl mx-auto px-6">
+              <div className="flex flex-col md:flex-row gap-12 md:gap-16">
+                  <div className="md:w-1/3 reveal">
+                      <div className="inline-block px-3 py-1 border border-border bg-white/5 rounded-full mb-6">
+                          <span className="text-[10px] font-mono text-mint uppercase tracking-widest">Execution Log</span>
+                      </div>
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Calendrier Stratégique</h2>
+                      <p className="text-[#888888] text-sm md:text-base leading-relaxed mb-8 italic font-light">
+                          Déploiement en phases séquentielles pour garantir une analyse exhaustive et sécurisée.
+                      </p>
+                  </div>
+                  <div className="md:w-2/3 space-y-0 relative border-l border-border ml-2 md:ml-0">
+                      <div className="relative pl-8 md:pl-10 pb-12 reveal group">
+                          <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-mint rounded-full shadow-[0_0_10px_#00ffa3]"></div>
+                          <div className="border border-border bg-[#080808]/50 p-6 hover:bg-[#080808] transition-colors">
+                              <h3 className="font-semibold text-lg text-white mb-2">Phase 1: Initialisation</h3>
+                              <p className="text-xs text-[#888888] italic">Réunion de cadrage, identification des actifs et préparation des accès.</p>
+                          </div>
+                      </div>
+                      <div className="relative pl-8 md:pl-10 pb-12 reveal group">
+                          <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-white border-2 border-void"></div>
+                          <div className="absolute -left-[9px] top-1 w-[18px] h-[18px] border border-mint rounded-full animate-ping opacity-50"></div>
+                          <div className="border border-mint/30 bg-mint/5 p-6 relative overflow-hidden">
+                              <div className="flex justify-between items-start mb-2 relative z-10">
+                                  <span className="font-mono text-xs text-white uppercase tracking-widest">Phase 02 — En Cours</span>
+                                  <span className="text-[9px] bg-mint text-void px-2 py-0.5 font-bold rounded">LIVE</span>
+                              </div>
+                              <h3 className="font-semibold text-lg text-white mb-4 relative z-10">Audit & Exploitation</h3>
+                              <p className="text-xs text-white/70 italic">Pentest interne, tests de vulnérabilités et élévation de privilèges.</p>
+                          </div>
+                      </div>
+                      <div className="relative pl-8 md:pl-10 reveal group">
+                          <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-[#080808] border border-[#888888]"></div>
+                          <div className="border border-border border-dashed bg-transparent p-6 opacity-60 hover:opacity-100 transition-opacity">
+                              <h3 className="font-semibold text-lg text-gray-400 mb-2">Phase 3: Restitution</h3>
+                              <p className="text-xs text-[#888888] italic">Rédaction du rapport final, recommandations et présentation des résultats.</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <div className="tech-separator" aria-hidden="true"></div>
+
+      {/* NETWORK / TOPOLOGY */}
+      <section id="network" className="py-16 md:py-24 bg-void" aria-label="Network Topology">
+          <div className="max-w-[1920px] mx-auto px-6">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  <div className="lg:col-span-8 border border-border bg-[#080808] p-2 relative overflow-hidden reveal min-h-[400px] md:min-h-[500px]">
+                      <div className="absolute inset-0 z-0">
+                          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" alt="Live Security Topology" className="w-full h-full object-cover opacity-40 grayscale brightness-75 contrast-125" />
+                      </div>
+                      <div className="scan-line z-10 pointer-events-none"></div>
+                      <div className="relative z-20 p-6 md:p-8 flex flex-col justify-between h-full">
+                          <div className="flex justify-between items-start">
+                              <div className="bg-void/80 backdrop-blur-md p-4 border border-border">
+                                  <h2 className="font-display text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight">Live Topology</h2>
+                                  <p className="text-[#888888] text-[10px] font-mono tracking-widest">STATUS: MONITORING</p>
+                              </div>
+                              <div className="flex gap-2 items-center">
+                                  <div className="w-2 h-2 bg-mint rounded-full animate-pulse"></div>
+                                  <div className="font-mono text-[10px] text-mint hidden md:block uppercase tracking-widest">Audit active</div>
+                              </div>
+                          </div>
+                          <div className="absolute top-[30%] left-[20%] w-20 h-20 md:w-32 md:h-32 border border-mint/20 rounded-full flex items-center justify-center animate-pulse">
+                              <div className="w-1 h-1 bg-mint rounded-full"></div>
+                          </div>
+                           <div className="absolute bottom-[20%] right-[30%] w-16 h-16 md:w-24 md:h-24 border border-mint/10 rounded-full flex items-center justify-center animate-pulse delay-700">
+                              <div className="w-1 h-1 bg-mint rounded-full"></div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div className="lg:col-span-4 flex flex-col gap-6">
+                      <div className="bg-void border border-border p-6 reveal h-full flex flex-col justify-center">
+                          <h3 className="font-semibold text-white mb-6 text-sm uppercase flex items-center gap-2 tracking-widest">
+                              <span className="w-2 h-2 bg-mint rounded-sm"></span>
+                              Vigilance System
+                          </h3>
+                          <div className="space-y-4 font-mono">
+                              <div className="flex justify-between items-center p-3 bg-[#080808] border border-border">
+                                  <span className="text-[10px] text-[#888888] uppercase tracking-widest">Nodes Scanned</span>
+                                  <span className="text-xs text-white font-semibold tracking-tighter">1,240 / 1,240</span>
+                              </div>
+                              <div className="flex justify-between items-center p-3 bg-[#080808] border border-border">
+                                  <span className="text-[10px] text-[#888888] uppercase tracking-widest">Detection Latency</span>
+                                  <span className="text-xs text-mint font-semibold tracking-tighter">8.4ms</span>
+                              </div>
+                              <div className="flex justify-between items-center p-3 bg-[#080808] border border-border">
+                                  <span className="text-[10px] text-[#888888] uppercase tracking-widest">Encryption Level</span>
+                                  <span className="text-xs text-white font-semibold tracking-tighter">AES-256-GCM</span>
+                              </div>
+                          </div>
+                          <div className="mt-8">
+                              <div className="text-[10px] text-[#888888] mb-2 uppercase tracking-widest font-mono">Threat Distribution</div>
+                              <div className="flex gap-1 h-2 w-full">
+                                  <div className="h-full bg-mint w-[40%]"></div>
+                                  <div className="h-full bg-mint/70 w-[30%]"></div>
+                                  <div className="h-full bg-mint/40 w-[20%]"></div>
+                                  <div className="h-full bg-mint/20 w-[10%]"></div>
+                              </div>
+                              <div className="flex justify-between text-[9px] text-gray-600 mt-1 font-mono tracking-tighter">
+                                  <span>LOW</span>
+                                  <span>MED</span>
+                                  <span>HIGH</span>
+                                  <span>CRIT</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <div className="tech-separator" aria-hidden="true"></div>
+
+      {/* SINGULARITY ANIMATION */}
+      <section className="py-24 md:py-32 bg-[#080808] relative overflow-hidden flex flex-col items-center justify-center h-[70vh] md:h-[90vh]" aria-label="Scalability Animation">
+          <div className="absolute inset-0 opacity-10 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/aa933a24-d4de-4c67-83f6-b8676b3bab35_1600w.webp)] bg-cover bg-center"></div>
+          
+          <div className="singularity-wrapper">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className={`tunnel-ring w-[${(i+1)*100}px] h-[${(i+1)*100}px]`}></div>
+              ))}
+          </div>
+
+          <div className="relative z-10 text-center reveal pointer-events-none px-6">
+              <span className="text-mint font-mono text-[9px] md:text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-mint/20">The Singularity</span>
+              <h2 className="font-display text-4xl md:text-8xl font-bold mt-6 text-white mix-blend-difference tracking-tight uppercase">
+                  Infinite Security
+              </h2>
+              <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-6 bg-black/30 backdrop-blur-sm p-4 rounded-lg border border-white/5 italic font-light">
+                  Un mécanisme de défense qui se renforce à mesure que votre infrastructure évolue. Plus vous grandissez, plus nous vous protégeons.
+              </p>
+          </div>
+      </section>
+
+      <div className="tech-separator" aria-hidden="true"></div>
+
+      {/* MISSION & VISION */}
+      <section className="pt-16 md:pt-24 pb-16 md:pb-24" aria-label="Mission Statement" id="vision">
+          <div className="max-w-7xl mx-auto px-6">
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-16 items-center">
+                  <div className="md:w-1/2 reveal">
+                      <div className="inline-block px-3 py-1 border border-border bg-white/5 rounded-full mb-6">
+                          <span className="text-[10px] font-mono text-mint uppercase tracking-widest font-bold">Notre Mandat</span>
+                      </div>
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Vigilance & Intégrité</h2>
+                      <p className="text-[#888888] text-sm md:text-base leading-relaxed mb-6 italic font-light">
+                          SecuriTrust est né d'une vision de souveraineté numérique totale. Nous croyons en un avenir où les données sont protégées par défaut, permettant aux entreprises d'innover sans crainte.
+                      </p>
+                      <p className="text-[#888888] text-sm md:text-base leading-relaxed italic font-light">
+                          Nos audits ne sont pas de simples contrôles techniques ; ils sont le socle de votre confiance numérique.
+                      </p>
+                  </div>
+                  <div className="md:w-1/2 reveal">
+                      <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fa050e23-c777-40ee-aabe-cc76269a2e47_1600w.jpg" alt="Cyber Security Mesh" className="w-full h-auto object-cover rounded-xl border border-border shadow-xl grayscale hover:grayscale-0 transition-all duration-500" />
+                  </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border border-border p-6 md:p-8 bg-[#080808] reveal">
+                  <div className="space-y-6 text-[#888888] text-sm md:text-base leading-relaxed border-b md:border-b-0 md:border-r border-border pb-8 md:pb-0 md:pr-8 font-light italic">
+                      <p>
+                          L'infrastructure actuelle, bien que performante, est devenue vulnérable aux attaques de plus en plus sophistiquées. Notre mission est de démanteler ces risques, en construisant un environnement résilient pour tous. Nous sommes les architectes de votre sécurité.
+                      </p>
+                      <ul className="space-y-2 pl-4 border-l border-mint/30 not-italic font-normal">
+                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> **Fondation Décentralisée:** Résilience face aux pannes.</li>
+                          <li className="flex items-start gap-2 text-white"><span class="text-mint text-lg leading-none">•</span> **Accès Inclusif:** Outils de pointe pour tous les développeurs.</li>
+                          <li className="flex items-start gap-2 text-white"><span class="text-mint text-lg leading-none">•</span> **Catalyseur d'Innovation:** Libérer le potentiel du Web3.</li>
+                      </ul>
+                  </div>
+                  <div className="space-y-6 text-[#888888] text-sm md:text-base leading-relaxed md:pl-8">
+                      <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/89dadee1-b89d-415a-a6c9-b3d01200c4cd_1600w.jpg" alt="Quantum Processor" className="w-full h-auto object-cover rounded-md border border-border shadow-md grayscale hover:grayscale-0 transition-all duration-500" />
+                      <p className="font-light italic leading-relaxed">
+                          Chaque décision technique et stratégique est guidée par cette philosophie. Nous envisageons un futur où SecuriTrust est le standard de protection pour un monde ouvert.
+                      </p>
+                      <a href="#" className="text-mint text-sm font-semibold uppercase tracking-widest flex items-center gap-2 hover:underline">
+                          Explorer notre Manifeste <span className="text-lg">→</span>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <div className="tech-separator" aria-hidden="true"></div>
+
+      {/* CTA */}
+      <section className="overflow-hidden group pt-24 pb-24 md:pt-32 md:pb-32 relative" aria-label="Join Movement">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,163,0.15),_transparent_70%)] opacity-50"></div>
+          
+          <div className="max-w-4xl mx-auto text-center px-6 relative z-10 reveal">
+              <h2 className="font-display text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-8 text-white leading-tight">
+                  Rejoignez la <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-mint">Révolution</span>
+              </h2>
+              
+              <p className="font-mono text-xs md:text-sm text-gray-400 mb-10 max-w-lg mx-auto tracking-widest uppercase">
+                  &gt; Gouvernance en ligne. <br />
+                  &gt; Soyez acteur du consensus. <br />
+                  &gt; Affirmez votre souveraineté.
+              </p>
+              
+              <div className="flex flex-col md:flex-row justify-center gap-4">
+                  <a href="/signer-proposition" className="bg-mint text-void px-10 py-4 font-semibold uppercase hover:shadow-[0_0_20px_rgba(0,255,163,0.5)] transition-shadow tracking-widest">
+                      Signer le Devis
+                  </a>
+                  <button className="bg-transparent border border-white/20 text-white px-10 py-4 font-semibold uppercase hover:bg-white/10 transition-colors tracking-widest">
+                      Nous Contacter
+                  </button>
+              </div>
+          </div>
+      </section>
 
       <Footer />
-
-      <style jsx global>{`
-        .reveal {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        
-        @keyframes pulse-cyan {
-          0%, 100% { opacity: 0.5; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.05); }
-        }
-        
-        .bg-tech-grid {
-          background-image: 
-            linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-          background-size: 40px 40px;
-        }
-
-        .scanlines {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            to bottom,
-            rgba(18, 16, 16, 0) 50%,
-            rgba(0, 0, 0, 0.05) 50%
-          );
-          background-size: 100% 4px;
-          z-index: 50;
-          pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-          .text-6xl {
-            font-size: 2.5rem;
-          }
-          .text-4xl {
-            font-size: 2rem;
-          }
-        }
-      `}</style>
     </div>
   );
 }
