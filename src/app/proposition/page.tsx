@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Script from 'next/script';
 
 declare global {
@@ -132,6 +132,7 @@ export default function PropositionPage() {
 
   return (
     <div className="font-body bg-tech-grid grid-bg selection:bg-mint selection:text-void text-[#e0e0e0] overflow-x-hidden min-h-screen">
+      {/* External Scripts */}
       <Script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" strategy="afterInteractive" />
@@ -141,6 +142,7 @@ export default function PropositionPage() {
         if (window.UnicornStudio) window.UnicornStudio.init();
       }} />
 
+      {/* Embedded Styles from Template */}
       <style jsx global>{`
         :root {
           --void: #030303;
@@ -215,11 +217,11 @@ export default function PropositionPage() {
       {/* PRELOADER */}
       <div className="preloader fixed inset-0 bg-void z-[9999] flex items-center justify-center" id="preloader" role="status">
           <div className="text-center px-6">
-              <div className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tighter uppercase">Initializing</div>
+              <div className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tighter uppercase">INITIALIZING</div>
               <div className="w-48 h-1 bg-gray-800 mx-auto overflow-hidden">
                   <div className="h-full bg-mint w-0" id="loader-bar"></div>
               </div>
-              <div className="font-mono text-[10px] text-mint mt-2 tracking-widest uppercase">Establishing Secure Uplink...</div>
+              <div className="font-mono text-[10px] text-mint mt-2 tracking-widest uppercase">ESTABLISHING UPLINK...</div>
           </div>
       </div>
       
@@ -234,24 +236,25 @@ export default function PropositionPage() {
       {/* NAV */}
       <nav className="fixed w-full z-50 top-0 border-b border-border bg-void/90 backdrop-blur-xl">
           <div className="flex h-16 max-w-[1920px] mx-auto px-6 md:px-12 items-center justify-between">
-              <a href="/" className="flex items-center gap-2 group shrink-0">
-                  <span className="text-lg font-semibold tracking-tight font-display uppercase">SecuriTrust</span>
+              <a href="/proposition" className="flex items-center gap-2 group shrink-0">
+                  <span className="text-lg font-semibold tracking-tight font-display uppercase">AETHERIS</span>
               </a>
 
               <div className="hidden lg:flex items-center border-x border-border h-full px-8">
-                  <a href="/proposition" className="uppercase text-mint transition-colors text-xs font-semibold tracking-wide px-6">Proposition</a>
-                  <a href="/osint" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">OSINT</a>
-                  <a href="/pentest-interne" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Audit</a>
-                  <a href="/contact" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Support</a>
+                  <a href="#" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">About</a>
+                  <a href="#" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Tokenomics</a>
+                  <a href="#" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Roadmap</a>
+                  <a href="#" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Staking</a>
+                  <a href="#" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Blog</a>
               </div>
 
               <div className="flex items-center gap-4">
                   <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-mint">
                       <span className="w-1.5 h-1.5 bg-mint rounded-full animate-pulse"></span>
-                      SYSTEM: ACTIVE
+                      GAS: 4 GWEI
                   </div>
                   <button className="bg-white text-void px-4 md:px-6 py-2 text-xs font-semibold uppercase hover:bg-mint transition-colors whitespace-nowrap">
-                      Signer
+                      Connect
                   </button>
               </div>
           </div>
@@ -269,26 +272,26 @@ export default function PropositionPage() {
               
               <div className="flex flex-col items-center justify-center w-full">
                   <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
-                      Infinite
+                      INFINITE
                   </h1>
                   
                   <div className="h-2 md:h-4"></div>
 
-                  <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity uppercase" aria-label="SECURITY">
-                      Security
+                  <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity uppercase" aria-label="SCALABILITY">
+                      SCALABILITY
                   </div>
               </div>
 
               <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
-                  SecuriTrust propose une offre unique et innovante pour sécuriser votre infrastructure numérique avec une approche orientée résultat.
+                  The world's first hybrid DAG-Blockchain architecture. Instant finality, zero-knowledge privacy, and quantum-resistant security.
               </p>
 
               <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto hero-anim opacity-0 translate-y-4">
                   <button className="group bg-mint text-void px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white transition-all hover:scale-[1.02] min-w-[180px] text-center shadow-[0_0_20px_rgba(0,255,163,0.3)]">
-                      Démarrer mon Pentest
+                      Start Building
                   </button>
                   <button className="group bg-void/50 backdrop-blur-md border border-white/20 text-white px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white/10 transition-all hover:border-white/40 min-w-[180px] text-center">
-                      Voir la Brochure
+                      Read Whitepaper
                   </button>
               </div>
           </div>
@@ -299,7 +302,7 @@ export default function PropositionPage() {
       {/* PARTNERS */}
       <section className="border-b border-border bg-void" aria-label="Trusted Partners">
           <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-6 divide-x divide-y md:divide-y-0 divide-border">
-              {["SOCIÉTÉ GÉNÉRALE", "ABEILLE", "GENDARMERIE", "MARINE NATIONALE", "AFLUENS", "VEOLIA"].map((partner, i) => (
+              {["BINANCE", "COINBASE", "SEQUOIA", "a16z", "POLYCHAIN", "PANTERA"].map((partner, i) => (
                 <div key={i} className="p-6 md:p-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
                     <span className="font-display font-semibold text-lg md:text-xl tracking-tight uppercase text-center">{partner}</span>
                 </div>
@@ -314,11 +317,11 @@ export default function PropositionPage() {
           <div className="max-w-7xl mx-auto px-6">
               <div className="mb-12 flex items-end justify-between reveal">
                   <div className="">
-                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tight">Expertise Cyber</h2>
-                      <p className="text-sub text-sm md:text-base max-w-md italic">Services de pointe en tests d'intrusion et audits de sécurité.</p>
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tight">Core Architecture</h2>
+                      <p className="text-sub text-sm md:text-base max-w-md">Built on the Trinity Protocol, combining speed, security, and scalability.</p>
                   </div>
                   <div className="hidden md:block text-right">
-                      <div className="font-mono text-[10px] text-mint tracking-widest uppercase">Protocol_V4.2</div>
+                      <div className="font-mono text-[10px] text-mint tracking-widest uppercase">SYS_ARCH_V2</div>
                   </div>
               </div>
 
@@ -327,22 +330,22 @@ export default function PropositionPage() {
                       <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
                           <iconify-icon icon="solar:bolt-linear" width="24" height="24"></iconify-icon>
                       </div>
-                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Pentest de pointe</h3>
-                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4 italic">Tests d'intrusion manuels et automatisés sur l'ensemble de votre périmètre numérique.</p>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Hyper-Throughput</h3>
+                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4">Parallel transaction processing via DAG structure allowing 150k+ TPS on mainnet.</p>
                   </article>
                   <article className="group border-b md:border-b-0 md:border-r border-border p-6 md:p-8 hover-card bg-panel reveal">
                       <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
                           <iconify-icon icon="solar:shield-check-linear" width="24" height="24"></iconify-icon>
                       </div>
-                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Audit de Conformité</h3>
-                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4 italic">Mise en conformité RGPD, NIS 2 et DORA pour garantir votre légalité et sécurité.</p>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">ZK-Privacy Layer</h3>
+                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4">Native Zero-Knowledge proofs for optional transactional privacy and compliance.</p>
                   </article>
                   <article className="group border-b md:border-b-0 border-border p-6 md:p-8 hover-card bg-panel reveal">
                       <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
                           <iconify-icon icon="solar:global-linear" width="24" height="24"></iconify-icon>
                       </div>
-                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Intelligence OSINT</h3>
-                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4 italic">Collecte d'informations en sources ouvertes pour anticiper les menaces externes.</p>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Interoperability</h3>
+                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4">Native bridges to Ethereum, Solana, and Cosmos via the Aetheris Nexus.</p>
                   </article>
               </div>
           </div>
@@ -350,7 +353,7 @@ export default function PropositionPage() {
 
       <div className="tech-separator" aria-hidden="true"></div>
 
-      {/* TOKEN UTILITY (MAPPED TO INVESTMENT) */}
+      {/* TOKEN UTILITY (ANIMATED) */}
       <section id="token" className="grid grid-cols-1 md:grid-cols-2">
           {/* Chart Area */}
           <div className="bg-panel p-8 md:p-24 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center items-center relative overflow-hidden reveal order-2 md:order-1">
@@ -360,46 +363,46 @@ export default function PropositionPage() {
                       <circle cx="50" cy="50" r="45" stroke="#00ffa3" stroke-width="8" fill="none" strokeDasharray="283" strokeDashoffset="283" className="token-chart-ring"></circle>
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-3xl md:text-4xl font-semibold text-white tracking-tighter">4 999€</span>
-                      <span className="text-xs text-sub uppercase tracking-wider">Investissement HT</span>
+                      <span className="text-3xl md:text-4xl font-semibold text-white tracking-tighter uppercase">1B</span>
+                      <span className="text-xs text-sub uppercase tracking-wider">Total Supply</span>
                   </div>
               </div>
               
               <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
                   <div className="">
-                      <div className="text-xl md:text-2xl font-semibold text-white tracking-tight">+<span className="token-stat-number" data-target="2500">0</span></div>
-                      <div className="text-[10px] text-sub uppercase tracking-widest font-mono">Jours R&D</div>
+                      <div className="text-xl md:text-2xl font-semibold text-white tracking-tight">$<span className="token-stat-number" data-target="452">0</span>M</div>
+                      <div className="text-[10px] text-sub uppercase tracking-widest font-mono">Market Cap</div>
                   </div>
                   <div className="">
-                      <div className="text-xl md:text-2xl font-semibold text-mint tracking-tight">+<span className="token-stat-number" data-target="86">0</span></div>
-                      <div className="text-[10px] text-sub uppercase tracking-widest font-mono">Audits Réalisés</div>
+                      <div className="text-xl md:text-2xl font-semibold text-mint tracking-tight"><span className="token-stat-number" data-target="12.5">0</span>%</div>
+                      <div className="text-[10px] text-sub uppercase tracking-widest font-mono">Staking APY</div>
                   </div>
               </div>
           </div>
 
           {/* Utility List */}
           <div className="bg-void p-8 md:p-24 flex flex-col justify-center reveal order-1 md:order-2">
-              <h3 className="font-display text-2xl md:text-3xl font-semibold mb-8 tracking-tight">Détails de la Prestation</h3>
+              <h3 className="font-display text-2xl md:text-3xl font-semibold mb-8 tracking-tight">Token Utility ($ATH)</h3>
               <div className="space-y-6">
                   <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">1</div>
                       <div className="">
-                          <h4 className="font-semibold text-white text-lg">Pentest AD Complet</h4>
-                          <p className="text-sm md:text-base text-sub italic font-light">Audit exhaustif de votre infrastructure Active Directory interne en boîte grise.</p>
+                          <h4 className="font-semibold text-white text-lg">Network Fees</h4>
+                          <p className="text-sm md:text-base text-sub">Used to pay for transactions and smart contract execution across the mesh.</p>
                       </div>
                   </div>
                   <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">2</div>
                       <div className="">
-                          <h4 className="font-semibold text-white text-lg">Livrables Techniques</h4>
-                          <p className="text-sm md:text-base text-sub italic font-light">Rapport détaillé avec preuves de concept et recommandations prioritaires.</p>
+                          <h4 className="font-semibold text-white text-lg">Governance</h4>
+                          <p className="text-sm md:text-base text-sub">Vote on protocol upgrades, treasury allocation, and parameter adjustments.</p>
                       </div>
                   </div>
                   <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">3</div>
                       <div className="">
-                          <h4 className="font-semibold text-white text-lg">Accompagnement</h4>
-                          <p className="text-sm md:text-base text-sub italic font-light">Suivi de 5 jours pour l'implémentation des correctifs critiques.</p>
+                          <h4 className="font-semibold text-white text-lg">Validator Staking</h4>
+                          <p className="text-sm md:text-base text-sub">Secure the network by delegating to validators and earning yield.</p>
                       </div>
                   </div>
               </div>
@@ -416,17 +419,17 @@ export default function PropositionPage() {
                       <div className="inline-block px-3 py-1 border border-border bg-white/5 rounded-full mb-6">
                           <span className="text-[10px] font-mono text-mint uppercase tracking-widest font-bold">Execution Log</span>
                       </div>
-                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Calendrier Projet</h2>
-                      <p className="text-sub text-sm md:text-base leading-relaxed mb-8 italic font-light">
-                          Déploiement en phases stratégiques pour une sécurité optimale. Durée estimée : 5 jours.
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Strategic<br/>Roadmap</h2>
+                      <p className="text-sub text-sm md:text-base leading-relaxed mb-8">
+                          Aetheris is deployed in sequential phases to ensure network stability and security. We are currently in Phase 2.
                       </p>
                   </div>
                   <div className="md:w-2/3 space-y-0 relative border-l border-border ml-2 md:ml-0">
                       <div className="relative pl-8 md:pl-10 pb-12 reveal group">
                           <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-mint rounded-full shadow-[0_0_10px_#00ffa3]"></div>
                           <div className="border border-border bg-panel/50 p-6 hover:bg-panel transition-colors">
-                              <h3 className="font-semibold text-lg text-white mb-2">Phase 1: Initialisation</h3>
-                              <p className="text-xs text-sub italic font-light">Cadrage, identification des actifs et accès boîte grise.</p>
+                              <h3 className="font-semibold text-lg text-white mb-2">Genesis & Foundation</h3>
+                              <p className="text-xs text-sub">Mainnet Alpha, TGE, and Audits completed.</p>
                           </div>
                       </div>
                       <div className="relative pl-8 md:pl-10 pb-12 reveal group">
@@ -434,18 +437,18 @@ export default function PropositionPage() {
                           <div className="absolute -left-[9px] top-1 w-[18px] h-[18px] border border-mint rounded-full animate-ping opacity-50"></div>
                           <div className="border border-mint/30 bg-mint/5 p-6 relative overflow-hidden">
                               <div className="flex justify-between items-start mb-2 relative z-10">
-                                  <span className="font-mono text-xs text-white uppercase tracking-widest">Phase 02 — En Cours</span>
+                                  <span className="font-mono text-xs text-white uppercase tracking-widest">PHASE 02 — IN PROGRESS</span>
                                   <span className="text-[9px] bg-mint text-void px-2 py-0.5 font-bold rounded">LIVE</span>
                               </div>
-                              <h3 className="font-semibold text-lg text-white mb-4 relative z-10">Exploitation Active</h3>
-                              <p className="text-xs text-white/70 italic font-light">Pentest interne, tests de vulnérabilités et élévation de privilèges.</p>
+                              <h3 className="font-semibold text-lg text-white mb-4 relative z-10">Ecosystem Expansion</h3>
+                              <p className="text-xs text-white/70">Rolling out the Aetheris DEX, Mobile Wallet, and Governance DAO.</p>
                           </div>
                       </div>
                       <div className="relative pl-8 md:pl-10 reveal group">
                           <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-panel border border-sub"></div>
                           <div className="border border-border border-dashed bg-transparent p-6 opacity-60 hover:opacity-100 transition-opacity">
-                              <h3 className="font-semibold text-lg text-gray-400 mb-2">Phase 3: Restitution</h3>
-                              <p className="text-xs text-sub italic font-light">Rapport final, recommandations et présentation stratégique.</p>
+                              <h3 className="font-semibold text-lg text-gray-400 mb-2">Global Sovereignty</h3>
+                              <p className="text-xs text-sub">Full decentralization of the sequencer and satellite integration.</p>
                           </div>
                       </div>
                   </div>
@@ -463,7 +466,7 @@ export default function PropositionPage() {
                   <div className="lg:col-span-8 border border-border bg-panel p-2 relative overflow-hidden reveal min-h-[400px] md:min-h-[500px]">
                       
                       <div className="absolute inset-0 z-0">
-                          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" alt="Global Security Mesh" className="w-full h-full object-cover opacity-40 grayscale brightness-75 contrast-125" />
+                          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" alt="Network Mesh" className="w-full h-full object-cover opacity-40 grayscale brightness-75 contrast-125" />
                       </div>
 
                       <div className="scan-line z-10 pointer-events-none"></div>
@@ -472,11 +475,11 @@ export default function PropositionPage() {
                           <div className="flex justify-between items-start">
                               <div className="bg-void/80 backdrop-blur-md p-4 border border-border">
                                   <h2 className="font-display text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight uppercase">Live Topology</h2>
-                                  <p className="text-sub text-[10px] font-mono uppercase tracking-widest">Status: Monitoring</p>
+                                  <p className="text-sub text-[10px] font-mono uppercase tracking-widest">STATUS: SYNCHRONIZED</p>
                               </div>
                               <div className="flex gap-2 items-center">
                                   <div className="w-2 h-2 bg-mint rounded-full animate-pulse"></div>
-                                  <div className="font-mono text-[10px] text-mint hidden md:block uppercase tracking-widest">Audit active</div>
+                                  <div className="font-mono text-[10px] text-mint hidden md:block uppercase tracking-widest">UPLINK ACTIVE</div>
                               </div>
                           </div>
 
@@ -493,24 +496,24 @@ export default function PropositionPage() {
                       <div className="bg-void border border-border p-6 reveal h-full flex flex-col justify-center">
                           <h3 className="font-semibold text-white mb-6 text-sm uppercase flex items-center gap-2 tracking-widest font-mono">
                               <span className="w-2 h-2 bg-mint rounded-sm"></span>
-                              System Health
+                              Network Health
                           </h3>
                           <div className="space-y-4 font-mono">
                               <div className="flex justify-between items-center p-3 bg-panel border border-border">
-                                  <span className="text-[10px] text-sub uppercase tracking-widest">Scan Coverage</span>
-                                  <span className="text-xs text-white font-semibold tracking-tighter">100%</span>
+                                  <span className="text-[10px] text-sub uppercase tracking-widest">Active Validators</span>
+                                  <span className="text-xs text-white font-semibold tracking-tighter">4,120</span>
                               </div>
                               <div className="flex justify-between items-center p-3 bg-panel border border-border">
-                                  <span className="text-[10px] text-sub uppercase tracking-widest">Response Time</span>
+                                  <span className="text-[10px] text-sub uppercase tracking-widest">Global Latency</span>
                                   <span className="text-xs text-mint font-semibold tracking-tighter">12ms</span>
                               </div>
                               <div className="flex justify-between items-center p-3 bg-panel border border-border">
-                                  <span className="text-[10px] text-sub uppercase tracking-widest">Integrity Check</span>
-                                  <span className="text-xs text-white font-semibold tracking-tighter">PASSED</span>
+                                  <span className="text-[10px] text-sub uppercase tracking-widest">Total Staked</span>
+                                  <span className="text-xs text-white font-semibold tracking-tighter">450M ATH</span>
                               </div>
                           </div>
                           <div className="mt-8">
-                              <div className="text-[10px] text-sub mb-2 uppercase tracking-widest font-mono">Threat Profile</div>
+                              <div className="text-[10px] text-sub mb-2 uppercase tracking-widest font-mono">Region Distribution</div>
                               <div className="flex gap-1 h-2 w-full">
                                   <div className="h-full bg-mint w-[40%]"></div>
                                   <div className="h-full bg-mint/70 w-[30%]"></div>
@@ -518,10 +521,10 @@ export default function PropositionPage() {
                                   <div className="h-full bg-mint/20 w-[10%]"></div>
                               </div>
                               <div className="flex justify-between text-[9px] text-gray-600 mt-1 font-mono tracking-tighter">
-                                  <span>LOW</span>
-                                  <span>MED</span>
-                                  <span>HIGH</span>
-                                  <span>CRIT</span>
+                                  <span>NA</span>
+                                  <span>EU</span>
+                                  <span>ASIA</span>
+                                  <span>SA</span>
                               </div>
                           </div>
                       </div>
@@ -545,10 +548,10 @@ export default function PropositionPage() {
           <div className="relative z-10 text-center reveal pointer-events-none px-6">
               <span className="text-mint font-mono text-[9px] md:text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-mint/20">The Singularity</span>
               <h2 className="font-display text-4xl md:text-8xl font-bold mt-6 text-white mix-blend-difference tracking-tight uppercase">
-                  Infinite Security
+                  INFINITE  SCALE
               </h2>
               <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-6 bg-black/30 backdrop-blur-sm p-4 rounded-lg border border-white/5 italic font-light leading-relaxed">
-                  Un mécanisme de défense qui se renforce à mesure que votre infrastructure évolue. Plus vous grandissez, plus nous vous protégeons.
+                  A consensus mechanism that gets faster as the network grows. The more usage, the higher the throughput.
               </p>
           </div>
       </section>
@@ -561,14 +564,14 @@ export default function PropositionPage() {
               <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-16 items-center">
                   <div className="md:w-1/2 reveal">
                       <div className="inline-block px-3 py-1 border border-border bg-white/5 rounded-full mb-6">
-                          <span className="text-[10px] font-mono text-mint uppercase tracking-widest font-bold">Notre Mandat</span>
+                          <span className="text-[10px] font-mono text-mint uppercase tracking-widest font-bold">Our Mandate</span>
                       </div>
-                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Prophecy & Purpose</h2>
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight uppercase">Prophecy & Purpose</h2>
                       <p className="text-sub text-sm md:text-base leading-relaxed mb-6 italic font-light">
-                          SecuriTrust est né d'une vision de souveraineté numérique totale. Nous croyons en un avenir où les données sont protégées par défaut.
+                          Aetheris was born from a vision of true digital autonomy. We believe in a future where value is exchanged freely, securely, and without intermediaries.
                       </p>
                       <p className="text-sub text-sm md:text-base leading-relaxed italic font-light">
-                          Notre protocole n'est pas simplement une avancée technique ; c'est la couche fondamentale d'une nouvelle ère de confiance.
+                          Our protocol is not merely a technical advancement; it is a foundational layer for a new era of decentralized applications.
                       </p>
                   </div>
                   <div className="md:w-1/2 reveal">
@@ -579,18 +582,18 @@ export default function PropositionPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border border-border p-6 md:p-8 bg-panel reveal">
                   <div className="space-y-6 text-sub text-sm md:text-base leading-relaxed border-b md:border-b-0 md:border-r border-border pb-8 md:pb-0 md:pr-8 italic font-light">
                       <p>
-                          L'infrastructure actuelle est devenue centralisée et vulnérable. Notre mission est de démanteler ces barrières, en construisant un bien public résilient, juste et accessible à tous.
+                          The current internet infrastructure has become centralized and prone to data silos. Our mission is to dismantle these barriers, building a new public good.
                       </p>
                       <ul className="space-y-2 pl-4 border-l border-mint/30 not-italic font-normal">
-                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Fondation Décentralisée : Résilience totale.</li>
-                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Accès Inclusif : Pour tous les innovateurs.</li>
-                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Catalyseur Cyber : Propulser le futur de la Trust.</li>
+                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Decentralized Foundation: No single point of failure.</li>
+                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Inclusive Access: Lowering barriers for developers.</li>
+                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Innovation Catalyst: Powering next-gen Web3 apps.</li>
                       </ul>
                   </div>
                   <div className="space-y-6 text-sub text-sm md:text-base leading-relaxed md:pl-8">
                       <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/89dadee1-b89d-415a-a6c9-b3d01200c4cd_1600w.jpg" alt="Quantum" className="w-full h-auto object-cover rounded-md border border-border shadow-md grayscale hover:grayscale-0 transition-all duration-500" />
                       <p className="italic font-light leading-relaxed">
-                          Chaque ligne de code, chaque décision de design est guidée par cette philosophie globale. SecuriTrust est votre système d'exploitation de confiance.
+                          Every line of code is guided by this philosophy. We envision a future where Aetheris is a global operating system.
                       </p>
                       <a href="#" className="text-mint text-sm font-semibold uppercase tracking-widest flex items-center gap-2 hover:underline">
                           Explore Our Manifesto <span className="text-lg">→</span>
@@ -619,10 +622,10 @@ export default function PropositionPage() {
               
               <div className="flex flex-col md:flex-row justify-center gap-4">
                   <button className="bg-mint text-void px-10 py-4 font-semibold uppercase hover:shadow-[0_0_20px_rgba(0,255,163,0.5)] transition-shadow tracking-widest">
-                      Signer la Proposition
+                      Join Discord
                   </button>
                   <button className="bg-transparent border border-white/20 text-white px-10 py-4 font-semibold uppercase hover:bg-white/10 transition-colors tracking-widest">
-                      Nous Contacter
+                      Follow on X
                   </button>
               </div>
           </div>
@@ -634,44 +637,47 @@ export default function PropositionPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-20">
                   <div className="col-span-2 md:col-span-1">
                       <div className="flex gap-2 mb-4 items-center">
-                          <span className="text-lg font-medium text-white font-display uppercase tracking-tighter">SecuriTrust</span>
+                          <span className="text-lg font-medium text-white font-display uppercase tracking-tighter">AETHERIS</span>
                       </div>
                       <p className="text-sub text-[10px] leading-relaxed max-w-xs uppercase tracking-widest">
-                          Architecting the invisible layer of trust for the next generation of digital infrastructure.
+                          Architecting the invisible layer of trust for the next generation of decentralized applications.
                       </p>
                   </div>
                   
                   <div className="">
                       <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Ecosystem</h5>
                       <ul className="space-y-2.5 text-[10px] text-sub uppercase tracking-widest font-mono">
-                          <li><a href="#" className="hover:text-mint transition-colors">Pentest</a></li>
-                          <li><a href="#" className="hover:text-mint transition-colors">Compliance</a></li>
+                          <li><a href="#" className="hover:text-mint transition-colors">Block Explorer</a></li>
+                          <li><a href="#" className="hover:text-mint transition-colors">Governance Forum</a></li>
                       </ul>
                   </div>
 
                   <div className="">
-                      <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Intelligence</h5>
+                      <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Developers</h5>
                       <ul className="space-y-2.5 text-[10px] text-sub uppercase tracking-widest font-mono">
-                          <li><a href="#" className="hover:text-mint transition-colors">OSINT</a></li>
-                          <li><a href="#" className="hover:text-mint transition-colors">DORA</a></li>
+                          <li><a href="#" className="hover:text-mint transition-colors">Documentation</a></li>
+                          <li><a href="#" className="hover:text-mint transition-colors">Github</a></li>
                       </ul>
                   </div>
 
                   <div className="">
-                      <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Support</h5>
+                      <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Social</h5>
                       <div className="flex gap-4">
                           <a href="#" className="w-8 h-8 flex items-center justify-center text-sub hover:text-white transition-colors bg-surface rounded-full border border-white/5 hover:border-white/20">
                               <iconify-icon icon="ri:twitter-x-fill" width="16"></iconify-icon>
                           </a>
                           <a href="#" className="w-8 h-8 flex items-center justify-center text-sub hover:text-white transition-colors bg-surface rounded-full border border-white/5 hover:border-white/20">
-                              <iconify-icon icon="ri:linkedin-fill" width="16"></iconify-icon>
+                              <iconify-icon icon="ri:discord-fill" width="16"></iconify-icon>
+                          </a>
+                          <a href="#" className="w-8 h-8 flex items-center justify-center text-sub hover:text-white transition-colors bg-surface rounded-full border border-white/5 hover:border-white/20">
+                              <iconify-icon icon="ri:github-fill" width="16"></iconify-icon>
                           </a>
                       </div>
                   </div>
               </div>
               
               <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
-                  <p className="text-[9px] text-sub uppercase tracking-[0.3em]">© 2026 SecuriTrust. All rights reserved.</p>
+                  <p className="text-[9px] text-sub uppercase tracking-[0.3em]">© 2024 Aetheris Foundation. All rights reserved.</p>
                   <div className="flex items-center gap-2 mt-4 md:mt-0">
                       <div className="w-1.5 h-1.5 rounded-full bg-mint shadow-[0_0_8px_rgba(102,224,163,0.8)] animate-pulse"></div>
                       <span className="font-mono text-[9px] text-mint uppercase tracking-[0.3em]">System Operational</span>
