@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProposalHeader } from '@/components/sections/proposal-header';
+import { PartnersScrollingBanner } from '@/components/sections/partners-scrolling-banner';
 
 export default function PropositionPage() {
   const router = useRouter();
@@ -207,33 +208,13 @@ export default function PropositionPage() {
             </div>
           </div>
 
-          {/* Trusted Clients - Aetheris Partner Style */}
+          {/* Trusted Clients - Scrolling Banner style */}
           <section className="mb-32">
-            <div className="flex items-center gap-4 mb-12">
+            <div className="flex items-center gap-4 mb-8">
               <h2 className="text-[10px] font-mono text-[#888888] uppercase tracking-[0.4em]">Ecosystem_Partners</h2>
               <div className="h-[1px] flex-1 bg-white/5" />
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-px bg-white/5 border border-white/5">
-              {[
-                { name: 'Société Générale', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/logo-societe-generale2-e1436481313147-1764595764935.png?width=8000&height=8000&resize=contain' },
-                { name: 'Abeille Assurances', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/43-abeille-assurance-1764596006375.jpg?width=8000&height=8000&resize=contain' },
-                { name: 'Banque Française Mutualiste', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-150x150-1764596042844.png?width=8000&height=8000&resize=contain' },
-                { name: 'Ma Place en Crèche', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-copie-4-150x150-1764596061442.png?width=8000&height=8000&resize=contain' },
-                { name: 'Affluens', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Af-150x150-1764596072367.png?width=8000&height=8000&resize=contain' },
-                { name: 'Veolia Eau d\'Île-de-France', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients-150x150-1764596078949.png?width=8000&height=8000&resize=contain' },
-                { name: 'Aviva', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-copie-150x150-1764596094822.png?width=8000&height=8000&resize=contain' },
-              ].map((client, idx) => (
-                <div key={idx} className="bg-[#030303] h-24 flex items-center justify-center p-6 grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100 group">
-                  <Image 
-                    src={client.logo}
-                    alt={client.name}
-                    width={100}
-                    height={50}
-                    className="w-full h-full object-contain brightness-0 invert"
-                  />
-                </div>
-              ))}
-            </div>
+            <PartnersScrollingBanner />
           </section>
 
           {/* Prochaines Étapes - Reveal cards */}

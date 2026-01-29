@@ -3,7 +3,7 @@ import { Footer } from '@/components/sections/footer';
 import { HeroSection } from '@/components/sections/hero-section';
 import { MetricsSection } from '@/components/sections/metrics-section';
 import { ServicesSection } from '@/components/sections/services-section';
-import { TrustedClientsCarousel } from '@/components/sections/trusted-clients-carousel';
+import { PartnersScrollingBanner } from '@/components/sections/partners-scrolling-banner';
 import { OfficialAuditorSection } from '@/components/sections/official-auditor-section';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { Metadata } from 'next';
@@ -23,7 +23,7 @@ export default function Page() {
       <HeroSection />
       <MetricsSection />
       <ServicesSection />
-      <TrustedClientsCarousel />
+      <PartnersScrollingBanner />
       <OfficialAuditorSection />
       
       <section className="relative py-16 px-6 text-center">
