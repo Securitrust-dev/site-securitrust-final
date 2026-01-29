@@ -3,25 +3,18 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'slelguoygbfzlpylpxfs.supabase.co',
-        pathname: '/storage/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'qfihegeffntsxrwhvnlm.supabase.co',
-        pathname: '/storage/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
+      qualities: [100, 75],
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: '**.supabase.co',
+          pathname: '/storage/**',
+        },
+        {
+          protocol: 'https',
+          hostname: 'images.unsplash.com',
+        },
       {
         protocol: 'https',
         hostname: 'randomuser.me',
