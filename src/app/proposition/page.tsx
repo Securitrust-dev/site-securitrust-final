@@ -1,6 +1,6 @@
 'use client';
 
-import { Award, Shield, Users, Target, CheckCircle2, FileCheck, Search, Building2, Database, Server, Network, Lock, FileSignature, CreditCard, Home, Feather } from 'lucide-react';
+import { Users, Target, CheckCircle2, FileCheck, Search, Database, Server, Network, Lock, FileSignature, CreditCard, Home, Feather } from 'lucide-react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -185,77 +185,6 @@ export default function PropositionPage() {
           </div>
         </section>
 
-        {/* Our Proposition */}
-        <section className="rounded-3xl bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-blue-900/20 border border-white/10 p-12">
-          <h2 className="text-4xl font-light text-white mb-4 text-center">
-            Notre <span className="font-semibold">Proposition</span> pour la Sécurité et la Conformité
-          </h2>
-          <p className="text-zinc-400 text-center max-w-3xl mx-auto mb-12">
-            Services complets de tests de sécurité et de certification
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {[
-              {
-                title: 'Notre Expertise en Attestation et Certification',
-                items: [
-                  'Auditeur Principal ISO 27001',
-                  'Implémenteur Principal ISO 27001',
-                  'Gestionnaire de Risques EBIOS',
-                  'Certifié OSCP',
-                  'Certifié CEH',
-                  'Qualification PASSI (En cours)',
-                ],
-                icon: Award,
-                color: 'cyan',
-              },
-              {
-                title: 'Gouvernance, Risques & Conformité (GRC)',
-                items: [
-                  'Conformité ISO 27001',
-                  'RGPD & Protection des Données',
-                  'NIS 2 & DORA',
-                  'TISAX Automobile',
-                  'Conformité LPM',
-                  'Services DPO',
-                ],
-                icon: Building2,
-                color: 'blue',
-              },
-              {
-                title: 'Cybersécurité Opérationnelle',
-                items: [
-                  'Opérations Red Team',
-                  'Tests d\'Intrusion',
-                  'Simulation de Ransomware',
-                  'Campagnes de Phishing',
-                  'Analyse OSINT',
-                  'Audits de Sécurité',
-                ],
-                icon: Shield,
-                color: 'purple',
-              },
-            ].map((section, idx) => {
-              const Icon = section.icon;
-              return (
-                <div key={idx} className={`rounded-2xl bg-gradient-to-br from-${section.color}-900/20 to-${section.color}-800/10 border border-${section.color}-500/30 p-6 hover:scale-[1.02] transition-all duration-300`}>
-                  <div className={`p-4 rounded-xl bg-${section.color}-500/20 border border-${section.color}-500/30 w-fit mb-6`}>
-                    <Icon className={`w-8 h-8 text-${section.color}-400`} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-white mb-6">{section.title}</h3>
-                  <ul className="space-y-3">
-                    {section.items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <CheckCircle2 className={`w-4 h-4 text-${section.color}-400 flex-shrink-0 mt-0.5`} />
-                        <span className="text-sm text-zinc-300">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-        </section>
 
         {/* La méthodologie Securitrust */}
         <section className="rounded-3xl bg-gradient-to-br from-blue-900/30 via-slate-900/40 to-blue-900/30 border border-blue-500/20 p-12">
