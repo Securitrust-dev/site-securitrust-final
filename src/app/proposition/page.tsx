@@ -1,17 +1,33 @@
 'use client';
 
-import { Users, Target, CheckCircle2, FileCheck, Search, Database, Server, Network, Lock, FileSignature, CreditCard, Home, Feather, Clock, Calendar } from 'lucide-react';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { ProposalHeader } from '@/components/sections/proposal-header';
+import Script from 'next/script';
+import Image from 'next/image';
+import { 
+  Users, Target, CheckCircle2, FileCheck, Search, Database, 
+  Server, Network, Lock, FileSignature, CreditCard, 
+  Home, Feather, Clock, Calendar, ShieldCheck, Zap, Globe
+} from 'lucide-react';
 import { PartnersScrollingBanner } from '@/components/sections/partners-scrolling-banner';
+
+declare global {
+  interface Window {
+    UnicornStudio: any;
+    gsap: any;
+    ScrollTrigger: any;
+    Lenis: any;
+  }
+}
 
 export default function PropositionPage() {
   const router = useRouter();
   const [orderData, setOrderData] = useState<any>(null);
   const [isSigned, setIsSigned] = useState(false);
-  
+  const [isInitialized, setIsInitialized] = useState(false);
+  const loaderBarRef = useRef<HTMLDivElement>(null);
+  const preloaderRef = useRef<HTMLDivElement>(null);
+
   const getCurrentDate = () => {
     const date = new Date();
     const options: Intl.DateTimeFormatOptions = { 
@@ -39,6 +55,123 @@ export default function PropositionPage() {
     }
   }, []);
 
+  // Preloader Logic
+  useEffect(() => {
+    let width = 0;
+    const interval = setInterval(() => {
+      width += Math.random() * 15;
+      if (width > 100) width = 100;
+      if (loaderBarRef.current) {
+        loaderBarRef.current.style.width = width + '%';
+      }
+      
+      if (width === 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          if (window.gsap && preloaderRef.current) {
+            window.gsap.to(preloaderRef.current, {
+              yPercent: -100,
+              duration: 1,
+              ease: "power4.inOut",
+              delay: 0.5,
+              onComplete: () => setIsInitialized(true)
+            });
+          } else {
+            if (preloaderRef.current) preloaderRef.current.style.display = 'none';
+            setIsInitialized(true);
+          }
+        }, 500);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // GSAP Animations
+  useEffect(() => {
+    if (!isInitialized || !window.gsap || !window.ScrollTrigger) return;
+
+    const gsap = window.gsap;
+    const ScrollTrigger = window.ScrollTrigger;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero Entrance
+    gsap.to('.hero-anim', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      stagger: 0.1,
+      ease: "power3.out"
+    });
+
+    // Section Reveals
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => {
+      gsap.fromTo(el, 
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            end: "bottom 10%",
+            toggleActions: "play reverse play reverse"
+          }
+        }
+      );
+    });
+
+    // Token Chart Animation (Adapted for Investment Circle)
+    const tokenRing = document.querySelector('.token-chart-ring');
+    if (tokenRing) {
+      gsap.to(tokenRing, {
+        strokeDashoffset: 70, 
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: '#investment',
+          start: "top 70%",
+          toggleActions: "play reverse play reverse"
+        }
+      });
+    }
+
+    // Numbers Count Up
+    const stats = document.querySelectorAll('.stat-number');
+    stats.forEach(stat => {
+      const target = parseFloat(stat.getAttribute('data-target') || '0');
+      gsap.to(stat, {
+        innerText: target,
+        duration: 2,
+        snap: { innerText: 1 },
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: '#investment',
+          start: "top 70%",
+          toggleActions: "play reverse play reverse"
+        }
+      });
+    });
+
+    // Smooth Scroll (Lenis)
+    if (window.Lenis) {
+      const lenis = new window.Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true
+      });
+      
+      const raf = (time: number) => {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      };
+      requestAnimationFrame(raf);
+    }
+  }, [isInitialized]);
+
   const handleSignProposal = () => {
     router.push('/signer-proposition');
   };
@@ -49,326 +182,457 @@ export default function PropositionPage() {
 
   return (
     <div className="antialiased selection:bg-[#00ffa3] selection:text-[#030303] overflow-x-hidden text-[#e0e0e0] font-['Inter',sans-serif] bg-[#030303] min-h-screen">
-      {/* Proposal Header Banner */}
-      <ProposalHeader clientName={orderData?.company?.name || orderData?.companyName || "Client"} />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" strategy="beforeInteractive" />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" strategy="beforeInteractive" />
+      <Script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" strategy="lazyOnload" />
+      <Script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.2/dist/unicornStudio.umd.js" strategy="lazyOnload" onLoad={() => {
+        if (window.UnicornStudio) window.UnicornStudio.init();
+      }} />
 
-      {/* Background Grid - Aetheris Style */}
-      <div
-        className="fixed inset-0 z-0 opacity-40 pointer-events-none"
-        style={{
-          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-        }}
-      />
-
-      {/* Navigation HUD style */}
-      <header className="relative z-10 border-b border-white/5 bg-[#030303]/90 backdrop-blur-xl">
-        <nav className="max-w-[1920px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="hidden md:block">
-                <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-mono">PROPOSAL_V2.0</p>
-              </div>
-              <div className="h-4 w-[1px] bg-white/10 hidden md:block" />
-              <p className="text-sm font-semibold tracking-tight text-white">
-                {orderData?.company?.name || orderData?.companyName || "PROPRIETARY DOCUMENT"}
-              </p>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-white">
-                <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                SECURE LINK
-              </div>
-              <button
-                onClick={() => router.push('/')}
-                className="bg-white/5 border border-white/10 px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors text-white"
-              >
-                Back
-              </button>
-              <div className="text-[10px] font-mono text-white/40 hidden sm:block uppercase">
-                {getCurrentDate()}
-              </div>
-            </div>
-        </nav>
-      </header>
-
-      <div className="relative z-10 max-w-[1920px] mx-auto">
-        
-        {/* HERO - Aetheris Style with stroked text */}
-        <section className="relative h-[70vh] min-h-[500px] flex flex-col items-center justify-center bg-[#030303] overflow-hidden border-b border-white/5">
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030303]/80 to-[#030303]" />
+      {/* PRELOADER */}
+      <div ref={preloaderRef} className="fixed inset-0 bg-[#030303] z-[9999] flex items-center justify-center">
+        <div className="text-center px-6">
+          <div className="font-['Inter',sans-serif] text-3xl md:text-4xl font-semibold mb-2 tracking-tighter text-white">INITIALIZING</div>
+          <div className="w-48 h-1 bg-gray-800 mx-auto overflow-hidden">
+            <div ref={loaderBarRef} className="h-full bg-[#00ffa3] w-0"></div>
           </div>
-          
-            <div className="relative z-20 flex flex-col items-center text-center px-6">
-              <div className="mb-4">
-                <span className="text-white font-mono text-[10px] tracking-[0.4em] uppercase py-1 px-3 border border-white/20 bg-white/5 rounded-full">
-                  PROPOSITION COMMERCIALE
-                </span>
-              </div>
-              
-              <h1 className="flex flex-col items-center justify-center leading-none">
-                <span className="font-display text-5xl md:text-8xl font-bold text-white tracking-tightest mix-blend-lighten uppercase">
-                  VOTRE
-                </span>
-                <span 
-                  className="font-display text-[15vw] md:text-[160px] font-bold tracking-tighter text-white select-none pointer-events-none opacity-90 transition-opacity uppercase"
-                >
-                  BESOIN
-                </span>
-              </h1>
-              
-              <p className="max-w-xl text-white text-sm md:text-lg font-medium leading-relaxed mt-8">
-                Une approche sur mesure pour sécuriser vos actifs numériques et garantir la résilience de votre infrastructure critique.
-              </p>
-            </div>
-        </section>
-
-        {/* Tech Separator */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-[3px] bg-[#00ffa3] shadow-[0_0_10px_#00ffa3]" />
-        </div>
-
-        {/* MAIN CONTENT AREA */}
-        <div className="max-w-7xl mx-auto px-6 py-24">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
-              {/* CONTEXTE - Tech Panel */}
-              <div className="lg:col-span-8 bg-[#080808] border border-white/5 p-8 md:p-12 relative overflow-hidden group hover:border-white/30 transition-colors duration-500">
-                <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-white opacity-20">REF: CTX_01</div>
-                
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-2 h-8 bg-white" />
-                  <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tightest text-white">CONTEXTE</h2>
-                </div>
-                
-                <div className="space-y-8 text-white/70 leading-relaxed text-sm md:text-base">
-                  <p className="text-lg md:text-xl text-white font-medium">
-                    <span className="text-white font-mono">[ENTITY]</span> {orderData?.company?.name || orderData?.companyName || "VOTRE ENTREPRISE"} souhaite renforcer sa posture défensive face aux menaces émergentes.
-                  </p>
-                  <div className="h-[1px] w-full bg-white/5" />
-                  <p>
-                    L'objectif central est la réalisation d'un <span className="text-white font-semibold">audit technique approfondi</span> de l'infrastructure Active Directory. Dans un paysage cyber de plus en plus complexe, la maîtrise de l'identité est le premier rempart de votre souveraineté numérique.
-                  </p>
-                  <p>
-                    Notre méthodologie s'articule autour de l'analyse structurelle des privilèges, la détection de chemins d'attaque furtifs et le durcissement des mécanismes d'authentification. L'approche hybride simule avec précision les tactiques des groupes d'attaquants les plus sophistiqués.
-                  </p>
-                  <div className="p-6 bg-white/[0.02] border-l-2 border-white italic text-sm">
-                    "Sécuriser n'est pas seulement boucher des trous, c'est concevoir un système où l'erreur humaine ne conduit pas à la compromission totale."
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column Boxes */}
-              <div className="lg:col-span-4 flex flex-col gap-8">
-                {/* Livrables - White Panel (instead of Mint) */}
-                <div className="bg-white p-8 relative overflow-hidden group">
-                  <div className="absolute top-[-20%] right-[-20%] w-64 h-64 bg-black/10 rounded-full blur-3xl" />
-                  <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-[#030303] mb-8 uppercase tracking-tighter">Livrables</h3>
-                    <ul className="space-y-5">
-                      {[
-                        'Rapport d\'Audit complet (PDF)',
-                        'Synthèse Décisionnelle',
-                        'Matrice de Remédiation (XLS)',
-                        'Audit de suivi à 30 jours',
-                        'Certificat de Conformité'
-                      ].map((item, i) => (
-                        <li key={i} className="flex items-start gap-3 text-[#030303]">
-                          <div className="mt-1 w-5 h-5 bg-[#030303] flex items-center justify-center rounded-sm">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-                          </div>
-                          <span className="text-sm font-bold uppercase tracking-tight">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Période - Tech Dark Panel */}
-                <div className="bg-[#080808] border border-white/5 p-8 relative overflow-hidden group hover:border-white/30 transition-all duration-500">
-                  <div className="absolute bottom-0 right-0 p-4">
-                    <Clock className="w-24 h-24 text-white/5" />
-                  </div>
-                  <div className="relative z-10">
-                    <h3 className="text-[10px] font-mono text-white mb-2 uppercase tracking-widest flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-white rounded-full" />
-                      Project Timeline
-                    </h3>
-                    <div className="flex flex-col mt-4">
-                      <span className="text-5xl font-bold text-white uppercase tracking-tightest italic leading-none">02 WEEKS</span>
-                      <p className="text-white/40 text-[10px] font-mono mt-4 uppercase tracking-widest">
-                        &gt; DEPLOYMENT: DAY 01<br/>
-                        &gt; ANALYSIS: DAY 03-10<br/>
-                        &gt; FINAL_REPORT: DAY 14
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          {/* Trusted Clients - Scrolling Banner style */}
-          <section className="mb-32">
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em]">Ecosystem_Partners</h2>
-              <div className="h-[1px] flex-1 bg-white/5" />
-            </div>
-            <PartnersScrollingBanner />
-          </section>
-
-          {/* Prochaines Étapes - Reveal cards */}
-          <section className="mb-32">
-            <div className="mb-12 flex items-end justify-between">
-              <div>
-                <h2 className="font-display text-4xl font-bold mb-2 tracking-tight text-white uppercase">Roadmap opérationnelle</h2>
-                <p className="text-white/60 text-sm md:text-base max-w-md">Chronologie séquentielle de l'engagement SecuriTrust.</p>
-              </div>
-              <div className="hidden md:block text-right">
-                <div className="font-mono text-[10px] text-white tracking-widest uppercase">SYS_FLOW_V2</div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-0 border border-white/5">
-              {[
-                { step: '01', title: 'Onboarding', description: 'Initialisation des accès et revue de périmètre.', icon: FileCheck },
-                { step: '02', title: 'Exploitation', description: 'Lancement de l\'audit technique et tests d\'intrusion.', icon: Search },
-                { step: '03', title: 'Analyse', description: 'Traitement des données et rédaction du rapport.', icon: Target },
-                { step: '04', title: 'Restitution', description: 'Livraison finale et réunion de débriefing.', icon: Users },
-              ].map((step, idx) => {
-                const Icon = step.icon;
-                return (
-                  <article key={idx} className="group border-b md:border-b-0 md:border-r last:border-r-0 border-white/5 p-8 bg-[#080808] hover:bg-white/[0.02] transition-colors relative">
-                    <div className="absolute top-4 right-4 font-mono text-2xl font-bold text-white/5 group-hover:text-white/20 transition-colors">
-                      {step.step}
-                    </div>
-                    <div className="w-12 h-12 bg-[#030303] border border-white/10 flex items-center justify-center mb-6 text-white group-hover:border-white/50 transition-colors">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h3 className="font-display text-xl font-bold mb-3 tracking-tight text-white uppercase">{step.title}</h3>
-                    <p className="text-sm text-white/60 leading-relaxed">{step.description}</p>
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* Investment - Aetheris Staking Dashboard style */}
-          <section id="investment" className="grid grid-cols-1 lg:grid-cols-2 border border-white/5 bg-[#080808]">
-            {/* Left side: The Price/Chart feel */}
-            <div className="p-8 md:p-20 border-b lg:border-b-0 lg:border-r border-white/5 flex flex-col justify-center items-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05),_transparent_70%)]" />
-              
-              <div className="relative w-64 h-64 md:w-80 md:h-80 mb-12">
-                <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-                  <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.05)" strokeWidth="4" fill="none" />
-                  <circle 
-                    cx="50" cy="50" r="45" 
-                    stroke="white" strokeWidth="4" fill="none" 
-                    strokeDasharray="283" strokeDashoffset="70" 
-                    className="transition-all duration-1000"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                  <span className="text-[10px] font-mono text-white uppercase tracking-[0.3em] mb-2">Total Value</span>
-                  <span className="text-5xl md:text-6xl font-bold text-white tracking-tighter italic">4 999€</span>
-                  <span className="text-[10px] text-white/40 uppercase mt-2">HORS TAXES</span>
-                </div>
-              </div>
-
-              <div className="w-full max-w-sm grid grid-cols-2 gap-4">
-                <div className="p-4 bg-white/[0.02] border border-white/5 text-center">
-                  <div className="text-xl font-bold text-white">5 JOURS</div>
-                  <div className="text-[8px] font-mono text-white/40 uppercase tracking-widest">SLA DELIVERY</div>
-                </div>
-                <div className="p-4 bg-white/[0.02] border border-white/5 text-center">
-                  <div className="text-xl font-bold text-white">LIFETIME</div>
-                  <div className="text-[8px] font-mono text-white/40 uppercase tracking-widest">TECH SUPPORT</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right side: Action Area */}
-            <div className="p-8 md:p-20 flex flex-col justify-center bg-[#030303]">
-              <h3 className="font-display text-3xl font-bold mb-8 tracking-tight text-white uppercase">SÉCURISATION GLOBALE</h3>
-              
-              <div className="space-y-4 mb-12">
-                {[
-                  'Test d\'Intrusion complet de l\'infrastructure',
-                  'Évaluation de la résilience Active Directory',
-                  'Rapport de conformité technique',
-                  'Support technique prioritaire post-audit',
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4 group">
-                    <div className="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white font-mono text-[10px] shrink-0 group-hover:border-white/50 transition-colors">
-                      {i + 1}
-                    </div>
-                    <p className="text-sm md:text-base text-white/60 group-hover:text-white/80 transition-colors">{item}</p>
-                  </div>
-                ))}
-              </div>
-
-              {isSigned ? (
-                <div className="space-y-4">
-                  <div className="p-6 bg-white/5 border border-white/20 flex items-center gap-4">
-                    <CheckCircle2 className="w-8 h-8 text-white" />
-                    <div>
-                      <p className="text-white font-bold text-lg uppercase tracking-tight">PROPOSAL SIGNED</p>
-                      <p className="text-white/40 text-xs font-mono uppercase">TRANSACTION_ID: {Math.random().toString(36).substring(7).toUpperCase()}</p>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={handlePayment}
-                    className="w-full bg-white text-[#030303] py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-200 transition-all flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-                  >
-                    <CreditCard className="w-5 h-5" />
-                    Procéder au Paiement
-                  </button>
-                </div>
-              ) : (
-                <button 
-                  onClick={handleSignProposal}
-                  className="w-full bg-white text-[#030303] py-4 text-sm font-bold uppercase tracking-widest hover:bg-gray-200 transition-all flex items-center justify-center gap-3"
-                >
-                  Signer le document
-                  <Feather className="w-5 h-5" />
-                </button>
-              )}
-
-              <div className="mt-8 pt-8 border-t border-white/5 space-y-2">
-                <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest">
-                  CONTACT: jad.joumblat@securitrust.fr
-                </p>
-                <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest">
-                  SECURE_COMMS: +33 6 08 94 87 97
-                </p>
-              </div>
-            </div>
-          </section>
-
+          <div className="font-mono text-[10px] text-[#00ffa3] mt-2 tracking-widest">ESTABLISHING SECURE UPLINK...</div>
         </div>
       </div>
 
-      {/* Footer - Minimalist Aetheris Style */}
-      <footer className="border-t border-white/5 py-12 bg-[#030303] relative z-20">
-        <div className="max-w-[1920px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-4 opacity-60">
-            <Image 
-              src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-1764601146487.png?width=8000&height=8000&resize=contain"
-              alt="SecuriTrust Logo"
-              width={120}
-              height={40}
-              className="h-8 w-auto brightness-0 invert"
-            />
+      {/* HUD OVERLAY */}
+      <div className="fixed inset-0 pointer-events-none z-40 p-4 hidden md:block">
+        <div className="absolute top-4 left-4 w-2 h-2 border-t border-l border-white/50"></div>
+        <div className="absolute top-4 right-4 w-2 h-2 border-t border-r border-white/50"></div>
+        <div className="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-white/50"></div>
+        <div className="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-white/50"></div>
+      </div>
+
+      {/* NAV */}
+      <nav className="fixed w-full z-50 top-0 border-b border-white/5 bg-[#030303]/90 backdrop-blur-xl">
+        <div className="flex h-16 max-w-[1920px] mx-auto px-6 md:px-12 items-center justify-between">
+          <a href="/" className="flex items-center gap-2 group shrink-0">
+            <span className="text-lg font-semibold tracking-tight font-['Inter',sans-serif] text-white">SECURITRUST</span>
+          </a>
+
+          <div className="hidden lg:flex items-center border-x border-white/5 h-full px-8">
+            <div className="uppercase text-gray-500 text-xs font-semibold tracking-wide px-6">
+              CLIENT: {orderData?.company?.name || orderData?.companyName || "CONFIDENTIAL"}
+            </div>
+            <div className="h-full w-[1px] bg-white/5" />
+            <div className="uppercase text-gray-500 text-xs font-semibold tracking-wide px-6">
+              REF: PROP_2026_AD
+            </div>
           </div>
-          <p className="text-[10px] font-mono text-white/40 uppercase tracking-[0.3em]">
-            © {new Date().getFullYear()} SecuriTrust — Autonomous Security Protocol
+
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-[#00ffa3]">
+              <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full animate-pulse"></span>
+              STATUS: SECURE
+            </div>
+            <button 
+              onClick={() => router.push('/')}
+              className="bg-white text-[#030303] px-4 md:px-6 py-2 text-xs font-semibold uppercase hover:bg-[#00ffa3] transition-colors whitespace-nowrap"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <header className="relative w-full h-screen min-h-[600px] bg-[#030303] overflow-hidden flex flex-col items-center justify-end pb-24 md:pb-32">
+        {/* Top Visual: Unicorn Studio Background */}
+        <div className="absolute top-0 left-0 w-full h-[65vh] z-0 pointer-events-none">
+          <div data-us-project="7zydvovZReD8YsoiUwj3" style={{ width: '100%', height: '100%' }}></div>
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#030303] via-[#030303]/80 to-transparent z-10"></div>
+        </div>
+        
+        <div className="relative z-20 flex flex-col items-center w-full max-w-[1920px] px-6 text-center">
+          <div className="mb-6 hero-anim opacity-0 translate-y-4">
+            <span className="text-white font-mono text-[10px] tracking-[0.4em] uppercase py-1 px-4 border border-white/20 bg-black/50 backdrop-blur-md rounded-full">
+              PROPOSITION COMMERCIALE
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center justify-center w-full">
+            <h1 className="font-['Inter',sans-serif] text-4xl md:text-7xl font-semibold text-white tracking-tightest leading-none relative z-20 mix-blend-lighten uppercase">
+              VOTRE
+            </h1>
+            <div className="h-2 md:h-4"></div>
+            <div 
+              className="font-['Inter',sans-serif] text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none opacity-90 transition-opacity uppercase"
+              style={{ WebkitTextStroke: '1px rgba(255, 255, 255, 0.4)' }}
+            >
+              BESOIN
+            </div>
+          </div>
+
+          <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
+            Une approche sur mesure pour sécuriser vos actifs numériques et garantir la résilience de votre infrastructure critique.
           </p>
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] animate-pulse"></div>
-            <span className="font-mono text-[10px] text-white uppercase tracking-widest">Nodes Operational</span>
+
+          <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto hero-anim opacity-0 translate-y-4">
+            <button 
+              onClick={() => document.getElementById('investment')?.scrollIntoView({ behavior: 'smooth' })}
+              className="group bg-[#00ffa3] text-[#030303] px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white transition-all hover:scale-[1.02] min-w-[180px] text-center shadow-[0_0_20px_rgba(0,255,163,0.3)]"
+            >
+              Voir l'offre
+            </button>
+            <button className="group bg-black/50 backdrop-blur-md border border-white/20 text-white px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white/10 transition-all hover:border-white/40 min-w-[180px] text-center">
+              Méthodologie
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-[3px] bg-[#00ffa3] shadow-[0_0_10px_#00ffa3]" />
+      </div>
+
+      {/* PARTNERS */}
+      <section className="border-b border-white/5 bg-[#030303]">
+        <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-6 divide-x divide-y md:divide-y-0 divide-white/5">
+          {['SOCIÉTÉ GÉNÉRALE', 'AVIVA', 'VINCI', 'LVMH', 'THALES', 'AIRBUS'].map((partner) => (
+            <div key={partner} className="p-6 md:p-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
+              <span className="font-['Inter',sans-serif] font-semibold text-sm md:text-base tracking-tight text-white">{partner}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CONTEXT & VISION */}
+      <section className="py-16 md:py-32 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="reveal">
+              <div className="inline-block px-3 py-1 border border-white/10 bg-white/5 rounded-full mb-6">
+                <span className="text-[10px] font-mono text-[#00ffa3] uppercase tracking-widest">CONTEXTE</span>
+              </div>
+              <h2 className="font-['Inter',sans-serif] text-3xl md:text-5xl font-semibold mb-6 tracking-tight text-white uppercase">Souveraineté & Identité</h2>
+              <p className="text-gray-400 text-sm md:text-lg leading-relaxed mb-6">
+                Dans un paysage cyber de plus en plus complexe, la maîtrise de l'identité est le premier rempart de votre souveraineté numérique. Notre audit de l'Active Directory cible les vulnérabilités structurelles avant qu'elles ne soient exploitées.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-[#00ffa3] rounded-full" />
+                  <span className="text-sm text-white font-medium">Analyse structurelle des privilèges</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-[#00ffa3] rounded-full" />
+                  <span className="text-sm text-white font-medium">Détection de chemins d'attaque furtifs</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-[#00ffa3] rounded-full" />
+                  <span className="text-sm text-white font-medium">Durcissement Kerberos & NTLM</span>
+                </div>
+              </div>
+            </div>
+            <div className="relative reveal h-[400px] border border-white/10 overflow-hidden group">
+              <Image 
+                src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fa050e23-c777-40ee-aabe-cc76269a2e47_1600w.jpg"
+                alt="Digital Security Mesh"
+                fill
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 opacity-50 group-hover:opacity-100"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CORE FEATURES (Livrables) */}
+      <section id="features" class="py-16 md:py-24 relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-12 flex items-end justify-between reveal">
+            <div>
+              <h2 className="font-['Inter',sans-serif] text-3xl md:text-4xl font-semibold mb-2 tracking-tight text-white uppercase">Livrables Techniques</h2>
+              <p className="text-gray-500 text-sm md:text-base max-w-md">Un arsenal complet de documents pour piloter votre remédiation.</p>
+            </div>
+            <div className="hidden md:block text-right">
+              <div className="font-mono text-[10px] text-[#00ffa3]">DOC_VERSION_2.6</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/5">
+            <article className="group border-b md:border-b-0 md:border-r border-white/5 p-6 md:p-8 hover:bg-white/[0.02] transition-all duration-300 bg-[#080808] reveal">
+              <div className="w-10 h-10 bg-[#030303] border border-white/10 flex items-center justify-center mb-6 text-[#00ffa3]">
+                <FileCheck className="w-5 h-5" />
+              </div>
+              <h3 className="font-['Inter',sans-serif] text-xl font-semibold mb-3 tracking-tight text-white uppercase">Rapport Complet</h3>
+              <p className="text-sm md:text-base text-gray-500 leading-relaxed">Une analyse exhaustive de chaque vulnérabilité avec preuve de concept (PoC).</p>
+            </article>
+            <article className="group border-b md:border-b-0 md:border-r border-white/5 p-6 md:p-8 hover:bg-white/[0.02] transition-all duration-300 bg-[#080808] reveal">
+              <div className="w-10 h-10 bg-[#030303] border border-white/10 flex items-center justify-center mb-6 text-[#00ffa3]">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <h3 className="font-['Inter',sans-serif] text-xl font-semibold mb-3 tracking-tight text-white uppercase">Matrice de Risque</h3>
+              <p className="text-sm md:text-base text-gray-500 leading-relaxed">Priorisation des actions selon l'impact business et la complexité technique.</p>
+            </article>
+            <article className="group border-b md:border-b-0 border-white/5 p-6 md:p-8 hover:bg-white/[0.02] transition-all duration-300 bg-[#080808] reveal">
+              <div className="w-10 h-10 bg-[#030303] border border-white/10 flex items-center justify-center mb-6 text-[#00ffa3]">
+                <Zap className="w-5 h-5" />
+              </div>
+              <h3 className="font-['Inter',sans-serif] text-xl font-semibold mb-3 tracking-tight text-white uppercase">Support 30j</h3>
+              <p className="text-sm md:text-base text-gray-500 leading-relaxed">Accompagnement de vos équipes IT pour la mise en œuvre des correctifs.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ROADMAP */}
+      <section id="roadmap" className="py-16 md:py-24 bg-[#030303]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-12 md:gap-16">
+            <div className="md:w-1/3 reveal">
+              <div className="inline-block px-3 py-1 border border-white/10 bg-white/5 rounded-full mb-6">
+                <span className="text-[10px] font-mono text-[#00ffa3] uppercase tracking-widest">TIMELINE</span>
+              </div>
+              <h2 className="font-['Inter',sans-serif] text-3xl md:text-4xl font-semibold mb-4 tracking-tight text-white uppercase">Roadmap<br/>Opérationnelle</h2>
+              <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-8">
+                L'engagement SecuriTrust se déploie en phases séquentielles pour garantir une analyse sans interruption de service.
+              </p>
+            </div>
+            <div className="md:w-2/3 space-y-0 relative border-l border-white/5 ml-2 md:ml-0">
+              <div className="relative pl-8 md:pl-10 pb-12 reveal group">
+                <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-[#00ffa3] rounded-full shadow-[0_0_10px_#00ffa3]"></div>
+                <div className="border border-white/5 bg-[#080808]/50 p-6 hover:bg-[#080808] transition-colors">
+                  <h3 className="font-semibold text-lg text-white mb-2 uppercase">Initialisation (Jour 1)</h3>
+                  <p className="text-xs text-gray-500">Collecte des informations et définition précise du périmètre d'audit.</p>
+                </div>
+              </div>
+              <div className="relative pl-8 md:pl-10 pb-12 reveal group">
+                <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-white border-2 border-[#030303]"></div>
+                <div className="absolute -left-[9px] top-1 w-4.5 h-4.5 border border-[#00ffa3] rounded-full animate-ping opacity-50"></div>
+                <div className="border border-[#00ffa3]/30 bg-[#00ffa3]/5 p-6 relative overflow-hidden">
+                  <div className="flex justify-between items-start mb-2 relative z-10">
+                    <span className="font-mono text-xs text-white uppercase tracking-widest">PHASE 02 — EN COURS</span>
+                    <span className="text-[9px] bg-[#00ffa3] text-[#030303] px-2 py-0.5 font-bold rounded uppercase">LIVE</span>
+                  </div>
+                  <h3 className="font-semibold text-lg text-white mb-4 relative z-10 uppercase">Analyse & Exploitation</h3>
+                  <p className="text-xs text-white/70">Recherche active de vulnérabilités et simulation de chemins d'attaque furtifs.</p>
+                </div>
+              </div>
+              <div className="relative pl-8 md:pl-10 reveal group">
+                <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-[#080808] border border-gray-500"></div>
+                <div className="border border-white/5 border-dashed bg-transparent p-6 opacity-60 hover:opacity-100 transition-opacity">
+                  <h3 className="font-semibold text-lg text-gray-400 mb-2 uppercase">Restitution (Jour 14)</h3>
+                  <p className="text-xs text-gray-500">Présentation du rapport final et réunion de transfert de compétences.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INVESTMENT (Adapted Staking) */}
+      <section id="investment" className="grid grid-cols-1 md:grid-cols-2 border-y border-white/5">
+        {/* Chart Area */}
+        <div className="bg-[#080808] p-8 md:p-24 border-b md:border-b-0 md:border-r border-white/5 flex flex-col justify-center items-center relative overflow-hidden reveal">
+          <div className="relative w-56 h-56 md:w-64 md:h-64">
+            <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+              <circle cx="50" cy="50" r="45" stroke="#1a1a1a" stroke-width="8" fill="none"></circle>
+              <circle cx="50" cy="50" r="45" stroke="#00ffa3" stroke-width="8" fill="none" stroke-dasharray="283" stroke-dashoffset="283" className="token-chart-ring"></circle>
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-3xl md:text-5xl font-bold text-white tracking-tighter italic">4 990€</span>
+              <span className="text-xs text-gray-500 uppercase tracking-wider">Investissement HT</span>
+            </div>
+          </div>
+          
+          <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
+            <div>
+              <div className="text-xl md:text-2xl font-semibold text-white uppercase"><span className="stat-number" data-target="14">0</span> Jours</div>
+              <div className="text-[10px] text-gray-500 uppercase tracking-widest">Délai de livraison</div>
+            </div>
+            <div>
+              <div className="text-xl md:text-2xl font-semibold text-[#00ffa3] uppercase"><span className="stat-number" data-target="100">0</span>%</div>
+              <div className="text-[10px] text-gray-500 uppercase tracking-widest">Garantie résultat</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Area */}
+        <div className="bg-[#030303] p-8 md:p-24 flex flex-col justify-center reveal">
+          <h3 className="font-['Inter',sans-serif] text-2xl md:text-3xl font-semibold mb-8 tracking-tight text-white uppercase">Engagement Global</h3>
+          <div className="space-y-6 mb-10">
+            {[
+              'Audit complet de l\'architecture Active Directory',
+              'Tests d\'intrusion internes (Poste utilisateur)',
+              'Revue des privilèges et groupes sensibles',
+              'Analyse des vulnérabilités critiques (ZeroLogon, etc.)'
+            ].map((item, i) => (
+              <div key={i} className="flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[#00ffa3] font-semibold font-mono shrink-0 border border-white/10">{i+1}</div>
+                <p className="text-sm md:text-base text-gray-400 leading-relaxed">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          {isSigned ? (
+            <div className="space-y-4">
+              <div className="p-6 bg-[#00ffa3]/5 border border-[#00ffa3]/20 flex items-center gap-4">
+                <CheckCircle2 className="w-8 h-8 text-[#00ffa3]" />
+                <div>
+                  <p className="text-white font-bold text-lg uppercase tracking-tight">PROPOSITION SIGNÉE</p>
+                  <p className="text-[#00ffa3] text-xs font-mono uppercase">AUTHENTICATION_SUCCESS</p>
+                </div>
+              </div>
+              <button 
+                onClick={handlePayment}
+                className="w-full bg-[#00ffa3] text-[#030303] py-4 text-sm font-bold uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(0,255,163,0.3)]"
+              >
+                <CreditCard className="w-5 h-5" />
+                Procéder au Paiement
+              </button>
+            </div>
+          ) : (
+            <button 
+              onClick={handleSignProposal}
+              className="w-full bg-white text-[#030303] py-4 text-sm font-bold uppercase tracking-widest hover:bg-[#00ffa3] transition-all flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+            >
+              Signer le document
+              <Feather className="w-5 h-5" />
+            </button>
+          )}
+        </div>
+      </section>
+
+      {/* NETWORK INFRASTRUCTURE (Topology) */}
+      <section id="network" className="py-16 md:py-24 bg-[#030303]">
+        <div className="max-w-[1920px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-8 border border-white/5 bg-[#080808] p-2 relative overflow-hidden reveal min-h-[400px] md:min-h-[500px]">
+              <div className="absolute inset-0 z-0">
+                <Image 
+                  src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" 
+                  alt="Network Topology"
+                  fill
+                  className="object-cover opacity-30 grayscale brightness-75 contrast-125"
+                />
+              </div>
+              <div className="absolute top-0 left-0 width-full height-[5px] bg-gradient-to-r from-transparent via-[#00ffa3] to-transparent opacity-50 shadow-[0_0_15px_#00ffa3] animate-[scan_4s_linear_infinite]" />
+              <div className="relative z-20 p-6 md:p-8 flex flex-col justify-between h-full">
+                <div className="flex justify-between items-start">
+                  <div className="bg-[#030303]/80 backdrop-blur-md p-4 border border-white/5">
+                    <h2 className="font-['Inter',sans-serif] text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight uppercase">Topology Scan</h2>
+                    <p className="text-gray-500 text-[10px] font-mono tracking-widest">STATUS: MONITORING</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="w-2 h-2 bg-[#00ffa3] rounded-full animate-pulse"></div>
+                    <div className="font-mono text-[10px] text-[#00ffa3] hidden md:block">NETWORK_SECURE</div>
+                  </div>
+                </div>
+                <div className="absolute top-[30%] left-[20%] w-20 h-20 md:w-32 md:h-32 border border-[#00ffa3]/20 rounded-full flex items-center justify-center animate-pulse">
+                  <div className="w-1 h-1 bg-[#00ffa3] rounded-full"></div>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-4 flex flex-col gap-6">
+              <div className="bg-[#030303] border border-white/5 p-6 reveal h-full flex flex-col justify-center">
+                <h3 className="font-semibold text-white mb-6 text-sm uppercase flex items-center gap-2 tracking-widest">
+                  <span className="w-2 h-2 bg-[#00ffa3] rounded-sm"></span>
+                  Périmètre Audit
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-[#080808] border border-white/5">
+                    <span className="text-xs text-gray-500 uppercase">Serveurs AD</span>
+                    <span className="font-mono text-white font-semibold">ALL</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-[#080808] border border-white/5">
+                    <span className="text-xs text-gray-500 uppercase">Utilisateurs</span>
+                    <span className="font-mono text-[#00ffa3] font-semibold">UNLIMITED</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-[#080808] border border-white/5">
+                    <span className="text-xs text-gray-500 uppercase">Confiance Foret</span>
+                    <span className="font-mono text-white font-semibold">INCLUS</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DIGITAL SINGULARITY (Infinite Scalability adapted) */}
+      <section className="py-24 md:py-32 bg-[#080808] relative overflow-hidden flex flex-col items-center justify-center h-[70vh] md:h-[90vh]">
+        <div className="absolute inset-0 opacity-10 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/aa933a24-d4de-4c67-83f6-b8676b3bab35_1600w.webp)] bg-cover bg-center"></div>
+        
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+          {[1,2,3,4,5,6,7,8,9,10,11].map(i => (
+            <div 
+              key={i} 
+              className="absolute border border-[#00ffa3]/15 rounded-full shadow-[0_0_20px_rgba(0,255,163,0.05)] animate-[tunnelMove_6s_linear_infinite]"
+              style={{
+                width: `${i * 100}px`,
+                height: `${i * 100}px`,
+                animationDelay: `${(i-1) * 0.5}s`,
+                opacity: 0,
+                borderStyle: i % 2 === 0 ? 'dashed' : 'solid'
+              }}
+            />
+          ))}
+        </div>
+
+        <div className="relative z-10 text-center reveal pointer-events-none px-6">
+          <span className="text-[#00ffa3] font-mono text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-[#00ffa3]/20">SECURITRUST MISSION</span>
+          <h2 className="font-['Inter',sans-serif] text-4xl md:text-8xl font-bold mt-6 text-white mix-blend-difference tracking-tight uppercase">
+            SÉCURITÉ ABSOLUE
+          </h2>
+          <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-6 bg-black/30 backdrop-blur-sm p-4 rounded-lg border border-white/5">
+            Une architecture de confiance résiliente face aux menaces les plus sophistiquées.
+          </p>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/5 pt-16 md:pt-20 pb-10 bg-[#030303]">
+        <div className="max-w-[1920px] mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-20">
+            <div className="col-span-2 md:col-span-1">
+              <span className="text-lg font-medium text-white font-['Inter',sans-serif]">SecuriTrust</span>
+              <p className="text-gray-500 text-xs leading-relaxed max-w-xs mt-4">
+                L'excellence en cybersécurité au service de votre souveraineté numérique.
+              </p>
+            </div>
+            <div>
+              <h5 className="text-white font-medium text-sm mb-4">Contact</h5>
+              <ul className="space-y-2.5 text-xs text-gray-500 font-mono uppercase tracking-widest">
+                <li>jad.joumblat@securitrust.fr</li>
+                <li>+33 6 08 94 87 97</li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-white font-medium text-sm mb-4">Légal</h5>
+              <ul className="space-y-2.5 text-xs text-gray-500 uppercase tracking-widest">
+                <li><a href="/mentions-legales" className="hover:text-[#00ffa3] transition-colors">Mentions Légales</a></li>
+                <li><a href="/cgv" className="hover:text-[#00ffa3] transition-colors">CGV</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
+            <p className="text-[10px] text-gray-500 uppercase tracking-wider">© {new Date().getFullYear()} SecuriTrust Foundation. All rights reserved.</p>
+            <div className="flex items-center gap-2 mt-4 md:mt-0">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#00ffa3] shadow-[0_0_8px_#00ffa3] animate-pulse"></div>
+              <span className="font-mono text-[10px] text-[#00ffa3] uppercase tracking-widest">System Operational</span>
+            </div>
           </div>
         </div>
       </footer>
+
+      <style jsx global>{`
+        @keyframes scan {
+          0% { top: 0; }
+          100% { top: 100%; }
+        }
+        @keyframes tunnelMove {
+          0% { transform: translateZ(-500px) scale(0); opacity: 0; }
+          20% { opacity: 1; }
+          100% { transform: translateZ(800px) scale(2); opacity: 0; }
+        }
+        .tracking-tightest { letter-spacing: -0.04em; }
+      `}</style>
     </div>
   );
 }
