@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 export default function SignerPropositionPage() {
   const router = useRouter();
   
-  const [loading, setLoading] = useState(false); // Change to false initially
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [signUrl, setSignUrl] = useState<string | null>(null);
   const [isSigned, setIsSigned] = useState(false);
@@ -45,21 +45,17 @@ export default function SignerPropositionPage() {
       const data = await response.json();
       
       if (data.url) {
-        // Use multiple redirection strategies to bail out of iframe
         try {
           const isInIframe = window.self !== window.top;
           
           if (isInIframe) {
-            // First send the message for parent handling (required for Orchids/Vercel preview)
             window.parent.postMessage({ type: 'OPEN_EXTERNAL_URL', data: { url: data.url } }, '*');
             
-            // Try top-level navigation as backup
             try {
               if (window.top) {
                 window.top.location.href = data.url;
               }
             } catch (e) {
-              console.warn("Could not redirect top window, falling back to location.href");
               window.location.href = data.url;
             }
           } else {
@@ -69,10 +65,8 @@ export default function SignerPropositionPage() {
           window.location.href = data.url;
         }
         
-        // Safety fallback if redirection fails or is blocked
         setTimeout(() => {
           setIsRedirectingToStripe(false);
-          // Only redirect to /paiement if we are still on the same page
           if (window.location.pathname === '/signer-proposition') {
             router.push('/paiement');
           }
@@ -161,7 +155,6 @@ export default function SignerPropositionPage() {
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       const data = event.data;
-      console.log('Message reçu de l\'iframe:', data);
       
       const isActuallySigned = 
         data?.event === 'es:signed' || 
@@ -192,18 +185,18 @@ export default function SignerPropositionPage() {
 
   if (loading || isRedirectingToStripe) {
     return (
-      <div className="min-h-screen bg-[#02040a] flex items-center justify-center">
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
         <div className="text-center space-y-6">
           <div className="relative">
-            <Loader2 className="w-16 h-16 text-blue-500 animate-spin mx-auto" />
-            <ShieldCheck className="w-6 h-6 text-green-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            <Loader2 className="w-16 h-16 text-[#00ffa3] animate-spin mx-auto" />
+            <ShieldCheck className="w-6 h-6 text-[#00ffa3] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
           </div>
           <div className="space-y-2">
-            <p className="text-white text-xl font-medium">
-              {isRedirectingToStripe ? "Confirmation de la signature..." : "Chargement de votre contrat..."}
+            <p className="text-white text-xl font-bold uppercase tracking-tight">
+              {isRedirectingToStripe ? "Confirmation de la signature..." : "Chargement du contrat..."}
             </p>
-            <p className="text-slate-400 animate-pulse">
-              {isRedirectingToStripe ? "Redirection vers le paiement Stripe sécurisé" : "Veuillez patienter un instant"}
+            <p className="text-[#888888] font-mono text-xs uppercase tracking-widest animate-pulse">
+              {isRedirectingToStripe ? "Redirection vers le paiement sécurisé" : "Veuillez patienter"}
             </p>
           </div>
         </div>
@@ -213,12 +206,12 @@ export default function SignerPropositionPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#02040a] flex items-center justify-center px-6">
-        <div className="max-w-md w-full bg-red-500/10 border border-red-500/30 rounded-xl p-8 text-center backdrop-blur-sm">
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center px-6">
+        <div className="max-w-md w-full bg-red-500/5 border border-red-500/20 p-8 text-center">
           <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-white mb-2">Impossible d'afficher le contrat</h2>
-          <p className="text-red-200/80 mb-6">{error}</p>
-          <button onClick={handleBack} className="w-full py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors">
+          <h2 className="text-xl font-bold text-white uppercase mb-2 tracking-tight">Impossible d'afficher le contrat</h2>
+          <p className="text-[#888888] text-sm mb-6">{error}</p>
+          <button onClick={handleBack} className="w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-xs tracking-widest transition-colors">
             Retour
           </button>
         </div>
@@ -227,30 +220,40 @@ export default function SignerPropositionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#02040a] flex flex-col relative">
+    <div className="min-h-screen bg-[#030303] flex flex-col relative text-[#e0e0e0] font-['Inter',sans-serif] antialiased">
+      {/* Background Grid */}
+      <div
+        className="fixed inset-0 z-0 opacity-40 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}
+      />
+
       <ProposalHeader clientName={companyName || "Client"} />
       
-      <div className="h-14 border-b border-white/10 flex items-center px-6 bg-[#02040a] justify-between z-10">
-        <div className="flex items-center gap-4">
-          <button onClick={handleBack} className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
-            <ArrowLeft className="w-4 h-4" />
-            Retour
+      <div className="h-16 border-b border-white/5 flex items-center px-6 bg-[#030303]/90 backdrop-blur-xl justify-between z-10">
+        <div className="flex items-center gap-6">
+          <button onClick={handleBack} className="text-[#888888] hover:text-[#00ffa3] transition-colors flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
+            <ArrowLeft className="w-3 h-3" />
+            Back
           </button>
           <div className="h-4 w-[1px] bg-white/10" />
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-slate-200">
-              {companyName || "Entreprise"}
-            </span>
+            <p className="text-sm font-semibold tracking-tight text-white">
+              {companyName || "ENTITÉ CLIENT"}
+            </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-xs text-cyan-400/80 bg-cyan-950/30 px-3 py-1 rounded-full border border-cyan-500/20">
-          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-          Signature Sécurisée
+        <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-[#00ffa3]">
+            <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full animate-pulse"></span>
+            ENCRYPTED LINK
+          </div>
         </div>
       </div>
 
-      <div className="flex-1 w-full relative bg-white pb-24">
+      <div className="flex-1 w-full relative bg-white">
         {signUrl && (
           <iframe 
             src={signUrl} 
@@ -261,28 +264,41 @@ export default function SignerPropositionPage() {
       </div>
 
       {isSignatureDone && (
-        <div className="fixed bottom-0 left-0 w-full p-4 bg-[#02040a]/95 border-t border-white/10 backdrop-blur-md z-50 animate-in slide-in-from-bottom duration-300">
-          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="fixed bottom-0 left-0 w-full p-8 bg-[#030303]/95 border-t border-white/10 backdrop-blur-xl z-50">
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30">
-                <ShieldCheck className="w-6 h-6 text-green-400" />
+              <div className="w-12 h-12 border border-[#00ffa3]/30 flex items-center justify-center bg-[#00ffa3]/5">
+                <ShieldCheck className="w-6 h-6 text-[#00ffa3]" />
               </div>
               <div>
-                <p className="text-white font-bold">Contrat Signé !</p>
-                <p className="text-slate-400 text-xs">Toutes les étapes sont complétées.</p>
+                <p className="text-white font-bold uppercase tracking-tight">Contrat Signé</p>
+                <p className="text-[#888888] font-mono text-[10px] uppercase tracking-widest">All conditions accepted</p>
               </div>
             </div>
 
             <button 
               onClick={goToPayment}
-              className="w-full sm:w-auto px-10 py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all duration-300 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-lg shadow-green-900/40 hover:scale-105 active:scale-95"
+              className="w-full sm:w-auto px-10 py-4 bg-[#00ffa3] text-[#030303] font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(0,255,163,0.3)] flex items-center justify-center gap-3"
             >
               <span>Procéder au paiement</span>
-              <CreditCard className="w-5 h-5 animate-pulse" />
+              <CreditCard className="w-5 h-5" />
             </button>
           </div>
         </div>
       )}
+
+      {/* Footer - Minimalist */}
+      <footer className="border-t border-white/5 py-8 bg-[#030303] relative z-20">
+        <div className="max-w-[1920px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-[10px] font-mono text-[#888888] uppercase tracking-[0.3em]">
+            © {new Date().getFullYear()} SecuriTrust — Secure Signing Protocol
+          </p>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#00ffa3] shadow-[0_0_8px_rgba(0,255,163,0.8)] animate-pulse"></div>
+            <span className="font-mono text-[10px] text-[#00ffa3] uppercase tracking-widest">Uplink Stable</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

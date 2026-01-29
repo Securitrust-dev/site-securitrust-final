@@ -4,7 +4,6 @@ import { Users, Target, CheckCircle2, FileCheck, Search, Database, Server, Netwo
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
 import { ProposalHeader } from '@/components/sections/proposal-header';
 
 export default function PropositionPage() {
@@ -12,7 +11,6 @@ export default function PropositionPage() {
   const [orderData, setOrderData] = useState<any>(null);
   const [isSigned, setIsSigned] = useState(false);
   
-  // Format date in French
   const getCurrentDate = () => {
     const date = new Date();
     const options: Intl.DateTimeFormatOptions = { 
@@ -34,7 +32,6 @@ export default function PropositionPage() {
       }
     }
 
-    // Vérifier si la proposition a déjà été signée
     const propositionSigned = sessionStorage.getItem('propositionSigned');
     if (propositionSigned === 'true') {
       setIsSigned(true);
@@ -50,331 +47,345 @@ export default function PropositionPage() {
   };
 
   return (
-    <div className="antialiased selection:bg-white selection:text-black overflow-x-hidden text-white font-['Inter',sans-serif] bg-[#011C1C]">
+    <div className="antialiased selection:bg-[#00ffa3] selection:text-[#030303] overflow-x-hidden text-[#e0e0e0] font-['Inter',sans-serif] bg-[#030303] min-h-screen">
       {/* Proposal Header Banner */}
       <ProposalHeader clientName={orderData?.company?.name || orderData?.companyName || "Client"} />
 
-      {/* Background Grid */}
+      {/* Background Grid - Aetheris Style */}
       <div
-        className="fixed inset-0 z-0"
+        className="fixed inset-0 z-0 opacity-40 pointer-events-none"
         style={{
-          backgroundImage:
-            'linear-gradient(to right, rgba(56, 189, 248, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(56, 189, 248, 0.03) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
         }}
       />
 
-      {/* Gradient Orbs */}
-      <div className="fixed top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl opacity-20 z-0" />
-      <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl opacity-20 z-0" />
-
-      {/* Navigation */}
-      <header className="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-sm">
-        <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      {/* Navigation HUD style */}
+      <header className="relative z-10 border-b border-white/5 bg-[#030303]/90 backdrop-blur-xl">
+        <nav className="max-w-[1920px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="">
-              <p className="text-xs text-zinc-500 uppercase tracking-widest">Proposition Commerciale</p>
-              <p className="text-sm font-medium text-cyan-400">
-                {orderData?.company?.name || orderData?.companyName || "Votre Entreprise"}
-              </p>
+            <div className="hidden md:block">
+              <p className="text-[10px] text-[#888888] uppercase tracking-[0.2em] font-mono">PROPOSAL_V2.0</p>
             </div>
+            <div className="h-4 w-[1px] bg-white/10 hidden md:block" />
+            <p className="text-sm font-semibold tracking-tight text-white">
+              {orderData?.company?.name || orderData?.companyName || "PROPRIETARY DOCUMENT"}
+            </p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-[#00ffa3]">
+              <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full animate-pulse"></span>
+              SECURE LINK
+            </div>
             <button
               onClick={() => router.push('/')}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 hover:border-cyan-500/50 text-cyan-300 hover:text-cyan-200 transition-all duration-300 hover:scale-105"
+              className="bg-white/5 border border-white/10 px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-colors text-white"
             >
-              <Home className="w-4 h-4" />
-              <span className="text-sm font-medium">Retour</span>
+              Back
             </button>
-            <div className="text-xs text-zinc-400">
+            <div className="text-[10px] font-mono text-[#888888] hidden sm:block uppercase">
               {getCurrentDate()}
             </div>
           </div>
         </nav>
       </header>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 space-y-16">
+      <div className="relative z-10 max-w-[1920px] mx-auto">
         
-        {/* Hero Section - Inspired by screenshot */}
-        <section className="relative h-[60vh] flex flex-col items-center justify-center bg-[#011C1C] overflow-hidden -mx-6 mb-16">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
+        {/* HERO - Aetheris Style with stroked text */}
+        <section className="relative h-[70vh] min-h-[500px] flex flex-col items-center justify-center bg-[#030303] overflow-hidden border-b border-white/5">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#030303]/80 to-[#030303]" />
           </div>
-          <div className="relative z-10 flex flex-col items-center gap-4">
-            <h1 className="flex items-center gap-6 text-[10vw] lg:text-[120px] font-black leading-none tracking-tighter uppercase text-white">
-              <span className="text-[#D9FF99]">→</span>
-              <div className="flex flex-col items-center">
-                <span>VOTRE</span>
-                <span className="text-[#D9FF99]">BESOIN</span>
-              </div>
+          
+          <div className="relative z-20 flex flex-col items-center text-center px-6">
+            <div className="mb-4">
+              <span className="text-[#00ffa3] font-mono text-[10px] tracking-[0.4em] uppercase py-1 px-3 border border-[#00ffa3]/20 bg-[#00ffa3]/5 rounded-full">
+                Business Proposal
+              </span>
+            </div>
+            
+            <h1 className="flex flex-col items-center justify-center leading-none">
+              <span className="font-display text-5xl md:text-8xl font-bold text-white tracking-tightest mix-blend-lighten uppercase">
+                VOTRE
+              </span>
+              <span 
+                className="font-display text-[15vw] md:text-[160px] font-bold tracking-tighter text-transparent select-none pointer-events-none opacity-90 transition-opacity uppercase"
+                style={{ WebkitTextStroke: '1px rgba(255, 255, 255, 0.25)' }}
+              >
+                BESOIN
+              </span>
             </h1>
+            
+            <p className="max-w-xl text-[#888888] text-sm md:text-lg font-medium leading-relaxed mt-8">
+              Une approche sur mesure pour sécuriser vos actifs numériques et garantir la résilience de votre infrastructure critique.
+            </p>
           </div>
         </section>
 
-        {/* Content Layout - Inspired by screenshot */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
-          {/* CONTEXTE Box */}
-          <div className="lg:col-span-2 rounded-3xl bg-[#0a0c10] border border-white/5 p-8 md:p-12">
-            <h2 className="text-5xl font-black uppercase tracking-tighter text-white mb-8">CONTEXTE</h2>
-            <div className="space-y-6 text-zinc-400 leading-relaxed">
-              <p className="text-lg">
-                <span className="font-bold text-white uppercase">{orderData?.company?.name || orderData?.companyName || "VOTRE ENTREPRISE"}</span> souhaite être accompagnée dans l'évaluation et le renforcement de sa posture de cybersécurité.
-              </p>
-              <p>
-                L'objectif est de réaliser un <span className="text-white font-medium">test d'intrusion interne</span> complet sur l'environnement Active Directory afin d'identifier les vulnérabilités critiques et proposer une remédiation concrète.
-              </p>
-              <p>
-                Le travail consistera à analyser la structure de l'Active Directory, évaluer la sécurité des comptes privilégiés et tester les mécanismes d'authentification. L'approche en boîte grise permettra de simuler un scénario d'attaque réaliste depuis une position d'utilisateur authentifié.
-              </p>
-              <p>
-                SecuriTrust accompagnera vos équipes sur l'ensemble du processus : de la reconnaissance initiale à l'exploitation des failles, jusqu'à la livraison d'un rapport détaillé incluant un résumé exécutif pour la direction et des recommandations techniques pour les administrateurs.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-6">
-            {/* Livrables attendus Box */}
-            <div className="flex-1 rounded-3xl bg-[#D9FF99] p-8 md:p-10">
-              <h3 className="text-3xl font-bold text-[#011C1C] mb-6">Livrables attendus</h3>
-              <ul className="space-y-4">
-                {[
-                  'Rapport de test d\'intrusion complet',
-                  'Résumé exécutif pour la direction',
-                  'Plan de remédiation détaillé',
-                  'Support post-audit (1 mois)',
-                  'Attestation de sécurité'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-[#011C1C]">
-                    <div className="mt-1 w-5 h-5 rounded border-2 border-[#011C1C] flex items-center justify-center bg-[#011C1C]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#D9FF99]" />
-                    </div>
-                    <span className="font-medium">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Période de collaboration Box */}
-            <div className="rounded-3xl bg-[#6366F1] p-8 md:p-10 text-white relative overflow-hidden group">
-              <div className="relative z-10">
-                <h3 className="text-xl font-medium mb-4 opacity-90 flex items-center gap-2">
-                  <Calendar className="w-5 h-5" />
-                  Période de collaboration
-                </h3>
-                <div className="flex flex-col">
-                  <span className="text-6xl font-black uppercase tracking-tighter italic">2 semaines</span>
-                  <span className="text-sm opacity-80 mt-2 font-medium bg-black/20 self-start px-3 py-1 rounded-full">— du lancement au rapport final</span>
-                </div>
-              </div>
-              
-              {/* Illustration Placeholder - Calendar/Clock feel */}
-              <div className="absolute bottom-[-10px] right-[-10px] opacity-20 transform rotate-12 group-hover:scale-110 transition-transform duration-500">
-                <Clock className="w-48 h-48" />
-              </div>
-            </div>
-          </div>
+        {/* Tech Separator */}
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-[3px] bg-[#00ffa3] shadow-[0_0_10px_#00ffa3]" />
         </div>
 
-        {/* Trusted Clients */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-light text-white mb-8 text-center">
-            Ils nous font <span className="font-semibold italic">confiance</span>
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-            {[
-              { 
-                name: 'Société Générale',
-                logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/logo-societe-generale2-e1436481313147-1764595764935.png?width=8000&height=8000&resize=contain'
-              },
-              { 
-                name: 'Abeille Assurances',
-                logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/43-abeille-assurance-1764596006375.jpg?width=8000&height=8000&resize=contain'
-              },
-              { 
-                name: 'Banque Française Mutualiste',
-                logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-150x150-1764596042844.png?width=8000&height=8000&resize=contain'
-              },
-              { 
-                name: 'Ma Place en Crèche',
-                logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-copie-4-150x150-1764596061442.png?width=8000&height=8000&resize=contain'
-              },
-              { 
-                name: 'Affluens',
-                logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Af-150x150-1764596072367.png?width=8000&height=8000&resize=contain'
-              },
-              { 
-                name: 'Veolia Eau d\'Île-de-France',
-                logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients-150x150-1764596078949.png?width=8000&height=8000&resize=contain'
-              },
-              { 
-                name: 'Aviva',
-                logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-copie-150x150-1764596094822.png?width=8000&height=8000&resize=contain'
-              },
-            ].map((client, idx) => (
-              <div key={idx} className="group relative aspect-video rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 flex items-center justify-center p-4">
-                <Image 
-                  src={client.logo}
-                  alt={client.name}
-                  width={120}
-                  height={60}
-                  className="w-full h-full object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-                />
+        {/* MAIN CONTENT AREA */}
+        <div className="max-w-7xl mx-auto px-6 py-24">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
+            {/* CONTEXTE - Tech Panel */}
+            <div className="lg:col-span-8 bg-[#080808] border border-white/5 p-8 md:p-12 relative overflow-hidden group hover:border-[#00ffa3]/30 transition-colors duration-500">
+              <div className="absolute top-0 right-0 p-4 font-mono text-[10px] text-[#888888] opacity-20">REF: CTX_01</div>
+              
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-2 h-8 bg-[#00ffa3]" />
+                <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-tightest text-white">CONTEXTE</h2>
               </div>
-            ))}
-          </div>
-        </section>
+              
+              <div className="space-y-8 text-[#888888] leading-relaxed text-sm md:text-base">
+                <p className="text-lg md:text-xl text-white/90 font-medium">
+                  <span className="text-[#00ffa3] font-mono">[ENTITY]</span> {orderData?.company?.name || orderData?.companyName || "VOTRE ENTREPRISE"} souhaite renforcer sa posture défensive face aux menaces émergentes.
+                </p>
+                <div className="h-[1px] w-full bg-white/5" />
+                <p>
+                  L'objectif central est la réalisation d'un <span className="text-white font-semibold">audit technique approfondi</span> de l'infrastructure Active Directory. Dans un paysage cyber de plus en plus complexe, la maîtrise de l'identité est le premier rempart de votre souveraineté numérique.
+                </p>
+                <p>
+                  Notre méthodologie s'articule autour de l'analyse structurelle des privilèges, la détection de chemins d'attaque furtifs et le durcissement des mécanismes d'authentification. L'approche hybride simule avec précision les tactiques des groupes d'attaquants les plus sophistiqués.
+                </p>
+                <div className="p-6 bg-white/[0.02] border-l-2 border-[#00ffa3]/50 italic text-sm">
+                  "Sécuriser n'est pas seulement boucher des trous, c'est concevoir un système où l'erreur humaine ne conduit pas à la compromission totale."
+                </div>
+              </div>
+            </div>
 
-        {/* Prochaines Étapes */}
-        <section className="rounded-3xl bg-[#0a0c10] border border-white/5 p-12">
-          <h2 className="text-4xl font-light text-white mb-12 text-center">
-            Prochaines <span className="font-semibold">Étapes</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {[
-              {
-                step: '1',
-                title: 'Signature du Contrat',
-                description: 'Examiner et signer l\'accord de service',
-                icon: FileCheck,
-              },
-              {
-                step: '2',
-                title: 'Réunion de Lancement',
-                description: 'Rencontrer l\'équipe et définir les objectifs',
-                icon: Users,
-              },
-              {
-                step: '3',
-                title: 'Évaluation',
-                description: 'Réaliser des tests de sécurité complets',
-                icon: Search,
-              },
-              {
-                step: '4',
-                title: 'Livraison',
-                description: 'Recevoir le rapport détaillé et les recommandations',
-                icon: Target,
-              },
-            ].map((step, idx) => {
-              const Icon = step.icon;
-              return (
-                <div key={idx} className="relative group">
-                  <div className="rounded-2xl bg-zinc-900/50 border border-white/10 p-6 hover:bg-zinc-900/70 hover:scale-105 transition-all duration-300">
-                    <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 mb-4 mx-auto">
-                      <Icon className="w-8 h-8 text-cyan-400" />
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-cyan-400 mb-2">{step.step}</div>
-                      <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
-                      <p className="text-sm text-zinc-400">{step.description}</p>
-                    </div>
+            {/* Right Column Boxes */}
+            <div className="lg:col-span-4 flex flex-col gap-8">
+              {/* Livrables - Mint Panel */}
+              <div className="bg-[#00ffa3] p-8 relative overflow-hidden group">
+                <div className="absolute top-[-20%] right-[-20%] w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold text-[#030303] mb-8 uppercase tracking-tighter">Livrables</h3>
+                  <ul className="space-y-5">
+                    {[
+                      'Rapport d\'Audit complet (PDF)',
+                      'Synthèse Décisionnelle',
+                      'Matrice de Remédiation (XLS)',
+                      'Audit de suivi à 30 jours',
+                      'Certificat de Conformité'
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-[#030303]">
+                        <div className="mt-1 w-5 h-5 bg-[#030303] flex items-center justify-center rounded-sm">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#00ffa3]" />
+                        </div>
+                        <span className="text-sm font-bold uppercase tracking-tight">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Période - Tech Dark Panel */}
+              <div className="bg-[#080808] border border-white/5 p-8 relative overflow-hidden group hover:border-[#00ffa3]/30 transition-all duration-500">
+                <div className="absolute bottom-0 right-0 p-4">
+                  <Clock className="w-24 h-24 text-white/5" />
+                </div>
+                <div className="relative z-10">
+                  <h3 className="text-[10px] font-mono text-[#00ffa3] mb-2 uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full" />
+                    Project Timeline
+                  </h3>
+                  <div className="flex flex-col mt-4">
+                    <span className="text-5xl font-bold text-white uppercase tracking-tightest italic leading-none">02 WEEKS</span>
+                    <p className="text-[#888888] text-[10px] font-mono mt-4 uppercase tracking-widest">
+                      &gt; DEPLOYMENT: DAY 01<br/>
+                      &gt; ANALYSIS: DAY 03-10<br/>
+                      &gt; FINAL_REPORT: DAY 14
+                    </p>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            </div>
           </div>
-        </section>
 
-        {/* Investment */}
-        <section className="rounded-3xl bg-gradient-to-br from-purple-900/20 via-pink-900/20 to-purple-900/20 border border-purple-500/30 p-12">
-          <h2 className="text-4xl font-light text-white mb-12 text-center">
-            Votre <span className="font-semibold">Investissement</span>
-          </h2>
-          <div className="max-w-2xl mx-auto">
-            <div className="rounded-2xl p-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50 text-center">
-              <h3 className="text-3xl font-semibold text-white mb-4">Évaluation de Sécurité Complète</h3>
-              <div className="text-6xl font-bold text-white mb-2">4 999 €</div>
-              <p className="text-lg text-zinc-300 mb-8">Hors taxes</p>
+          {/* Trusted Clients - Aetheris Partner Style */}
+          <section className="mb-32">
+            <div className="flex items-center gap-4 mb-12">
+              <h2 className="text-[10px] font-mono text-[#888888] uppercase tracking-[0.4em]">Ecosystem_Partners</h2>
+              <div className="h-[1px] flex-1 bg-white/5" />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-px bg-white/5 border border-white/5">
+              {[
+                { name: 'Société Générale', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/logo-societe-generale2-e1436481313147-1764595764935.png?width=8000&height=8000&resize=contain' },
+                { name: 'Abeille Assurances', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/43-abeille-assurance-1764596006375.jpg?width=8000&height=8000&resize=contain' },
+                { name: 'Banque Française Mutualiste', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-150x150-1764596042844.png?width=8000&height=8000&resize=contain' },
+                { name: 'Ma Place en Crèche', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-copie-4-150x150-1764596061442.png?width=8000&height=8000&resize=contain' },
+                { name: 'Affluens', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Af-150x150-1764596072367.png?width=8000&height=8000&resize=contain' },
+                { name: 'Veolia Eau d\'Île-de-France', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients-150x150-1764596078949.png?width=8000&height=8000&resize=contain' },
+                { name: 'Aviva', logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-copie-150x150-1764596094822.png?width=8000&height=8000&resize=contain' },
+              ].map((client, idx) => (
+                <div key={idx} className="bg-[#030303] h-24 flex items-center justify-center p-6 grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100 group">
+                  <Image 
+                    src={client.logo}
+                    alt={client.name}
+                    width={100}
+                    height={50}
+                    className="w-full h-full object-contain brightness-0 invert"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Prochaines Étapes - Reveal cards */}
+          <section className="mb-32">
+            <div className="mb-12 flex items-end justify-between">
+              <div>
+                <h2 className="font-display text-4xl font-bold mb-2 tracking-tight text-white uppercase">Roadmap opérationnelle</h2>
+                <p className="text-[#888888] text-sm md:text-base max-w-md">Chronologie séquentielle de l'engagement SecuriTrust.</p>
+              </div>
+              <div className="hidden md:block text-right">
+                <div className="font-mono text-[10px] text-[#00ffa3] tracking-widest uppercase">SYS_FLOW_V2</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-0 border border-white/5">
+              {[
+                { step: '01', title: 'Onboarding', description: 'Initialisation des accès et revue de périmètre.', icon: FileCheck },
+                { step: '02', title: 'Exploitation', description: 'Lancement de l\'audit technique et tests d\'intrusion.', icon: Search },
+                { step: '03', title: 'Analyse', description: 'Traitement des données et rédaction du rapport.', icon: Target },
+                { step: '04', title: 'Restitution', description: 'Livraison finale et réunion de débriefing.', icon: Users },
+              ].map((step, idx) => {
+                const Icon = step.icon;
+                return (
+                  <article key={idx} className="group border-b md:border-b-0 md:border-r last:border-r-0 border-white/5 p-8 bg-[#080808] hover:bg-white/[0.02] transition-colors relative">
+                    <div className="absolute top-4 right-4 font-mono text-2xl font-bold text-white/5 group-hover:text-[#00ffa3]/20 transition-colors">
+                      {step.step}
+                    </div>
+                    <div className="w-12 h-12 bg-[#030303] border border-white/10 flex items-center justify-center mb-6 text-[#00ffa3] group-hover:border-[#00ffa3]/50 transition-colors">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="font-display text-xl font-bold mb-3 tracking-tight text-white uppercase">{step.title}</h3>
+                    <p className="text-sm text-[#888888] leading-relaxed">{step.description}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Investment - Aetheris Staking Dashboard style */}
+          <section id="investment" className="grid grid-cols-1 lg:grid-cols-2 border border-white/5 bg-[#080808]">
+            {/* Left side: The Price/Chart feel */}
+            <div className="p-8 md:p-20 border-b lg:border-b-0 lg:border-r border-white/5 flex flex-col justify-center items-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,255,163,0.05),_transparent_70%)]" />
               
-              <div className="text-left max-w-md mx-auto mb-8">
-                <h4 className="text-lg font-semibold text-white mb-4">Services Inclus :</h4>
-                <ul className="space-y-3">
-                  {[
-                    'Test d\'Intrusion Complet',
-                    'OSINT & Reconnaissance Externe',
-                    'Évaluation des Vulnérabilités',
-                    'Exploitation & Tests de Sécurité',
-                    'Rapport de Sécurité Complet',
-                    'Résumé Exécutif & Recommandations',
-                    'Délai de Livraison de 5 Jours',
-                    'Support Post-Évaluation',
-                  ].map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-zinc-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="relative w-64 h-64 md:w-80 md:h-80 mb-12">
+                <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+                  <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.05)" strokeWidth="4" fill="none" />
+                  <circle 
+                    cx="50" cy="50" r="45" 
+                    stroke="#00ffa3" strokeWidth="4" fill="none" 
+                    strokeDasharray="283" strokeDashoffset="70" 
+                    className="transition-all duration-1000"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span className="text-[10px] font-mono text-[#00ffa3] uppercase tracking-[0.3em] mb-2">Total Value</span>
+                  <span className="text-5xl md:text-6xl font-bold text-white tracking-tighter italic">4 999€</span>
+                  <span className="text-[10px] text-[#888888] uppercase mt-2">HORS TAXES</span>
+                </div>
               </div>
 
-                {/* Action Buttons */}
-                {isSigned ? (
-                  <div className="space-y-4">
-                    {/* Confirmation de signature */}
-                    <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-                      <div className="flex items-center justify-center gap-3 mb-3">
-                        <CheckCircle2 className="w-8 h-8 text-green-400" />
-                        <p className="text-green-300 font-semibold text-lg">Proposition Signée !</p>
-                      </div>
-                      <p className="text-green-200 text-sm">
-                        Votre signature a été enregistrée avec succès
-                      </p>
+              <div className="w-full max-w-sm grid grid-cols-2 gap-4">
+                <div className="p-4 bg-white/[0.02] border border-white/5 text-center">
+                  <div className="text-xl font-bold text-white">5 JOURS</div>
+                  <div className="text-[8px] font-mono text-[#888888] uppercase tracking-widest">SLA DELIVERY</div>
+                </div>
+                <div className="p-4 bg-white/[0.02] border border-white/5 text-center">
+                  <div className="text-xl font-bold text-[#00ffa3]">LIFETIME</div>
+                  <div className="text-[8px] font-mono text-[#888888] uppercase tracking-widest">TECH SUPPORT</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right side: Action Area */}
+            <div className="p-8 md:p-20 flex flex-col justify-center bg-[#030303]">
+              <h3 className="font-display text-3xl font-bold mb-8 tracking-tight text-white uppercase">SÉCURISATION GLOBALE</h3>
+              
+              <div className="space-y-4 mb-12">
+                {[
+                  'Test d\'Intrusion complet de l\'infrastructure',
+                  'Évaluation de la résilience Active Directory',
+                  'Rapport de conformité technique',
+                  'Support technique prioritaire post-audit',
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 group">
+                    <div className="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#00ffa3] font-mono text-[10px] shrink-0 group-hover:border-[#00ffa3]/50 transition-colors">
+                      {i + 1}
                     </div>
-
-                    {/* Bouton de paiement */}
-                    <button 
-                      onClick={handlePayment}
-                      className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2"
-                    >
-                      <CreditCard className="w-5 h-5" />
-                      <span>Procéder au Paiement</span>
-                    </button>
+                    <p className="text-sm md:text-base text-[#888888] group-hover:text-white/80 transition-colors">{item}</p>
                   </div>
-                ) : (
-                          <button 
-                            onClick={handleSignProposal}
-                            className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 flex items-center justify-center gap-2"
-                          >
-                          <span>Signer</span>
-                          <Feather className="w-5 h-5" />
-                        </button>
-                )}
+                ))}
+              </div>
 
-              {/* Info Text */}
-              <div className="mt-8 pt-8 border-t border-white/10">
-                  <p className="text-sm text-zinc-400 mb-2">
-                    Pour toute question ou commentaire, veuillez contacter{' '}
-                    <a href="mailto:jad.joumblat@securitrust.fr" className="text-cyan-400 hover:underline font-medium">
-                      jad.joumblat@securitrust.fr
-                    </a> ou <span className="text-cyan-400">06 08 94 87 97</span>
-                  </p>
-                <p className="text-xs text-zinc-500 italic">
-                  La signature électronique est requise avant de procéder au paiement. Cela garantit l'authenticité et la validité de votre engagement.
+              {isSigned ? (
+                <div className="space-y-4">
+                  <div className="p-6 bg-[#00ffa3]/5 border border-[#00ffa3]/20 flex items-center gap-4">
+                    <CheckCircle2 className="w-8 h-8 text-[#00ffa3]" />
+                    <div>
+                      <p className="text-[#00ffa3] font-bold text-lg uppercase tracking-tight">PROPOSAL SIGNED</p>
+                      <p className="text-[#888888] text-xs font-mono uppercase">TRANSACTION_ID: {Math.random().toString(36).substring(7).toUpperCase()}</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={handlePayment}
+                    className="w-full bg-[#00ffa3] text-[#030303] py-4 text-sm font-bold uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(0,255,163,0.3)]"
+                  >
+                    <CreditCard className="w-5 h-5" />
+                    Procéder au Paiement
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  onClick={handleSignProposal}
+                  className="w-full bg-white text-[#030303] py-4 text-sm font-bold uppercase tracking-widest hover:bg-[#00ffa3] transition-all flex items-center justify-center gap-3"
+                >
+                  Signer le document
+                  <Feather className="w-5 h-5" />
+                </button>
+              )}
+
+              <div className="mt-8 pt-8 border-t border-white/5 space-y-2">
+                <p className="text-[10px] font-mono text-[#888888] uppercase tracking-widest">
+                  CONTACT: jad.joumblat@securitrust.fr
+                </p>
+                <p className="text-[10px] font-mono text-[#888888] uppercase tracking-widest">
+                  SECURE_COMMS: +33 6 08 94 87 97
                 </p>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
+        </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-white/5 mt-24 py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <Image 
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-1764601146487.png?width=8000&height=8000&resize=contain"
-                alt="SecuriTrust Logo"
-                width={150}
-                height={50}
-                className="h-10 w-auto"
-              />
-            </div>
-            <div className="text-sm text-zinc-500 text-center">
-              © {new Date().getFullYear()} SecuriTrust — Tous droits réservés
-            </div>
+      {/* Footer - Minimalist Aetheris Style */}
+      <footer className="border-t border-white/5 py-12 bg-[#030303] relative z-20">
+        <div className="max-w-[1920px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex items-center gap-4 opacity-60">
+            <Image 
+              src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-1764601146487.png?width=8000&height=8000&resize=contain"
+              alt="SecuriTrust Logo"
+              width={120}
+              height={40}
+              className="h-8 w-auto brightness-0 invert"
+            />
+          </div>
+          <p className="text-[10px] font-mono text-[#888888] uppercase tracking-[0.3em]">
+            © {new Date().getFullYear()} SecuriTrust — Autonomous Security Protocol
+          </p>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#00ffa3] shadow-[0_0_8px_rgba(0,255,163,0.8)] animate-pulse"></div>
+            <span className="font-mono text-[10px] text-[#00ffa3] uppercase tracking-widest">Nodes Operational</span>
           </div>
         </div>
       </footer>
