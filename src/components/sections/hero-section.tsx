@@ -4,9 +4,11 @@ import { ArrowRight, Shield } from 'lucide-react';
 import Image from 'next/image';
 import { GradientBeamCTA } from '@/components/ui/gradient-beam-cta';
 import { useEffect, useRef } from 'react';
+import { useCTAVisibility } from '@/hooks/use-cta-visibility';
 
 export const HeroSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { isVisible, hideCTA } = useCTAVisibility();
 
   useEffect(() => {
     const hasPlayedVideo = localStorage.getItem('hasPlayedHeroVideo');
@@ -55,17 +57,20 @@ export const HeroSection = () => {
               </p>
             </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-                <a
-                  href="/eligibilite"
-                  className="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all group"
-                >
-                  <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse flex-shrink-0"></span>
-                    <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wide">
-                      Commencer mon pentest au résultat
-                    </span>
-                </a>
-              </div>
+              {isVisible && (
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
+                  <a
+                    href="/eligibilite"
+                    onClick={() => hideCTA()}
+                    className="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all group"
+                  >
+                    <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse flex-shrink-0"></span>
+                      <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wide">
+                        Commencer mon pentest au résultat
+                      </span>
+                  </a>
+                </div>
+              )}
             </div>
 
           {/* Right Content - Video */}

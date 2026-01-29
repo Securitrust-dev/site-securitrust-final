@@ -7,11 +7,15 @@ interface OrangeBeamCTAProps {
   href: string;
   text: string;
   icon?: React.ReactNode;
+  onClick?: () => void;
+  isVisible?: boolean;
 }
 
-export const OrangeBeamCTA = ({ href, text, icon }: OrangeBeamCTAProps) => {
+export const OrangeBeamCTA = ({ href, text, icon, onClick, isVisible = true }: OrangeBeamCTAProps) => {
+  if (!isVisible) return null;
+
   return (
-    <Link href={href} className="w-full sm:w-auto">
+    <Link href={href} className="w-full sm:w-auto" onClick={onClick}>
       <button className="w-full sm:w-auto group relative overflow-hidden transition-all duration-300 hover:scale-[1.03] focus:outline-none text-xs sm:text-sm lg:text-sm xl:text-base font-medium text-white tracking-wide rounded-full py-3 sm:py-3.5 lg:py-3 xl:py-3.5 px-5 sm:px-6 lg:px-7 xl:px-8 flex items-center justify-center whitespace-nowrap gap-2">
         {/* Gradient Background with Radial Overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/80 via-purple-600/90 to-fuchsia-600/100 rounded-full"></div>

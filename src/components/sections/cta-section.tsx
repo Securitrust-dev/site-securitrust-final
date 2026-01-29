@@ -1,8 +1,11 @@
 'use client';
 
 import { OrangeBeamCTA } from '@/components/ui/orange-beam-cta';
+import { useCTAVisibility } from '@/hooks/use-cta-visibility';
 
 export const CTASection = () => {
+  const { isVisible, hideCTA } = useCTAVisibility();
+
   return (
     <section className="py-16 sm:py-24 lg:py-32 border-t border-white/5 bg-black">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-16">
@@ -18,7 +21,12 @@ export const CTASection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 sm:gap-4">
-              <OrangeBeamCTA href="/eligibilite" text="Commencer mon pentest au résultat" />
+              <OrangeBeamCTA 
+                href="/eligibilite" 
+                text="Commencer mon pentest au résultat" 
+                isVisible={isVisible}
+                onClick={() => hideCTA()}
+              />
               <OrangeBeamCTA href="/contact" text="Nous contacter" />
             </div>
           </div>
