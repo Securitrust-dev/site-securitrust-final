@@ -388,59 +388,7 @@ export default function PropositionPage() {
           </div>
         </section>
 
-        {/* Scope of Work */}
-        <section>
-          <h2 className="text-4xl font-light text-white mb-12 text-center">
-            Périmètre des <span className="font-semibold">Travaux</span>
-          </h2>
-          <div className="rounded-2xl border border-white/10 bg-zinc-900/30 overflow-hidden">
-            <table className="w-full">
-              <thead className="bg-zinc-800/50 border-b border-white/10">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-white">Phase</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-white">Activités</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-white">Durée</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-white">Livrables</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                {[
-                  {
-                    phase: 'Reconnaissance',
-                    activities: 'OSINT, Cartographie réseau, Découverte d\'actifs',
-                    timeline: '1 jour',
-                    deliverables: 'Rapport d\'inventaire des actifs',
-                  },
-                  {
-                    phase: 'Évaluation des Vulnérabilités',
-                    activities: 'Analyse automatisée, Tests manuels',
-                    timeline: '1 jour',
-                    deliverables: 'Rapport de vulnérabilités',
-                  },
-                  {
-                    phase: 'Exploitation',
-                    activities: 'Tests d\'intrusion, Élévation de privilèges',
-                    timeline: '2 jours',
-                    deliverables: 'Rapport d\'exploitation',
-                  },
-                  {
-                    phase: 'Rapport',
-                    activities: 'Documentation, Recommandations',
-                    timeline: '1 jour',
-                    deliverables: 'Rapport final & présentation',
-                  },
-                ].map((row, idx) => (
-                  <tr key={idx} className="hover:bg-white/5 transition-colors">
-                    <td className="px-6 py-4 text-sm font-medium text-white">{row.phase}</td>
-                    <td className="px-6 py-4 text-sm text-zinc-400 text-center">{row.activities}</td>
-                    <td className="px-6 py-4 text-sm text-zinc-400 text-center">{row.timeline}</td>
-                    <td className="px-6 py-4 text-sm text-zinc-400 text-center">{row.deliverables}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+
 
         {/* Estimated Timeline */}
         <section>
