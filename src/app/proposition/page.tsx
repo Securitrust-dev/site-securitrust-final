@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
-import { Navbar } from '@/components/sections/navbar';
-import { Footer } from '@/components/sections/footer';
 
 declare global {
   interface Window {
@@ -15,8 +13,6 @@ declare global {
 }
 
 export default function PropositionPage() {
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     // --- 1. PRELOADER ---
     const preloader = document.getElementById('preloader');
@@ -24,112 +20,113 @@ export default function PropositionPage() {
     
     let width = 0;
     const loadInterval = setInterval(() => {
-      width += Math.random() * 15;
-      if(width > 100) width = 100;
-      if (loaderBar) loaderBar.style.width = width + '%';
-      
-      if(width === 100) {
-        clearInterval(loadInterval);
-        if (window.gsap && preloader) {
-          window.gsap.to(preloader, {
-            yPercent: -100,
-            duration: 1,
-            ease: "power4.inOut",
-            delay: 0.5,
-            onComplete: () => {
-              setLoading(false);
-              initAnimations();
+        width += Math.random() * 15;
+        if(width > 100) width = 100;
+        if (loaderBar) loaderBar.style.width = width + '%';
+        
+        if(width === 100) {
+            clearInterval(loadInterval);
+            if (window.gsap && preloader) {
+                window.gsap.to(preloader, {
+                    yPercent: -100,
+                    duration: 1,
+                    ease: "power4.inOut",
+                    delay: 0.5,
+                    onComplete: initSite
+                });
+            } else {
+                if (preloader) preloader.style.display = 'none';
+                initSite();
             }
-          });
-        } else {
-          setLoading(false);
-          if (preloader) preloader.style.display = 'none';
         }
-      }
     }, 100);
 
+    function initSite() {
+        initAnimations();
+    }
+
     function initAnimations() {
-      if (!window.gsap || !window.ScrollTrigger) return;
-      const gsap = window.gsap;
-      const ScrollTrigger = window.ScrollTrigger;
-      gsap.registerPlugin(ScrollTrigger);
+        if (!window.gsap || !window.ScrollTrigger) return;
+        const gsap = window.gsap;
+        const ScrollTrigger = window.ScrollTrigger;
+        gsap.registerPlugin(ScrollTrigger);
 
-      // Hero Entrance
-      gsap.to('.hero-anim', {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.out"
-      });
-
-      // Section Reveals
-      const reveals = document.querySelectorAll('.reveal');
-      reveals.forEach(el => {
-        gsap.fromTo(el, 
-          { y: 50, opacity: 0 },
-          {
+        // Hero Entrance
+        gsap.to('.hero-anim', {
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 90%",
-              end: "bottom 10%",
-              toggleActions: "play reverse play reverse"
-            }
-          }
-        );
-      });
-
-      // Token Chart Animation
-      const tokenRing = document.querySelector('.token-chart-ring');
-      if(tokenRing) {
-        gsap.to(tokenRing, {
-          strokeDashoffset: 100, 
-          duration: 2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: '#token',
-            start: "top 70%",
-            toggleActions: "play reverse play reverse"
-          }
+            duration: 1,
+            stagger: 0.1,
+            ease: "power3.out"
         });
-      }
 
-      // Token Numbers Count Up
-      const tokenStats = document.querySelectorAll('.token-stat-number');
-      tokenStats.forEach(stat => {
-        const targetAttr = stat.getAttribute('data-target');
-        if (!targetAttr) return;
-        const target = parseFloat(targetAttr);
-        gsap.to(stat, {
-          innerText: target,
-          duration: 2,
-          snap: { innerText: 0.1 },
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: '#token',
-            start: "top 70%",
-            toggleActions: "play reverse play reverse"
-          }
+        // Section Reveals
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => {
+            gsap.fromTo(el, 
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 90%",
+                        end: "bottom 10%",
+                        toggleActions: "play reverse play reverse"
+                    }
+                }
+            );
         });
-      });
+
+        // Token Chart Animation
+        const tokenRing = document.querySelector('.token-chart-ring');
+        if(tokenRing) {
+            gsap.to(tokenRing, {
+                strokeDashoffset: 100,
+                duration: 2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: '#token',
+                    start: "top 70%",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
+        }
+
+        // Token Numbers Count Up
+        const tokenStats = document.querySelectorAll('.token-stat-number');
+        tokenStats.forEach(stat => {
+            const targetAttr = stat.getAttribute('data-target');
+            if (!targetAttr) return;
+            const target = parseFloat(targetAttr);
+            gsap.to(stat, {
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 0.1 },
+                ease: "power1.out",
+                scrollTrigger: {
+                    trigger: '#token',
+                    start: "top 70%",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
+        });
     }
 
     // --- SMOOTH SCROLL ---
     if (window.Lenis) {
-      const lenis = new window.Lenis({
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smooth: true
-      });
-      function raf(time: number) {
-        lenis.raf(time);
+        const lenis = new window.Lenis({
+            duration: 1.2,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true
+        });
+        function raf(time: number) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
     }
   }, []);
 
@@ -144,7 +141,6 @@ export default function PropositionPage() {
         if (window.UnicornStudio) window.UnicornStudio.init();
       }} />
 
-      {/* CSS STYLES */}
       <style jsx global>{`
         :root {
           --void: #030303;
@@ -160,6 +156,7 @@ export default function PropositionPage() {
         ::-webkit-scrollbar-track { background: #030303; }
         ::-webkit-scrollbar-thumb { background: #333; }
         ::-webkit-scrollbar-thumb:hover { background: #00ffa3; }
+        
         .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25); color: transparent; }
         .grid-bg { background-size: 50px 50px; }
         .bg-tech-grid {
@@ -167,6 +164,7 @@ export default function PropositionPage() {
         }
         .hover-card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .hover-card:hover { background: rgba(255, 255, 255, 0.03); border-color: #00ffa3; }
+        
         .scan-line {
           position: absolute;
           top: 0; left: 0; width: 100%; height: 5px;
@@ -175,6 +173,7 @@ export default function PropositionPage() {
           animation: scan 4s linear infinite;
         }
         @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        
         .tech-separator {
           width: 100%; height: 1px;
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
@@ -184,6 +183,7 @@ export default function PropositionPage() {
           content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
           width: 50px; height: 3px; background: #00ffa3; box-shadow: 0 0 10px rgba(0, 255, 163, 0.5);
         }
+        
         .singularity-wrapper {
           perspective: 800px; width: 100%; height: 100%; position: absolute; top: 0; left: 0;
           overflow: hidden; display: flex; align-items: center; justify-content: center;
@@ -213,13 +213,13 @@ export default function PropositionPage() {
       `}</style>
 
       {/* PRELOADER */}
-      <div className="preloader" id="preloader" role="status" aria-label="Loading Website">
+      <div className="preloader fixed inset-0 bg-void z-[9999] flex items-center justify-center" id="preloader" role="status">
           <div className="text-center px-6">
-              <div className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tighter">INITIALIZING</div>
+              <div className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tighter uppercase">Initializing</div>
               <div className="w-48 h-1 bg-gray-800 mx-auto overflow-hidden">
-                  <div className="h-full bg-mint w-0 transition-all duration-300" id="loader-bar"></div>
+                  <div className="h-full bg-mint w-0" id="loader-bar"></div>
               </div>
-              <div className="font-mono text-[10px] text-mint mt-2 tracking-widest uppercase animate-pulse">Establishing Secure Uplink...</div>
+              <div className="font-mono text-[10px] text-mint mt-2 tracking-widest uppercase">Establishing Secure Uplink...</div>
           </div>
       </div>
       
@@ -231,36 +231,64 @@ export default function PropositionPage() {
           <div className="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-white/50"></div>
       </div>
 
-      <Navbar />
+      {/* NAV */}
+      <nav className="fixed w-full z-50 top-0 border-b border-border bg-void/90 backdrop-blur-xl">
+          <div className="flex h-16 max-w-[1920px] mx-auto px-6 md:px-12 items-center justify-between">
+              <a href="/" className="flex items-center gap-2 group shrink-0">
+                  <span className="text-lg font-semibold tracking-tight font-display uppercase">SecuriTrust</span>
+              </a>
+
+              <div className="hidden lg:flex items-center border-x border-border h-full px-8">
+                  <a href="/proposition" className="uppercase text-mint transition-colors text-xs font-semibold tracking-wide px-6">Proposition</a>
+                  <a href="/osint" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">OSINT</a>
+                  <a href="/pentest-interne" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Audit</a>
+                  <a href="/contact" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Support</a>
+              </div>
+
+              <div className="flex items-center gap-4">
+                  <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-mint">
+                      <span className="w-1.5 h-1.5 bg-mint rounded-full animate-pulse"></span>
+                      SYSTEM: ACTIVE
+                  </div>
+                  <button className="bg-white text-void px-4 md:px-6 py-2 text-xs font-semibold uppercase hover:bg-mint transition-colors whitespace-nowrap">
+                      Signer
+                  </button>
+              </div>
+          </div>
+      </nav>
 
       {/* HERO */}
       <header className="relative w-full h-screen min-h-[600px] bg-void overflow-hidden flex flex-col items-center justify-end pb-24 md:pb-32">
+          
           <div className="absolute top-0 left-0 w-full h-[65vh] z-0 pointer-events-none">
                <div data-us-project="7zydvovZReD8YsoiUwj3" style={{width:'100%', height: '100%'}}></div>
                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-void via-void/80 to-transparent z-10"></div>
           </div>
           
           <div className="relative z-20 flex flex-col items-center w-full max-w-[1920px] px-6 text-center">
+              
               <div className="flex flex-col items-center justify-center w-full">
-                  <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten">
-                      INFINITE
+                  <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
+                      Infinite
                   </h1>
+                  
                   <div className="h-2 md:h-4"></div>
-                  <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity" aria-label="SECURITY">
-                      SECURITY
+
+                  <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity uppercase" aria-label="SECURITY">
+                      Security
                   </div>
               </div>
 
               <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
-                  Cabinet de conseil en cybersécurité spécialisé en pentest au résultat, audit de sécurité et conformité GRC. Sécurisez votre entreprise avec nos experts.
+                  SecuriTrust propose une offre unique et innovante pour sécuriser votre infrastructure numérique avec une approche orientée résultat.
               </p>
 
               <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto hero-anim opacity-0 translate-y-4">
-                  <a href="/signer-proposition" className="group bg-mint text-void px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white transition-all hover:scale-[1.02] min-w-[180px] text-center shadow-[0_0_20px_rgba(0,255,163,0.3)]">
-                      Signer la proposition
-                  </a>
+                  <button className="group bg-mint text-void px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white transition-all hover:scale-[1.02] min-w-[180px] text-center shadow-[0_0_20px_rgba(0,255,163,0.3)]">
+                      Démarrer mon Pentest
+                  </button>
                   <button className="group bg-void/50 backdrop-blur-md border border-white/20 text-white px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white/10 transition-all hover:border-white/40 min-w-[180px] text-center">
-                      Voir les audits
+                      Voir la Brochure
                   </button>
               </div>
           </div>
@@ -270,10 +298,10 @@ export default function PropositionPage() {
 
       {/* PARTNERS */}
       <section className="border-b border-border bg-void" aria-label="Trusted Partners">
-          <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 divide-x divide-y md:divide-y-0 divide-border">
-              {["SOCIÉTÉ GÉNÉRALE", "ABEILLE", "GENDARMERIE", "ARMÉES", "VEOLIA", "AVIVA", "AFLUENS", "SNCF"].map((partner, i) => (
+          <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-6 divide-x divide-y md:divide-y-0 divide-border">
+              {["SOCIÉTÉ GÉNÉRALE", "ABEILLE", "GENDARMERIE", "MARINE NATIONALE", "AFLUENS", "VEOLIA"].map((partner, i) => (
                 <div key={i} className="p-6 md:p-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
-                    <span className="font-display font-semibold text-xs md:text-sm tracking-tight text-center">{partner}</span>
+                    <span className="font-display font-semibold text-lg md:text-xl tracking-tight uppercase text-center">{partner}</span>
                 </div>
               ))}
           </div>
@@ -282,54 +310,39 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* CORE FEATURES */}
-      <section id="features" className="py-16 md:py-24 relative" aria-label="Expertise Sections">
+      <section id="features" className="py-16 md:py-24 relative">
           <div className="max-w-7xl mx-auto px-6">
               <div className="mb-12 flex items-end justify-between reveal">
                   <div className="">
-                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tight">Notre Proposition</h2>
-                      <p className="text-[#888888] text-sm md:text-base max-w-md italic font-light">Services complets de tests de sécurité et de certification.</p>
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tight">Expertise Cyber</h2>
+                      <p className="text-sub text-sm md:text-base max-w-md italic">Services de pointe en tests d'intrusion et audits de sécurité.</p>
                   </div>
                   <div className="hidden md:block text-right">
-                      <div className="font-mono text-[10px] text-mint uppercase tracking-widest">Sys_Arch_v4.2</div>
+                      <div className="font-mono text-[10px] text-mint tracking-widest uppercase">Protocol_V4.2</div>
                   </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-border">
-                  <article className="group border-b md:border-b-0 md:border-r border-border p-6 md:p-8 hover-card bg-[#080808] reveal">
-                      <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
-                          <iconify-icon icon="solar:shield-check-linear" width="24" height="24"></iconify-icon>
-                      </div>
-                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Attestation & Certification</h3>
-                      <ul className="text-sm text-[#888888] space-y-2 italic font-light">
-                        <li>• Auditeur Principal ISO 27001</li>
-                        <li>• Implémenteur Principal ISO 27001</li>
-                        <li>• Gestionnaire de Risques EBIOS</li>
-                        <li>• Certifié OSCP & CEH</li>
-                      </ul>
-                  </article>
-                  <article className="group border-b md:border-b-0 md:border-r border-border p-6 md:p-8 hover-card bg-[#080808] reveal">
-                      <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
-                          <iconify-icon icon="solar:document-linear" width="24" height="24"></iconify-icon>
-                      </div>
-                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Gouvernance (GRC)</h3>
-                      <ul className="text-sm text-[#888888] space-y-2 italic font-light">
-                        <li>• Conformité ISO 27001 & RGPD</li>
-                        <li>• NIS 2 & DORA Architecture</li>
-                        <li>• TISAX Automobile Security</li>
-                        <li>• DPO Externalisé</li>
-                      </ul>
-                  </article>
-                  <article className="group border-b md:border-b-0 border-border p-6 md:p-8 hover-card bg-[#080808] reveal">
+                  <article className="group border-b md:border-b-0 md:border-r border-border p-6 md:p-8 hover-card bg-panel reveal">
                       <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
                           <iconify-icon icon="solar:bolt-linear" width="24" height="24"></iconify-icon>
                       </div>
-                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Cyber Opérationnelle</h3>
-                      <ul className="text-sm text-[#888888] space-y-2 italic font-light">
-                        <li>• Opérations Red Team</li>
-                        <li>• Pentest Web & Mobile</li>
-                        <li>• Simulation Ransomware</li>
-                        <li>• Analyse OSINT & Audits</li>
-                      </ul>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Pentest de pointe</h3>
+                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4 italic">Tests d'intrusion manuels et automatisés sur l'ensemble de votre périmètre numérique.</p>
+                  </article>
+                  <article className="group border-b md:border-b-0 md:border-r border-border p-6 md:p-8 hover-card bg-panel reveal">
+                      <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
+                          <iconify-icon icon="solar:shield-check-linear" width="24" height="24"></iconify-icon>
+                      </div>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Audit de Conformité</h3>
+                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4 italic">Mise en conformité RGPD, NIS 2 et DORA pour garantir votre légalité et sécurité.</p>
+                  </article>
+                  <article className="group border-b md:border-b-0 border-border p-6 md:p-8 hover-card bg-panel reveal">
+                      <div className="w-10 h-10 bg-void border border-border flex items-center justify-center mb-6 text-mint">
+                          <iconify-icon icon="solar:global-linear" width="24" height="24"></iconify-icon>
+                      </div>
+                      <h3 className="font-display text-xl font-semibold mb-3 tracking-tight">Intelligence OSINT</h3>
+                      <p className="text-sm md:text-base text-sub leading-relaxed mb-4 italic">Collecte d'informations en sources ouvertes pour anticiper les menaces externes.</p>
                   </article>
               </div>
           </div>
@@ -337,9 +350,10 @@ export default function PropositionPage() {
 
       <div className="tech-separator" aria-hidden="true"></div>
 
-      {/* INVESTMENT / STATS */}
-      <section id="token" className="grid grid-cols-1 md:grid-cols-2" aria-label="Investment Details">
-          <div className="bg-[#080808] p-8 md:p-24 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center items-center relative overflow-hidden reveal order-2 md:order-1">
+      {/* TOKEN UTILITY (MAPPED TO INVESTMENT) */}
+      <section id="token" className="grid grid-cols-1 md:grid-cols-2">
+          {/* Chart Area */}
+          <div className="bg-panel p-8 md:p-24 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center items-center relative overflow-hidden reveal order-2 md:order-1">
               <div className="relative w-56 h-56 md:w-64 md:h-64">
                   <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
                       <circle cx="50" cy="50" r="45" stroke="#1a1a1a" stroke-width="8" fill="none"></circle>
@@ -347,44 +361,45 @@ export default function PropositionPage() {
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-3xl md:text-4xl font-semibold text-white tracking-tighter">4 999€</span>
-                      <span className="text-[10px] text-[#888888] uppercase tracking-wider">Investissement HT</span>
+                      <span className="text-xs text-sub uppercase tracking-wider">Investissement HT</span>
                   </div>
               </div>
               
               <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
                   <div className="">
                       <div className="text-xl md:text-2xl font-semibold text-white tracking-tight">+<span className="token-stat-number" data-target="2500">0</span></div>
-                      <div className="text-[10px] text-[#888888] uppercase tracking-widest">Jours R&D</div>
+                      <div className="text-[10px] text-sub uppercase tracking-widest font-mono">Jours R&D</div>
                   </div>
                   <div className="">
                       <div className="text-xl md:text-2xl font-semibold text-mint tracking-tight">+<span className="token-stat-number" data-target="86">0</span></div>
-                      <div className="text-[10px] text-[#888888] uppercase tracking-widest">Audits Réalisés</div>
+                      <div className="text-[10px] text-sub uppercase tracking-widest font-mono">Audits Réalisés</div>
                   </div>
               </div>
           </div>
 
+          {/* Utility List */}
           <div className="bg-void p-8 md:p-24 flex flex-col justify-center reveal order-1 md:order-2">
               <h3 className="font-display text-2xl md:text-3xl font-semibold mb-8 tracking-tight">Détails de la Prestation</h3>
               <div className="space-y-6">
                   <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">1</div>
                       <div className="">
-                          <h4 className="font-semibold text-white text-lg">Test d'intrusion Interne</h4>
-                          <p className="text-sm md:text-base text-[#888888] font-light italic leading-relaxed">Approche en boîte grise sur l'environnement Active Directory pour identifier les menaces réelles.</p>
+                          <h4 className="font-semibold text-white text-lg">Pentest AD Complet</h4>
+                          <p className="text-sm md:text-base text-sub italic font-light">Audit exhaustif de votre infrastructure Active Directory interne en boîte grise.</p>
                       </div>
                   </div>
                   <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">2</div>
                       <div className="">
-                          <h4 className="font-semibold text-white text-lg">Évaluation & Exploitation</h4>
-                          <p className="text-sm md:text-base text-[#888888] font-light italic leading-relaxed">Cartographie OSINT et tests d'intrusion manuels avec élévation de privilèges.</p>
+                          <h4 className="font-semibold text-white text-lg">Livrables Techniques</h4>
+                          <p className="text-sm md:text-base text-sub italic font-light">Rapport détaillé avec preuves de concept et recommandations prioritaires.</p>
                       </div>
                   </div>
                   <div className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-mint font-semibold font-mono shrink-0">3</div>
                       <div className="">
-                          <h4 className="font-semibold text-white text-lg">Livrables & Accompagnement</h4>
-                          <p className="text-sm md:text-base text-[#888888] font-light italic leading-relaxed">Rapport final détaillé, résumé exécutif et support post-évaluation de 5 jours.</p>
+                          <h4 className="font-semibold text-white text-lg">Accompagnement</h4>
+                          <p className="text-sm md:text-base text-sub italic font-light">Suivi de 5 jours pour l'implémentation des correctifs critiques.</p>
                       </div>
                   </div>
               </div>
@@ -393,25 +408,25 @@ export default function PropositionPage() {
 
       <div className="tech-separator" aria-hidden="true"></div>
 
-      {/* ROADMAP / TIMELINE */}
-      <section id="roadmap" className="py-16 md:py-24 bg-void" aria-label="Project Timeline">
+      {/* ROADMAP */}
+      <section id="roadmap" className="py-16 md:py-24 bg-void">
           <div className="max-w-6xl mx-auto px-6">
               <div className="flex flex-col md:flex-row gap-12 md:gap-16">
                   <div className="md:w-1/3 reveal">
                       <div className="inline-block px-3 py-1 border border-border bg-white/5 rounded-full mb-6">
-                          <span className="text-[10px] font-mono text-mint uppercase tracking-widest">Execution Log</span>
+                          <span className="text-[10px] font-mono text-mint uppercase tracking-widest font-bold">Execution Log</span>
                       </div>
-                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Calendrier Stratégique</h2>
-                      <p className="text-[#888888] text-sm md:text-base leading-relaxed mb-8 italic font-light">
-                          Déploiement en phases séquentielles pour garantir une analyse exhaustive et sécurisée.
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Calendrier Projet</h2>
+                      <p className="text-sub text-sm md:text-base leading-relaxed mb-8 italic font-light">
+                          Déploiement en phases stratégiques pour une sécurité optimale. Durée estimée : 5 jours.
                       </p>
                   </div>
                   <div className="md:w-2/3 space-y-0 relative border-l border-border ml-2 md:ml-0">
                       <div className="relative pl-8 md:pl-10 pb-12 reveal group">
                           <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-mint rounded-full shadow-[0_0_10px_#00ffa3]"></div>
-                          <div className="border border-border bg-[#080808]/50 p-6 hover:bg-[#080808] transition-colors">
+                          <div className="border border-border bg-panel/50 p-6 hover:bg-panel transition-colors">
                               <h3 className="font-semibold text-lg text-white mb-2">Phase 1: Initialisation</h3>
-                              <p className="text-xs text-[#888888] italic">Réunion de cadrage, identification des actifs et préparation des accès.</p>
+                              <p className="text-xs text-sub italic font-light">Cadrage, identification des actifs et accès boîte grise.</p>
                           </div>
                       </div>
                       <div className="relative pl-8 md:pl-10 pb-12 reveal group">
@@ -422,15 +437,15 @@ export default function PropositionPage() {
                                   <span className="font-mono text-xs text-white uppercase tracking-widest">Phase 02 — En Cours</span>
                                   <span className="text-[9px] bg-mint text-void px-2 py-0.5 font-bold rounded">LIVE</span>
                               </div>
-                              <h3 className="font-semibold text-lg text-white mb-4 relative z-10">Audit & Exploitation</h3>
-                              <p className="text-xs text-white/70 italic">Pentest interne, tests de vulnérabilités et élévation de privilèges.</p>
+                              <h3 className="font-semibold text-lg text-white mb-4 relative z-10">Exploitation Active</h3>
+                              <p className="text-xs text-white/70 italic font-light">Pentest interne, tests de vulnérabilités et élévation de privilèges.</p>
                           </div>
                       </div>
                       <div className="relative pl-8 md:pl-10 reveal group">
-                          <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-[#080808] border border-[#888888]"></div>
+                          <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-panel border border-sub"></div>
                           <div className="border border-border border-dashed bg-transparent p-6 opacity-60 hover:opacity-100 transition-opacity">
                               <h3 className="font-semibold text-lg text-gray-400 mb-2">Phase 3: Restitution</h3>
-                              <p className="text-xs text-[#888888] italic">Rédaction du rapport final, recommandations et présentation des résultats.</p>
+                              <p className="text-xs text-sub italic font-light">Rapport final, recommandations et présentation stratégique.</p>
                           </div>
                       </div>
                   </div>
@@ -440,26 +455,31 @@ export default function PropositionPage() {
 
       <div className="tech-separator" aria-hidden="true"></div>
 
-      {/* NETWORK / TOPOLOGY */}
-      <section id="network" className="py-16 md:py-24 bg-void" aria-label="Network Topology">
+      {/* NETWORK INFRASTRUCTURE */}
+      <section id="network" className="py-16 md:py-24 bg-void">
           <div className="max-w-[1920px] mx-auto px-6">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                  <div className="lg:col-span-8 border border-border bg-[#080808] p-2 relative overflow-hidden reveal min-h-[400px] md:min-h-[500px]">
+                  
+                  <div className="lg:col-span-8 border border-border bg-panel p-2 relative overflow-hidden reveal min-h-[400px] md:min-h-[500px]">
+                      
                       <div className="absolute inset-0 z-0">
-                          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" alt="Live Security Topology" className="w-full h-full object-cover opacity-40 grayscale brightness-75 contrast-125" />
+                          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" alt="Global Security Mesh" className="w-full h-full object-cover opacity-40 grayscale brightness-75 contrast-125" />
                       </div>
+
                       <div className="scan-line z-10 pointer-events-none"></div>
+                      
                       <div className="relative z-20 p-6 md:p-8 flex flex-col justify-between h-full">
                           <div className="flex justify-between items-start">
                               <div className="bg-void/80 backdrop-blur-md p-4 border border-border">
-                                  <h2 className="font-display text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight">Live Topology</h2>
-                                  <p className="text-[#888888] text-[10px] font-mono tracking-widest">STATUS: MONITORING</p>
+                                  <h2 className="font-display text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight uppercase">Live Topology</h2>
+                                  <p className="text-sub text-[10px] font-mono uppercase tracking-widest">Status: Monitoring</p>
                               </div>
                               <div className="flex gap-2 items-center">
                                   <div className="w-2 h-2 bg-mint rounded-full animate-pulse"></div>
                                   <div className="font-mono text-[10px] text-mint hidden md:block uppercase tracking-widest">Audit active</div>
                               </div>
                           </div>
+
                           <div className="absolute top-[30%] left-[20%] w-20 h-20 md:w-32 md:h-32 border border-mint/20 rounded-full flex items-center justify-center animate-pulse">
                               <div className="w-1 h-1 bg-mint rounded-full"></div>
                           </div>
@@ -471,26 +491,26 @@ export default function PropositionPage() {
 
                   <div className="lg:col-span-4 flex flex-col gap-6">
                       <div className="bg-void border border-border p-6 reveal h-full flex flex-col justify-center">
-                          <h3 className="font-semibold text-white mb-6 text-sm uppercase flex items-center gap-2 tracking-widest">
+                          <h3 className="font-semibold text-white mb-6 text-sm uppercase flex items-center gap-2 tracking-widest font-mono">
                               <span className="w-2 h-2 bg-mint rounded-sm"></span>
-                              Vigilance System
+                              System Health
                           </h3>
                           <div className="space-y-4 font-mono">
-                              <div className="flex justify-between items-center p-3 bg-[#080808] border border-border">
-                                  <span className="text-[10px] text-[#888888] uppercase tracking-widest">Nodes Scanned</span>
-                                  <span className="text-xs text-white font-semibold tracking-tighter">1,240 / 1,240</span>
+                              <div className="flex justify-between items-center p-3 bg-panel border border-border">
+                                  <span className="text-[10px] text-sub uppercase tracking-widest">Scan Coverage</span>
+                                  <span className="text-xs text-white font-semibold tracking-tighter">100%</span>
                               </div>
-                              <div className="flex justify-between items-center p-3 bg-[#080808] border border-border">
-                                  <span className="text-[10px] text-[#888888] uppercase tracking-widest">Detection Latency</span>
-                                  <span className="text-xs text-mint font-semibold tracking-tighter">8.4ms</span>
+                              <div className="flex justify-between items-center p-3 bg-panel border border-border">
+                                  <span className="text-[10px] text-sub uppercase tracking-widest">Response Time</span>
+                                  <span className="text-xs text-mint font-semibold tracking-tighter">12ms</span>
                               </div>
-                              <div className="flex justify-between items-center p-3 bg-[#080808] border border-border">
-                                  <span className="text-[10px] text-[#888888] uppercase tracking-widest">Encryption Level</span>
-                                  <span className="text-xs text-white font-semibold tracking-tighter">AES-256-GCM</span>
+                              <div className="flex justify-between items-center p-3 bg-panel border border-border">
+                                  <span className="text-[10px] text-sub uppercase tracking-widest">Integrity Check</span>
+                                  <span className="text-xs text-white font-semibold tracking-tighter">PASSED</span>
                               </div>
                           </div>
                           <div className="mt-8">
-                              <div className="text-[10px] text-[#888888] mb-2 uppercase tracking-widest font-mono">Threat Distribution</div>
+                              <div className="text-[10px] text-sub mb-2 uppercase tracking-widest font-mono">Threat Profile</div>
                               <div className="flex gap-1 h-2 w-full">
                                   <div className="h-full bg-mint w-[40%]"></div>
                                   <div className="h-full bg-mint/70 w-[30%]"></div>
@@ -512,13 +532,13 @@ export default function PropositionPage() {
 
       <div className="tech-separator" aria-hidden="true"></div>
 
-      {/* SINGULARITY ANIMATION */}
-      <section className="py-24 md:py-32 bg-[#080808] relative overflow-hidden flex flex-col items-center justify-center h-[70vh] md:h-[90vh]" aria-label="Scalability Animation">
+      {/* DIGITAL SINGULARITY */}
+      <section className="py-24 md:py-32 bg-panel relative overflow-hidden flex flex-col items-center justify-center h-[70vh] md:h-[90vh]">
           <div className="absolute inset-0 opacity-10 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/aa933a24-d4de-4c67-83f6-b8676b3bab35_1600w.webp)] bg-cover bg-center"></div>
           
           <div className="singularity-wrapper">
-              {[...Array(12)].map((_, i) => (
-                <div key={i} className={`tunnel-ring w-[${(i+1)*100}px] h-[${(i+1)*100}px]`}></div>
+              {[100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200].map((size, i) => (
+                <div key={i} className="tunnel-ring" style={{ width: size, height: size }}></div>
               ))}
           </div>
 
@@ -527,7 +547,7 @@ export default function PropositionPage() {
               <h2 className="font-display text-4xl md:text-8xl font-bold mt-6 text-white mix-blend-difference tracking-tight uppercase">
                   Infinite Security
               </h2>
-              <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-6 bg-black/30 backdrop-blur-sm p-4 rounded-lg border border-white/5 italic font-light">
+              <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-6 bg-black/30 backdrop-blur-sm p-4 rounded-lg border border-white/5 italic font-light leading-relaxed">
                   Un mécanisme de défense qui se renforce à mesure que votre infrastructure évolue. Plus vous grandissez, plus nous vous protégeons.
               </p>
           </div>
@@ -535,45 +555,45 @@ export default function PropositionPage() {
 
       <div className="tech-separator" aria-hidden="true"></div>
 
-      {/* MISSION & VISION */}
-      <section className="pt-16 md:pt-24 pb-16 md:pb-24" aria-label="Mission Statement" id="vision">
+      {/* PURPOSE & VISION */}
+      <section className="pt-16 md:pt-24 pb-16 md:pb-24" id="vision">
           <div className="max-w-7xl mx-auto px-6">
               <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-16 items-center">
                   <div className="md:w-1/2 reveal">
                       <div className="inline-block px-3 py-1 border border-border bg-white/5 rounded-full mb-6">
                           <span className="text-[10px] font-mono text-mint uppercase tracking-widest font-bold">Notre Mandat</span>
                       </div>
-                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Vigilance & Intégrité</h2>
-                      <p className="text-[#888888] text-sm md:text-base leading-relaxed mb-6 italic font-light">
-                          SecuriTrust est né d'une vision de souveraineté numérique totale. Nous croyons en un avenir où les données sont protégées par défaut, permettant aux entreprises d'innover sans crainte.
+                      <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4 tracking-tight">Prophecy & Purpose</h2>
+                      <p className="text-sub text-sm md:text-base leading-relaxed mb-6 italic font-light">
+                          SecuriTrust est né d'une vision de souveraineté numérique totale. Nous croyons en un avenir où les données sont protégées par défaut.
                       </p>
-                      <p className="text-[#888888] text-sm md:text-base leading-relaxed italic font-light">
-                          Nos audits ne sont pas de simples contrôles techniques ; ils sont le socle de votre confiance numérique.
+                      <p className="text-sub text-sm md:text-base leading-relaxed italic font-light">
+                          Notre protocole n'est pas simplement une avancée technique ; c'est la couche fondamentale d'une nouvelle ère de confiance.
                       </p>
                   </div>
                   <div className="md:w-1/2 reveal">
-                      <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fa050e23-c777-40ee-aabe-cc76269a2e47_1600w.jpg" alt="Cyber Security Mesh" className="w-full h-auto object-cover rounded-xl border border-border shadow-xl grayscale hover:grayscale-0 transition-all duration-500" />
+                      <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/fa050e23-c777-40ee-aabe-cc76269a2e47_1600w.jpg" alt="Neural Network" className="w-full h-auto object-cover rounded-xl border border-border shadow-xl grayscale hover:grayscale-0 transition-all duration-500" />
                   </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border border-border p-6 md:p-8 bg-[#080808] reveal">
-                  <div className="space-y-6 text-[#888888] text-sm md:text-base leading-relaxed border-b md:border-b-0 md:border-r border-border pb-8 md:pb-0 md:pr-8 font-light italic">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border border-border p-6 md:p-8 bg-panel reveal">
+                  <div className="space-y-6 text-sub text-sm md:text-base leading-relaxed border-b md:border-b-0 md:border-r border-border pb-8 md:pb-0 md:pr-8 italic font-light">
                       <p>
-                          L'infrastructure actuelle, bien que performante, est devenue vulnérable aux attaques de plus en plus sophistiquées. Notre mission est de démanteler ces risques, en construisant un environnement résilient pour tous. Nous sommes les architectes de votre sécurité.
+                          L'infrastructure actuelle est devenue centralisée et vulnérable. Notre mission est de démanteler ces barrières, en construisant un bien public résilient, juste et accessible à tous.
                       </p>
                       <ul className="space-y-2 pl-4 border-l border-mint/30 not-italic font-normal">
-                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> **Fondation Décentralisée:** Résilience face aux pannes.</li>
-                          <li className="flex items-start gap-2 text-white"><span class="text-mint text-lg leading-none">•</span> **Accès Inclusif:** Outils de pointe pour tous les développeurs.</li>
-                          <li className="flex items-start gap-2 text-white"><span class="text-mint text-lg leading-none">•</span> **Catalyseur d'Innovation:** Libérer le potentiel du Web3.</li>
+                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Fondation Décentralisée : Résilience totale.</li>
+                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Accès Inclusif : Pour tous les innovateurs.</li>
+                          <li className="flex items-start gap-2 text-white"><span className="text-mint text-lg leading-none">•</span> Catalyseur Cyber : Propulser le futur de la Trust.</li>
                       </ul>
                   </div>
-                  <div className="space-y-6 text-[#888888] text-sm md:text-base leading-relaxed md:pl-8">
-                      <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/89dadee1-b89d-415a-a6c9-b3d01200c4cd_1600w.jpg" alt="Quantum Processor" className="w-full h-auto object-cover rounded-md border border-border shadow-md grayscale hover:grayscale-0 transition-all duration-500" />
-                      <p className="font-light italic leading-relaxed">
-                          Chaque décision technique et stratégique est guidée par cette philosophie. Nous envisageons un futur où SecuriTrust est le standard de protection pour un monde ouvert.
+                  <div className="space-y-6 text-sub text-sm md:text-base leading-relaxed md:pl-8">
+                      <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/89dadee1-b89d-415a-a6c9-b3d01200c4cd_1600w.jpg" alt="Quantum" className="w-full h-auto object-cover rounded-md border border-border shadow-md grayscale hover:grayscale-0 transition-all duration-500" />
+                      <p className="italic font-light leading-relaxed">
+                          Chaque ligne de code, chaque décision de design est guidée par cette philosophie globale. SecuriTrust est votre système d'exploitation de confiance.
                       </p>
                       <a href="#" className="text-mint text-sm font-semibold uppercase tracking-widest flex items-center gap-2 hover:underline">
-                          Explorer notre Manifeste <span className="text-lg">→</span>
+                          Explore Our Manifesto <span className="text-lg">→</span>
                       </a>
                   </div>
               </div>
@@ -582,25 +602,25 @@ export default function PropositionPage() {
 
       <div className="tech-separator" aria-hidden="true"></div>
 
-      {/* CTA */}
-      <section className="overflow-hidden group pt-24 pb-24 md:pt-32 md:pb-32 relative" aria-label="Join Movement">
+      {/* COMMUNITY CTA */}
+      <section className="overflow-hidden group pt-24 pb-24 md:pt-32 md:pb-32 relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,163,0.15),_transparent_70%)] opacity-50"></div>
           
           <div className="max-w-4xl mx-auto text-center px-6 relative z-10 reveal">
               <h2 className="font-display text-4xl md:text-7xl font-bold uppercase tracking-tighter mb-8 text-white leading-tight">
-                  Rejoignez la <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-mint">Révolution</span>
+                  Join the  <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-mint uppercase">Revolution</span>
               </h2>
               
-              <p className="font-mono text-xs md:text-sm text-gray-400 mb-10 max-w-lg mx-auto tracking-widest uppercase">
-                  &gt; Gouvernance en ligne. <br />
-                  &gt; Soyez acteur du consensus. <br />
-                  &gt; Affirmez votre souveraineté.
+              <p className="font-mono text-xs md:text-sm text-gray-400 mb-10 max-w-lg mx-auto tracking-widest uppercase leading-relaxed">
+                  &gt; Governance is live. <br />
+                  &gt; Be part of the consensus. <br />
+                  &gt; Claim your sovereignty.
               </p>
               
               <div className="flex flex-col md:flex-row justify-center gap-4">
-                  <a href="/signer-proposition" className="bg-mint text-void px-10 py-4 font-semibold uppercase hover:shadow-[0_0_20px_rgba(0,255,163,0.5)] transition-shadow tracking-widest">
-                      Signer le Devis
-                  </a>
+                  <button className="bg-mint text-void px-10 py-4 font-semibold uppercase hover:shadow-[0_0_20px_rgba(0,255,163,0.5)] transition-shadow tracking-widest">
+                      Signer la Proposition
+                  </button>
                   <button className="bg-transparent border border-white/20 text-white px-10 py-4 font-semibold uppercase hover:bg-white/10 transition-colors tracking-widest">
                       Nous Contacter
                   </button>
@@ -608,7 +628,57 @@ export default function PropositionPage() {
           </div>
       </section>
 
-      <Footer />
+      {/* FOOTER */}
+      <footer className="border-border reveal border-t pt-16 md:pt-20 pb-10 bg-void">
+          <div className="max-w-[1920px] mx-auto px-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-20">
+                  <div className="col-span-2 md:col-span-1">
+                      <div className="flex gap-2 mb-4 items-center">
+                          <span className="text-lg font-medium text-white font-display uppercase tracking-tighter">SecuriTrust</span>
+                      </div>
+                      <p className="text-sub text-[10px] leading-relaxed max-w-xs uppercase tracking-widest">
+                          Architecting the invisible layer of trust for the next generation of digital infrastructure.
+                      </p>
+                  </div>
+                  
+                  <div className="">
+                      <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Ecosystem</h5>
+                      <ul className="space-y-2.5 text-[10px] text-sub uppercase tracking-widest font-mono">
+                          <li><a href="#" className="hover:text-mint transition-colors">Pentest</a></li>
+                          <li><a href="#" className="hover:text-mint transition-colors">Compliance</a></li>
+                      </ul>
+                  </div>
+
+                  <div className="">
+                      <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Intelligence</h5>
+                      <ul className="space-y-2.5 text-[10px] text-sub uppercase tracking-widest font-mono">
+                          <li><a href="#" className="hover:text-mint transition-colors">OSINT</a></li>
+                          <li><a href="#" className="hover:text-mint transition-colors">DORA</a></li>
+                      </ul>
+                  </div>
+
+                  <div className="">
+                      <h5 className="text-white font-medium text-xs mb-4 uppercase tracking-widest">Support</h5>
+                      <div className="flex gap-4">
+                          <a href="#" className="w-8 h-8 flex items-center justify-center text-sub hover:text-white transition-colors bg-surface rounded-full border border-white/5 hover:border-white/20">
+                              <iconify-icon icon="ri:twitter-x-fill" width="16"></iconify-icon>
+                          </a>
+                          <a href="#" className="w-8 h-8 flex items-center justify-center text-sub hover:text-white transition-colors bg-surface rounded-full border border-white/5 hover:border-white/20">
+                              <iconify-icon icon="ri:linkedin-fill" width="16"></iconify-icon>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              
+              <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
+                  <p className="text-[9px] text-sub uppercase tracking-[0.3em]">© 2026 SecuriTrust. All rights reserved.</p>
+                  <div className="flex items-center gap-2 mt-4 md:mt-0">
+                      <div className="w-1.5 h-1.5 rounded-full bg-mint shadow-[0_0_8px_rgba(102,224,163,0.8)] animate-pulse"></div>
+                      <span className="font-mono text-[9px] text-mint uppercase tracking-[0.3em]">System Operational</span>
+                  </div>
+              </div>
+          </div>
+      </footer>
     </div>
   );
 }

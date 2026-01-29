@@ -54,6 +54,12 @@
   --color-accent: #06b6d4;
   --color-accent-foreground: #ffffff;
 
+  --color-void: #030303;
+  --color-panel: #080808;
+  --color-mint: #00ffa3;
+  --color-mint-dark: #00b372;
+  --color-sub: #888888;
+
   --color-destructive: #ef4444;
   --color-destructive-foreground: #fafafa;
 
