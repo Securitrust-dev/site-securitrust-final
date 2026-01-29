@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { ProposalHeader } from '@/components/sections/proposal-header';
 
 export default function PropositionPage() {
   const router = useRouter();
@@ -50,6 +51,9 @@ export default function PropositionPage() {
 
   return (
     <div className="antialiased selection:bg-white selection:text-black overflow-x-hidden text-white font-['Inter',sans-serif] bg-[#02040a]">
+      {/* Proposal Header Banner */}
+      <ProposalHeader clientName={orderData?.company?.name || orderData?.companyName || "Client"} />
+
       {/* Background Grid */}
       <div
         className="fixed inset-0 z-0"
@@ -65,32 +69,25 @@ export default function PropositionPage() {
       <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl opacity-20 z-0" />
 
       {/* Navigation */}
-      <header className="relative z-10 border-b border-white/5">
-        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Image 
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-1764601146487.png?width=8000&height=8000&resize=contain"
-                alt="SecuriTrust Logo"
-                width={180}
-                height={60}
-                className="h-12 w-auto"
-              />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-cyan-400">
-                  {orderData?.company?.name || orderData?.companyName || "Proposition Commerciale"}
-                </p>
-                <p className="text-xs text-zinc-500">Proposition de Test de Sécurité et Conformité</p>
-              </div>
+      <header className="relative z-10 border-b border-white/5 bg-black/40 backdrop-blur-sm">
+        <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="">
+              <p className="text-xs text-zinc-500 uppercase tracking-widest">Proposition Commerciale</p>
+              <p className="text-sm font-medium text-cyan-400">
+                {orderData?.company?.name || orderData?.companyName || "Votre Entreprise"}
+              </p>
             </div>
+          </div>
           <div className="flex items-center gap-4">
             <button
               onClick={() => router.push('/')}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 hover:border-cyan-500/50 text-cyan-300 hover:text-cyan-200 transition-all duration-300 hover:scale-105"
             >
               <Home className="w-4 h-4" />
-              <span className="text-sm font-medium">Retour à l'accueil</span>
+              <span className="text-sm font-medium">Retour</span>
             </button>
-            <div className="text-sm text-zinc-400">
+            <div className="text-xs text-zinc-400">
               {getCurrentDate()}
             </div>
           </div>

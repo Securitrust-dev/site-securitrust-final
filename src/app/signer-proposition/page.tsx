@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, AlertTriangle, ArrowLeft, CreditCard, ShieldCheck, FileSignature, Building2, User, Mail, Hash, Feather } from 'lucide-react';
 import { toast } from 'sonner';
+import { ProposalHeader } from '@/components/sections/proposal-header';
 
 export const dynamic = 'force-dynamic';
 
@@ -227,6 +228,8 @@ export default function SignerPropositionPage() {
 
   return (
     <div className="min-h-screen bg-[#02040a] flex flex-col relative">
+      <ProposalHeader clientName={companyName || "Client"} />
+      
       <div className="h-14 border-b border-white/10 flex items-center px-6 bg-[#02040a] justify-between z-10">
         <div className="flex items-center gap-4">
           <button onClick={handleBack} className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
