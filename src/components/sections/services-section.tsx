@@ -80,31 +80,31 @@ export const ServicesSection = () => {
               <h3 className="text-3xl font-semibold text-white mb-4 group-hover:text-[#38bdf8] transition-colors duration-300">
                 {feature.title}
               </h3>
-              <p className="text-xl text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">
-                {feature.description}
-              </p>
-            </div>
+                <p className="text-xl text-slate-100 leading-relaxed group-hover:text-white transition-colors duration-300">
+                  {feature.description}
+                </p>
+              </div>
 
-          <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 group-hover:w-full transition-all duration-700 ease-out"></div>
-        </div>
-      </Link>
-    );
-  };
+            <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 group-hover:w-full transition-all duration-700 ease-out"></div>
+          </div>
+        </Link>
+      );
+    };
 
-  return (
-    <section className="py-24 relative bg-[#02040a]" id="services">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-16 md:flex justify-between items-end">
-            <div className="max-w-xl">
-              <h2 className="text-4xl font-medium text-white tracking-tight mb-4">
-                Nos Services de Cybersécurité
-              </h2>
-              <p className="text-slate-400 text-lg leading-relaxed">
-                Un accompagnement complet pour structurer, renforcer et superviser
-                la sécurité de votre système d&apos;information. Plus de 15 ans
-                d&apos;expérience au service des organisations.
-              </p>
-            </div>
+    return (
+      <section className="py-24 relative bg-[#02040a]" id="services">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16 md:flex justify-between items-end">
+              <div className="max-w-xl">
+                <h2 className="text-4xl font-medium text-white tracking-tight mb-4">
+                  Nos Services de Cybersécurité
+                </h2>
+                <p className="text-slate-200 text-lg leading-relaxed">
+                  Un accompagnement complet pour structurer, renforcer et superviser
+                  la sécurité de votre système d&apos;information. Plus de 15 ans
+                  d&apos;expérience au service des organisations.
+                </p>
+              </div>
               <a
                 href="#contact"
                 className="hidden md:flex items-center gap-3 px-10 py-5 text-lg font-bold text-white bg-[#0ea5e9] hover:bg-[#38bdf8] rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(56,189,248,0.5)] uppercase tracking-widest mt-4 md:mt-0 group"

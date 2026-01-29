@@ -34,13 +34,13 @@
 @theme {
   /* Cyber-Noir Theme inspired by CHAD MOSCHINO */
   --color-background: #030303;
-  --color-foreground: #e2e8f0;
+  --color-foreground: #ffffff;
 
   --color-card: #0b1221;
-  --color-card-foreground: #e2e8f0;
+  --color-card-foreground: #ffffff;
 
   --color-popover: #0b1221;
-  --color-popover-foreground: #e2e8f0;
+  --color-popover-foreground: #ffffff;
 
   --color-primary: #06b6d4;
   --color-primary-foreground: #030303;
@@ -81,7 +81,7 @@
 
   body {
     background-color: #030303;
-    color: #e2e8f0;
+    color: #ffffff;
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;

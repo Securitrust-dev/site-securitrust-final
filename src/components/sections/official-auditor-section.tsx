@@ -69,40 +69,40 @@ export const OfficialAuditorSection = () => {
               Auditeur Officiel
             </h2>
           </div>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-            Certifications et accréditations officielles pour garantir des audits de haute qualité
-          </p>
-        </div>
+            <p className="text-lg text-white max-w-3xl mx-auto opacity-90">
+              Certifications et accréditations officielles pour garantir des audits de haute qualité
+            </p>
+          </div>
 
-        {/* Certifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certifications.map((cert, index) => (
-            <div
-              key={cert.id}
-              className="relative group bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center text-center min-h-[320px] transition-all duration-500 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]"
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-            >
-                {/* Logo */}
-                <div className="mb-6 h-40 w-full flex items-center justify-center bg-white rounded-xl p-3">
-                  <Image
-                    src={cert.logo}
-                    alt={cert.title}
-                    width={256}
-                    height={256}
-                    quality={100}
-                    className="object-contain w-auto h-full transition-transform duration-300 group-hover:scale-110"
-                  />
+          {/* Certifications Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {certifications.map((cert, index) => (
+              <div
+                key={cert.id}
+                className="relative group bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center text-center min-h-[320px] transition-all duration-500 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                  {/* Logo */}
+                  <div className="mb-6 h-40 w-full flex items-center justify-center bg-white rounded-xl p-3">
+                    <Image
+                      src={cert.logo}
+                      alt={cert.title}
+                      width={256}
+                      height={256}
+                      quality={100}
+                      className="object-contain w-auto h-full transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-base font-medium text-white mb-4">
+                    {cert.title}
+                  </h3>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-base font-medium text-white mb-4">
-                  {cert.title}
-                </h3>
-              </div>
-            ))}
-        </div>
+              ))}
+          </div>
       </div>
     </section>
   );
