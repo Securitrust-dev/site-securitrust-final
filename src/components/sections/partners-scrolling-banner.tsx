@@ -34,36 +34,36 @@ const clients = [
   }
 ];
 
-export function PartnersScrollingBanner() {
-  return (
-      <div className="bg-void py-12 md:py-20">
-        <div className="max-w-[1920px] mx-auto px-6 md:px-12 mb-8 reveal">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-            <h2 className="text-[10px] md:text-xs font-mono text-white uppercase tracking-[0.4em]">Ecosystem_Partners</h2>
+  export function PartnersScrollingBanner() {
+    return (
+        <div className="bg-[#022c22] py-12 md:py-20">
+          <div className="max-w-[1920px] mx-auto px-6 md:px-12 mb-8 reveal">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+              <h2 className="text-[10px] md:text-xs font-mono text-white uppercase tracking-[0.4em]">Ecosystem_Partners</h2>
+            </div>
           </div>
-        </div>
-        
-        <section className="w-full bg-[#02040a] py-10 md:py-14 border-y border-white/5 overflow-hidden">
-          <Marquee speed={35} gradient={false} pauseOnHover={true}>
-            <div className="flex items-center gap-24 md:gap-40 px-12">
-              {clients.concat(clients).map((client, index) => (
-                <div 
-                  key={`${client.name}-${index}`} 
-                  className="flex items-center justify-center brightness-0 invert transition-all duration-500 hover:scale-110 cursor-pointer"
-                >
-                <Image
-                  src={client.logo}
-                  alt={`Logo ${client.name}`}
-                  width={200}
-                  height={100}
-                  className="h-14 md:h-20 w-auto object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </Marquee>
-      </section>
-    </div>
-  );
-}
+          
+          <section className="w-full bg-[#022c22] py-10 md:py-14 border-y border-white/5 overflow-hidden">
+            <Marquee speed={35} gradient={false} pauseOnHover={true}>
+              <div className="flex items-center gap-24 md:gap-40 px-12">
+                {clients.concat(clients).map((client, index) => (
+                  <div 
+                    key={`${client.name}-${index}`} 
+                    className="flex items-center justify-center brightness-0 invert transition-all duration-500 hover:scale-110 cursor-pointer"
+                  >
+                  <Image
+                    src={client.logo}
+                    alt={`Logo ${client.name}`}
+                    width={200}
+                    height={100}
+                    className="h-14 md:h-20 w-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </Marquee>
+        </section>
+      </div>
+    );
+  }
