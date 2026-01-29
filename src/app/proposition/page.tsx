@@ -291,15 +291,7 @@ export default function PropositionPage() {
       </div>
 
       {/* PARTNERS */}
-      <section className="border-b border-white/5 bg-[#030303]">
-        <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-6 divide-x divide-y md:divide-y-0 divide-white/5">
-          {['SOCIÉTÉ GÉNÉRALE', 'AVIVA', 'VINCI', 'LVMH', 'THALES', 'AIRBUS'].map((partner) => (
-            <div key={partner} className="p-6 md:p-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-40 hover:opacity-100">
-              <span className="font-['Inter',sans-serif] font-semibold text-sm md:text-base tracking-tight text-white">{partner}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      <PartnersScrollingBanner />
 
       {/* CONTEXT & VISION */}
       <section className="py-16 md:py-32 relative overflow-hidden">
