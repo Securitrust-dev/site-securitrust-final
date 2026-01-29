@@ -55,7 +55,7 @@ export default function ContactPage() {
     {
       icon: Mail,
       title: 'Email',
-      details: ['contact@securitrust.fr', 'expertise@securitrust.fr']
+      details: ['jad.joumblat@securitrust.fr', 'expertise@securitrust.fr']
     },
     {
       icon: Clock,

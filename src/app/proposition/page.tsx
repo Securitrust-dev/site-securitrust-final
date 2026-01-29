@@ -557,12 +557,12 @@ export default function PropositionPage() {
 
               {/* Info Text */}
               <div className="mt-8 pt-8 border-t border-white/10">
-                <p className="text-sm text-zinc-400 mb-2">
-                  Pour toute question ou commentaire, veuillez contacter{' '}
-                  <a href="mailto:contact@securitrust.com" className="text-cyan-400 hover:underline font-medium">
-                    contact@securitrust.com
-                  </a> ou <span className="text-cyan-400">07308030070</span>
-                </p>
+                  <p className="text-sm text-zinc-400 mb-2">
+                    Pour toute question ou commentaire, veuillez contacter{' '}
+                    <a href="mailto:jad.joumblat@securitrust.fr" className="text-cyan-400 hover:underline font-medium">
+                      jad.joumblat@securitrust.fr
+                    </a> ou <span className="text-cyan-400">06 08 94 87 97</span>
+                  </p>
                 <p className="text-xs text-zinc-500 italic">
                   La signature électronique est requise avant de procéder au paiement. Cela garantit l'authenticité et la validité de votre engagement.
                 </p>

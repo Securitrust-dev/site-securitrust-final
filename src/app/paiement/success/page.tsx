@@ -135,17 +135,17 @@ function PaymentSuccessContent() {
         </div>
 
         {/* Support Notice */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-slate-400">
-            Une question ? Contactez-nous à{' '}
-            <a 
-              href="mailto:contact@securitrust.fr" 
-              className="text-cyan-400 hover:text-cyan-300 transition-colors"
-            >
-              contact@securitrust.fr
-            </a>
-          </p>
-        </div>
+          <div className="mt-6 text-center">
+            <p className="text-sm text-slate-400">
+              Une question ? Contactez-nous à{' '}
+              <a 
+                href="mailto:jad.joumblat@securitrust.fr" 
+                className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              >
+                jad.joumblat@securitrust.fr
+              </a>
+            </p>
+          </div>
       </div>
     </div>
   );

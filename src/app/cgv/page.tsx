@@ -27,7 +27,7 @@ export default function CGVPage() {
           {/* Préambule */}
           <section>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Le Site a pour objet la présentation de la Société et de son offre de consultation de la gestion éthique des données, la Société et pour offrir la réalisation de missions. La Société est une société par actions simplifiée à associé unique au capital de 1 000 €, dont le siège social se situe à rue Saint Didier, 75016 PARIS, immatriculée au Registre du commerce et des sociétés de Paris au n° 917 688 181 et 807 (email de contact: info@securitrust.com). Les présentes conditions générales d'utilisation (ci-après les "Conditions") constituent le contrat par lequel la Société met à disposition de l'Internaute, sur son Site, les Informations concernant les prestations de service qu'elle réalise dans son domaine d'activité.
+              Le Site a pour objet la présentation de la Société et de son offre de consultation de la gestion éthique des données, la Société et pour offrir la réalisation de missions. La Société est une société par actions simplifiée à associé unique au capital de 1 000 €, dont le siège social se situe à rue Saint Didier, 75016 PARIS, immatriculée au Registre du commerce et des sociétés de Paris au n° 917 688 181 et 807 (email de contact: jad.joumblat@securitrust.fr). Les présentes conditions générales d'utilisation (ci-après les "Conditions") constituent le contrat par lequel la Société met à disposition de l'Internaute, sur son Site, les Informations concernant les prestations de service qu'elle réalise dans son domaine d'activité.
             </p>
           </section>
 
@@ -69,7 +69,7 @@ export default function CGVPage() {
               ARTICLE 4: FONCTIONNALITÉ DU SITE
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Pour toute question ou demande d'information concernant le site, ou tout signalement de contenu ou d'activités illicites, l'Utilisateur peut contacter l'Éditeur à l'adresse URL suivante : contact@securitrust.com ou adresser un courrier recommandé avec accusé de réception à l'Éditeur: José JOURNEAU, 11 rue Saint Didier, 75016 Paris. En tant que responsable gratuitement à tout l'Utilisateur dispose d'un droit d'accès à l'Utilisateur est seul responsable du bon fonctionnement de son équipement informatique ainsi que de son accès à Internet. L'Utilisateur est seul responsable de l'utilisation qu'il fait du contenu et/ou bout soumis suspendu, limiter ou interrompre l'accès au site s'il estime opportun ou à tout mouvement suspendant à jour des modifications de son contenu ou de tout autre page nécessaire au bon fonctionnement du site ou à toute mise à jour ou à toute modification technique. En tout état, l'Éditeur ne saurait être tenu pour responsable en cas de indisponibilité du site. L'Utilisateur est informé que le Site est maintenu à jour à jour, à plusieurs Utilisateur dispose du droit de propriété sur le site et de réserver l'accès de site, si se réserve le droit de à toute forme un entier procédure des mise à jour, des modifications au contenu ou de la structure ou droit à défaut des Pages de ce qui, de la télégraphe, suspendre la télécommunication en venir.
+              Pour toute question ou demande d'information concernant le site, ou tout signalement de contenu ou d'activités illicites, l'Utilisateur peut contacter l'Éditeur à l'adresse URL suivante : jad.joumblat@securitrust.fr ou adresser un courrier recommandé avec accusé de réception à l'Éditeur: José JOURNEAU, 11 rue Saint Didier, 75016 Paris. En tant que responsable gratuitement à tout l'Utilisateur dispose d'un droit d'accès à l'Utilisateur est seul responsable du bon fonctionnement de son équipement informatique ainsi que de son accès à Internet. L'Utilisateur est seul responsable de l'utilisation qu'il fait du contenu et/ou bout soumis suspendu, limiter ou interrompre l'accès au site s'il estime opportun ou à tout mouvement suspendant à jour des modifications de son contenu ou de tout autre page nécessaire au bon fonctionnement du site ou à toute mise à jour ou à toute modification technique. En tout état, l'Éditeur ne saurait être tenu pour responsable en cas de indisponibilité du site. L'Utilisateur est informé que le Site est maintenu à jour à jour, à plusieurs Utilisateur dispose du droit de propriété sur le site et de réserver l'accès de site, si se réserve le droit de à toute forme un entier procédure des mise à jour, des modifications au contenu ou de la structure ou droit à défaut des Pages de ce qui, de la télégraphe, suspendre la télécommunication en venir.
             </p>
           </section>
 
@@ -135,7 +135,7 @@ export default function CGVPage() {
               <p><strong className="text-white">Adresse :</strong></p>
               <p>SecuriTrust</p>
               <p>11 Rue Saint-Didier, 75116 Paris</p>
-              <p>Email : contact@securitrust.fr</p>
+                <p>Email : jad.joumblat@securitrust.fr</p>
               <p>Tél : 06 08 94 87 97</p>
             </div>
           </section>

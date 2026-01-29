@@ -46,7 +46,7 @@ export default function PolitiqueCookiesPage() {
               <p><strong className="text-white">Adresse :</strong></p>
               <p>SecuriTrust</p>
               <p>11 Rue Saint-Didier, 75116 Paris</p>
-              <p>Email : contact@securitrust.fr</p>
+                <p>Email : jad.joumblat@securitrust.fr</p>
               <p>Tél : 06 08 94 87 97</p>
             </div>
           </section>

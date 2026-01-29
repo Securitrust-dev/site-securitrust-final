@@ -87,12 +87,12 @@ export default function MentionsLegalesPage() {
                 </p>
               </div>
 
-              <div className="flex items-start gap-3">
-                <Check className="h-5 w-5 text-[#38bdf8] flex-shrink-0 mt-0.5" />
-                <p className="text-slate-300 text-sm sm:text-base">
-                  <strong className="text-white">Contact:</strong> info@securitrust.com
-                </p>
-              </div>
+                <div className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-[#38bdf8] flex-shrink-0 mt-0.5" />
+                  <p className="text-slate-300 text-sm sm:text-base">
+                    <strong className="text-white">Contact:</strong> jad.joumblat@securitrust.fr
+                  </p>
+                </div>
 
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-[#38bdf8] flex-shrink-0 mt-0.5" />
