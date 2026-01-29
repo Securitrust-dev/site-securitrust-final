@@ -7,7 +7,7 @@ interface ProposalHeaderProps {
 
 export function ProposalHeader({ clientName }: ProposalHeaderProps) {
   return (
-    <div className="w-full bg-[#02040a] py-12 px-6 relative z-50">
+    <div className="w-full bg-[#011C1C] py-12 px-6 relative z-50">
       <div className="max-w-5xl mx-auto flex items-center justify-center gap-8 md:gap-16">
         {/* Client Name */}
         <div className="text-white text-3xl md:text-5xl font-light tracking-wider lowercase">
