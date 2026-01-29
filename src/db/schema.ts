@@ -51,3 +51,18 @@ export const uploadedFiles = sqliteTable('uploaded_files', {
   ipAddress: text('ip_address'),
   createdAt: text('created_at').notNull(),
 });
+
+export const pentestOrders = sqliteTable('pentest_orders', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  orderId: text('order_id').notNull().unique(),
+  paymentIntentId: text('payment_intent_id').notNull().unique(),
+  customerEmail: text('customer_email').notNull(),
+  customerName: text('customer_name').notNull(),
+  amount: integer('amount').notNull(),
+  currency: text('currency').notNull().default('eur'),
+  status: text('status').notNull().default('pending'),
+  createdAt: text('created_at').notNull(),
+  expiresAt: text('expires_at').notNull(),
+  capturedAt: text('captured_at'),
+  canceledAt: text('canceled_at'),
+});

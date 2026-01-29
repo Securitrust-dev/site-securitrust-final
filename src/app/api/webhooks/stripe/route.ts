@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import nodemailer from 'nodemailer';
+import { db } from '@/db';
+import { pentestOrders } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2020-08-27',
+  apiVersion: '2025-11-17.clover',
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-// Configuration SMTP OVH
 const transporter = nodemailer.createTransport({
   host: 'ssl0.ovh.net',
   port: 587,
@@ -18,6 +20,41 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASSWORD,
   },
 });
+
+async function handlePentestPaymentIntent(paymentIntent: Stripe.PaymentIntent) {
+  const metadata = paymentIntent.metadata;
+  if (metadata?.type !== 'pentest_authorization') return;
+
+  const orderId = metadata.order_id;
+  if (!orderId) return;
+
+  let newStatus: string;
+  const updateData: { status: string; capturedAt?: string; canceledAt?: string } = { status: '' };
+
+  switch (paymentIntent.status) {
+    case 'requires_capture':
+      newStatus = 'requires_capture';
+      break;
+    case 'succeeded':
+      newStatus = 'succeeded';
+      updateData.capturedAt = new Date().toISOString();
+      break;
+    case 'canceled':
+      newStatus = 'canceled';
+      updateData.canceledAt = new Date().toISOString();
+      break;
+    default:
+      newStatus = paymentIntent.status;
+  }
+
+  updateData.status = newStatus;
+
+  await db.update(pentestOrders)
+    .set(updateData)
+    .where(eq(pentestOrders.orderId, orderId));
+
+  console.log(`✅ Pentest order ${orderId} updated to status: ${newStatus}`);
+}
 
 export async function POST(req: NextRequest) {
   console.log('🔔 Webhook Stripe reçu');
@@ -36,10 +73,11 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+    event = await stripe.webhooks.constructEventAsync(body, signature, webhookSecret);
     console.log('✅ Webhook vérifié:', event.type);
-  } catch (err: any) {
-    console.error('❌ Erreur vérification signature:', err.message);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    console.error('❌ Erreur vérification signature:', message);
     return NextResponse.json(
       { error: 'Webhook signature verification failed' },
       { status: 400 }
@@ -264,16 +302,22 @@ export async function POST(req: NextRequest) {
       
       console.log('✅ Notification admin envoyée:', adminEmailInfo.messageId);
       
-    } catch (error: any) {
-      console.error('❌ Erreur envoi email:', {
-        message: error.message,
-        code: error.code,
-        command: error.command,
-      });
+} catch (error: unknown) {
+        const err = error as { message?: string; code?: string; command?: string };
+        console.error('❌ Erreur envoi email:', {
+          message: err.message,
+          code: err.code,
+          command: err.command,
+        });
+      }
     }
+
+  if (event.type.startsWith('payment_intent.')) {
+    const paymentIntent = event.data.object as Stripe.PaymentIntent;
+    await handlePentestPaymentIntent(paymentIntent);
   }
 
-  return NextResponse.json({ received: true });
+    return NextResponse.json({ received: true });
 }
 
 export const dynamic = 'force-dynamic';
