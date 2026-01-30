@@ -67,59 +67,44 @@ export function PropositionMethodology() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-500/10 blur-[150px] rounded-full"></div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-        <div className="text-center mb-20 reveal">
-          <h2 className="font-display text-4xl md:text-6xl font-black tracking-tighter uppercase text-white leading-tight">
-            La <span className="text-[#00ffa3]">Méthodologie</span> Securitrust
-          </h2>
-          <p className="text-gray-400 mt-4 text-sm md:text-base uppercase tracking-widest opacity-60">Approche structurée pour une sécurité maximale</p>
-          <div className="h-1 w-24 bg-[#00ffa3] mx-auto mt-6"></div>
-        </div>
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+          <div className="mb-20 reveal">
+            <h2 className="font-display text-6xl md:text-8xl font-black tracking-tighter uppercase text-white leading-[0.8]">
+              Méthodo<br />
+              <span className="text-[#00ffa3]">Collaborative</span>
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
-          {cards.map((card, idx) => (
-            <div 
-              key={idx} 
-              className={`flex flex-col h-full bg-[#080808] border ${card.borderColor} rounded-2xl overflow-hidden group hover:border-[#00ffa3]/40 transition-all duration-500`}
-            >
-              {/* Header bar */}
-              <div className={`h-2 w-full ${card.bgColor.replace('/10', '/40')} border-b ${card.borderColor}`}></div>
-              
-              <div className="p-8 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-8">
-                  <div className={`w-12 h-12 rounded-xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                    <iconify-icon icon={card.icon} className={card.accentColor} width="24"></iconify-icon>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+              {cards.map((card, idx) => (
+                <div 
+                  key={idx} 
+                  className={`flex flex-col min-h-[500px] bg-[#080808] border ${card.borderColor} rounded-3xl overflow-hidden group hover:border-[#00ffa3]/40 transition-all duration-500 p-8`}
+                >
+                  <div className="flex justify-between items-start mb-12">
+                    <div className={`w-14 h-14 rounded-2xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                      <iconify-icon icon={card.icon} className={card.accentColor} width="28"></iconify-icon>
+                    </div>
+                    <span className="font-mono text-xs text-gray-600 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
                   </div>
-                  <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest">Partie 0{idx + 1}</span>
+
+                  <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10">
+                    {card.title}
+                  </h3>
+
+                  <div className="flex-grow">
+                    <ul className="space-y-4">
+                      {card.items.map((item, i) => (
+                        <li key={i} className="flex gap-3 text-sm text-gray-500 group/item leading-relaxed">
+                          <span className={`${card.accentColor} font-bold shrink-0 opacity-40 group-hover/item:opacity-100 transition-opacity`}>→</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-
-                <h3 className="text-xl font-bold text-white mb-8 uppercase tracking-tight leading-tight group-hover:text-[#00ffa3] transition-colors">
-                  {card.title.split(' ').map((word, i) => (
-                    <span key={i} className="block">{word}</span>
-                  ))}
-                </h3>
-
-                <ul className="space-y-4 mb-8 flex-grow">
-                  {card.items.map((item, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-gray-400 group/item">
-                      <span className={`${card.accentColor} font-bold shrink-0 opacity-60 group-hover/item:opacity-100 transition-opacity`}>→</span>
-                      <span className="leading-relaxed">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="pt-6 border-t border-white/5 flex justify-between items-center opacity-40 group-hover:opacity-100 transition-opacity">
-                   <div className="flex gap-2">
-                      <div className={`w-1 h-1 rounded-full ${card.bgColor.replace('/10', '/100')}`}></div>
-                      <div className={`w-1 h-1 rounded-full ${card.bgColor.replace('/10', '/60')}`}></div>
-                      <div className={`w-1 h-1 rounded-full ${card.bgColor.replace('/10', '/30')}`}></div>
-                   </div>
-                   <iconify-icon icon="solar:shield-check-bold" className={card.accentColor} width="16"></iconify-icon>
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
 
         <div className="mt-16 text-center reveal">
            <p className="text-gray-500 text-xs font-mono uppercase tracking-[0.2em] opacity-40">
