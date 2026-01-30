@@ -99,7 +99,7 @@ export default function PropositionPage() {
         const tokenRing = document.querySelector('.token-chart-ring');
         if(tokenRing) {
             gsap.to(tokenRing, {
-                strokeDashoffset: 100,
+                strokeDashoffset: 0,
                 duration: 2,
                 ease: "power2.out",
                 scrollTrigger: {
@@ -386,17 +386,17 @@ export default function PropositionPage() {
                       <circle cx="50" cy="50" r="45" stroke="#1a1a1a" strokeWidth="8" fill="none"></circle>
                       <circle cx="50" cy="50" r="45" stroke="#00ffa3" strokeWidth="8" fill="none" strokeDasharray="283" strokeDashoffset="283" className="token-chart-ring"></circle>
                   </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-3xl md:text-4xl font-semibold text-white tracking-tighter uppercase">5 Jours</span>
-                      <span className="text-xs text-[#888888] uppercase tracking-wider">Délai d'exécution</span>
-                  </div>
-              </div>
-              
-                <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
-                    <div>
-                        <div className="text-xl md:text-2xl font-semibold text-white tracking-tight"><span className="token-stat-number" data-target="4999">0</span>€</div>
-                        <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Forfait HT</div>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <span className="text-3xl md:text-4xl font-semibold text-white tracking-tighter uppercase"><span className="token-stat-number" data-target="4999">0</span>€</span>
+                        <span className="text-xs text-[#888888] uppercase tracking-wider">Forfait HT</span>
                     </div>
+                </div>
+                
+                  <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
+                      <div>
+                          <div className="text-xl md:text-2xl font-semibold text-white tracking-tight">5 Jours</div>
+                          <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Délai d'exécution</div>
+                      </div>
                     <div>
                         <div className="text-xl md:text-2xl font-semibold text-[#00ffa3] tracking-tight"><span className="token-stat-number" data-target="3">0</span></div>
                         <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Experts dédiés</div>
