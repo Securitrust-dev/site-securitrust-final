@@ -228,6 +228,17 @@ export default function PropositionPage() {
         .tunnel-ring:nth-child(10) { animation-delay: 4.5s; }
         .tunnel-ring:nth-child(11) { animation-delay: 5s; }
         .tunnel-ring:nth-child(12) { animation-delay: 5.5s; }
+
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-100% / 2)); }
+        }
+        .animate-scroll {
+          animation: scroll 40s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
       ` }} />
 
       {/* PRELOADER */}
@@ -291,8 +302,8 @@ export default function PropositionPage() {
       <div className="tech-separator"></div>
 
       {/* PARTNERS */}
-      <section className="border-b border-border bg-[#030303]">
-          <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-7 divide-x divide-y md:divide-y-0 divide-border">
+      <section className="border-b border-border bg-[#030303] py-12 overflow-hidden">
+          <div className="flex gap-20 animate-scroll w-max">
               {[
                   { name: "Société Générale", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780772933.png" },
                   { name: "Abeille Assurances", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780810947.png" },
@@ -301,9 +312,17 @@ export default function PropositionPage() {
                   { name: "Afluens", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780847169.png" },
                   { name: "Aviva", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780861273.png" },
                   { name: "Ma Place en Crèche", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780840832.png" }
-              ].map((partner, i) => (
-                <div key={i} className="p-6 md:p-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
-                    <div className="relative h-12 w-full max-w-[140px]">
+              ].concat([
+                  { name: "Société Générale", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780772933.png" },
+                  { name: "Abeille Assurances", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780810947.png" },
+                  { name: "Banque Française Mutualiste", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780837348.png" },
+                  { name: "Veolia Eau", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780854504.png" },
+                  { name: "Afluens", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780847169.png" },
+                  { name: "Aviva", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780861273.png" },
+                  { name: "Ma Place en Crèche", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780840832.png" }
+              ]).map((partner, i) => (
+                <div key={i} className="flex-shrink-0 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
+                    <div className="relative h-16 md:h-20 w-48 md:w-64">
                         <Image 
                             src={partner.logo}
                             alt={partner.name}
