@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
+import Image from 'next/image';
 
 declare global {
   interface Window {
@@ -13,7 +14,21 @@ declare global {
 }
 
 export default function PropositionPage() {
+  const [companyName, setCompanyName] = useState<string>('');
+
   useEffect(() => {
+    // Fetch company name from sessionStorage
+    const storedData = sessionStorage.getItem('eligibilityData');
+    if (storedData) {
+      try {
+        const data = JSON.parse(storedData);
+        if (data?.company?.name) {
+          setCompanyName(data.company.name);
+        }
+      } catch (e) {
+        console.error('Error parsing eligibility data:', e);
+      }
+    }
     // --- 1. PRELOADER ---
     const preloader = document.getElementById('preloader');
     const loaderBar = document.getElementById('loader-bar');
@@ -251,7 +266,28 @@ export default function PropositionPage() {
                     </h2>
                 </div>
 
-                <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
+                {/* Dynamic Partner Banner */}
+                <div className="flex items-center justify-center gap-6 md:gap-12 mt-10 hero-anim opacity-0 translate-y-4">
+                    <div className="text-white font-display text-2xl md:text-5xl font-bold uppercase tracking-tighter">
+                        {companyName || "ENTREPRISE"}
+                    </div>
+                    <div className="text-white/30 text-3xl md:text-6xl font-extralight">×</div>
+                    <div className="flex items-center gap-3 md:gap-5">
+                        <div className="w-8 h-8 md:w-14 md:h-14 relative">
+                            <Image 
+                                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/Logo-SecuriTrust-bleu-blanc-768x158-1764868575260.png"
+                                alt="SecuriTrust"
+                                fill
+                                className="object-contain brightness-200 grayscale invert"
+                            />
+                        </div>
+                        <div className="text-white font-display text-2xl md:text-5xl font-medium tracking-tight">
+                            SecuriTrust
+                        </div>
+                    </div>
+                </div>
+
+                <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-10 mb-8 hero-anim opacity-0 translate-y-4">
                     Audit de sécurité et tests d'intrusion experts. Évaluation complète de votre infrastructure sous 5 jours avec rapport de remédiation détaillé.
                 </p>
             </div>
