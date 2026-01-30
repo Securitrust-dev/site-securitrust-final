@@ -292,10 +292,25 @@ export default function PropositionPage() {
 
       {/* PARTNERS */}
       <section className="border-b border-border bg-[#030303]">
-          <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-6 divide-x divide-y md:divide-y-0 divide-border">
-              {["SOCIÉTÉ GÉNÉRALE", "ABEILLE ASSURANCES", "BANQUE MUTUALISTE", "VEOLIA EAU", "AFFLUENS", "AVIVA"].map((partner, i) => (
+          <div className="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-7 divide-x divide-y md:divide-y-0 divide-border">
+              {[
+                  { name: "Société Générale", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780772933.png" },
+                  { name: "Abeille Assurances", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780810947.png" },
+                  { name: "Banque Française Mutualiste", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780837348.png" },
+                  { name: "Veolia Eau", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780854504.png" },
+                  { name: "Afluens", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780847169.png" },
+                  { name: "Aviva", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780861273.png" },
+                  { name: "Ma Place en Crèche", logo: "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769780840832.png" }
+              ].map((partner, i) => (
                 <div key={i} className="p-6 md:p-10 flex items-center justify-center grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
-                    <span className="font-display font-semibold text-[10px] md:text-xs tracking-widest uppercase text-center text-[#888888]">{partner}</span>
+                    <div className="relative h-12 w-full max-w-[140px]">
+                        <Image 
+                            src={partner.logo}
+                            alt={partner.name}
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
                 </div>
               ))}
           </div>
