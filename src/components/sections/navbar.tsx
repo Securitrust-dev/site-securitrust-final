@@ -18,7 +18,7 @@ export const Navbar = () => {
           <a href="/" className="flex items-center cursor-pointer group flex-shrink-0">
             <div className="relative flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <Image 
-                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-768x158-1764257964299.png?width=8000&height=8000&resize=contain"
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=8000&height=8000&resize=contain"
                   alt="SecuriTrust - Cabinet d'audit et conseil en cybersécurité"
                   width={180}
                   height={37}

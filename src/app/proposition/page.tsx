@@ -274,10 +274,10 @@ export default function PropositionPage() {
                     <div className="text-white/30 text-3xl md:text-6xl font-extralight">×</div>
                     <div className="h-10 md:h-20 w-40 md:w-80 relative">
                         <Image 
-                            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766329773.png?width=8000&height=8000&resize=contain"
+                            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=8000&height=8000&resize=contain"
                             alt="SecuriTrust"
                             fill
-                            className="object-contain brightness-200"
+                            className="object-contain"
                         />
                     </div>
                 </div>

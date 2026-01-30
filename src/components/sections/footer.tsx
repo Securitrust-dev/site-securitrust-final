@@ -7,13 +7,13 @@ export const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16 lg:mb-20">
           <div className="col-span-1 sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-2 mb-4 sm:mb-5 lg:mb-6">
-              <Image
-                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-768x158-1764185479093.png?width=8000&height=8000&resize=contain"
-                alt="SecuriTrust Logo"
-                width={160}
-                height={33}
-                  className="h-8 sm:h-9 lg:h-10 w-auto"
-              />
+                <Image
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=8000&height=8000&resize=contain"
+                  alt="SecuriTrust Logo"
+                  width={160}
+                  height={33}
+                    className="h-8 sm:h-9 lg:h-10 w-auto"
+                />
             </div>
               <p className="text-sm sm:text-base text-white leading-relaxed max-w-xs font-light mb-4 opacity-90">
                 Consultant informatique à Paris
