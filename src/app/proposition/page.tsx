@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
 import { PropositionHero } from '@/components/sections/proposition/PropositionHero';
 import { PropositionPartners } from '@/components/sections/proposition/PropositionPartners';
+import { PropositionIntroduction } from '@/components/sections/proposition/PropositionIntroduction';
 import { PropositionMethodology } from '@/components/sections/proposition/PropositionMethodology';
 import { PropositionOffer } from '@/components/sections/proposition/PropositionOffer';
 import { PropositionRoadmap } from '@/components/sections/proposition/PropositionRoadmap';
@@ -273,9 +274,11 @@ export default function PropositionPage() {
 
       <PropositionHero companyName={companyName} />
       <div className="tech-separator"></div>
-      <PropositionPartners />
-      <div className="tech-separator"></div>
-      {mounted && <PropositionMethodology />}
+        <PropositionPartners />
+        <div className="tech-separator"></div>
+        <PropositionIntroduction />
+        <div className="tech-separator"></div>
+        {mounted && <PropositionMethodology />}
       <div className="tech-separator"></div>
       <PropositionOffer />
       <div className="tech-separator"></div>
