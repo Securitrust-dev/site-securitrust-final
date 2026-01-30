@@ -246,8 +246,7 @@ export default function PropositionPage() {
                     <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
                         PROPOSITION
                     </h1>
-                    <div className="h-2 md:h-4"></div>
-                    <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity uppercase">
+                    <div className="font-display text-base md:text-xl font-medium tracking-[0.4em] text-white z-10 uppercase mt-4">
                         COMMERCIALE
                     </div>
                 </div>
