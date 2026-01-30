@@ -275,12 +275,10 @@ export default function PropositionPage() {
           <div className="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-white/50"></div>
       </div>
 
-      <PropositionHero companyName={companyName} />
-      <div className="tech-separator"></div>
-        <PropositionPartners />
+        <PropositionHero companyName={companyName} />
         <div className="tech-separator"></div>
-        <PropositionIntroduction />
-        <div className="tech-separator"></div>
+          <PropositionIntroduction />
+          <div className="tech-separator"></div>
         <PropositionRequirement companyName={companyName} />
         <div className="tech-separator"></div>
           {mounted && <PropositionMethodology />}
@@ -295,9 +293,11 @@ export default function PropositionPage() {
       <div className="tech-separator"></div>
       <PropositionMap />
       <div className="tech-separator"></div>
-      <PropositionSingularity />
-      <div className="tech-separator"></div>
-      <PropositionFooter />
+        <PropositionSingularity />
+        <div className="tech-separator"></div>
+        <PropositionPartners />
+        <div className="tech-separator"></div>
+        <PropositionFooter />
     </div>
   );
 }
