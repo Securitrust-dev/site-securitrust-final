@@ -246,25 +246,16 @@ export default function PropositionPage() {
                     <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
                         PROPOSITION
                     </h1>
-                    <div className="font-display text-base md:text-xl font-medium tracking-[0.4em] text-white z-10 uppercase mt-4">
+                    <h2 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
                         COMMERCIALE
-                    </div>
+                    </h2>
                 </div>
 
-              <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
-                  Audit de sécurité et tests d'intrusion experts. Évaluation complète de votre infrastructure sous 5 jours avec rapport de remédiation détaillé.
-              </p>
-
-              <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto hero-anim opacity-0 translate-y-4">
-                  <a href="/signer-proposition" className="group bg-[#00ffa3] text-[#030303] px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white transition-all hover:scale-[1.02] min-w-[180px] text-center shadow-[0_0_20px_rgba(0,255,163,0.3)]">
-                      Signer la proposition
-                  </a>
-                  <a href="#features" className="group bg-[#030303]/50 backdrop-blur-md border border-white/20 text-white px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white/10 transition-all hover:border-white/40 min-w-[180px] text-center">
-                      Voir le détail
-                  </a>
-              </div>
-          </div>
-      </header>
+                <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
+                    Audit de sécurité et tests d'intrusion experts. Évaluation complète de votre infrastructure sous 5 jours avec rapport de remédiation détaillé.
+                </p>
+            </div>
+        </header>
 
       <div className="tech-separator"></div>
 
@@ -336,17 +327,26 @@ export default function PropositionPage() {
                   </div>
               </div>
               
-              <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
-                  <div>
-                      <div className="text-xl md:text-2xl font-semibold text-white tracking-tight"><span className="token-stat-number" data-target="4999">0</span>€</div>
-                      <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Forfait HT</div>
-                  </div>
-                  <div>
-                      <div className="text-xl md:text-2xl font-semibold text-[#00ffa3] tracking-tight"><span className="token-stat-number" data-target="3">0</span></div>
-                      <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Experts dédiés</div>
-                  </div>
-              </div>
-          </div>
+                <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
+                    <div>
+                        <div className="text-xl md:text-2xl font-semibold text-white tracking-tight"><span className="token-stat-number" data-target="4999">0</span>€</div>
+                        <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Forfait HT</div>
+                    </div>
+                    <div>
+                        <div className="text-xl md:text-2xl font-semibold text-[#00ffa3] tracking-tight"><span className="token-stat-number" data-target="3">0</span></div>
+                        <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Experts dédiés</div>
+                    </div>
+                </div>
+
+                <div className="mt-10 flex flex-col gap-4 w-full max-w-sm reveal">
+                    <a href="/signer-proposition" className="group bg-[#00ffa3] text-[#030303] px-10 py-4 text-xs font-semibold uppercase tracking-widest hover:bg-white transition-all hover:scale-[1.02] text-center shadow-[0_0_25px_rgba(0,255,163,0.4)]">
+                        Signer la proposition
+                    </a>
+                    <a href="#features" className="group bg-transparent border border-white/20 text-white px-10 py-4 text-xs font-semibold uppercase tracking-widest hover:bg-white/10 transition-all hover:border-white/40 text-center">
+                        Voir le détail
+                    </a>
+                </div>
+            </div>
 
           <div className="bg-[#030303] p-8 md:p-24 flex flex-col justify-center reveal order-1 md:order-2">
               <h3 className="font-display text-2xl md:text-3xl font-semibold mb-8 tracking-tight uppercase text-white">Détails de l'Offre</h3>
