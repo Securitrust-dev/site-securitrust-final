@@ -60,7 +60,7 @@ export default function PropositionPage() {
             ease: "power3.out"
         });
 
-        // Section Reveals
+        // Section Reveals (Play In / Play Out)
         const reveals = document.querySelectorAll('.reveal');
         reveals.forEach(el => {
             gsap.fromTo(el, 
@@ -84,7 +84,7 @@ export default function PropositionPage() {
         const tokenRing = document.querySelector('.token-chart-ring');
         if(tokenRing) {
             gsap.to(tokenRing, {
-                strokeDashoffset: 100,
+                strokeDashoffset: 100, // Draw 2/3rds roughly
                 duration: 2,
                 ease: "power2.out",
                 scrollTrigger: {
@@ -115,7 +115,7 @@ export default function PropositionPage() {
         });
     }
 
-    // --- SMOOTH SCROLL ---
+    // --- 4. SMOOTH SCROLL ---
     if (window.Lenis) {
         const lenis = new window.Lenis({
             duration: 1.2,
@@ -132,7 +132,6 @@ export default function PropositionPage() {
 
   return (
     <div className="font-body bg-tech-grid grid-bg selection:bg-mint selection:text-void text-[#e0e0e0] overflow-x-hidden min-h-screen">
-      {/* External Scripts */}
       <Script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" strategy="afterInteractive" />
@@ -142,7 +141,6 @@ export default function PropositionPage() {
         if (window.UnicornStudio) window.UnicornStudio.init();
       }} />
 
-      {/* Embedded Styles from Template */}
       <style jsx global>{`
         :root {
           --void: #030303;
@@ -234,17 +232,17 @@ export default function PropositionPage() {
       </div>
 
       {/* NAV */}
-      <nav className="fixed w-full z-50 top-0 border-b border-border bg-void/90 backdrop-blur-xl">
+      <nav className="fixed w-full z-50 top-0 border-b border-border bg-void/90 backdrop-blur-xl" aria-label="Main Navigation">
           <div className="flex h-16 max-w-[1920px] mx-auto px-6 md:px-12 items-center justify-between">
-              <a href="/" className="flex items-center gap-2 group shrink-0">
+              <a href="/" className="flex items-center gap-2 group shrink-0" aria-label="Aetheris Homepage">
                   <span className="text-lg font-semibold tracking-tight font-display uppercase">SECURITRUST</span>
               </a>
 
               <div className="hidden lg:flex items-center border-x border-border h-full px-8">
-                  <a href="/services" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Services</a>
-                  <a href="/proposition" className="uppercase text-mint transition-colors text-xs font-semibold tracking-wide px-6">Proposition</a>
-                  <a href="/contact" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Contact</a>
-                  <a href="/articles" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide px-6">Blog</a>
+                  <a href="/services" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Services</a>
+                  <a href="/proposition" className="uppercase text-mint transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Proposition</a>
+                  <a href="/contact" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Contact</a>
+                  <a href="/articles" className="uppercase text-sub hover:text-mint transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Blog</a>
               </div>
 
               <div className="flex items-center gap-4">
@@ -262,13 +260,16 @@ export default function PropositionPage() {
       {/* HERO */}
       <header className="relative w-full h-screen min-h-[600px] bg-void overflow-hidden flex flex-col items-center justify-end pb-24 md:pb-32">
           
+          {/* Top Visual: Unicorn Studio Background */}
           <div className="absolute top-0 left-0 w-full h-[65vh] z-0 pointer-events-none">
                <div data-us-project="7zydvovZReD8YsoiUwj3" style={{width:'100%', height: '100%'}}></div>
                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-void via-void/80 to-transparent z-10"></div>
           </div>
           
+          {/* Content */}
           <div className="relative z-20 flex flex-col items-center w-full max-w-[1920px] px-6 text-center">
               
+              {/* Typography Title */}
               <div className="flex flex-col items-center justify-center w-full">
                   <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
                       SECURITRUST
@@ -281,10 +282,12 @@ export default function PropositionPage() {
                   </div>
               </div>
 
+              {/* Description */}
               <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
                   Audit de sécurité et tests d'intrusion experts. Évaluation complète de votre infrastructure sous 5 jours avec rapport de remédiation détaillé.
               </p>
 
+              {/* Action Buttons */}
               <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto hero-anim opacity-0 translate-y-4">
                   <a href="/signer-proposition" className="group bg-mint text-void px-10 py-3 text-xs font-semibold uppercase tracking-wide hover:bg-white transition-all hover:scale-[1.02] min-w-[180px] text-center shadow-[0_0_20px_rgba(0,255,163,0.3)]">
                       Signer la proposition
@@ -312,7 +315,7 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* CORE FEATURES */}
-      <section id="features" className="py-16 md:py-24 relative">
+      <section id="features" className="py-16 md:py-24 relative" aria-label="Protocol Features">
           <div className="max-w-7xl mx-auto px-6">
               <div className="mb-12 flex items-end justify-between reveal">
                   <div className="">
@@ -320,7 +323,7 @@ export default function PropositionPage() {
                       <p className="text-sub text-sm md:text-base max-w-md">Un processus rigoureux combinant tests automatisés et expertise manuelle.</p>
                   </div>
                   <div className="hidden md:block text-right">
-                      <div className="font-mono text-[10px] text-mint tracking-widest uppercase">SEC_METHOD_V3</div>
+                      <div className="font-mono text-[10px] text-mint uppercase tracking-widest">SEC_METHOD_V3</div>
                   </div>
               </div>
 
@@ -353,12 +356,13 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* TOKEN UTILITY (ANIMATED) */}
-      <section id="token" className="grid grid-cols-1 md:grid-cols-2">
+      <section id="token" className="grid grid-cols-1 md:grid-cols-2" aria-label="Tokenomics">
           {/* Chart Area */}
           <div className="bg-panel p-8 md:p-24 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center items-center relative overflow-hidden reveal order-2 md:order-1">
               <div className="relative w-56 h-56 md:w-64 md:h-64">
                   <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
                       <circle cx="50" cy="50" r="45" stroke="#1a1a1a" stroke-width="8" fill="none"></circle>
+                      {/* Animated Circle */}
                       <circle cx="50" cy="50" r="45" stroke="#00ffa3" stroke-width="8" fill="none" strokeDasharray="283" strokeDashoffset="283" className="token-chart-ring"></circle>
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -411,7 +415,7 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* ROADMAP */}
-      <section id="roadmap" className="py-16 md:py-24 bg-void">
+      <section id="roadmap" className="py-16 md:py-24 bg-void" aria-label="Development Roadmap">
           <div className="max-w-6xl mx-auto px-6">
               <div className="flex flex-col md:flex-row gap-12 md:gap-16">
                   <div className="md:w-1/3 reveal">
@@ -458,18 +462,22 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* NETWORK INFRASTRUCTURE */}
-      <section id="network" className="py-16 md:py-24 bg-void">
+      <section id="network" className="py-16 md:py-24 bg-void" aria-label="Global Network Statistics">
           <div className="max-w-[1920px] mx-auto px-6">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   
+                  {/* Left: Cinematic Node Map */}
                   <div className="lg:col-span-8 border border-border bg-panel p-2 relative overflow-hidden reveal min-h-[400px] md:min-h-[500px]">
                       
+                      {/* Fixed Image: Deep Data Servers */}
                       <div className="absolute inset-0 z-0">
-                          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" alt="Global Defense Network" className="w-full h-full object-cover opacity-40 grayscale brightness-75 contrast-125" />
+                          <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/3e590790-e144-4deb-9989-37794b67c60e_1600w.webp" alt="Decentralized Global Validator Node Server Network" className="w-full h-full object-cover opacity-40 grayscale brightness-75 contrast-125" />
                       </div>
 
+                      {/* CSS Radar Scan Overlay */}
                       <div className="scan-line z-10 pointer-events-none"></div>
                       
+                      {/* Overlay UI */}
                       <div className="relative z-20 p-6 md:p-8 flex flex-col justify-between h-full">
                           <div className="flex justify-between items-start">
                               <div className="bg-void/80 backdrop-blur-md p-4 border border-border">
@@ -482,6 +490,7 @@ export default function PropositionPage() {
                               </div>
                           </div>
 
+                          {/* Hotspots */}
                           <div className="absolute top-[30%] left-[20%] w-20 h-20 md:w-32 md:h-32 border border-mint/20 rounded-full flex items-center justify-center animate-pulse">
                               <div className="w-1 h-1 bg-mint rounded-full"></div>
                           </div>
@@ -491,6 +500,7 @@ export default function PropositionPage() {
                       </div>
                   </div>
 
+                  {/* Right: Node Stats */}
                   <div className="lg:col-span-4 flex flex-col gap-6">
                       <div className="bg-void border border-border p-6 reveal h-full flex flex-col justify-center">
                           <h3 className="font-semibold text-white mb-6 text-sm uppercase flex items-center gap-2 tracking-widest font-mono">
@@ -535,7 +545,7 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* DIGITAL SINGULARITY */}
-      <section className="py-24 md:py-32 bg-panel relative overflow-hidden flex flex-col items-center justify-center h-[70vh] md:h-[90vh]">
+      <section className="py-24 md:py-32 bg-panel relative overflow-hidden flex flex-col items-center justify-center h-[70vh] md:h-[90vh]" aria-label="Infinite Scalability Animation">
           <div className="absolute inset-0 opacity-10 bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/aa933a24-d4de-4c67-83f6-b8676b3bab35_1600w.webp)] bg-cover bg-center"></div>
           
           <div className="singularity-wrapper">
@@ -558,7 +568,7 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* PURPOSE & VISION */}
-      <section className="pt-16 md:pt-24 pb-16 md:pb-24" id="vision">
+      <section className="pt-16 md:pt-24 pb-16 md:pb-24" aria-label="Mission Statement" id="vision">
           <div className="max-w-7xl mx-auto px-6">
               <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-16 items-center">
                   <div className="md:w-1/2 reveal">
@@ -605,7 +615,7 @@ export default function PropositionPage() {
       <div className="tech-separator" aria-hidden="true"></div>
 
       {/* COMMUNITY CTA */}
-      <section className="overflow-hidden group pt-24 pb-24 md:pt-32 md:pb-32 relative">
+      <section className="overflow-hidden group pt-24 pb-24 md:pt-32 md:pb-32 relative" aria-label="Join Community">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,163,0.15),_transparent_70%)] opacity-50"></div>
           
           <div className="max-w-4xl mx-auto text-center px-6 relative z-10 reveal">
