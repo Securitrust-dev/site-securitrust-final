@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export function PropositionIntroduction() {
   return (
@@ -40,17 +41,16 @@ export function PropositionIntroduction() {
             {/* Label Promo Box */}
             <div className="flex-1 bg-[#080808] border border-white/10 rounded-3xl p-8 flex flex-col items-center justify-center text-center group hover:border-[#00ffa3]/40 transition-all duration-500">
                <div className="mb-6 relative">
-                 {/* Stylized Badge Representative of the Logo in the screenshot */}
-                 <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-900 to-blue-600 border-4 border-white/20 flex items-center justify-center shadow-2xl relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent)]"></div>
-                    <div className="flex flex-col items-center text-white font-black leading-none uppercase">
-                      <span className="text-[10px] tracking-[0.2em] mb-1">LABEL</span>
-                      <span className="text-sm">FRANCE</span>
-                      <span className="text-sm">CYBER</span>
-                      <span className="text-xs tracking-widest mt-1 opacity-70">SECURITY</span>
-                    </div>
-                    {/* Metallic Shine Effect */}
-                    <div className="absolute top-[-100%] left-[-100%] w-[300%] h-[300%] bg-gradient-to-r from-transparent via-white/10 to-transparent rotate-45 group-hover:top-[100%] group-hover:left-[100%] transition-all duration-1000 ease-in-out"></div>
+                 {/* France Cybersecurity Logo */}
+                 <div className="w-32 h-32 relative group-hover:scale-110 transition-transform duration-500">
+                    <Image 
+                      src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769787082364.png?width=800&height=800&resize=contain"
+                      alt="Label France Cybersecurity"
+                      fill
+                      className="object-contain"
+                    />
+                    {/* Metallic Shine Effect Over Image */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
                  </div>
                </div>
                
