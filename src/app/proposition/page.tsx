@@ -342,128 +342,129 @@ declare global {
 
         {/* MÉTHODOLOGIE COLLABORATIVE */}
         {mounted && (
-          <section id="features" className="py-24 bg-[#f8fafc] relative overflow-hidden">
+          <section id="features" className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
               <div className="max-w-[1600px] mx-auto px-6 md:px-12">
                   <div className="mb-16 reveal">
-                      <h2 className="font-display text-5xl md:text-8xl font-black tracking-tighter uppercase text-[#3b4bbf] leading-[0.9]">
+                      <h2 className="font-display text-5xl md:text-8xl font-black tracking-tighter uppercase text-white leading-[0.9]">
                           MÉTHODO <br className="md:hidden" /> COLLABORATIVE
                       </h2>
+                      <div className="h-1 w-24 bg-[#00ffa3] mt-6"></div>
                   </div>
     
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                       {/* CARD 1: Échanges & Confidentialité */}
-                      <div className="bg-[#6366f1] p-8 rounded-xl shadow-xl flex flex-col h-full reveal">
+                      <div className="bg-[#080808] p-8 rounded-xl border border-indigo-500/20 shadow-2xl shadow-indigo-500/5 flex flex-col h-full reveal hover-card group">
                           <div className="flex justify-between items-start mb-8">
-                              <h3 className="text-white text-2xl font-bold leading-tight">
+                              <h3 className="text-white text-2xl font-bold leading-tight uppercase tracking-tight">
                                   Échanges<br />& confidentialité
                               </h3>
-                              <div className="text-white/80">
+                              <div className="text-indigo-500">
                                   <iconify-icon icon="solar:shield-user-bold" width="32"></iconify-icon>
                               </div>
                           </div>
-                          <ul className="space-y-6 text-white/90 text-sm md:text-base flex-1">
-                              <li className="flex gap-2">
-                                  <span className="font-bold shrink-0">→</span>
+                          <ul className="space-y-6 text-gray-400 text-sm md:text-base flex-1">
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-indigo-500 shrink-0">→</span>
                                   <span>Moyens de communication : email, téléphone et Microsoft Teams.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold shrink-0">→</span>
-                                  <span>Échanges sécurisés : transfert de fichiers via plateforme chiffrée de bout en bout.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-indigo-500 shrink-0">→</span>
+                                  <span>Échanges sécurisés : transfert de fichiers via plateforme chiffrée.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold shrink-0">→</span>
-                                  <span>Confidentialité stricte : serveurs souverains (EU) et signature systématique d'un NDA.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-indigo-500 shrink-0">→</span>
+                                  <span>Confidentialité stricte : serveurs souverains (EU) et NDA systématique.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold shrink-0">→</span>
-                                  <span>Équipe dédiée : accès direct aux experts SecuriTrust affectés à votre mission.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-indigo-500 shrink-0">→</span>
+                                  <span>Équipe dédiée : accès direct aux experts SecuriTrust affectés.</span>
                               </li>
                           </ul>
                       </div>
   
                       {/* CARD 2: Outils */}
-                      <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 flex flex-col h-full reveal">
+                      <div className="bg-[#080808] p-8 rounded-xl border border-border flex flex-col h-full reveal hover-card group">
                           <div className="mb-8">
-                              <h3 className="text-[#3b4bbf] text-2xl font-bold leading-tight">
-                                  Des outils performants pour communiquer efficacement
+                              <h3 className="text-white text-2xl font-bold leading-tight uppercase tracking-tight">
+                                  Outils de<br />Collaboration
                               </h3>
                           </div>
-                          <ul className="space-y-6 text-slate-600 text-sm md:text-base flex-1">
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-[#3b4bbf] shrink-0">→</span>
-                                  <span><span className="font-bold">Microsoft Teams</span> : communication directe et réactivité immédiate.</span>
+                          <ul className="space-y-6 text-gray-400 text-sm md:text-base flex-1">
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-blue-500 shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Teams</span> : communication directe et réactivité immédiate.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-[#3b4bbf] shrink-0">→</span>
-                                  <span><span className="font-bold">Sharepoint Sécurisé</span> : gestion centralisée des documents d'audit.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-blue-500 shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Sharepoint</span> : gestion centralisée des documents d'audit.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-[#3b4bbf] shrink-0">→</span>
-                                  <span><span className="font-bold">Tableau de Bord</span> : suivi en temps réel de l'avancement des tests.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-blue-500 shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Dashboard</span> : suivi en temps réel de l'avancement.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-[#3b4bbf] shrink-0">→</span>
-                                  <span><span className="font-bold">Rapports Dynamiques</span> : visualisation claire des vulnérabilités.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-blue-500 shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Loom</span> : briefings asynchrones et démos vidéo.</span>
                               </li>
                           </ul>
-                          <div className="mt-12 flex items-center gap-6 opacity-80">
-                              <iconify-icon icon="logos:microsoft-teams" width="28"></iconify-icon>
-                              <iconify-icon icon="logos:microsoft-sharepoint-icon" width="28"></iconify-icon>
-                              <iconify-icon icon="logos:jira" width="28"></iconify-icon>
-                              <iconify-icon icon="logos:loom-icon" width="28"></iconify-icon>
+                          <div className="mt-12 flex items-center gap-4 opacity-50 group-hover:opacity-100 transition-opacity">
+                              <iconify-icon icon="logos:microsoft-teams" width="24"></iconify-icon>
+                              <iconify-icon icon="logos:microsoft-sharepoint-icon" width="24"></iconify-icon>
+                              <iconify-icon icon="logos:jira" width="24"></iconify-icon>
+                              <iconify-icon icon="logos:loom-icon" width="24"></iconify-icon>
                           </div>
                       </div>
   
                       {/* CARD 3: Expertise */}
-                      <div className="bg-[#0d2e33] p-8 rounded-xl shadow-xl flex flex-col h-full reveal">
+                      <div className="bg-[#0d2e33]/40 p-8 rounded-xl border border-[#00ffa3]/30 shadow-2xl shadow-[#00ffa3]/5 flex flex-col h-full reveal hover-card group">
                           <div className="mb-8">
-                              <h3 className="text-white text-2xl font-bold leading-tight">
-                                  Une expertise offensive au service de votre défense
+                              <h3 className="text-white text-2xl font-bold leading-tight uppercase tracking-tight">
+                                  Expertise<br />Technique
                               </h3>
                           </div>
-                          <ul className="space-y-6 text-white/90 text-sm md:text-base flex-1">
-                              <li className="flex gap-2">
+                          <ul className="space-y-6 text-gray-300 text-sm md:text-base flex-1">
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
                                   <span className="font-bold text-[#00ffa3] shrink-0">→</span>
-                                  <span><span className="font-bold text-white">Pentest & Intrusion</span> : identification des failles exploitables en conditions réelles.</span>
+                                  <span><span className="font-bold text-[#00ffa3]">Pentest</span> : identification des failles exploitables en conditions réelles.</span>
                               </li>
-                              <li className="flex gap-2">
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
                                   <span className="font-bold text-[#00ffa3] shrink-0">→</span>
-                                  <span><span className="font-bold text-white">Audit de Configuration</span> : durcissement de vos systèmes et infrastructures cloud.</span>
+                                  <span><span className="font-bold text-[#00ffa3]">Audit Config</span> : durcissement de vos systèmes et cloud.</span>
                               </li>
-                              <li className="flex gap-2">
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
                                   <span className="font-bold text-[#00ffa3] shrink-0">→</span>
-                                  <span><span className="font-bold text-white">Analyse de Code</span> : détection de vulnérabilités logiques au cœur de vos applications.</span>
+                                  <span><span className="font-bold text-[#00ffa3]">Code Review</span> : détection de vulnérabilités logiques applicatives.</span>
                               </li>
-                              <li className="flex gap-2">
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
                                   <span className="font-bold text-[#00ffa3] shrink-0">→</span>
-                                  <span><span className="font-bold text-white">Veille Cyber</span> : prise en compte des dernières menaces (0-day) lors des tests.</span>
+                                  <span><span className="font-bold text-[#00ffa3]">Veille Cyber</span> : intégration des menaces 0-day en temps réel.</span>
                               </li>
                           </ul>
                       </div>
   
                       {/* CARD 4: Itérations */}
-                      <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 flex flex-col h-full reveal">
+                      <div className="bg-[#080808] p-8 rounded-xl border border-border flex flex-col h-full reveal hover-card group">
                           <div className="mb-8">
-                              <h3 className="text-slate-800 text-2xl font-bold leading-tight">
-                                  Des itérations adaptées pour des échanges maîtrisés
+                              <h3 className="text-white text-2xl font-bold leading-tight uppercase tracking-tight">
+                                  Qualité &<br />Itérations
                               </h3>
                           </div>
-                          <ul className="space-y-6 text-slate-600 text-sm md:text-base flex-1">
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-slate-800 shrink-0">→</span>
-                                  <span><span className="font-bold text-slate-900">Itérations Post-Audit</span> : jusqu'à trois révisions de rapport pour précision maximale.</span>
+                          <ul className="space-y-6 text-gray-400 text-sm md:text-base flex-1">
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-white shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Révisions</span> : ajustements de rapport jusqu'à précision maximale.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-slate-800 shrink-0">→</span>
-                                  <span><span className="font-bold text-slate-900">Vérification de Correctifs</span> : re-test inclus pour valider la remédiation des failles critiques.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-white shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Re-tests</span> : vérification gratuite de la remédiation des failles.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-slate-800 shrink-0">→</span>
-                                  <span><span className="font-bold text-slate-900">Soutenance Live</span> : présentation interactive des résultats avec vos équipes techniques.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-white shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Soutenance</span> : présentation interactive avec vos équipes.</span>
                               </li>
-                              <li className="flex gap-2">
-                                  <span className="font-bold text-slate-800 shrink-0">→</span>
-                                  <span><span className="font-bold text-slate-900">Accompagnement</span> : conseils continus pour maintenir votre posture de sécurité.</span>
+                              <li className="flex gap-2 group-hover:text-white transition-colors">
+                                  <span className="font-bold text-white shrink-0">→</span>
+                                  <span><span className="font-bold text-white">Accompagnement</span> : conseil continu sur votre posture cyber.</span>
                               </li>
                           </ul>
                       </div>
