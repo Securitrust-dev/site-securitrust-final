@@ -81,36 +81,36 @@ export function PropositionMethodology() {
                   key={idx} 
                   className={`flex flex-col min-h-[500px] bg-[#080808] border ${card.borderColor} rounded-3xl overflow-hidden group hover:border-[#00ffa3]/40 transition-all duration-500 p-8`}
                 >
-                  <div className="flex justify-between items-start mb-12">
-                    <div className={`w-14 h-14 rounded-2xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                      <iconify-icon icon={card.icon} className={card.accentColor} width="28"></iconify-icon>
+                    <div className="flex justify-between items-start mb-12">
+                      <div className={`w-14 h-14 rounded-2xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                        <iconify-icon icon={card.icon} className={card.accentColor} width="28"></iconify-icon>
+                      </div>
+                      <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
                     </div>
-                    <span className="font-mono text-xs text-gray-600 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
+
+                    <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10">
+                      {card.title}
+                    </h3>
+
+                    <div className="flex-grow">
+                      <ul className="space-y-4">
+                        {card.items.map((item, i) => (
+                          <li key={i} className="flex gap-3 text-sm text-white group/item leading-relaxed">
+                            <span className={`${card.accentColor} font-bold shrink-0 opacity-40 group-hover/item:opacity-100 transition-opacity`}>→</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
+                ))}
+              </div>
 
-                  <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10">
-                    {card.title}
-                  </h3>
-
-                  <div className="flex-grow">
-                    <ul className="space-y-4">
-                      {card.items.map((item, i) => (
-                        <li key={i} className="flex gap-3 text-sm text-gray-500 group/item leading-relaxed">
-                          <span className={`${card.accentColor} font-bold shrink-0 opacity-40 group-hover/item:opacity-100 transition-opacity`}>→</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-        <div className="mt-16 text-center reveal">
-           <p className="text-gray-500 text-xs font-mono uppercase tracking-[0.2em] opacity-40">
-             Processus de test certifié conforme aux standards industriels (OWASP, PTES)
-           </p>
-        </div>
+          <div className="mt-16 text-center reveal">
+             <p className="text-white/40 text-xs font-mono uppercase tracking-[0.2em]">
+               Processus de test certifié conforme aux standards industriels (OWASP, PTES)
+             </p>
+          </div>
       </div>
     </section>
   );
