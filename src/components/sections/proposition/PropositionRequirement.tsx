@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface PropositionRequirementProps {
   companyName: string;
 }
 
 export function PropositionRequirement({ companyName }: PropositionRequirementProps) {
+  const contextRef = useRef<HTMLTextAreaElement>(null);
+  const objectivesRef = useRef<HTMLTextAreaElement>(null);
   const [config, setConfig] = useState({
     name: companyName || 'Everaxis',
     specialty: 'systèmes rotatifs de haute performance',
@@ -45,7 +47,21 @@ export function PropositionRequirement({ companyName }: PropositionRequirementPr
     setIsAutoMode(true);
   };
 
-  return (
+    useEffect(() => {
+      if (contextRef.current) {
+        contextRef.current.style.height = 'auto';
+        contextRef.current.style.height = contextRef.current.scrollHeight + 'px';
+      }
+    }, [context]);
+
+    useEffect(() => {
+      if (objectivesRef.current) {
+        objectivesRef.current.style.height = 'auto';
+        objectivesRef.current.style.height = objectivesRef.current.scrollHeight + 'px';
+      }
+    }, [objectives]);
+
+    return (
     <section className="py-24 bg-[#030303] relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         <div className="mb-16 reveal">
@@ -158,21 +174,17 @@ export function PropositionRequirement({ companyName }: PropositionRequirementPr
                   Édition Manuelle
                 </div>
               )}
-              <textarea
-                value={context}
-                onChange={(e) => {
-                  setContext(e.target.value);
-                  setIsAutoMode(false);
-                }}
-                className="w-full bg-transparent text-white/90 text-lg leading-relaxed italic border-none focus:ring-0 resize-none overflow-hidden min-h-[300px]"
-                placeholder="Saisissez le contexte du client..."
-                style={{ height: 'auto' }}
-                onInput={(e) => {
-                  const target = e.target as HTMLTextAreaElement;
-                  target.style.height = 'auto';
-                  target.style.height = target.scrollHeight + 'px';
-                }}
-              />
+                <textarea
+                  ref={contextRef}
+                  value={context}
+                  onChange={(e) => {
+                    setContext(e.target.value);
+                    setIsAutoMode(false);
+                  }}
+                  className="w-full bg-transparent text-white/90 text-lg leading-relaxed italic border-none focus:ring-0 resize-none overflow-hidden min-h-[300px]"
+                  placeholder="Saisissez le contexte du client..."
+                  style={{ height: 'auto' }}
+                />
             </div>
           </div>
 
@@ -181,20 +193,16 @@ export function PropositionRequirement({ companyName }: PropositionRequirementPr
             <div className="inline-block bg-[#00ffa3] text-[#030303] px-8 py-2 rounded-full font-bold text-sm uppercase tracking-widest mb-6 shadow-[0_0_20px_rgba(0,255,163,0.3)]">
               Objectifs
             </div>
-            <div className="bg-[#080808] border border-white/10 rounded-3xl p-8 md:p-10 hover:border-[#00ffa3]/30 transition-all duration-500 shadow-2xl">
-              <textarea
-                value={objectives}
-                onChange={(e) => setObjectives(e.target.value)}
-                className="w-full bg-transparent text-white/90 text-lg leading-relaxed italic border-none focus:ring-0 resize-none overflow-hidden min-h-[250px]"
-                placeholder="Saisissez les objectifs de la prestation..."
-                style={{ height: 'auto' }}
-                onInput={(e) => {
-                  const target = e.target as HTMLTextAreaElement;
-                  target.style.height = 'auto';
-                  target.style.height = target.scrollHeight + 'px';
-                }}
-              />
-            </div>
+              <div className="bg-[#080808] border border-white/10 rounded-3xl p-8 md:p-10 hover:border-[#00ffa3]/30 transition-all duration-500 shadow-2xl">
+                <textarea
+                  ref={objectivesRef}
+                  value={objectives}
+                  onChange={(e) => setObjectives(e.target.value)}
+                  className="w-full bg-transparent text-white/90 text-lg leading-relaxed italic border-none focus:ring-0 resize-none overflow-hidden min-h-[250px]"
+                  placeholder="Saisissez les objectifs de la prestation..."
+                  style={{ height: 'auto' }}
+                />
+              </div>
           </div>
         </div>
       </div>
