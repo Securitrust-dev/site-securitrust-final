@@ -5,6 +5,7 @@ import Script from 'next/script';
 import { PropositionHero } from '@/components/sections/proposition/PropositionHero';
 import { PropositionPartners } from '@/components/sections/proposition/PropositionPartners';
 import { PropositionIntroduction } from '@/components/sections/proposition/PropositionIntroduction';
+import { PropositionRequirement } from '@/components/sections/proposition/PropositionRequirement';
 import { PropositionMethodology } from '@/components/sections/proposition/PropositionMethodology';
 import { PropositionOffer } from '@/components/sections/proposition/PropositionOffer';
 import { PropositionRoadmap } from '@/components/sections/proposition/PropositionRoadmap';
@@ -277,6 +278,8 @@ export default function PropositionPage() {
         <PropositionPartners />
         <div className="tech-separator"></div>
         <PropositionIntroduction />
+        <div className="tech-separator"></div>
+        <PropositionRequirement companyName={companyName} />
         <div className="tech-separator"></div>
         {mounted && <PropositionMethodology />}
       <div className="tech-separator"></div>
