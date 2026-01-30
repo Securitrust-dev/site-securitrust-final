@@ -234,32 +234,6 @@ export default function PropositionPage() {
           <div className="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-white/50"></div>
       </div>
 
-      {/* NAV */}
-      <nav className="fixed w-full z-50 top-0 border-b border-border bg-[#030303]/90 backdrop-blur-xl">
-          <div className="flex h-16 max-w-[1920px] mx-auto px-6 md:px-12 items-center justify-between">
-              <a href="/" className="flex items-center gap-2 group shrink-0">
-                  <span className="text-lg font-semibold tracking-tight font-display uppercase text-white">SECURITRUST</span>
-              </a>
-
-              <div className="hidden lg:flex items-center border-x border-border h-full px-8">
-                  <a href="/services" className="uppercase text-[#888888] hover:text-[#00ffa3] transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Services</a>
-                  <a href="/proposition" className="uppercase text-[#00ffa3] transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Proposition</a>
-                  <a href="/contact" className="uppercase text-[#888888] hover:text-[#00ffa3] transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Contact</a>
-                  <a href="/articles" className="uppercase text-[#888888] hover:text-[#00ffa3] transition-colors text-xs font-semibold tracking-wide pt-2 pr-6 pb-2 pl-6">Blog</a>
-              </div>
-
-              <div className="flex items-center gap-4">
-                  <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-[#00ffa3]">
-                      <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full animate-pulse"></span>
-                      SYSTEM: SECURED
-                  </div>
-                  <button className="bg-white text-[#030303] px-4 md:px-6 py-2 text-xs font-semibold uppercase hover:bg-[#00ffa3] transition-colors whitespace-nowrap">
-                      Mon Espace
-                  </button>
-              </div>
-          </div>
-      </nav>
-
       {/* HERO */}
       <header className="relative w-full h-screen min-h-[600px] bg-[#030303] overflow-hidden flex flex-col items-center justify-end pb-24 md:pb-32">
           <div className="absolute top-0 left-0 w-full h-[65vh] z-0 pointer-events-none">
@@ -267,16 +241,16 @@ export default function PropositionPage() {
                <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#030303] via-[#030303]/80 to-transparent z-10"></div>
           </div>
           
-          <div className="relative z-20 flex flex-col items-center w-full max-w-[1920px] px-6 text-center">
-              <div className="flex flex-col items-center justify-center w-full">
-                  <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
-                      SECURITRUST
-                  </h1>
-                  <div className="h-2 md:h-4"></div>
-                  <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity uppercase">
-                      PROPOSITION
-                  </div>
-              </div>
+            <div className="relative z-20 flex flex-col items-center w-full max-w-[1920px] px-6 text-center">
+                <div className="flex flex-col items-center justify-center w-full">
+                    <h1 className="font-display text-4xl md:text-7xl font-semibold text-white tracking-[-0.04em] leading-none relative z-20 mix-blend-lighten uppercase">
+                        PROPOSITION
+                    </h1>
+                    <div className="h-2 md:h-4"></div>
+                    <div className="font-display text-[13vw] leading-[0.85] font-semibold tracking-tighter text-transparent z-10 select-none pointer-events-none text-stroke opacity-90 transition-opacity uppercase">
+                        COMMERCIALE
+                    </div>
+                </div>
 
               <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-6 mb-8 hero-anim opacity-0 translate-y-4">
                   Audit de sécurité et tests d'intrusion experts. Évaluation complète de votre infrastructure sous 5 jours avec rapport de remédiation détaillé.
