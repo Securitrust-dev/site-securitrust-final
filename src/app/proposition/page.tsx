@@ -281,9 +281,9 @@ export default function PropositionPage() {
           <div className="tech-separator"></div>
         <PropositionRequirement companyName={companyName} />
         <div className="tech-separator"></div>
-          {mounted && <PropositionMethodology />}
-          <div className="tech-separator"></div>
             <PropositionAuditPhase />
+            <div className="tech-separator"></div>
+            {mounted && <PropositionMethodology />}
             <div className="tech-separator"></div>
             <PropositionExecutionWorkflow companyName={companyName} />
             <div className="tech-separator"></div>

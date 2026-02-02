@@ -93,24 +93,19 @@ export function PropositionAuditPhase() {
                </div>
             </div>
 
-            <p className="text-white/80 mb-12 text-lg italic">
-              Cette méthodologie se séquence en plusieurs phases, communes aux deux types de test :
-            </p>
+              <p className="text-white/80 mb-12 text-lg italic">
+                Cette méthodologie se séquence en plusieurs phases :
+              </p>
 
-            <div className="grid grid-cols-1 gap-12 relative">
-               {/* Types of tests */}
-               <div className="flex flex-col md:flex-row gap-6 mb-8">
-                  <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-center items-center text-center group hover:border-[#9abff2]/40 transition-all">
-                     <div className="w-12 h-12 rounded-full border border-[#9abff2]/30 flex items-center justify-center mb-4 font-bold text-[#9abff2]">1</div>
-                     <h4 className="text-white font-bold uppercase tracking-tighter">Tests d&apos;intrusion externe</h4>
-                     <p className="text-[#9abff2] text-xs font-mono mt-2">✓ Boîte noire</p>
-                  </div>
-                  <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-center items-center text-center group hover:border-[#9abff2]/40 transition-all">
-                     <div className="w-12 h-12 rounded-full border border-[#9abff2]/30 flex items-center justify-center mb-4 font-bold text-[#9abff2]">2</div>
-                     <h4 className="text-white font-bold uppercase tracking-tighter">Tests d&apos;intrusion interne</h4>
-                     <p className="text-[#9abff2] text-xs font-mono mt-2">✓ Boîte noire</p>
-                  </div>
-               </div>
+              <div className="grid grid-cols-1 gap-12 relative">
+                 {/* Types of tests */}
+                 <div className="flex flex-col md:flex-row gap-6 mb-8">
+                    <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col justify-center items-center text-center group hover:border-[#9abff2]/40 transition-all">
+                       <div className="w-12 h-12 rounded-full border border-[#9abff2]/30 flex items-center justify-center mb-4 font-bold text-[#9abff2]">1</div>
+                       <h4 className="text-white font-bold uppercase tracking-tighter">Tests d&apos;intrusion externe</h4>
+                       <p className="text-[#9abff2] text-xs font-mono mt-2">✓ Boîte noire</p>
+                    </div>
+                 </div>
 
                {/* Phases visualizer */}
                <div className="flex flex-wrap md:flex-nowrap justify-between items-center gap-4 pt-8 border-t border-white/10">
