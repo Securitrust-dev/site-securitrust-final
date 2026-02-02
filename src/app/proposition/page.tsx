@@ -7,7 +7,6 @@ import { PropositionPartners } from '@/components/sections/proposition/Propositi
 import { PropositionIntroduction } from '@/components/sections/proposition/PropositionIntroduction';
 import { PropositionRequirement } from '@/components/sections/proposition/PropositionRequirement';
 import { PropositionMethodology } from '@/components/sections/proposition/PropositionMethodology';
-import { PropositionAuditPhase } from '@/components/sections/proposition/PropositionAuditPhase';
 import { PropositionExecutionWorkflow } from '@/components/sections/proposition/PropositionExecutionWorkflow';
 import { PropositionOffer } from '@/components/sections/proposition/PropositionOffer';
 import { PropositionRoadmap } from '@/components/sections/proposition/PropositionRoadmap';
@@ -281,9 +280,7 @@ export default function PropositionPage() {
           <div className="tech-separator"></div>
         <PropositionRequirement companyName={companyName} />
         <div className="tech-separator"></div>
-            <PropositionAuditPhase />
-            <div className="tech-separator"></div>
-            {mounted && <PropositionMethodology />}
+              {mounted && <PropositionMethodology />}
             <div className="tech-separator"></div>
             <PropositionExecutionWorkflow companyName={companyName} />
             <div className="tech-separator"></div>
