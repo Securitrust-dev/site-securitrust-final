@@ -1,81 +1,88 @@
 import React from 'react';
 
 export function PropositionMethodology() {
-  const cards = [
-    {
-      title: "Objectifs de la prestation",
-      color: "blue",
-      items: [
-        "Évaluer la sécurité de l'Active Directory et identifier les vulnérabilités critiques",
-        "Tester les mécanismes d'authentification, les autorisations et la sécurité des comptes",
-        "Simuler des scénarios d'attaque réalistes depuis une position d'utilisateur authentifié",
-        "Identifier les chemins de compromission menant au contrôle total du domaine"
-      ],
-      icon: "solar:target-bold",
-      bgColor: "bg-blue-600/10",
-      accentColor: "text-blue-400",
-      borderColor: "border-blue-500/20"
-    },
-    {
-      title: "Périmètre d'intervention",
-      color: "indigo",
-      items: [
-        "Infrastructure Active Directory : Contrôleurs de domaine, serveurs, architecture AD",
-        "Comptes utilisateurs et groupes : Permissions, élévation de privilèges",
-        "Réseau interne : Segmentation, flux réseau, accès latéraux",
-        "GPO et politiques : Configurations de sécurité et politiques de groupe"
-      ],
-      icon: "solar:server-bold",
-      bgColor: "bg-indigo-600/10",
-      accentColor: "text-indigo-400",
-      borderColor: "border-indigo-500/20"
-    },
-    {
-      title: "Méthodologie technique",
-      color: "emerald",
-      items: [
-        "Intrusion en boîte grise : L'attaquant dispose d'accès authentifiés",
-        "Accès réseau interne : Connexion VPN/VDI ou accès physique au réseau",
-        "Comptes de test : Identifiants d'utilisateur standard sans privilèges élevés",
-        "Documentation fournie : Architecture réseau, diagrammes AD, serveurs critiques"
-      ],
-      icon: "solar:shield-keyhole-bold",
-      bgColor: "bg-[#00ffa3]/5",
-      accentColor: "text-[#00ffa3]",
-      borderColor: "border-[#00ffa3]/20"
-    },
-    {
-      title: "Phase d'initialisation",
-      color: "cyan",
-      items: [
-        "Réunion de cadrage : Définition des objectifs et des contacts clés",
-        "Identification des actifs : Validation des domaines et serveurs à auditer",
-        "Préparation technique : Mise en place des accès et badges nécessaires",
-        "Validation documentaire : Schémas réseau et configurations de sécurité"
-      ],
-      icon: "solar:users-group-rounded-bold",
-      bgColor: "bg-cyan-600/10",
-      accentColor: "text-cyan-400",
-      borderColor: "border-cyan-500/20"
-    }
-  ];
+    const cards = [
+      {
+        title: "Initialisation (Prérequis)",
+        items: [
+          "Identification des actifs : Définir les adresses IP publiques à tester et sélectionner les services les plus critiques",
+          "Prérequis techniques : Fournir les URL publiques des applications et les domaines concernés",
+          "Interlocuteur dédié : Désigner un référent clé pour assurer une communication fluide",
+          "Planification : Définir les modalités de communication et planifier les réunions de suivi",
+          "Validation légale : Valider les délais d'exécution et signer l'autorisation formelle de PenTest"
+        ],
+        icon: "solar:settings-bold",
+        bgColor: "bg-blue-600/10",
+        accentColor: "text-blue-400",
+        borderColor: "border-blue-500/20"
+      },
+      {
+        title: "Reconnaissance Externe",
+        items: [
+          "Reconnaissance Passive : Analyse OSINT, recherche d'informations DNS/WHOIS et fingerprinting passif des technologies exposées",
+          "Reconnaissance Active : Scanning de ports, énumération de sous-domaines/endpoints web et analyse des certificats SSL/TLS"
+        ],
+        icon: "solar:minimalistic-magnifer-bold",
+        bgColor: "bg-indigo-600/10",
+        accentColor: "text-indigo-400",
+        borderColor: "border-indigo-500/20"
+      },
+      {
+        title: "Analyse & Exploitation",
+        items: [
+          "Analyse : Scanning automatisé avec analyse manuelle, vérification des configurations et tests OWASP Top 10",
+          "Exploitation : Tentatives d'exploitation réelles (RCE, SQLi, XXE), audit web avancé via Burp Suite et vérification du niveau de compromission"
+        ],
+        icon: "solar:shield-keyhole-bold",
+        bgColor: "bg-emerald-600/10",
+        accentColor: "text-emerald-400",
+        borderColor: "border-emerald-500/20"
+      },
+      {
+        title: "Post-Exploitation",
+        items: [
+          "Analyse d'impact : Cartographie du système compromis et vérification des possibilités de rebond vers le réseau interne",
+          "Données : Simulation d'exfiltration de données sensibles (identifiants, tokens, clés API)",
+          "Défenses : Analyse de la réactivité des mécanismes de monitoring (EDR, logs)"
+        ],
+        icon: "solar:graph-bold",
+        bgColor: "bg-cyan-600/10",
+        accentColor: "text-cyan-400",
+        borderColor: "border-cyan-500/20"
+      },
+      {
+        title: "Reporting & Livrables",
+        items: [
+          "Restitution : Livraison d'un rapport structuré (Synthèse Managériale, Technique, Remédiation) et réunion de restitution finale",
+          "Plan d'action : Classification CVSS des failles et recommandations de correction priorisées"
+        ],
+        icon: "solar:document-bold",
+        bgColor: "bg-[#00ffa3]/5",
+        accentColor: "text-[#00ffa3]",
+        borderColor: "border-[#00ffa3]/20"
+      }
+    ];
 
-  return (
-    <section id="features" className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-500/10 blur-[150px] rounded-full"></div>
-      </div>
+    return (
+      <section id="features" className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
+        {/* Background decoration */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-500/10 blur-[150px] rounded-full"></div>
+        </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-          <div className="mb-20 reveal">
-            <h2 className="font-display text-6xl md:text-8xl font-black tracking-tighter uppercase text-white leading-[0.8]">
-              Méthodo<br />
-              <span className="text-[#00ffa3]">Collaborative</span>
-            </h2>
-          </div>
+          <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+            <div className="mb-20 reveal">
+              <h2 className="font-display text-6xl md:text-8xl font-black tracking-tighter uppercase text-white leading-[0.8]">
+                Pentest<br />
+                <span className="text-[#00ffa3]">Externe</span>
+              </h2>
+              <p className="mt-6 text-white/60 font-mono uppercase tracking-[0.2em] text-sm">
+                🌐 VOLET 1 : Test d'Intrusion EXTERNE
+              </p>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 reveal">
+
               {cards.map((card, idx) => (
                 <div 
                   key={idx} 
