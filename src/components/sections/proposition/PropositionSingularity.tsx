@@ -10,7 +10,7 @@ export function PropositionSingularity() {
             ))}
         </div>
         <div className="relative z-10 text-center reveal pointer-events-none px-6">
-            <span className="text-[#00ffa3] font-mono text-[9px] md:text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-[#00ffa3]/20">Souveraineté Numérique</span>
+            <span className="text-[#9abff2] font-mono text-[9px] md:text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-[#9abff2]/20">Souveraineté Numérique</span>
             <h2 className="font-display text-4xl md:text-8xl font-bold mt-6 text-white mix-blend-difference tracking-tight uppercase">
                 SÉCURITÉ ABSOLUE
             </h2>

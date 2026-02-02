@@ -50,54 +50,53 @@ export function PropositionMethodology() {
         accentColor: "text-cyan-400",
         borderColor: "border-cyan-500/20"
       },
-      {
-        title: "Reporting & Livrables",
-        items: [
-          "Restitution : Livraison d'un rapport structuré (Synthèse Managériale, Technique, Remédiation) et réunion de restitution finale",
-          "Plan d'action : Classification CVSS des failles et recommandations de correction priorisées"
-        ],
-        icon: "solar:document-bold",
-        bgColor: "bg-[#00ffa3]/5",
-        accentColor: "text-[#00ffa3]",
-        borderColor: "border-[#00ffa3]/20"
-      }
-    ];
+        {
+          title: "Reporting & Livrables",
+          items: [
+            "Restitution : Livraison d'un rapport structuré (Synthèse Managériale, Technique, Remédiation) et réunion de restitution finale",
+            "Plan d'action : Classification CVSS des failles et recommandations de correction priorisées"
+          ],
+          icon: "solar:document-bold",
+          bgColor: "bg-[#9abff2]/5",
+          accentColor: "text-[#9abff2]",
+          borderColor: "border-[#9abff2]/20"
+        }
+      ];
 
-    return (
-      <section id="features" className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
-        {/* Background decoration */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-500/10 blur-[150px] rounded-full"></div>
-        </div>
+      return (
+        <section id="features" className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
+          {/* Background decoration */}
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-blue-500/10 blur-[150px] rounded-full"></div>
+          </div>
 
-          <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-            <div className="mb-20 reveal">
-              <h2 className="font-display text-6xl md:text-8xl font-black tracking-tighter uppercase text-white leading-[0.8]">
-                Pentest<br />
-                <span className="text-[#00ffa3]">Externe</span>
-              </h2>
-              <p className="mt-6 text-white/60 font-mono uppercase tracking-[0.2em] text-sm">
-                🌐 VOLET 1 : Test d'Intrusion EXTERNE
-              </p>
-            </div>
+              <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+                <div className="mb-20 reveal">
+                  <h2 className="font-display text-6xl md:text-8xl font-black tracking-tighter uppercase text-white leading-none">
+                    Pentest <span className="text-[#9abff2]">Externe</span>
+                  </h2>
+                  <p className="mt-6 text-white/60 font-mono uppercase tracking-[0.2em] text-sm">
+                  🌐 VOLET 1 : Test d'Intrusion EXTERNE
+                </p>
+              </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 reveal">
-  
-                {cards.map((card, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`flex flex-col min-h-[500px] bg-[#080808] border ${card.borderColor} rounded-3xl overflow-hidden group hover:border-[#00ffa3]/40 transition-all duration-500 p-8 xl:p-6`}
-                  >
-                      <div className="flex justify-between items-start mb-12">
-                        <div className={`w-14 h-14 rounded-2xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                          <iconify-icon icon={card.icon} className={card.accentColor} width="28"></iconify-icon>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 reveal">
+    
+                  {cards.map((card, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`flex flex-col min-h-[500px] bg-[#080808] border ${card.borderColor} rounded-3xl overflow-hidden group hover:border-[#9abff2]/40 transition-all duration-500 p-8 xl:p-6`}
+                    >
+                        <div className="flex justify-between items-start mb-12">
+                          <div className={`w-14 h-14 rounded-2xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                            <iconify-icon icon={card.icon} className={card.accentColor} width="28"></iconify-icon>
+                          </div>
+                          <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
                         </div>
-                        <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
-                      </div>
-  
-                      <h3 className="text-xl lg:text-xl xl:text-[0.8rem] 2xl:text-[0.95rem] font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10 whitespace-nowrap">
-                        {card.title}
-                      </h3>
+    
+                        <h3 className="text-xl lg:text-xl xl:text-[0.8rem] 2xl:text-[0.95rem] font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#9abff2] transition-colors mb-10 whitespace-nowrap">
+                          {card.title}
+                        </h3>
 
                     <div className="flex-grow">
                       <ul className="space-y-4">

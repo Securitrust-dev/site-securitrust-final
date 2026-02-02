@@ -13,13 +13,13 @@ export function PropositionFooter() {
                 </div>
                 <div className="flex flex-col gap-4">
                     <h5 className="text-white font-medium text-xs uppercase tracking-widest">Services</h5>
-                    <a href="/pentest-externe" className="text-[#888888] text-[10px] uppercase hover:text-[#00ffa3]">Pentest Externe</a>
-                    <a href="/audit-configuration" className="text-[#888888] text-[10px] uppercase hover:text-[#00ffa3]">Audit Configuration</a>
+                    <a href="/pentest-externe" className="text-[#888888] text-[10px] uppercase hover:text-[#9abff2]">Pentest Externe</a>
+                    <a href="/audit-configuration" className="text-[#888888] text-[10px] uppercase hover:text-[#9abff2]">Audit Configuration</a>
                 </div>
                 <div className="flex flex-col gap-4">
                     <h5 className="text-white font-medium text-xs uppercase tracking-widest">Société</h5>
-                    <a href="/contact" className="text-[#888888] text-[10px] uppercase hover:text-[#00ffa3]">Contact</a>
-                    <a href="/mentions-legales" className="text-[#888888] text-[10px] uppercase hover:text-[#00ffa3]">Légal</a>
+                    <a href="/contact" className="text-[#888888] text-[10px] uppercase hover:text-[#9abff2]">Contact</a>
+                    <a href="/mentions-legales" className="text-[#888888] text-[10px] uppercase hover:text-[#9abff2]">Légal</a>
                 </div>
                 <div className="flex gap-4">
                     <a href="#" className="w-8 h-8 flex items-center justify-center text-[#888888] hover:text-white border border-white/5 rounded-full"><iconify-icon icon="ri:linkedin-fill"></iconify-icon></a>
@@ -29,8 +29,8 @@ export function PropositionFooter() {
             <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border">
                 <p className="text-[9px] text-[#888888] uppercase tracking-[0.3em]">© 2026 SecuriTrust. Tous droits réservés.</p>
                 <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#00ffa3] animate-pulse"></div>
-                    <span className="font-mono text-[9px] text-[#00ffa3] uppercase tracking-[0.3em]">System Secure</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#9abff2] animate-pulse"></div>
+                    <span className="font-mono text-[9px] text-[#9abff2] uppercase tracking-[0.3em]">System Secure</span>
                 </div>
             </div>
         </div>

@@ -188,8 +188,8 @@ export default function SignerPropositionPage() {
       <div className="min-h-screen bg-[#030303] flex items-center justify-center">
         <div className="text-center space-y-6">
           <div className="relative">
-            <Loader2 className="w-16 h-16 text-[#00ffa3] animate-spin mx-auto" />
-            <ShieldCheck className="w-6 h-6 text-[#00ffa3] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            <Loader2 className="w-16 h-16 text-[#9abff2] animate-spin mx-auto" />
+            <ShieldCheck className="w-6 h-6 text-[#9abff2] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
           </div>
           <div className="space-y-2">
             <p className="text-white text-xl font-bold uppercase tracking-tight">
@@ -234,7 +234,7 @@ export default function SignerPropositionPage() {
       
       <div className="h-16 border-b border-white/5 flex items-center px-6 bg-[#030303]/90 backdrop-blur-xl justify-between z-10">
         <div className="flex items-center gap-6">
-          <button onClick={handleBack} className="text-[#888888] hover:text-[#00ffa3] transition-colors flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
+          <button onClick={handleBack} className="text-[#888888] hover:text-[#9abff2] transition-colors flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
             <ArrowLeft className="w-3 h-3" />
             Back
           </button>
@@ -246,8 +246,8 @@ export default function SignerPropositionPage() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-[#00ffa3]">
-            <span className="w-1.5 h-1.5 bg-[#00ffa3] rounded-full animate-pulse"></span>
+          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-[#9abff2]">
+            <span className="w-1.5 h-1.5 bg-[#9abff2] rounded-full animate-pulse"></span>
             ENCRYPTED LINK
           </div>
         </div>
@@ -267,8 +267,8 @@ export default function SignerPropositionPage() {
         <div className="fixed bottom-0 left-0 w-full p-8 bg-[#030303]/95 border-t border-white/10 backdrop-blur-xl z-50">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 border border-[#00ffa3]/30 flex items-center justify-center bg-[#00ffa3]/5">
-                <ShieldCheck className="w-6 h-6 text-[#00ffa3]" />
+              <div className="w-12 h-12 border border-[#9abff2]/30 flex items-center justify-center bg-[#9abff2]/5">
+                <ShieldCheck className="w-6 h-6 text-[#9abff2]" />
               </div>
               <div>
                 <p className="text-white font-bold uppercase tracking-tight">Contrat Signé</p>
@@ -278,7 +278,7 @@ export default function SignerPropositionPage() {
 
             <button 
               onClick={goToPayment}
-              className="w-full sm:w-auto px-10 py-4 bg-[#00ffa3] text-[#030303] font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(0,255,163,0.3)] flex items-center justify-center gap-3"
+              className="w-full sm:w-auto px-10 py-4 bg-[#9abff2] text-[#030303] font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(0,255,163,0.3)] flex items-center justify-center gap-3"
             >
               <span>Procéder au paiement</span>
               <CreditCard className="w-5 h-5" />
@@ -294,8 +294,8 @@ export default function SignerPropositionPage() {
             © {new Date().getFullYear()} SecuriTrust — Secure Signing Protocol
           </p>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#00ffa3] shadow-[0_0_8px_rgba(0,255,163,0.8)] animate-pulse"></div>
-            <span className="font-mono text-[10px] text-[#00ffa3] uppercase tracking-widest">Uplink Stable</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-[#9abff2] shadow-[0_0_8px_rgba(0,255,163,0.8)] animate-pulse"></div>
+            <span className="font-mono text-[10px] text-[#9abff2] uppercase tracking-widest">Uplink Stable</span>
           </div>
         </div>
       </footer>

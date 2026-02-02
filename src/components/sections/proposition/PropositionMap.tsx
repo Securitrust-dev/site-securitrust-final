@@ -16,13 +16,13 @@ export function PropositionMap() {
                                 <h2 className="font-display text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight uppercase">Topology Défensive</h2>
                                 <p className="text-[#888888] text-[10px] font-mono uppercase tracking-widest">STATUS: MONITORING</p>
                             </div>
-                            <div className="flex gap-2 items-center text-[#00ffa3]">
-                                <div className="w-2 h-2 bg-[#00ffa3] rounded-full animate-pulse"></div>
+                            <div className="flex gap-2 items-center text-[#9abff2]">
+                                <div className="w-2 h-2 bg-[#9abff2] rounded-full animate-pulse"></div>
                                 <div className="font-mono text-[10px] hidden md:block uppercase tracking-widest">SECURE LINK ACTIVE</div>
                             </div>
                         </div>
-                        <div className="absolute top-[30%] left-[20%] w-20 h-20 border border-[#00ffa3]/20 rounded-full flex items-center justify-center animate-pulse">
-                            <div className="w-1 h-1 bg-[#00ffa3] rounded-full"></div>
+                        <div className="absolute top-[30%] left-[20%] w-20 h-20 border border-[#9abff2]/20 rounded-full flex items-center justify-center animate-pulse">
+                            <div className="w-1 h-1 bg-[#9abff2] rounded-full"></div>
                         </div>
                     </div>
                 </div>
@@ -30,13 +30,13 @@ export function PropositionMap() {
                 <div className="lg:col-span-4 flex flex-col gap-6">
                     <div className="bg-[#030303] border border-border p-6 reveal h-full flex flex-col justify-center">
                         <h3 className="font-semibold text-white mb-6 text-sm uppercase flex items-center gap-2 tracking-widest font-mono">
-                            <span className="w-2 h-2 bg-[#00ffa3] rounded-sm"></span>
+                            <span className="w-2 h-2 bg-[#9abff2] rounded-sm"></span>
                             Statistiques Experts
                         </h3>
                         <div className="space-y-4 font-mono text-[#888888]">
                             {[
                               { l: "Consultants Certifiés", v: "15+", c: "text-white" },
-                              { l: "Missions Réalisées", v: "500+", c: "text-[#00ffa3]" },
+                              { l: "Missions Réalisées", v: "500+", c: "text-[#9abff2]" },
                               { l: "Score R&D", v: "A+", c: "text-white" }
                             ].map((s, i) => (
                               <div key={i} className="flex justify-between items-center p-3 bg-[#080808] border border-border">

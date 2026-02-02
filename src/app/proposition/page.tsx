@@ -161,7 +161,7 @@ export default function PropositionPage() {
   }, []);
 
   return (
-    <div className="font-body bg-tech-grid grid-bg selection:bg-[#00ffa3] selection:text-[#030303] text-[#e0e0e0] overflow-x-hidden min-h-screen bg-[#030303]">
+    <div className="font-body bg-tech-grid grid-bg selection:bg-[#9abff2] selection:text-[#030303] text-[#e0e0e0] overflow-x-hidden min-h-screen bg-[#030303]">
       <Script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" strategy="afterInteractive" />
@@ -178,8 +178,8 @@ export default function PropositionPage() {
         :root {
           --void: #030303;
           --panel: #080808;
-          --mint: #00ffa3;
-          --mint-dark: #00b372;
+          --mint: #9abff2;
+          --mint-dark: #70a1e5;
           --border: rgba(255, 255, 255, 0.08);
           --border-strong: rgba(255, 255, 255, 0.15);
           --sub: #888888;
@@ -188,7 +188,7 @@ export default function PropositionPage() {
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #030303; }
         ::-webkit-scrollbar-thumb { background: #333; }
-        ::-webkit-scrollbar-thumb:hover { background: #00ffa3; }
+        ::-webkit-scrollbar-thumb:hover { background: #9abff2; }
         
         .text-stroke { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25); color: transparent; }
         .grid-bg { background-size: 50px 50px; }
@@ -196,13 +196,13 @@ export default function PropositionPage() {
           background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
         }
         .hover-card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .hover-card:hover { background: rgba(255, 255, 255, 0.03); border-color: #00ffa3; }
+        .hover-card:hover { background: rgba(255, 255, 255, 0.03); border-color: #9abff2; }
         
         .scan-line {
           position: absolute;
           top: 0; left: 0; width: 100%; height: 5px;
-          background: linear-gradient(to right, transparent, #00ffa3, transparent);
-          opacity: 0.5; box-shadow: 0 0 15px #00ffa3;
+          background: linear-gradient(to right, transparent, #9abff2, transparent);
+          opacity: 0.5; box-shadow: 0 0 15px #9abff2;
           animation: scan 4s linear infinite;
         }
         @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
@@ -214,7 +214,7 @@ export default function PropositionPage() {
         }
         .tech-separator::after {
           content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-          width: 50px; height: 3px; background: #00ffa3; box-shadow: 0 0 10px rgba(0, 255, 163, 0.5);
+          width: 50px; height: 3px; background: #9abff2; box-shadow: 0 0 10px rgba(154, 191, 242, 0.5);
         }
         
         .singularity-wrapper {
@@ -222,8 +222,8 @@ export default function PropositionPage() {
           overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
         .tunnel-ring {
-          position: absolute; border-radius: 50%; border: 1px solid rgba(0, 255, 163, 0.15);
-          box-shadow: 0 0 20px rgba(0, 255, 163, 0.05); animation: tunnelMove 6s linear infinite; opacity: 0;
+          position: absolute; border-radius: 50%; border: 1px solid rgba(154, 191, 242, 0.15);
+          box-shadow: 0 0 20px rgba(154, 191, 242, 0.05); animation: tunnelMove 6s linear infinite; opacity: 0;
         }
         .tunnel-ring:nth-child(even) { border-style: dashed; border-width: 1px; border-color: rgba(255, 255, 255, 0.1); }
         @keyframes tunnelMove {
@@ -261,9 +261,9 @@ export default function PropositionPage() {
           <div className="text-center px-6">
               <div className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tighter uppercase text-white">INITIALIZING</div>
               <div className="w-48 h-1 bg-gray-800 mx-auto overflow-hidden">
-                  <div className="h-full bg-[#00ffa3] w-0" id="loader-bar"></div>
+                  <div className="h-full bg-[#9abff2] w-0" id="loader-bar"></div>
               </div>
-              <div className="font-mono text-[10px] text-[#00ffa3] mt-2 tracking-widest uppercase">ESTABLISHING UPLINK...</div>
+              <div className="font-mono text-[10px] text-[#9abff2] mt-2 tracking-widest uppercase">ESTABLISHING UPLINK...</div>
           </div>
       </div>
       
