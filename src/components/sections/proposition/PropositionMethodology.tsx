@@ -81,23 +81,23 @@ export function PropositionMethodology() {
               </p>
             </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 reveal">
-
-              {cards.map((card, idx) => (
-                <div 
-                  key={idx} 
-                  className={`flex flex-col min-h-[500px] bg-[#080808] border ${card.borderColor} rounded-3xl overflow-hidden group hover:border-[#00ffa3]/40 transition-all duration-500 p-8`}
-                >
-                    <div className="flex justify-between items-start mb-12">
-                      <div className={`w-14 h-14 rounded-2xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                        <iconify-icon icon={card.icon} className={card.accentColor} width="28"></iconify-icon>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 reveal">
+  
+                {cards.map((card, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`flex flex-col min-h-[500px] bg-[#080808] border ${card.borderColor} rounded-3xl overflow-hidden group hover:border-[#00ffa3]/40 transition-all duration-500 p-8 xl:p-6`}
+                  >
+                      <div className="flex justify-between items-start mb-12">
+                        <div className={`w-14 h-14 rounded-2xl ${card.bgColor} border ${card.borderColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                          <iconify-icon icon={card.icon} className={card.accentColor} width="28"></iconify-icon>
+                        </div>
+                        <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
                       </div>
-                      <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
-                    </div>
-
-                    <h3 className="text-xl lg:text-2xl xl:text-xl font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10 whitespace-nowrap">
-                      {card.title}
-                    </h3>
+  
+                      <h3 className="text-xl lg:text-xl xl:text-[0.8rem] 2xl:text-[0.95rem] font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10 whitespace-nowrap">
+                        {card.title}
+                      </h3>
 
                     <div className="flex-grow">
                       <ul className="space-y-4">
