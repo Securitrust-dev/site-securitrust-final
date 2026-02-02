@@ -7,10 +7,10 @@ interface PropositionHeroProps {
 
 export function PropositionHero({ companyName }: PropositionHeroProps) {
   return (
-    <header className="relative w-full h-screen min-h-[600px] bg-[#030303] overflow-hidden flex flex-col items-center justify-end pb-24 md:pb-32">
+    <header className="relative w-full h-screen min-h-[600px] bg-[#0a0a0a] overflow-hidden flex flex-col items-center justify-end pb-24 md:pb-32">
         <div className="absolute top-0 left-0 w-full h-[65vh] z-0 pointer-events-none">
              <div data-us-project="7zydvovZReD8YsoiUwj3" style={{width:'100%', height: '100%'}}></div>
-             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#030303] via-[#030303]/80 to-transparent z-10"></div>
+             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-10"></div>
         </div>
         
         <div className="relative z-20 flex flex-col items-center w-full max-w-[1920px] px-6 text-center">
@@ -39,7 +39,7 @@ export function PropositionHero({ companyName }: PropositionHeroProps) {
                 </div>
             </div>
 
-            <p className="max-w-xl text-center text-gray-400 text-sm md:text-lg font-medium leading-relaxed mt-10 mb-8 hero-anim opacity-0 translate-y-4">
+            <p className="max-w-xl text-center text-gray-300 text-sm md:text-lg font-medium leading-relaxed mt-10 mb-8 hero-anim opacity-0 translate-y-4">
                 Audit de sécurité et tests d'intrusion experts. Évaluation complète de votre infrastructure sous 5 jours avec rapport de remédiation détaillé.
             </p>
         </div>

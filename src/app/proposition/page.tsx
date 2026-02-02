@@ -160,7 +160,7 @@ export default function PropositionPage() {
   }, []);
 
   return (
-    <div className="font-body bg-tech-grid grid-bg selection:bg-[#9abff2] selection:text-[#030303] text-[#e0e0e0] overflow-x-hidden min-h-screen bg-[#030303]">
+    <div className="font-body bg-tech-grid grid-bg selection:bg-[#9abff2] selection:text-[#0a0a0a] text-[#f0f0f0] overflow-x-hidden min-h-screen bg-[#0a0a0a]">
       <Script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="afterInteractive" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" strategy="afterInteractive" />
@@ -175,17 +175,17 @@ export default function PropositionPage() {
 
       <style dangerouslySetInnerHTML={{ __html: `
         :root {
-          --void: #030303;
-          --panel: #080808;
+          --void: #0a0a0a;
+          --panel: #121212;
           --mint: #9abff2;
           --mint-dark: #70a1e5;
           --border: rgba(255, 255, 255, 0.08);
           --border-strong: rgba(255, 255, 255, 0.15);
           --sub: #888888;
         }
-        body { background-color: #030303; color: #e0e0e0; overflow-x: hidden; }
+        body { background-color: #0a0a0a; color: #f0f0f0; overflow-x: hidden; }
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #030303; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #333; }
         ::-webkit-scrollbar-thumb:hover { background: #9abff2; }
         
@@ -256,7 +256,7 @@ export default function PropositionPage() {
       ` }} />
 
       {/* PRELOADER */}
-      <div className="preloader fixed inset-0 bg-[#030303] z-[9999] flex items-center justify-center" id="preloader">
+      <div className="preloader fixed inset-0 bg-[#0a0a0a] z-[9999] flex items-center justify-center" id="preloader">
           <div className="text-center px-6">
               <div className="font-display text-3xl md:text-4xl font-semibold mb-2 tracking-tighter uppercase text-white">INITIALIZING</div>
               <div className="w-48 h-1 bg-gray-800 mx-auto overflow-hidden">

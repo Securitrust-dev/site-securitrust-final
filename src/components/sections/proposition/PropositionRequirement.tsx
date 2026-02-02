@@ -62,7 +62,7 @@ export function PropositionRequirement({ companyName }: PropositionRequirementPr
     }, [objectives]);
 
     return (
-    <section className="py-24 bg-[#030303] relative overflow-hidden">
+    <section className="py-24 bg-[#0a0a0a] relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         <div className="mb-16 reveal">
           <h2 className="font-display text-6xl md:text-8xl font-black tracking-tighter uppercase text-white leading-[0.8]">
@@ -75,7 +75,7 @@ export function PropositionRequirement({ companyName }: PropositionRequirementPr
         </div>
 
         {/* Configuration Panel */}
-        <div className="mb-12 p-8 bg-[#080808] border border-white/10 rounded-3xl reveal">
+        <div className="mb-12 p-8 bg-[#121212] border border-white/10 rounded-3xl reveal">
           <div className="flex items-center justify-between mb-8">
             <h3 className="text-[#9abff2] font-bold uppercase tracking-widest text-sm">Configuration du client</h3>
             <button 
@@ -165,10 +165,10 @@ export function PropositionRequirement({ companyName }: PropositionRequirementPr
         <div className="grid grid-cols-1 gap-12 reveal">
           {/* Contexte Box */}
           <div className="group">
-            <div className="inline-block bg-[#9abff2] text-[#030303] px-8 py-2 rounded-full font-bold text-sm uppercase tracking-widest mb-6 shadow-[0_0_20px_rgba(0,255,163,0.3)]">
+            <div className="inline-block bg-[#9abff2] text-[#0a0a0a] px-8 py-2 rounded-full font-bold text-sm uppercase tracking-widest mb-6 shadow-[0_0_20px_rgba(154,191,242,0.3)]">
               Contexte
             </div>
-            <div className="bg-[#080808] border border-white/10 rounded-3xl p-8 md:p-10 hover:border-[#9abff2]/30 transition-all duration-500 shadow-2xl relative">
+            <div className="bg-[#121212] border border-white/10 rounded-3xl p-8 md:p-10 hover:border-[#9abff2]/30 transition-all duration-500 shadow-2xl relative">
               {!isAutoMode && (
                 <div className="absolute top-4 right-4 text-[10px] text-[#9abff2] uppercase font-bold tracking-widest bg-[#9abff2]/10 px-2 py-1 rounded">
                   Édition Manuelle
@@ -190,10 +190,10 @@ export function PropositionRequirement({ companyName }: PropositionRequirementPr
 
           {/* Objectifs Box */}
           <div className="group">
-            <div className="inline-block bg-[#9abff2] text-[#030303] px-8 py-2 rounded-full font-bold text-sm uppercase tracking-widest mb-6 shadow-[0_0_20px_rgba(0,255,163,0.3)]">
+            <div className="inline-block bg-[#9abff2] text-[#0a0a0a] px-8 py-2 rounded-full font-bold text-sm uppercase tracking-widest mb-6 shadow-[0_0_20px_rgba(154,191,242,0.3)]">
               Objectifs
             </div>
-              <div className="bg-[#080808] border border-white/10 rounded-3xl p-8 md:p-10 hover:border-[#9abff2]/30 transition-all duration-500 shadow-2xl">
+              <div className="bg-[#121212] border border-white/10 rounded-3xl p-8 md:p-10 hover:border-[#9abff2]/30 transition-all duration-500 shadow-2xl">
                 <textarea
                   ref={objectivesRef}
                   value={objectives}

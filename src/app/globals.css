@@ -8,11 +8,11 @@
 }
 
 @theme {
-  --color-background: #030303;
+  --color-background: #0a0a0a;
   --color-foreground: #ffffff;
 
-  --color-void: #030303;
-  --color-panel: #080808;
+  --color-void: #0a0a0a;
+  --color-panel: #121212;
   --color-mint: #00ffa3;
   --color-mint-dark: #00b372;
   --color-sub: #888888;
@@ -28,8 +28,8 @@
 
 @layer base {
   body {
-    background-color: #030303;
-    color: #e0e0e0;
+    background-color: #0a0a0a;
+    color: #f0f0f0;
     font-family: var(--font-body);
   }
 }

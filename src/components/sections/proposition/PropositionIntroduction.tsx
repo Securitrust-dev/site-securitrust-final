@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export function PropositionIntroduction() {
   return (
-    <section className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
+    <section className="py-24 bg-[#0a0a0a] relative overflow-hidden border-t border-border">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#9abff2]/5 blur-[150px] rounded-full"></div>
@@ -19,7 +19,7 @@ export function PropositionIntroduction() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 reveal">
           {/* Main Info Box */}
-          <div className="lg:col-span-8 flex flex-col bg-[#080808] border border-white/10 rounded-3xl overflow-hidden group hover:border-[#9abff2]/40 transition-all duration-500 p-8 md:p-12">
+          <div className="lg:col-span-8 flex flex-col bg-[#121212] border border-white/10 rounded-3xl overflow-hidden group hover:border-[#9abff2]/40 transition-all duration-500 p-8 md:p-12">
             <h3 className="text-xl md:text-2xl font-bold text-white mb-8 leading-relaxed italic">
               SecuriTrust est un cabinet de conseil avec une expertise reconnue en cybersécurité
             </h3>
@@ -39,7 +39,7 @@ export function PropositionIntroduction() {
           {/* Badge & Label Section */}
           <div className="lg:col-span-4 flex flex-col gap-8">
             {/* Label Promo Box */}
-            <div className="flex-1 bg-[#080808] border border-white/10 rounded-3xl p-8 flex flex-col items-center justify-center text-center group hover:border-[#9abff2]/40 transition-all duration-500">
+            <div className="flex-1 bg-[#121212] border border-white/10 rounded-3xl p-8 flex flex-col items-center justify-center text-center group hover:border-[#9abff2]/40 transition-all duration-500">
                <div className="mb-6 relative">
                  {/* France Cybersecurity Logo */}
                  <div className="w-32 h-32 relative group-hover:scale-110 transition-transform duration-500">
