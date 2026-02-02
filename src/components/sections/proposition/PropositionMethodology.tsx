@@ -63,6 +63,33 @@ export function PropositionMethodology() {
         }
       ];
 
+    const phases = [
+      {
+        title: "Reconnaissance",
+        icon: "solar:minimalistic-magnifer-bold",
+        color: "bg-red-500/10",
+        iconColor: "text-red-500"
+      },
+      {
+        title: "Accès initial",
+        icon: "solar:lock-unlocked-bold",
+        color: "bg-green-500/10",
+        iconColor: "text-green-500"
+      },
+      {
+        title: "Post-Exploitation",
+        icon: "solar:ghost-bold",
+        color: "bg-blue-500/10",
+        iconColor: "text-blue-500"
+      },
+      {
+        title: "Reporting",
+        icon: "solar:clipboard-list-bold",
+        color: "bg-gray-500/10",
+        iconColor: "text-gray-400"
+      }
+    ];
+
       return (
         <section id="features" className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
           {/* Background decoration */}
@@ -112,11 +139,33 @@ export function PropositionMethodology() {
                 ))}
               </div>
 
-          <div className="mt-16 text-center reveal">
-             <p className="text-white/40 text-xs font-mono uppercase tracking-[0.2em]">
-               Processus de test certifié conforme aux standards industriels (OWASP, PTES)
-             </p>
-          </div>
+            <div className="mt-24 max-w-4xl mx-auto reveal">
+              <div className="flex flex-wrap md:flex-nowrap justify-between items-center gap-6 md:gap-4 px-4 py-12 border-y border-white/5 bg-white/[0.01] rounded-3xl">
+                {phases.map((phase, idx) => (
+                  <React.Fragment key={idx}>
+                    <div className="flex flex-col items-center gap-4 group flex-1">
+                      <div className={`w-20 h-20 rounded-full ${phase.color} border border-white/10 flex items-center justify-center group-hover:scale-110 transition-all duration-500 relative shadow-2xl`}>
+                        <iconify-icon icon={phase.icon} className={phase.iconColor} width="32"></iconify-icon>
+                        {/* Pulse effect for all phases except reporting */}
+                        {idx < 3 && <div className={`absolute inset-0 rounded-full ${phase.iconColor} opacity-20 animate-ping`}></div>}
+                      </div>
+                      <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] text-white/40 group-hover:text-white transition-colors text-center whitespace-nowrap">
+                        {phase.title}
+                      </span>
+                    </div>
+                    {idx < phases.length - 1 && (
+                      <div className="hidden md:block w-12 h-[1px] border-t border-dashed border-white/20"></div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 text-center reveal">
+               <p className="text-white/40 text-[10px] md:text-xs font-mono uppercase tracking-[0.3em] font-medium">
+                 Processus de test certifié conforme aux standards industriels (OWASP, PTES)
+               </p>
+            </div>
       </div>
     </section>
   );
