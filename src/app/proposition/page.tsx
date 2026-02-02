@@ -283,15 +283,13 @@ export default function PropositionPage() {
         <div className="tech-separator"></div>
           {mounted && <PropositionMethodology />}
           <div className="tech-separator"></div>
-          <PropositionAuditPhase />
-          <div className="tech-separator"></div>
-          <PropositionExecutionWorkflow />
-          <div className="tech-separator"></div>
-          <PropositionOffer />
-      <div className="tech-separator"></div>
-      <PropositionRoadmap companyName={companyName} />
-      <div className="tech-separator"></div>
-      <PropositionMap />
+            <PropositionAuditPhase />
+            <div className="tech-separator"></div>
+            <PropositionExecutionWorkflow companyName={companyName} />
+            <div className="tech-separator"></div>
+            <PropositionOffer />
+        <div className="tech-separator"></div>
+        <PropositionMap />
       <div className="tech-separator"></div>
         <PropositionSingularity />
         <div className="tech-separator"></div>
