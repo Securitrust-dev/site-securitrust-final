@@ -95,7 +95,7 @@ export function PropositionMethodology() {
                       <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em] pt-2">Partie 0{idx + 1}</span>
                     </div>
 
-                    <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10">
+                    <h3 className="text-xl lg:text-2xl xl:text-xl font-black text-white uppercase tracking-tighter leading-[0.9] group-hover:text-[#00ffa3] transition-colors mb-10 whitespace-nowrap">
                       {card.title}
                     </h3>
 
