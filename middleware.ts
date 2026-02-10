@@ -12,6 +12,7 @@ const RATE_LIMITS = {
   '/api/osint': { limit: 10, window: 60000 }, // 10 req/min
   '/api/hibp': { limit: 10, window: 60000 }, // 10 req/min
   '/api/checkout': { limit: 5, window: 60000 }, // 5 req/min
+  '/api/formations/checkout': { limit: 5, window: 60000 }, // 5 req/min
   '/api/proposal': { limit: 10, window: 60000 }, // 10 req/min
   '/api/docusign': { limit: 5, window: 60000 }, // 5 req/min
   '/api/opensign': { limit: 5, window: 60000 }, // 5 req/min
@@ -66,6 +67,31 @@ setInterval(() => {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Protect /formations/apprendre/* routes
+  if (pathname.startsWith('/formations/apprendre')) {
+    // Extract slug from path: /formations/apprendre/[slug]
+    const slug = pathname.split('/formations/apprendre/')[1]?.split('/')[0];
+    if (slug) {
+      const cookieName = `formation_access_${slug}`;
+      const token = request.cookies.get(cookieName)?.value;
+      if (!token) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/formations-paiement';
+        url.searchParams.set('formation', slug);
+        url.searchParams.set('access', 'required');
+        return NextResponse.redirect(url);
+      }
+    } else {
+      // /formations/apprendre without slug - check if any formation access cookie exists
+      const hasCookie = request.cookies.getAll().some((c) => c.name.startsWith('formation_access_'));
+      if (!hasCookie) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/formations';
+        return NextResponse.redirect(url);
+      }
+    }
+  }
 
   // Only apply to API routes
   if (pathname.startsWith('/api')) {
@@ -151,5 +177,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/api/:path*',
+  matcher: ['/api/:path*', '/formations/apprendre/:path*'],
 };
