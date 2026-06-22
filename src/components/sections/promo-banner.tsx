@@ -21,11 +21,11 @@ export const PromoBanner = () => {
             {/* First set of items */}
             <div className="flex items-center gap-3 px-12">
               <Zap className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-cyan-400 flex-shrink-0" />
-              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(6, 182, 212, 0.8), 0 0 16px rgba(6, 182, 212, 0.4)' }}>
+              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(118, 166, 209, 0.8), 0 0 16px rgba(118, 166, 209, 0.4)' }}>
                 Pentest gratuit si aucune vulnérabilité détectée
               </span>
               <span className="text-cyan-400/60 text-xs sm:text-sm lg:text-base xl:text-lg font-light">◆</span>
-              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(6, 182, 212, 0.8), 0 0 16px rgba(6, 182, 212, 0.4)' }}>
+              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(118, 166, 209, 0.8), 0 0 16px rgba(118, 166, 209, 0.4)' }}>
                 Testez votre éligibilité pour cette offre
               </span>
             </div>
@@ -33,11 +33,11 @@ export const PromoBanner = () => {
             {/* Duplicate for seamless loop */}
             <div className="flex items-center gap-3 px-12">
               <Zap className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-cyan-400 flex-shrink-0" />
-              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(6, 182, 212, 0.8), 0 0 16px rgba(6, 182, 212, 0.4)' }}>
+              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(118, 166, 209, 0.8), 0 0 16px rgba(118, 166, 209, 0.4)' }}>
                 Pentest gratuit si aucune vulnérabilité détectée
               </span>
               <span className="text-cyan-400/60 text-xs sm:text-sm lg:text-base xl:text-lg font-light">◆</span>
-              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(6, 182, 212, 0.8), 0 0 16px rgba(6, 182, 212, 0.4)' }}>
+              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(118, 166, 209, 0.8), 0 0 16px rgba(118, 166, 209, 0.4)' }}>
                 Testez votre éligibilité pour cette offre
               </span>
             </div>
@@ -45,11 +45,11 @@ export const PromoBanner = () => {
             {/* Third set for extra smoothness */}
             <div className="flex items-center gap-3 px-12">
               <Zap className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-cyan-400 flex-shrink-0" />
-              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(6, 182, 212, 0.8), 0 0 16px rgba(6, 182, 212, 0.4)' }}>
+              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(118, 166, 209, 0.8), 0 0 16px rgba(118, 166, 209, 0.4)' }}>
                 Pentest gratuit si aucune vulnérabilité détectée
               </span>
               <span className="text-cyan-400/60 text-xs sm:text-sm lg:text-base xl:text-lg font-light">◆</span>
-              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(6, 182, 212, 0.8), 0 0 16px rgba(6, 182, 212, 0.4)' }}>
+              <span className="font-mono font-semibold tracking-wider text-[10px] sm:text-xs lg:text-sm xl:text-base bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-shift" style={{ textShadow: '0 0 8px rgba(118, 166, 209, 0.8), 0 0 16px rgba(118, 166, 209, 0.4)' }}>
                 Testez votre éligibilité pour cette offre
               </span>
             </div>

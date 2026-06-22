@@ -153,7 +153,7 @@ export default function RansomwarePage() {
                 }
               ].map((step, index) => (
                 <div key={index} className="flex items-start gap-6 glass-panel p-8 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-all relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(118,166,209,0.3)]">
                     <span className="text-2xl font-bold text-white">{step.number}</span>
                   </div>
                   <div>
@@ -189,6 +189,26 @@ export default function RansomwarePage() {
                   Voir nos offres
                 </a>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Détectez les failles exploitables avant qu\'un ransomware ne s\'y engouffre. Remboursé si aucune vulnérabilité.' },
+                { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Évaluation complète de votre posture sécurité pour identifier vos expositions aux ransomwares.' },
+                { title: 'Sensibilisation & Formation', href: '/sensibilisation-formation', desc: 'Formation des équipes aux vecteurs d\'entrée ransomware : phishing, ingénierie sociale, mots de passe.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
             </div>
           </div>
         </section>

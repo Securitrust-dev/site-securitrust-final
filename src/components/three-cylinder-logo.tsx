@@ -51,7 +51,7 @@ export const ThreeCylinderLogo = () => {
     // Load texture
     const textureLoader = new THREE.TextureLoader();
     textureLoader.load(
-      'https://qfihegeffntsxrwhvnlm.supabase.co/storage/v1/object/sign/Video_securitrust/Logo-SecuriTrust-bleu-blanc-768x158.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wYzAxOTEwZS02NzNlLTQ3ZmUtYTFjMC01MzlmYmQxOTczNTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWaWRlb19zZWN1cml0cnVzdC9Mb2dvLVNlY3VyaVRydXN0LWJsZXUtYmxhbmMtNzY4eDE1OC5wbmciLCJpYXQiOjE3NjQ1ODk2OTYsImV4cCI6MjA3OTk0OTY5Nn0.WyYj0TVh8sqyK3EqrftBj7iE6ctcqtfupXbu3uaLe2c',
+      process.env.NEXT_PUBLIC_SUPABASE_LOGO_3D_URL ?? '',
       (texture) => {
         // Configure texture
         texture.wrapS = THREE.RepeatWrapping;

@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: formation.title,
     description: formation.shortDescription,
+    alternates: { canonical: `https://securitrust.fr/formations/${slug}` },
   };
 }
 
@@ -96,7 +97,7 @@ export default async function FormationDetailPage({ params }: { params: Promise<
                   )}
                   <a
                     href={`/formations-paiement?formation=${formation.slug}`}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] text-sm"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] text-sm"
                   >
                     S&apos;inscrire maintenant
                     <ArrowRight className="w-4 h-4" />
@@ -177,7 +178,7 @@ export default async function FormationDetailPage({ params }: { params: Promise<
               </p>
               <a
                 href={`/formations-paiement?formation=${formation.slug}`}
-                className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] relative z-10"
+                className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] relative z-10"
               >
                 S&apos;inscrire - {formatPrice(formation.price)}
                 <ArrowRight className="w-5 h-5" />

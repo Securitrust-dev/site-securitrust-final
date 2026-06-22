@@ -1,10 +1,24 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog Cybersécurité | Analyses, Actualités & Conseils Experts',
-  description: 'Découvrez nos dernières analyses, actualités et conseils d\'experts en cybersécurité. Restez informé des nouvelles menaces et des meilleures pratiques de protection.',
+  title: 'Blog Cybersécurité — Analyses, Conseils & Actualités | SecuriTrust',
+  description: 'Articles et analyses cybersécurité par les experts SecuriTrust : pentest, RGPD, ISO 27001, NIS2, DORA, menaces cyber, gouvernance SSI.',
+  keywords: ['cybersécurité', 'pentest', 'RGPD', 'ISO 27001', 'NIS2', 'DORA', 'blog sécurité', 'actualités cyber', 'veille cybersécurité'],
   alternates: {
-    canonical: '/articles',
+    canonical: 'https://securitrust.fr/articles',
+  },
+  openGraph: {
+    title: 'Blog Cybersécurité — Analyses, Conseils & Actualités',
+    description: 'Articles et analyses cybersécurité par les experts SecuriTrust : pentest, RGPD, ISO 27001, NIS2, DORA, menaces cyber, gouvernance SSI.',
+    url: 'https://securitrust.fr/articles',
+    type: 'website',
+    siteName: 'SecuriTrust',
+    locale: 'fr_FR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog Cybersécurité — Analyses, Conseils & Actualités',
+    description: 'Articles et analyses cybersécurité par les experts SecuriTrust.',
   },
 };
 

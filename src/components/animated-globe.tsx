@@ -119,7 +119,7 @@ export default function AnimatedGlobe() {
       });
 
       // Draw connection lines between nearby dots
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.1)';
+      ctx.strokeStyle = 'rgba(118, 166, 209, 0.1)';
       ctx.lineWidth = 0.5;
 
       for (let i = 0; i < dots.length; i++) {
@@ -140,7 +140,7 @@ export default function AnimatedGlobe() {
             ctx.beginPath();
             ctx.moveTo(centerX + dot1.x, centerY + dot1.y);
             ctx.lineTo(centerX + dot2.x, centerY + dot2.y);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${alpha})`;
+            ctx.strokeStyle = `rgba(118, 166, 209, ${alpha})`;
             ctx.stroke();
           }
         }

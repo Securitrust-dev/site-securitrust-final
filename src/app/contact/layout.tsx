@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contactez SecuriTrust | Expert en Cybersécurité',
-  description: 'Besoin d\'un audit, d\'un pentest ou d\'un conseil en cybersécurité ? Contactez nos experts pour sécuriser votre infrastructure et vos données.',
+  title: 'Contact — Demandez votre Devis Cybersécurité',
+  description: 'Contactez SecuriTrust pour un devis pentest, audit cybersécurité, RSSI externalisé ou mise en conformité. Cabinet basé à Paris 16e. Réponse sous 24h.',
   alternates: {
-    canonical: '/contact',
+    canonical: 'https://securitrust.fr/contact',
   },
 };
 

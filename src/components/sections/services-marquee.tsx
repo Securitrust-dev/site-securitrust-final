@@ -9,17 +9,17 @@ export const ServicesMarquee = () => {
   ];
 
   return (
-    <div className="fixed top-[50px] left-0 right-0 z-[90] bg-gradient-to-r from-[#0b1221] via-[#0c4a6e] to-[#0b1221] border-b border-[#38bdf8]/20 overflow-hidden">
+    <div className="fixed top-[50px] left-0 right-0 z-[90] bg-gradient-to-r from-[#0b1221] via-[#0c4a6e] to-[#0b1221] border-b border-[#76a6d1]/20 overflow-hidden">
       <div className="relative flex">
         {/* First set of services */}
         <div className="flex animate-scroll-left whitespace-nowrap py-3">
           {services.map((service, index) => (
             <div key={`first-${index}`} className="inline-flex items-center">
-              <span className="text-[#38bdf8] font-bold text-sm tracking-wider uppercase px-8">
+              <span className="text-[#76a6d1] font-bold text-sm tracking-wider uppercase px-8">
                 {service}
               </span>
               {index < services.length - 1 && (
-                <span className="text-[#38bdf8]/40">•</span>
+                <span className="text-[#76a6d1]/40">•</span>
               )}
             </div>
           ))}
@@ -29,11 +29,11 @@ export const ServicesMarquee = () => {
         <div className="flex animate-scroll-left whitespace-nowrap py-3" aria-hidden="true">
           {services.map((service, index) => (
             <div key={`second-${index}`} className="inline-flex items-center">
-              <span className="text-[#38bdf8] font-bold text-sm tracking-wider uppercase px-8">
+              <span className="text-[#76a6d1] font-bold text-sm tracking-wider uppercase px-8">
                 {service}
               </span>
               {index < services.length - 1 && (
-                <span className="text-[#38bdf8]/40">•</span>
+                <span className="text-[#76a6d1]/40">•</span>
               )}
             </div>
           ))}

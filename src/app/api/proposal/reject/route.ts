@@ -1,7 +1,26 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-export async function POST(request: Request) {
+function escapeHtml(str: unknown): string {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
+function isAuthorizedOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get('origin') ?? req.headers.get('referer') ?? '';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://securitrust.fr';
+  return origin.startsWith(appUrl) || origin.startsWith('http://localhost');
+}
+
+export async function POST(request: NextRequest) {
+  if (!isAuthorizedOrigin(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
+  }
+
   try {
     const body = await request.json();
     const { company, answers, clientEmail } = body;
@@ -52,7 +71,7 @@ export async function POST(request: Request) {
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(56, 189, 248, 0.2);
+            border: 1px solid rgba(118, 166, 209, 0.2);
           }
           .header {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
@@ -109,15 +128,15 @@ export async function POST(request: Request) {
             padding: 30px;
           }
           .section-box {
-            background: rgba(56, 189, 248, 0.1);
+            background: rgba(118, 166, 209, 0.1);
             border-radius: 12px;
             padding: 25px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            border: 1px solid rgba(118, 166, 209, 0.3);
             margin-bottom: 20px;
           }
           .section-title {
             margin: 0 0 20px;
-            color: #38bdf8;
+            color: #76a6d1;
             font-size: 20px;
             font-weight: 600;
             display: flex;
@@ -225,14 +244,14 @@ export async function POST(request: Request) {
           }
           .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+            background: linear-gradient(135deg, #76a6d1 0%, #5a90be 100%);
             color: #ffffff;
             padding: 16px 40px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             font-size: 16px;
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 30px rgba(118, 166, 209, 0.3);
           }
           .footer {
             background: rgba(15, 23, 42, 0.8);
@@ -253,7 +272,7 @@ export async function POST(request: Request) {
             line-height: 1.6;
           }
           .footer-link {
-            color: #38bdf8;
+            color: #76a6d1;
             text-decoration: none;
           }
           .footer-divider {
@@ -302,25 +321,25 @@ export async function POST(request: Request) {
                     <table class="info-table">
                       <tr class="info-row">
                         <td class="info-label">Nom :</td>
-                        <td class="info-value">${company.name}</td>
+                        <td class="info-value">${escapeHtml(company.name)}</td>
                       </tr>
                       <tr class="info-row">
                         <td class="info-label">SIRET :</td>
-                        <td class="info-value">${company.siret}</td>
+                        <td class="info-value">${escapeHtml(company.siret)}</td>
                       </tr>
                       <tr class="info-row">
                         <td class="info-label">Activité :</td>
-                        <td class="info-value">${company.activityLabel || 'Non spécifié'}</td>
+                        <td class="info-value">${escapeHtml(company.activityLabel || 'Non spécifié')}</td>
                       </tr>
                       <tr class="info-row">
                         <td class="info-label">Employés :</td>
-                        <td class="info-value">${company.employeeCount || 'Non spécifié'}</td>
+                        <td class="info-value">${escapeHtml(company.employeeCount || 'Non spécifié')}</td>
                       </tr>
                       <tr class="info-row">
                         <td class="info-label">Email Contact :</td>
                         <td>
-                          <a href="mailto:${clientEmail}" style="color: #38bdf8; font-size: 14px; font-weight: 600; text-decoration: none;">
-                            ${clientEmail}
+                          <a href="mailto:${escapeHtml(clientEmail)}" style="color: #76a6d1; font-size: 14px; font-weight: 600; text-decoration: none;">
+                            ${escapeHtml(clientEmail)}
                           </a>
                         </td>
                       </tr>
@@ -335,17 +354,17 @@ export async function POST(request: Request) {
                         <td class="info-label">Active Directory :</td>
                         <td>
                           <span class="${hasAD === 'Oui' ? 'badge-yes' : 'badge-no'}">
-                            ${hasAD}
+                            ${escapeHtml(hasAD)}
                           </span>
                         </td>
                       </tr>
                       <tr class="info-row">
                         <td class="info-label">Comptes utilisateurs :</td>
-                        <td class="info-value">${userAccounts}</td>
+                        <td class="info-value">${escapeHtml(userAccounts)}</td>
                       </tr>
                       <tr class="info-row">
                         <td class="info-label">Maturité sécurité :</td>
-                        <td class="info-value">${securityMaturity}</td>
+                        <td class="info-value">${escapeHtml(securityMaturity)}</td>
                       </tr>
                     </table>
                   </div>
@@ -380,7 +399,7 @@ export async function POST(request: Request) {
 
                   <!-- CTA Button -->
                   <div style="text-align: center;">
-                    <a href="mailto:${clientEmail}" class="cta-button">
+                    <a href="mailto:${escapeHtml(clientEmail)}" class="cta-button">
                       📧 Contacter le Prospect
                     </a>
                   </div>
@@ -420,7 +439,7 @@ export async function POST(request: Request) {
         await resend.emails.send({
           from: 'Securitrust <jad.joumblat@securitrust.fr>',
           to: 'jad.joumblat@securitrust.fr',
-          subject: `⚠️ Proposition Refusée - ${company.name}`,
+          subject: `⚠️ Proposition Refusée - ${escapeHtml(company.name)}`,
           html: emailHtml,
         });
 

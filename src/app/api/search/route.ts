@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const query = searchParams.get('q')?.toLowerCase() || '';
 
-  if (!query || query.length < 2) {
+  if (!query || query.length < 2 || query.length > 100) {
     return NextResponse.json([]);
   }
 

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ServiceSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Stratégie de Cybersécurité | Conseil & Accompagnement SSI',
@@ -9,5 +10,14 @@ export const metadata: Metadata = {
 };
 
 export default function StrategieLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <ServiceSchema
+        name="Stratégie de Cybersécurité | Conseil & Accompagnement SSI"
+        description="Définissez une stratégie de cybersécurité alignée sur vos enjeux métier. Conseil expert pour structurer votre sécurité et protéger votre développement."
+        url="https://securitrust.fr/strategie-cybersecurite"
+      />
+      {children}
+    </>
+  );
 }

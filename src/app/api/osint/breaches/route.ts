@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+function isAuthorizedOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get('origin') ?? req.headers.get('referer') ?? '';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://securitrust.fr';
+  return origin.startsWith(appUrl) || origin.startsWith('http://localhost');
+}
+
 export async function GET(req: NextRequest) {
+  if (!isAuthorizedOrigin(req)) {
+    return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
+  }
+
   try {
     const searchParams = req.nextUrl.searchParams;
     const domain = searchParams.get('domain');
@@ -76,11 +86,7 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error('HIBP API error:', error);
     return NextResponse.json(
-      { 
-        error: error instanceof Error ? error.message : 'Erreur lors de la vérification des fuites de données',
-        totalBreaches: 0,
-        breaches: []
-      },
+      { error: 'Erreur lors de la vérification des fuites de données', totalBreaches: 0, breaches: [] },
       { status: 500 }
     );
   }

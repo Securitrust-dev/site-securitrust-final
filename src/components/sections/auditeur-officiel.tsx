@@ -35,16 +35,16 @@ export function AuditeurOfficiel() {
 
                 {/* Feature pills */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#38bdf8]/30 bg-[#38bdf8]/5">
+                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#76a6d1]/30 bg-[#76a6d1]/5">
                     <span className="text-sm text-white/80 font-light">Experts Certifiés</span>
                   </div>
-                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#38bdf8]/30 bg-[#38bdf8]/5">
+                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#76a6d1]/30 bg-[#76a6d1]/5">
                     <span className="text-sm text-white/80 font-light">Conformité réglementaire</span>
                   </div>
-                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#38bdf8]/30 bg-[#38bdf8]/5">
+                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#76a6d1]/30 bg-[#76a6d1]/5">
                     <span className="text-sm text-white/80 font-light">Normes ISO 27001</span>
                   </div>
-                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#38bdf8]/30 bg-[#38bdf8]/5">
+                  <div className="flex items-center justify-center rounded-md px-4 py-3 border border-[#76a6d1]/30 bg-[#76a6d1]/5">
                     <span className="text-sm text-white/80 font-light">Accompagnement sur mesure</span>
                   </div>
                 </div>
@@ -84,7 +84,7 @@ export function AuditeurOfficiel() {
 
                 <div className="relative w-[24rem] h-[24rem] sm:w-[28rem] sm:h-[28rem] lg:w-[32rem] lg:h-[32rem]"
                   style={{ animation: 'rotateCircle 60s linear infinite', animationPlayState: 'running' }}>
-                  <div className="pointer-events-none absolute -inset-8 rounded-full blur-3xl bg-[#38bdf8]/10"></div>
+                  <div className="pointer-events-none absolute -inset-8 rounded-full blur-3xl bg-[#76a6d1]/10"></div>
 
                   {auditeurs.map((auditeur, index) => (
                     <div
@@ -94,7 +94,7 @@ export function AuditeurOfficiel() {
                         transform: `translate(-50%, -50%) rotate(${auditeur.angle}deg) translateX(12rem) rotate(-${auditeur.angle}deg)`
                       }}>
                         <div
-                          className="counter-rotate w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full ring-2 ring-[#38bdf8]/50 bg-white/95 overflow-hidden transition-all duration-300 hover:scale-110 hover:ring-[#38bdf8]/80 hover:shadow-[0_0_20px_rgba(56,189,248,0.5)] flex items-center justify-center p-2"
+                          className="counter-rotate w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full ring-2 ring-[#76a6d1]/50 bg-white/95 overflow-hidden transition-all duration-300 hover:scale-110 hover:ring-[#76a6d1]/80 hover:shadow-[0_0_20px_rgba(118,166,209,0.5)] flex items-center justify-center p-2"
                           style={{ animation: 'counterRotate 60s linear infinite' }}>
                         <Image
                           src={auditeur.image}

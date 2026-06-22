@@ -144,9 +144,9 @@ export default function DPOExternalisePage() {
               </div>
 
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(118,166,209,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <Shield className="w-6 h-6" />
                   </div>
                   <h4 className="text-lg font-medium text-white mb-2">Réduction des coûts</h4>
@@ -213,6 +213,26 @@ export default function DPOExternalisePage() {
 
         <section className="py-16 px-6 text-center relative z-10">
           <ExpertCTAButton />
+        </section>
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'Mise en conformité RGPD', href: '/mise-en-conformite-rgpd', desc: 'Audit RGPD complet, feuille de route personnalisée et accompagnement à la mise en conformité.' },
+                { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre cybersécurité et votre conformité avec un RSSI à temps partagé.' },
+                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité réglementaire pour structurer votre sécurité.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Footer />

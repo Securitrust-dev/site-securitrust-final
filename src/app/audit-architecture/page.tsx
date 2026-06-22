@@ -3,6 +3,7 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
+import { InternalLinks } from '@/components/InternalLinks';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { Network, CheckCircle, Layers, Shield, Database, ArrowRight, Box, Cpu, HardDrive, KeyRound, RefreshCw } from 'lucide-react';
 
@@ -92,9 +93,9 @@ export default function AuditArchitecturePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(118,166,209,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <Network className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Segmentation réseau</h4>
@@ -233,6 +234,7 @@ export default function AuditArchitecturePage() {
           <ExpertCTAButton />
         </section>
 
+        <InternalLinks pageKey="audit-architecture" />
         <Footer />
       </div>
     </div>

@@ -3,7 +3,6 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
-import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { Shield, Search, FileText, Target, CheckCircle, AlertTriangle, ArrowRight, Box, Cpu, Lock } from 'lucide-react';
 
 export default function AuditCybersecuritePage() {
@@ -202,7 +201,7 @@ export default function AuditCybersecuritePage() {
                 }
               ].map((step, index) => (
                 <div key={index} className="flex items-start gap-6 glass-panel p-8 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-all relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(118,166,209,0.3)]">
                     <span className="text-2xl font-bold text-white">{step.number}</span>
                   </div>
                   <div>
@@ -231,8 +230,10 @@ export default function AuditCybersecuritePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                  href="https://calendly.com/expert-securitrust"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
                 >
                   Demander un audit
                   <ArrowRight className="w-5 h-5" />
@@ -248,8 +249,26 @@ export default function AuditCybersecuritePage() {
           </div>
         </section>
 
-        <section className="py-16 px-6 text-center relative z-10">
-          <ExpertCTAButton />
+
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Après l\'audit, passez à l\'action : test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée.' },
+                { title: 'Audit Flash', href: '/audit-flash', desc: 'Évaluation rapide de votre posture sécurité en 48h avec un rapport priorisé et actionnables.' },
+                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Transformez les recommandations d\'audit en programme GRC structuré et pérenne.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Footer />

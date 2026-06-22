@@ -31,7 +31,7 @@ export default function OSINTPage() {
               <span className="text-[#00ff41] font-mono">Vous</span> sur le web
             </h1>
             
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto mb-6 sm:mb-8 font-mono leading-relaxed px-4">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-3xl mx-auto mb-6 sm:mb-8 font-mono leading-relaxed px-4">
               <span className="text-[#00ff41]">$</span> Recherche OSINT avancée pour découvrir l'empreinte numérique des entreprises
               <span className="animate-pulse text-[#00ff41]">_</span>
             </p>
@@ -41,7 +41,7 @@ export default function OSINTPage() {
               <div className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-[#0b1221]/60 backdrop-blur-sm border border-[#00ff41]/20 rounded text-[#00ff41] text-xs sm:text-sm font-mono shadow-[0_0_15px_rgba(0,255,65,0.2)]">
                 <span className="opacity-60">[</span>ACTIVE<span className="opacity-60">]</span>
               </div>
-              <div className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-[#0b1221]/60 backdrop-blur-sm border border-[#38bdf8]/20 rounded text-[#38bdf8] text-xs sm:text-sm font-mono shadow-[0_0_15px_rgba(56,189,248,0.2)]">
+              <div className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-[#0b1221]/60 backdrop-blur-sm border border-[#76a6d1]/20 rounded text-[#76a6d1] text-xs sm:text-sm font-mono shadow-[0_0_15px_rgba(118,166,209,0.2)]">
                 <span className="opacity-60">[</span>13 SOURCES<span className="opacity-60">]</span>
               </div>
               <div className="px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 bg-[#0b1221]/60 backdrop-blur-sm border border-yellow-400/20 rounded text-yellow-400 text-xs sm:text-sm font-mono shadow-[0_0_15px_rgba(250,204,21,0.2)]">
@@ -61,35 +61,55 @@ export default function OSINTPage() {
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-6 font-mono">
                 <span className="text-[#00ff41]">{'>'}</span> Qu'est-ce que l'OSINT ?
               </h2>
-              <div className="space-y-3 sm:space-y-4 text-white/80 leading-relaxed">
+              <div className="space-y-3 sm:space-y-4 text-white leading-relaxed">
                 <p className="text-xs sm:text-sm lg:text-base">
                   L'<span className="text-[#00ff41] font-mono">Open Source Intelligence (OSINT)</span> est une méthode de collecte et d'analyse d'informations provenant de sources publiques et légales sur Internet.
                 </p>
                 <p className="text-xs sm:text-sm lg:text-base">
-                  Notre outil permet d'analyser l'empreinte numérique d'une entreprise à partir de son numéro SIRET en consultant automatiquement plus de <span className="text-[#38bdf8] font-bold">13 sources différentes</span> : registres officiels, réseaux sociaux, bases de données financières, et bien plus.
+                  Notre outil permet d'analyser l'empreinte numérique d'une entreprise à partir de son numéro SIRET en consultant automatiquement plus de <span className="text-[#76a6d1] font-bold">13 sources différentes</span> : registres officiels, réseaux sociaux, bases de données financières, et bien plus.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4 mt-4 sm:mt-6 lg:mt-8">
                   <div className="p-3 sm:p-4 bg-[#0b1221]/60 rounded-lg border border-[#00ff41]/10">
                     <div className="text-[#00ff41] font-mono text-base sm:text-lg lg:text-xl mb-1 sm:mb-2">✓ Légal</div>
-                    <div className="text-xs sm:text-sm text-white/70">Sources publiques uniquement</div>
+                    <div className="text-xs sm:text-sm text-white">Sources publiques uniquement</div>
                   </div>
-                  <div className="p-3 sm:p-4 bg-[#0b1221]/60 rounded-lg border border-[#38bdf8]/10">
-                    <div className="text-[#38bdf8] font-mono text-base sm:text-lg lg:text-xl mb-1 sm:mb-2">✓ Rapide</div>
-                    <div className="text-xs sm:text-sm text-white/70">Résultats en temps réel</div>
+                  <div className="p-3 sm:p-4 bg-[#0b1221]/60 rounded-lg border border-[#76a6d1]/10">
+                    <div className="text-[#76a6d1] font-mono text-base sm:text-lg lg:text-xl mb-1 sm:mb-2">✓ Rapide</div>
+                    <div className="text-xs sm:text-sm text-white">Résultats en temps réel</div>
                   </div>
                   <div className="p-3 sm:p-4 bg-[#0b1221]/60 rounded-lg border border-yellow-400/10">
                     <div className="text-yellow-400 font-mono text-base sm:text-lg lg:text-xl mb-1 sm:mb-2">✓ Complet</div>
-                    <div className="text-xs sm:text-sm text-white/70">Données financières et légales</div>
+                    <div className="text-xs sm:text-sm text-white">Données financières et légales</div>
                   </div>
                   <div className="p-3 sm:p-4 bg-[#0b1221]/60 rounded-lg border border-purple-400/10">
                     <div className="text-purple-400 font-mono text-base sm:text-lg lg:text-xl mb-1 sm:mb-2">✓ Sécurisé</div>
-                    <div className="text-xs sm:text-sm text-white/70">Connexion cryptée</div>
+                    <div className="text-xs sm:text-sm text-white">Connexion cryptée</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'Pentest Externe', href: '/pentest-externe', desc: 'Tests d\'intrusion sur vos assets exposés — complémentaire à l\'OSINT pour évaluer vos risques réels.' },
+                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée. Offre unique en France.' },
+                { title: 'Cyber Vigilance Humaine', href: '/cyber-vigilance-humaine', desc: 'Formation et sensibilisation des équipes aux techniques d\'ingénierie sociale et phishing.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <Footer />
       </div>

@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
 
-export default function FormationsSuccessPage() {
+function FormationsSuccessContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -71,7 +71,7 @@ export default function FormationsSuccessPage() {
                 </p>
                 <a
                   href={`/formations/apprendre/${formationSlug}`}
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
                 >
                   Commencer la formation
                   <ArrowRight className="w-5 h-5" />
@@ -102,5 +102,17 @@ export default function FormationsSuccessPage() {
         <Footer />
       </div>
     </div>
+  );
+}
+
+export default function FormationsSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-cyan-500 animate-spin" />
+      </div>
+    }>
+      <FormationsSuccessContent />
+    </Suspense>
   );
 }

@@ -14,7 +14,7 @@ export function PropositionRoadmap({ companyName }: PropositionRoadmapProps) {
                     <p className="text-[#888888] text-sm md:text-base max-w-md">Un calendrier structuré pour une exécution agile et transparente.</p>
                 </div>
                 <div className="hidden md:block text-right">
-                    <div className="font-mono text-[10px] text-[#9abff2] uppercase tracking-widest">TIMELINE_V2</div>
+                    <div className="font-mono text-[10px] text-[#74a2cd] uppercase tracking-widest">TIMELINE_V2</div>
                 </div>
             </div>
 
@@ -38,10 +38,10 @@ export function PropositionRoadmap({ companyName }: PropositionRoadmapProps) {
 
             <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-0 items-start min-h-[500px]">
                 <div className="lg:pr-4 lg:pt-0 reveal">
-                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all max-w-[280px]">
+                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#74a2cd] transition-all max-w-[280px]">
                         <div className="flex justify-between items-start mb-4">
                             <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Échange</span>
-                            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[#9abff2]">
+                            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[#74a2cd]">
                               <iconify-icon icon="solar:users-group-rounded-linear" width="18"></iconify-icon>
                             </div>
                         </div>
@@ -50,7 +50,7 @@ export function PropositionRoadmap({ companyName }: PropositionRoadmapProps) {
                 </div>
 
                 <div className="lg:-ml-8 lg:pt-20 reveal">
-                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all min-w-[320px] lg:w-[450px]">
+                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#74a2cd] transition-all min-w-[320px] lg:w-[450px]">
                         <div className="flex justify-between items-start mb-4">
                             <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Production</span>
                             <iconify-icon icon="solar:shield-up-linear" className="text-indigo-400" width="20"></iconify-icon>
@@ -76,7 +76,7 @@ export function PropositionRoadmap({ companyName }: PropositionRoadmapProps) {
                 </div>
 
                 <div className="lg:-ml-12 lg:pt-40 reveal">
-                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all min-w-[320px] lg:w-[450px]">
+                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#74a2cd] transition-all min-w-[320px] lg:w-[450px]">
                         <div className="flex justify-between items-start mb-4">
                             <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Production</span>
                             <iconify-icon icon="solar:document-add-linear" className="text-indigo-400" width="20"></iconify-icon>
@@ -106,7 +106,7 @@ export function PropositionRoadmap({ companyName }: PropositionRoadmapProps) {
                 </div>
 
                 <div className="lg:pt-72 lg:flex lg:justify-end reveal">
-                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all max-w-[240px] w-full">
+                    <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#74a2cd] transition-all max-w-[240px] w-full">
                         <div className="flex justify-between items-start mb-4">
                             <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Production</span>
                             <iconify-icon icon="solar:cloud-check-linear" className="text-white" width="20"></iconify-icon>

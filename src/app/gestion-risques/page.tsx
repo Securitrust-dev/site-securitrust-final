@@ -3,7 +3,6 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
-import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { Package, Cpu, AlertTriangle, Shield, FileText, TrendingDown, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function GestionRisquesPage() {
@@ -92,9 +91,9 @@ export default function GestionRisquesPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(118,166,209,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <FileText className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Identification des actifs</h4>
@@ -240,7 +239,7 @@ export default function GestionRisquesPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
                 >
                   Nous contacter
                   <ArrowRight className="w-5 h-5" />
@@ -250,8 +249,26 @@ export default function GestionRisquesPage() {
           </div>
         </section>
 
-        <section className="py-16 px-6 text-center relative z-10">
-          <ExpertCTAButton />
+
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'Certification ISO 27001 et HDS : structurez votre gestion des risques selon les meilleurs référentiels.' },
+                { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre gestion des risques avec un RSSI à temps partagé, expert des référentiels ISO et NIS2.' },
+                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Programme GRC complet : gouvernance, registre des risques, conformité et tableau de bord sécurité.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Footer />

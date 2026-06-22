@@ -104,10 +104,9 @@ export default function PaiementPage() {
         if (data.url) {
           setCheckoutUrl(data.url);
           
-          // Redirection priority: 
-          // 1. postMessage (for Orchids/Vercel preview)
-          // 2. window.top.location.href (to breakout of iframe)
-          // 3. window.location.href (fallback)
+          // Redirection priority:
+          // 1. window.top.location.href (to breakout of iframe)
+          // 2. window.location.href (fallback)
           
           try {
             const isInIframe = window.self !== window.top;

@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
 import { Shield } from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
+
+export const metadata: Metadata = {
+  title: 'Politique de Confidentialité | SecuriTrust',
+  alternates: { canonical: 'https://securitrust.fr/politique-de-confidentialite' },
+};
 
 export default function PolitiqueConfidentialitePage() {
   return (
@@ -10,9 +16,9 @@ export default function PolitiqueConfidentialitePage() {
       <div className="relative z-30 max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#38bdf8]/10 border border-[#38bdf8]/20 mb-6">
-            <Shield className="h-4 w-4 text-[#38bdf8]" />
-            <span className="text-xs sm:text-sm font-mono text-[#38bdf8]">SECURITRUST</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#76a6d1]/10 border border-[#76a6d1]/20 mb-6">
+            <Shield className="h-4 w-4 text-[#76a6d1]" />
+            <span className="text-xs sm:text-sm font-mono text-[#76a6d1]">SECURITRUST</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Politique de confidentialité
@@ -26,7 +32,7 @@ export default function PolitiqueConfidentialitePage() {
         <div className="glass-panel rounded-2xl p-6 sm:p-8 lg:p-12 space-y-8">
           {/* Section 1 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               1. Identité du responsable du traitement
             </h2>
             <div className="space-y-2 text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -41,7 +47,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 2 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               2. Données personnelles collectées
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
@@ -68,7 +74,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 3 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               3. Finalité du traitement
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">
@@ -83,7 +89,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 4 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               4. Base légale du traitement
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -97,7 +103,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 5 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               5. Destinataires des données
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">
@@ -114,7 +120,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 6 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               6. Durée de conservation
             </h2>
             <div className="overflow-x-auto">
@@ -145,7 +151,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 7 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               7. Vos droits RGPD
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">
@@ -163,7 +169,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 8 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               8. Sécurité des données
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -173,7 +179,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 9 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               9. Cookies
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">
@@ -193,7 +199,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 10 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               10. Modifications
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -203,7 +209,7 @@ export default function PolitiqueConfidentialitePage() {
 
           {/* Section 11 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
               11. Réclamations
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -211,7 +217,7 @@ export default function PolitiqueConfidentialitePage() {
             </p>
             <ul className="list-disc list-inside text-slate-300 text-sm sm:text-base leading-relaxed space-y-2 ml-4 mt-3">
               <li>Nous contacter directement</li>
-              <li>Ou saisir la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] hover:underline">www.cnil.fr</a></li>
+              <li>Ou saisir la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-[#76a6d1] hover:underline">www.cnil.fr</a></li>
             </ul>
           </section>
 
@@ -222,7 +228,7 @@ export default function PolitiqueConfidentialitePage() {
               <p>SecuriTrust</p>
               <p>11 Rue Saint-Didier, 75116 Paris</p>
               <p>Email : expertise@securitrust.fr</p>
-              <p>Tél : 06 08 94 87 97</p>
+              <p>Tél : 01 86 04 44 31</p>
             </div>
           </section>
         </div>

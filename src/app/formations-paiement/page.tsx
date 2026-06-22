@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
@@ -8,7 +8,7 @@ import { Footer } from '@/components/sections/footer';
 import { getFormationBySlug, getPublishedFormations, formatPrice } from '@/lib/formations-data';
 import { CheckCircle, CreditCard, ArrowRight, Shield, Lock } from 'lucide-react';
 
-export default function FormationsPaiementPage() {
+function FormationsPaiementContent() {
   const searchParams = useSearchParams();
   const formationSlug = searchParams.get('formation');
   const formations = getPublishedFormations();
@@ -173,7 +173,7 @@ export default function FormationsPaiementPage() {
                   <button
                     type="submit"
                     disabled={loading || !formation}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] text-sm"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] text-sm"
                   >
                     {loading ? 'Redirection...' : 'Proceder au paiement'}
                     <ArrowRight className="w-4 h-4" />
@@ -241,5 +241,17 @@ export default function FormationsPaiementPage() {
         <Footer />
       </div>
     </div>
+  );
+}
+
+export default function FormationsPaiementPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+        <div className="text-cyan-500 animate-pulse uppercase tracking-widest text-sm">Chargement...</div>
+      </div>
+    }>
+      <FormationsPaiementContent />
+    </Suspense>
   );
 }

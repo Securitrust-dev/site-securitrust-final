@@ -211,8 +211,8 @@ export function OSINTSearchSection() {
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 bg-gradient-to-r from-[#0b1221]/80 to-[#1a2332]/80 px-4 sm:px-6 py-3 sm:py-4 rounded-xl border border-[#38bdf8]/30 shadow-[0_0_30px_rgba(56,189,248,0.3)] backdrop-blur-sm">
-            <Search className="h-5 w-5 sm:h-6 sm:w-6 text-[#38bdf8]" />
+          <div className="inline-flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 bg-gradient-to-r from-[#0b1221]/80 to-[#1a2332]/80 px-4 sm:px-6 py-3 sm:py-4 rounded-xl border border-[#76a6d1]/30 shadow-[0_0_30px_rgba(118,166,209,0.3)] backdrop-blur-sm">
+            <Search className="h-5 w-5 sm:h-6 sm:w-6 text-[#76a6d1]" />
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
               OSINT Enterprise Search
             </h2>
@@ -227,7 +227,7 @@ export function OSINTSearchSection() {
           {/* LEFT COLUMN: Search Form */}
           <div className="space-y-6">
             {/* Search Card */}
-            <div className="bg-gradient-to-br from-[#1a2332]/90 to-[#0b1221]/90 backdrop-blur-sm border border-[#38bdf8]/30 rounded-xl p-4 sm:p-6 shadow-[0_0_40px_rgba(56,189,248,0.2)]">
+            <div className="bg-gradient-to-br from-[#1a2332]/90 to-[#0b1221]/90 backdrop-blur-sm border border-[#76a6d1]/30 rounded-xl p-4 sm:p-6 shadow-[0_0_40px_rgba(118,166,209,0.2)]">
               <div className="space-y-4">
                 {/* Search Input */}
                 <div>
@@ -238,7 +238,7 @@ export function OSINTSearchSection() {
                     onChange={(e) => setSiretNumber(e.target.value.replace(/\D/g, '').substring(0, 14))}
                     onKeyPress={(e) => e.key === 'Enter' && startOSINTSearch()}
                     placeholder="Entrez le SIRET (14 chiffres)..."
-                    className="w-full px-4 py-3 bg-[#0b1221]/80 backdrop-blur-md border-2 border-[#38bdf8]/40 rounded-lg text-white text-sm placeholder:text-white/50 focus:outline-none focus:border-[#38bdf8] focus:shadow-[0_0_20px_rgba(56,189,248,0.4)] transition-all"
+                    className="w-full px-4 py-3 bg-[#0b1221]/80 backdrop-blur-md border-2 border-[#76a6d1]/40 rounded-lg text-white text-sm placeholder:text-white/50 focus:outline-none focus:border-[#76a6d1] focus:shadow-[0_0_20px_rgba(118,166,209,0.4)] transition-all"
                     autoComplete="off"
                     maxLength={14}
                   />
@@ -249,7 +249,7 @@ export function OSINTSearchSection() {
                 <button
                   onClick={startOSINTSearch}
                   disabled={isLoading}
-                  className="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-[#38bdf8] to-[#0ea5e9] text-white font-semibold text-sm sm:text-base rounded-lg hover:shadow-[0_0_30px_rgba(56,189,248,0.8)] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 border border-white/20"
+                  className="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-[#76a6d1] to-[#5a90be] text-white font-semibold text-sm sm:text-base rounded-lg hover:shadow-[0_0_30px_rgba(118,166,209,0.8)] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 border border-white/20"
                 >
                   {isLoading ? (
                     <>
@@ -273,9 +273,9 @@ export function OSINTSearchSection() {
                 {/* Loading Progress */}
                 {isLoading && (
                   <div className="space-y-3">
-                    <div className="h-2 bg-white/10 backdrop-blur-sm rounded-full overflow-hidden border border-[#38bdf8]/30">
+                    <div className="h-2 bg-white/10 backdrop-blur-sm rounded-full overflow-hidden border border-[#76a6d1]/30">
                       <div 
-                        className="h-full bg-gradient-to-r from-[#38bdf8] via-[#0ea5e9] to-[#38bdf8] transition-all duration-300 shadow-[0_0_15px_rgba(56,189,248,0.6)]"
+                        className="h-full bg-gradient-to-r from-[#76a6d1] via-[#5a90be] to-[#76a6d1] transition-all duration-300 shadow-[0_0_15px_rgba(118,166,209,0.6)]"
                         style={{ width: `${progress}%` }}
                       />
                     </div>
@@ -291,9 +291,9 @@ export function OSINTSearchSection() {
 
             {/* Source Status - Only show when loading or completed */}
             {Object.keys(sourceStatuses).length > 0 && (
-              <div className="bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 p-4 border border-[#38bdf8]/30 shadow-[0_0_25px_rgba(56,189,248,0.15)] rounded-xl backdrop-blur-sm">
+              <div className="bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 p-4 border border-[#76a6d1]/30 shadow-[0_0_25px_rgba(118,166,209,0.15)] rounded-xl backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-3">
-                  <Database className="h-4 w-4 text-[#38bdf8]" />
+                  <Database className="h-4 w-4 text-[#76a6d1]" />
                   <h3 className="text-sm sm:text-base font-bold text-white">Statut des Sources</h3>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -313,10 +313,10 @@ export function OSINTSearchSection() {
           </div>
 
           {/* RIGHT COLUMN: Results */}
-          <div className="space-y-4 sm:space-y-6 lg:max-h-[800px] lg:overflow-y-auto lg:pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-white/5 [&::-webkit-scrollbar-track]:rounded [&::-webkit-scrollbar-thumb]:bg-[#38bdf8]/30 [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-[#38bdf8]/50">
+          <div className="space-y-4 sm:space-y-6 lg:max-h-[800px] lg:overflow-y-auto lg:pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-white/5 [&::-webkit-scrollbar-track]:rounded [&::-webkit-scrollbar-thumb]:bg-[#76a6d1]/30 [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-[#76a6d1]/50">
             {!showResults && !isLoading && (
-              <div className="bg-gradient-to-br from-[#1a2332]/60 to-[#0b1221]/60 backdrop-blur-sm border border-[#38bdf8]/20 rounded-xl p-6 sm:p-8 text-center">
-                <Database className="h-12 w-12 sm:h-16 sm:w-16 text-[#38bdf8]/40 mx-auto mb-4" />
+              <div className="bg-gradient-to-br from-[#1a2332]/60 to-[#0b1221]/60 backdrop-blur-sm border border-[#76a6d1]/20 rounded-xl p-6 sm:p-8 text-center">
+                <Database className="h-12 w-12 sm:h-16 sm:w-16 text-[#76a6d1]/40 mx-auto mb-4" />
                 <p className="text-white/60 text-xs sm:text-sm">
                   Entrez un numéro SIRET et lancez la recherche pour voir les résultats ici
                 </p>
@@ -350,9 +350,9 @@ export function OSINTSearchSection() {
                 )}
 
                 {/* Results Cards */}
-                <div className="overflow-hidden border border-[#38bdf8]/30 shadow-[0_0_25px_rgba(56,189,248,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
-                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#38bdf8]/30">
-                    <Building className="h-4 w-4 text-[#38bdf8] flex-shrink-0" />
+                <div className="overflow-hidden border border-[#76a6d1]/30 shadow-[0_0_25px_rgba(118,166,209,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
+                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#76a6d1]/30">
+                    <Building className="h-4 w-4 text-[#76a6d1] flex-shrink-0" />
                     <h3 className="text-sm sm:text-base font-bold text-white">Informations Générales</h3>
                   </div>
                   <div className="p-3 sm:p-4 space-y-3">
@@ -370,7 +370,7 @@ export function OSINTSearchSection() {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-2.5 sm:px-3 py-1.5 bg-gradient-to-r from-[#38bdf8] to-[#0ea5e9] text-white font-medium rounded text-xs hover:shadow-[0_0_15px_rgba(56,189,248,0.5)] transition-all"
+                          className="px-2.5 sm:px-3 py-1.5 bg-gradient-to-r from-[#76a6d1] to-[#5a90be] text-white font-medium rounded text-xs hover:shadow-[0_0_15px_rgba(118,166,209,0.5)] transition-all"
                         >
                           {link.name}
                         </a>
@@ -379,9 +379,9 @@ export function OSINTSearchSection() {
                   </div>
                 </div>
 
-                <div className="overflow-hidden border border-[#38bdf8]/30 shadow-[0_0_25px_rgba(56,189,248,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
-                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#38bdf8]/30">
-                    <Gavel className="h-4 w-4 text-[#38bdf8] flex-shrink-0" />
+                <div className="overflow-hidden border border-[#76a6d1]/30 shadow-[0_0_25px_rgba(118,166,209,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
+                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#76a6d1]/30">
+                    <Gavel className="h-4 w-4 text-[#76a6d1] flex-shrink-0" />
                     <h3 className="text-sm sm:text-base font-bold text-white">Informations Légales</h3>
                   </div>
                   <div className="p-3 sm:p-4 space-y-3">
@@ -394,9 +394,9 @@ export function OSINTSearchSection() {
                   </div>
                 </div>
 
-                <div className="overflow-hidden border border-[#38bdf8]/30 shadow-[0_0_25px_rgba(56,189,248,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
-                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#38bdf8]/30">
-                    <ChartLine className="h-4 w-4 text-[#38bdf8] flex-shrink-0" />
+                <div className="overflow-hidden border border-[#76a6d1]/30 shadow-[0_0_25px_rgba(118,166,209,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
+                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#76a6d1]/30">
+                    <ChartLine className="h-4 w-4 text-[#76a6d1] flex-shrink-0" />
                     <h3 className="text-sm sm:text-base font-bold text-white">Informations Financières</h3>
                   </div>
                   <div className="p-3 sm:p-4 space-y-3">
@@ -407,9 +407,9 @@ export function OSINTSearchSection() {
                   </div>
                 </div>
 
-                <div className="overflow-hidden border border-[#38bdf8]/30 shadow-[0_0_25px_rgba(56,189,248,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
-                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#38bdf8]/30">
-                    <Globe className="h-4 w-4 text-[#38bdf8] flex-shrink-0" />
+                <div className="overflow-hidden border border-[#76a6d1]/30 shadow-[0_0_25px_rgba(118,166,209,0.15)] rounded-xl bg-gradient-to-br from-[#1a2332]/80 to-[#0b1221]/80 backdrop-blur-sm">
+                  <div className="bg-gradient-to-r from-[#1e3a5f]/60 to-[#0b1221]/60 p-2.5 sm:p-3 flex items-center gap-2 border-b border-[#76a6d1]/30">
+                    <Globe className="h-4 w-4 text-[#76a6d1] flex-shrink-0" />
                     <h3 className="text-sm sm:text-base font-bold text-white">Empreinte Numérique</h3>
                   </div>
                   <div className="p-3 sm:p-4 space-y-3">

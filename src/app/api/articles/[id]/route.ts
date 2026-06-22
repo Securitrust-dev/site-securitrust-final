@@ -2,6 +2,32 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import sanitizeHtml from 'sanitize-html';
+
+function authenticateRequest(request: NextRequest): boolean {
+  const apiKey = request.headers.get('x-api-key');
+  const expected = process.env.ARTICLE_API_KEY;
+  return !!expected && apiKey === expected;
+}
+
+const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'img', 'figure', 'figcaption',
+    'table', 'thead', 'tbody', 'tr', 'th', 'td',
+    'pre', 'code', 'blockquote',
+  ]),
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    '*': ['class'],
+    'a': ['href', 'target', 'rel', 'title'],
+    'img': ['src', 'alt', 'width', 'height', 'loading'],
+    'td': ['colspan', 'rowspan'],
+    'th': ['colspan', 'rowspan', 'scope'],
+  },
+  allowedSchemes: ['https', 'http', 'mailto'],
+  allowedSchemesByTag: { img: ['https', 'data'] },
+};
 
 // --- GET ---
 export async function GET(
@@ -13,10 +39,7 @@ export async function GET(
 
     if (!id || isNaN(parseInt(id)) || parseInt(id) <= 0) {
       return NextResponse.json(
-        { 
-          error: 'Valid ID is required',
-          code: 'INVALID_ID' 
-        },
+        { error: 'Valid ID is required', code: 'INVALID_ID' },
         { status: 400 }
       );
     }
@@ -29,10 +52,7 @@ export async function GET(
 
     if (article.length === 0) {
       return NextResponse.json(
-        { 
-          error: 'Article not found',
-          code: 'ARTICLE_NOT_FOUND' 
-        },
+        { error: 'Article not found', code: 'ARTICLE_NOT_FOUND' },
         { status: 404 }
       );
     }
@@ -40,12 +60,7 @@ export async function GET(
     return NextResponse.json(article[0], { status: 200 });
   } catch (error) {
     console.error('GET error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error')
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
@@ -54,15 +69,16 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!authenticateRequest(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
 
     if (!id || isNaN(parseInt(id)) || parseInt(id) <= 0) {
       return NextResponse.json(
-        { 
-          error: 'Valid ID is required',
-          code: 'INVALID_ID' 
-        },
+        { error: 'Valid ID is required', code: 'INVALID_ID' },
         { status: 400 }
       );
     }
@@ -77,10 +93,7 @@ export async function PUT(
 
     if (existingArticle.length === 0) {
       return NextResponse.json(
-        { 
-          error: 'Article not found',
-          code: 'ARTICLE_NOT_FOUND' 
-        },
+        { error: 'Article not found', code: 'ARTICLE_NOT_FOUND' },
         { status: 404 }
       );
     }
@@ -91,10 +104,7 @@ export async function PUT(
       const trimmedTitle = body.title.trim();
       if (trimmedTitle === '') {
         return NextResponse.json(
-          { 
-            error: 'Title cannot be empty',
-            code: 'INVALID_TITLE' 
-          },
+          { error: 'Title cannot be empty', code: 'INVALID_TITLE' },
           { status: 400 }
         );
       }
@@ -105,10 +115,7 @@ export async function PUT(
       const trimmedExcerpt = body.excerpt.trim();
       if (trimmedExcerpt === '') {
         return NextResponse.json(
-          { 
-            error: 'Excerpt cannot be empty',
-            code: 'INVALID_EXCERPT' 
-          },
+          { error: 'Excerpt cannot be empty', code: 'INVALID_EXCERPT' },
           { status: 400 }
         );
       }
@@ -119,24 +126,18 @@ export async function PUT(
       const trimmedContent = body.content.trim();
       if (trimmedContent === '') {
         return NextResponse.json(
-          { 
-            error: 'Content cannot be empty',
-            code: 'INVALID_CONTENT' 
-          },
+          { error: 'Content cannot be empty', code: 'INVALID_CONTENT' },
           { status: 400 }
         );
       }
-      updates.content = trimmedContent;
+      updates.content = sanitizeHtml(trimmedContent, SANITIZE_OPTIONS);
     }
 
     if (body.category !== undefined) {
       const trimmedCategory = body.category.trim();
       if (trimmedCategory === '') {
         return NextResponse.json(
-          { 
-            error: 'Category cannot be empty',
-            code: 'INVALID_CATEGORY' 
-          },
+          { error: 'Category cannot be empty', code: 'INVALID_CATEGORY' },
           { status: 400 }
         );
       }
@@ -170,12 +171,7 @@ export async function PUT(
     return NextResponse.json(updatedArticle[0], { status: 200 });
   } catch (error) {
     console.error('PUT error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error')
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
@@ -184,15 +180,16 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!authenticateRequest(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
 
     if (!id || isNaN(parseInt(id)) || parseInt(id) <= 0) {
       return NextResponse.json(
-        { 
-          error: 'Valid ID is required',
-          code: 'INVALID_ID' 
-        },
+        { error: 'Valid ID is required', code: 'INVALID_ID' },
         { status: 400 }
       );
     }
@@ -205,10 +202,7 @@ export async function DELETE(
 
     if (existingArticle.length === 0) {
       return NextResponse.json(
-        { 
-          error: 'Article not found',
-          code: 'ARTICLE_NOT_FOUND' 
-        },
+        { error: 'Article not found', code: 'ARTICLE_NOT_FOUND' },
         { status: 404 }
       );
     }
@@ -219,19 +213,11 @@ export async function DELETE(
       .returning();
 
     return NextResponse.json(
-      {
-        message: 'Article deleted successfully',
-        article: deletedArticle[0]
-      },
+      { message: 'Article deleted successfully', article: deletedArticle[0] },
       { status: 200 }
     );
   } catch (error) {
     console.error('DELETE error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Internal server error: ' + (error instanceof Error ? error.message : 'Unknown error')
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+function isAuthorizedOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get('origin') ?? req.headers.get('referer') ?? '';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://securitrust.fr';
+  return origin.startsWith(appUrl) || origin.startsWith('http://localhost');
+}
+
 interface CompanyData {
   basicInfo: {
     name: string;
@@ -30,6 +36,10 @@ interface CompanyData {
 }
 
 export async function POST(request: NextRequest) {
+  if (!isAuthorizedOrigin(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
+  }
+
   try {
     const { siret } = await request.json();
 

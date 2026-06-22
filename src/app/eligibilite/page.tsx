@@ -20,11 +20,20 @@ type Question = {
   condition?: (answers: Answer[]) => boolean;
 };
 
+type ContactInfo = {
+  nom: string;
+  prenom: string;
+  tel: string;
+  fonction: string;
+};
+
 export default function EligibilitePage() {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState<'siret' | 'questions' | 'complete'>('siret');
+  const [currentStep, setCurrentStep] = useState<'siret' | 'contact' | 'questions' | 'complete'>('siret');
   const [siretInput, setSiretInput] = useState('');
   const [companyInfo, setCompanyInfo] = useState<any>(null);
+  const [contactInfo, setContactInfo] = useState<ContactInfo>({ nom: '', prenom: '', tel: '', fonction: '' });
+  const [contactErrors, setContactErrors] = useState<Partial<ContactInfo>>({});
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [currentInput, setCurrentInput] = useState('');
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
@@ -59,24 +68,7 @@ export default function EligibilitePage() {
         type: 'radio',
         options: ['Moins de 20 millions d\'euros', '20 millions d\'euros ou plus']
       },
-      { 
-        id: 'sector', 
-        text: 'Votre entreprise relève-t-elle de l\'un des secteurs suivants ?', 
-        type: 'checkbox',
-        options: [
-          'Santé',
-          'Banque, assurance et services financiers réglementés',
-          'Énergie, utilities, transport aérien, ferroviaire ou maritime',
-          'Secteur réglementé ou soumis à agrément',
-          'Aucun de ces secteurs'
-        ]
-      },
-      { 
-        id: 'previousPentest', 
-        text: 'Un test d\'intrusion professionnel a-t-il été réalisé sur votre infrastructure au cours des 36 derniers mois ?', 
-        type: 'radio',
-        options: ['Oui', 'Non']
-      },
+
       { 
         id: 'ownership', 
         text: 'Êtes-vous propriétaire ou titulaire des autorisations nécessaires sur tous les systèmes à tester ?', 
@@ -124,14 +116,29 @@ export default function EligibilitePage() {
         return;
       }
 
-      setCompanyInfo(result.company);
-      setCurrentStep('questions');
-      setSiretInput('');
+        setCompanyInfo(result.company);
+        setCurrentStep('contact');
+        setSiretInput('');
     } catch (err) {
       setError('Erreur de connexion au serveur');
     } finally {
       setIsChecking(false);
     }
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors: Partial<ContactInfo> = {};
+    if (!contactInfo.nom.trim()) errors.nom = 'Champ requis';
+    if (!contactInfo.prenom.trim()) errors.prenom = 'Champ requis';
+    if (!contactInfo.tel.trim()) errors.tel = 'Champ requis';
+    if (!contactInfo.fonction.trim()) errors.fonction = 'Champ requis';
+    if (Object.keys(errors).length > 0) {
+      setContactErrors(errors);
+      return;
+    }
+    setContactErrors({});
+    setCurrentStep('questions');
   };
 
   const getVisibleQuestions = () => {
@@ -150,6 +157,8 @@ export default function EligibilitePage() {
       setCurrentInput('');
       setSelectedCheckboxes([]);
       setEmailError('');
+    } else if (currentStep === 'questions') {
+      setCurrentStep('contact');
     } else {
       // Go back to SIRET step
       setCurrentStep('siret');
@@ -208,6 +217,7 @@ export default function EligibilitePage() {
       // Immediately redirect to non-eligible page
       sessionStorage.setItem('eligibilityData', JSON.stringify({
         company: companyInfo,
+        contact: contactInfo,
         answers: newAnswers,
         eligible: false,
         reason: 'Vous avez déjà bénéficié d\'un pentest avec SecuriTrust.'
@@ -231,8 +241,6 @@ export default function EligibilitePage() {
         const locationAnswer = finalAnswers.find(a => a.questionId === 'location')?.answer;
         const employeeCountAnswer = finalAnswers.find(a => a.questionId === 'employeeCount')?.answer;
         const revenueAnswer = finalAnswers.find(a => a.questionId === 'revenue')?.answer;
-        const sectorAnswer = finalAnswers.find(a => a.questionId === 'sector')?.answer;
-        const previousPentestAnswer = finalAnswers.find(a => a.questionId === 'previousPentest')?.answer;
         const ownershipAnswer = finalAnswers.find(a => a.questionId === 'ownership')?.answer;
         const thirdPartySystemAnswer = finalAnswers.find(a => a.questionId === 'thirdPartySystem')?.answer;
         const cloudServicesAnswer = finalAnswers.find(a => a.questionId === 'cloudServices')?.answer;
@@ -250,15 +258,9 @@ export default function EligibilitePage() {
             isEligible = false;
             reason = 'Votre entreprise doit employer moins de 250 salariés.';
           } else if (revenueAnswer === '20 millions d\'euros ou plus') {
-            isEligible = false;
-            reason = 'Votre chiffre d\'affaires annuel doit être inférieur à 20 millions d\'euros.';
-          } else if (Array.isArray(sectorAnswer) && sectorAnswer.some(s => s !== 'Aucun de ces secteurs')) {
-            isEligible = false;
-            reason = 'Votre secteur d\'activité n\'est pas éligible à cette offre.';
-          } else if (previousPentestAnswer === 'Oui') {
-            isEligible = false;
-            reason = 'Un test d\'intrusion professionnel a déjà été réalisé au cours des 36 derniers mois.';
-          } else if (ownershipAnswer === 'Non') {
+              isEligible = false;
+              reason = 'Votre chiffre d\'affaires annuel doit être inférieur à 20 millions d\'euros.';
+            } else if (ownershipAnswer === 'Non') {
             isEligible = false;
             reason = 'Vous devez être propriétaire ou détenir les autorisations nécessaires sur tous les systèmes à tester.';
           } else if (thirdPartySystemAnswer === 'Oui') {
@@ -272,6 +274,7 @@ export default function EligibilitePage() {
         if (!isEligible || companyInfo.status !== 'ACTIVE') {
           sessionStorage.setItem('eligibilityData', JSON.stringify({
             company: companyInfo,
+            contact: contactInfo,
             answers: finalAnswers,
             eligible: false,
             reason: companyInfo.status !== 'ACTIVE' ? 'Entreprise inactive.' : reason
@@ -307,7 +310,9 @@ export default function EligibilitePage() {
 
   const handleViewProposal = () => {
     sessionStorage.setItem('eligibilityData', JSON.stringify({
+      eligible: true,
       company: companyInfo,
+      contact: contactInfo,
       answers: answers,
       eligibilityResult: eligibilityResult
     }));
@@ -397,11 +402,12 @@ export default function EligibilitePage() {
             <h1 className="text-[22px] leading-tight tracking-tight font-semibold text-neutral-50">
               Test d'Éligibilité
             </h1>
-            <p className="mt-2 text-sm font-normal text-neutral-400">
-              {currentStep === 'siret' && 'Vérifiez votre éligibilité'}
-              {currentStep === 'questions' && `Question ${answers.length + 1} sur ${visibleQuestions.length}`}
-              {currentStep === 'complete' && 'Analyse terminée'}
-            </p>
+              <p className="mt-2 text-sm font-normal text-neutral-400">
+                {currentStep === 'siret' && 'Vérifiez votre éligibilité'}
+                {currentStep === 'contact' && 'Vos informations de contact'}
+                {currentStep === 'questions' && `Question ${answers.length + 1} sur ${visibleQuestions.length}`}
+                {currentStep === 'complete' && 'Analyse terminée'}
+              </p>
           </div>
 
           {/* Progress bar for questions */}
@@ -460,14 +466,65 @@ export default function EligibilitePage() {
                 <button
                   type="submit"
                   disabled={isChecking || !siretInput.trim()}
-                  className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-[0_14px_35px_rgba(6,182,212,0.55)] hover:bg-cyan-400 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-500/80 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-[0_14px_35px_rgba(118,166,209,0.55)] hover:bg-cyan-400 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-500/80 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isChecking ? 'Vérification...' : 'Continuer'}
                 </button>
               </form>
-            )}
+              )}
 
-            {/* Questions Step */}
+              {/* Contact Info Step */}
+              {currentStep === 'contact' && (
+                <form onSubmit={handleContactSubmit} className="space-y-4">
+                  {[
+                    { key: 'nom', label: 'Nom', placeholder: 'Dupont', icon: <Users className="h-4 w-4 text-neutral-500" /> },
+                    { key: 'prenom', label: 'Prénom', placeholder: 'Jean', icon: <Users className="h-4 w-4 text-neutral-500" /> },
+                    { key: 'tel', label: 'Téléphone', placeholder: '+33 6 00 00 00 00', icon: <Mail className="h-4 w-4 text-neutral-500" /> },
+                    { key: 'fonction', label: 'Fonction', placeholder: 'Directeur IT', icon: <Shield className="h-4 w-4 text-neutral-500" /> },
+                  ].map(({ key, label, placeholder, icon }) => (
+                    <div key={key} className="space-y-1.5">
+                      <label className="block text-xs font-medium uppercase tracking-[0.16em] text-neutral-400">{label}</label>
+                      <div className={`flex items-center rounded-xl border bg-neutral-950/60 px-3 py-2.5 shadow-inner shadow-black/40 focus-within:ring-1 focus-within:ring-cyan-500/70 transition ${contactErrors[key as keyof ContactInfo] ? 'border-red-500 focus-within:border-red-500' : 'border-neutral-800 focus-within:border-cyan-500'}`}>
+                        {icon}
+                        <input
+                          type={key === 'tel' ? 'tel' : 'text'}
+                          value={contactInfo[key as keyof ContactInfo]}
+                          onChange={(e) => {
+                            setContactInfo(prev => ({ ...prev, [key]: e.target.value }));
+                            if (contactErrors[key as keyof ContactInfo]) setContactErrors(prev => ({ ...prev, [key]: undefined }));
+                          }}
+                          placeholder={placeholder}
+                          className="ml-3 flex-1 bg-transparent text-sm font-normal text-neutral-100 placeholder:text-neutral-600 focus:outline-none"
+                        />
+                      </div>
+                      {contactErrors[key as keyof ContactInfo] && (
+                        <div className="flex items-center gap-1.5 text-xs text-red-400">
+                          <AlertCircle className="w-3 h-3" />
+                          {contactErrors[key as keyof ContactInfo]}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => { setCurrentStep('siret'); setCompanyInfo(null); }}
+                      className="inline-flex items-center justify-center rounded-full border border-neutral-800 bg-neutral-900 px-4 py-2.5 text-sm font-medium text-neutral-200 hover:border-cyan-500/50 hover:bg-neutral-800/80 transition"
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Précédent
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 inline-flex items-center justify-center rounded-full bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-[0_14px_35px_rgba(118,166,209,0.55)] hover:bg-cyan-400 transition"
+                    >
+                      Continuer
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* Questions Step */}
             {currentStep === 'questions' && currentQuestion && (
               <div className="space-y-5">
                 <div className="space-y-2">
@@ -556,7 +613,7 @@ export default function EligibilitePage() {
                     <button
                       onClick={() => handleAnswerSubmit()}
                       disabled={!currentInput.trim()}
-                      className="flex-1 inline-flex items-center justify-center rounded-full bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-[0_14px_35px_rgba(6,182,212,0.55)] hover:bg-cyan-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 inline-flex items-center justify-center rounded-full bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-[0_14px_35px_rgba(118,166,209,0.55)] hover:bg-cyan-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Suivant
                     </button>
@@ -566,7 +623,7 @@ export default function EligibilitePage() {
                     <button
                       onClick={() => handleAnswerSubmit()}
                       disabled={selectedCheckboxes.length === 0}
-                      className="flex-1 inline-flex items-center justify-center rounded-full bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-[0_14px_35px_rgba(6,182,212,0.55)] hover:bg-cyan-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex-1 inline-flex items-center justify-center rounded-full bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-neutral-900 shadow-[0_14px_35px_rgba(118,166,209,0.55)] hover:bg-cyan-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Suivant
                     </button>
@@ -631,7 +688,7 @@ export default function EligibilitePage() {
                       {eligibilityResult.eligible && (
                         <button
                           onClick={handleViewProposal}
-                          className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_14px_35px_rgba(6,182,212,0.55)] hover:from-cyan-400 hover:to-blue-400 transition"
+                          className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_14px_35px_rgba(118,166,209,0.55)] hover:from-cyan-400 hover:to-blue-400 transition"
                         >
                           Voir ma proposition commerciale
                         </button>

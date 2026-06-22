@@ -19,6 +19,191 @@
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.15);
 
+  /* Brand blue — #76a6d1 */
+  --color-cyan-50: #f0f7fd;
+  --color-cyan-100: #e0eef9;
+  --color-cyan-200: #c0ddf3;
+  --color-cyan-300: #9dc3e3;
+  --color-cyan-400: #76a6d1;
+  --color-cyan-500: #5a90be;
+  --color-cyan-600: #4378a8;
+  --color-cyan-700: #2f5d8a;
+  --color-cyan-800: #1e4570;
+  --color-cyan-900: #122d50;
+  --color-cyan-950: #0a1f3a;
+
+  --color-sky-50: #f0f7fd;
+  --color-sky-100: #e0eef9;
+  --color-sky-200: #c0ddf3;
+  --color-sky-300: #9dc3e3;
+  --color-sky-400: #76a6d1;
+  --color-sky-500: #5a90be;
+  --color-sky-600: #4378a8;
+  --color-sky-700: #2f5d8a;
+  --color-sky-800: #1e4570;
+  --color-sky-900: #122d50;
+  --color-sky-950: #0a1f3a;
+
+  --color-blue-50: #f0f7fd;
+  --color-blue-100: #e0eef9;
+  --color-blue-200: #c0ddf3;
+  --color-blue-300: #9dc3e3;
+  --color-blue-400: #76a6d1;
+  --color-blue-500: #5a90be;
+  --color-blue-600: #4378a8;
+  --color-blue-700: #2f5d8a;
+  --color-blue-800: #1e4570;
+  --color-blue-900: #122d50;
+  --color-blue-950: #0a1f3a;
+
+  /* Remap orange/amber/yellow → brand blue */
+  --color-orange-50: #f0f7fd;
+  --color-orange-100: #e0eef9;
+  --color-orange-200: #c0ddf3;
+  --color-orange-300: #9dc3e3;
+  --color-orange-400: #76a6d1;
+  --color-orange-500: #5a90be;
+  --color-orange-600: #4378a8;
+  --color-orange-700: #2f5d8a;
+  --color-orange-800: #1e4570;
+  --color-orange-900: #122d50;
+  --color-orange-950: #0a1f3a;
+
+  --color-amber-50: #f0f7fd;
+  --color-amber-100: #e0eef9;
+  --color-amber-200: #c0ddf3;
+  --color-amber-300: #9dc3e3;
+  --color-amber-400: #76a6d1;
+  --color-amber-500: #5a90be;
+  --color-amber-600: #4378a8;
+  --color-amber-700: #2f5d8a;
+  --color-amber-800: #1e4570;
+  --color-amber-900: #122d50;
+  --color-amber-950: #0a1f3a;
+
+  --color-yellow-50: #f0f7fd;
+  --color-yellow-100: #e0eef9;
+  --color-yellow-200: #c0ddf3;
+  --color-yellow-300: #9dc3e3;
+  --color-yellow-400: #76a6d1;
+  --color-yellow-500: #5a90be;
+  --color-yellow-600: #4378a8;
+  --color-yellow-700: #2f5d8a;
+  --color-yellow-800: #1e4570;
+  --color-yellow-900: #122d50;
+  --color-yellow-950: #0a1f3a;
+
+  /* Remap purple/violet/indigo → brand blue */
+  --color-purple-50: #f0f7fd;
+  --color-purple-100: #e0eef9;
+  --color-purple-200: #c0ddf3;
+  --color-purple-300: #9dc3e3;
+  --color-purple-400: #76a6d1;
+  --color-purple-500: #5a90be;
+  --color-purple-600: #4378a8;
+  --color-purple-700: #2f5d8a;
+  --color-purple-800: #1e4570;
+  --color-purple-900: #122d50;
+  --color-purple-950: #0a1f3a;
+
+  --color-violet-50: #f0f7fd;
+  --color-violet-100: #e0eef9;
+  --color-violet-200: #c0ddf3;
+  --color-violet-300: #9dc3e3;
+  --color-violet-400: #76a6d1;
+  --color-violet-500: #5a90be;
+  --color-violet-600: #4378a8;
+  --color-violet-700: #2f5d8a;
+  --color-violet-800: #1e4570;
+  --color-violet-900: #122d50;
+  --color-violet-950: #0a1f3a;
+
+  --color-indigo-50: #f0f7fd;
+  --color-indigo-100: #e0eef9;
+  --color-indigo-200: #c0ddf3;
+  --color-indigo-300: #9dc3e3;
+  --color-indigo-400: #76a6d1;
+  --color-indigo-500: #5a90be;
+  --color-indigo-600: #4378a8;
+  --color-indigo-700: #2f5d8a;
+  --color-indigo-800: #1e4570;
+  --color-indigo-900: #122d50;
+  --color-indigo-950: #0a1f3a;
+
+  /* Remap red/rose/pink → brand blue (muted for warnings) */
+  --color-red-50: #f0f7fd;
+  --color-red-100: #e0eef9;
+  --color-red-200: #c0ddf3;
+  --color-red-300: #9dc3e3;
+  --color-red-400: #76a6d1;
+  --color-red-500: #5a90be;
+  --color-red-600: #4378a8;
+  --color-red-700: #2f5d8a;
+  --color-red-800: #1e4570;
+  --color-red-900: #122d50;
+  --color-red-950: #0a1f3a;
+
+  --color-rose-50: #f0f7fd;
+  --color-rose-100: #e0eef9;
+  --color-rose-200: #c0ddf3;
+  --color-rose-300: #9dc3e3;
+  --color-rose-400: #76a6d1;
+  --color-rose-500: #5a90be;
+  --color-rose-600: #4378a8;
+  --color-rose-700: #2f5d8a;
+  --color-rose-800: #1e4570;
+  --color-rose-900: #122d50;
+  --color-rose-950: #0a1f3a;
+
+  --color-pink-50: #f0f7fd;
+  --color-pink-100: #e0eef9;
+  --color-pink-200: #c0ddf3;
+  --color-pink-300: #9dc3e3;
+  --color-pink-400: #76a6d1;
+  --color-pink-500: #5a90be;
+  --color-pink-600: #4378a8;
+  --color-pink-700: #2f5d8a;
+  --color-pink-800: #1e4570;
+  --color-pink-900: #122d50;
+  --color-pink-950: #0a1f3a;
+
+  /* Green/emerald → mint green #00ffa3 (for important info only) */
+  --color-green-50: #f0fff8;
+  --color-green-100: #ccfff0;
+  --color-green-200: #99ffe0;
+  --color-green-300: #52ffb6;
+  --color-green-400: #00ffa3;
+  --color-green-500: #00cc82;
+  --color-green-600: #009961;
+  --color-green-700: #007047;
+  --color-green-800: #004d30;
+  --color-green-900: #00291a;
+  --color-green-950: #00150d;
+
+  --color-emerald-50: #f0fff8;
+  --color-emerald-100: #ccfff0;
+  --color-emerald-200: #99ffe0;
+  --color-emerald-300: #52ffb6;
+  --color-emerald-400: #00ffa3;
+  --color-emerald-500: #00cc82;
+  --color-emerald-600: #009961;
+  --color-emerald-700: #007047;
+  --color-emerald-800: #004d30;
+  --color-emerald-900: #00291a;
+  --color-emerald-950: #00150d;
+
+  --color-teal-50: #f0fff8;
+  --color-teal-100: #ccfff0;
+  --color-teal-200: #99ffe0;
+  --color-teal-300: #52ffb6;
+  --color-teal-400: #00ffa3;
+  --color-teal-500: #00cc82;
+  --color-teal-600: #009961;
+  --color-teal-700: #007047;
+  --color-teal-800: #004d30;
+  --color-teal-900: #00291a;
+  --color-teal-950: #00150d;
+
   --font-display: "Inter", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -45,6 +230,22 @@
 
 .bg-tech-grid {
   background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.tilt-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.tilt-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .hover-card {
@@ -125,4 +326,9 @@
   0% { transform: translateZ(-500px) scale(0); opacity: 0; }
   20% { opacity: 1; }
   100% { transform: translateZ(800px) scale(2); opacity: 0; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }

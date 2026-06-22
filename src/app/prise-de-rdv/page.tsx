@@ -120,7 +120,7 @@ export default function PriseDeRdvPage() {
         {/* Calendly Widget Section */}
         <section className="py-12 relative z-10 pb-32">
           <div className="max-w-5xl mx-auto px-6">
-            <div className="glass-panel p-8 md:p-12 rounded-2xl border border-cyan-500/20 relative overflow-hidden shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+            <div className="glass-panel p-8 md:p-12 rounded-2xl border border-cyan-500/20 relative overflow-hidden shadow-[0_0_30px_rgba(118,166,209,0.1)]">
               <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
               
               <div className="relative z-10">

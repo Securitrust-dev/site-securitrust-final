@@ -187,7 +187,7 @@ export async function POST(req: NextRequest) {
                   <li>Un expert SecuriTrust sera assigné à votre dossier</li>
                 </ul>
                 
-                <p style="margin-top: 30px; padding: 15px; background: #f0f9ff; border-left: 4px solid #0ea5e9; border-radius: 4px;">
+                <p style="margin-top: 30px; padding: 15px; background: #f0f9ff; border-left: 4px solid #5a90be; border-radius: 4px;">
                   💡 <strong>Conservez cet email</strong> comme reçu de paiement pour vos dossiers comptables.
                 </p>
                 

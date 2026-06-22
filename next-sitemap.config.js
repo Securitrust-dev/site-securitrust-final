@@ -7,6 +7,7 @@ const config = {
   sitemapSize: 5000,
   exclude: [
     '/api/*',
+    '/admin-stats',
     '/prise-de-rdv',
     '/proposition',
     '/proposition-commerciale',
@@ -20,7 +21,7 @@ const config = {
     '/signer-signwell',
     '/signer-proposition',
     '/signer-proposition/success',
-    '/rssi-automatise/souscrire/*',
+    '/cyber-pilote/souscrire/*',
     '/informations-prestation',
   ],
   robotsTxtOptions: {
@@ -28,7 +29,7 @@ const config = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/prise-de-rdv', '/proposition', '/eligibilite', '/paiement', '/signature-complete', '/signer-signwell', '/signer-proposition', '/informations-prestation'],
+        disallow: ['/api/', '/admin-stats', '/prise-de-rdv', '/proposition', '/eligibilite', '/paiement', '/signature-complete', '/signer-signwell', '/signer-proposition', '/informations-prestation'],
       },
     ],
   },
@@ -37,7 +38,7 @@ const config = {
       '/', '/services', '/contact',
       '/pentest-externe', '/pentest-interne', '/pentest-web-mobile', '/red-team',
       '/pentest-paris', '/pentest-au-resultat',
-      '/audit-cybersecurite', '/rssi-externalise', '/rssi-automatise',
+      '/audit-cybersecurite', '/rssi-externalise', '/cyber-pilote',
       '/grc-cyber', '/mise-en-conformite-rgpd', '/iso27001-hds',
       '/conformite-nis2', '/conformite-dora',
       '/gouvernance-conformite',
@@ -56,6 +57,10 @@ const config = {
       '/cybersecurite-operationnelle/proteger-chiffre-affaires',
       '/cybersecurite-operationnelle/preserver-image-confiance',
       '/cybersecurite-operationnelle/exigences-reglementaires',
+      '/secteurs', '/secteurs/banque-finance', '/secteurs/sante',
+      '/secteurs/tech', '/secteurs/public', '/secteurs/retail', '/secteurs/industrie',
+      '/conformite', '/audit', '/pentest', '/pentest-paris',
+      '/rssi-automatise', '/cyber-pilote2', '/informations-prestation',
     ];
 
     let priority = config.priority;

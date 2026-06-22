@@ -3,6 +3,7 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
+import { InternalLinks } from '@/components/InternalLinks';
 import { Shield, CheckCircle, FileText, Users, Lock, AlertTriangle, ArrowRight, Box, Cpu, TrendingUp, FileSearch } from 'lucide-react';
 
 export default function PCAPRAPage() {
@@ -124,7 +125,7 @@ export default function PCAPRAPage() {
               </div>
             </div>
 
-            <div className="glass-panel p-8 rounded-xl border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+            <div className="glass-panel p-8 rounded-xl border border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
               <h4 className="text-xl font-bold text-white mb-4 text-center">Indicateurs clés du PRA</h4>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="text-center">
@@ -174,7 +175,7 @@ export default function PCAPRAPage() {
                 }
               ].map((item, index) => (
                 <div key={index} className="tilt-card group relative z-10 p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <item.icon className="w-8 h-8 text-cyan-400" />
@@ -324,8 +325,10 @@ export default function PCAPRAPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                  href="https://calendly.com/expert-securitrust"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
                 >
                   Demander un audit
                   <ArrowRight className="w-5 h-5" />
@@ -341,6 +344,7 @@ export default function PCAPRAPage() {
           </div>
         </section>
 
+        <InternalLinks pageKey="pcapra" />
         <Footer />
       </div>
     </div>

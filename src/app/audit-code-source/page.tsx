@@ -3,6 +3,7 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
+import { InternalLinks } from '@/components/InternalLinks';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { Code, CheckCircle, Bug, Shield, FileCode, ArrowRight, Box, Cpu, FileText } from 'lucide-react';
 
@@ -45,11 +46,11 @@ export default function AuditCodeSourcePage() {
               
               <div className="flex justify-center">
                 <a
-                  href="/exemple-rapport-audit.pdf"
+                  href="/contact?service=audit"
                   className="inline-flex items-center gap-3 glass-panel px-6 py-3 rounded-lg border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 transition-all group"
                 >
                   <FileText className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span className="text-sm font-medium tracking-wide">Voir un exemple de rapport d&apos;audit</span>
+                  <span className="text-sm font-medium tracking-wide">Demander un exemple de rapport d&apos;audit</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
@@ -346,6 +347,7 @@ export default function AuditCodeSourcePage() {
           <ExpertCTAButton />
         </section>
 
+        <InternalLinks pageKey="audit-code-source" />
         <Footer />
       </div>
     </div>

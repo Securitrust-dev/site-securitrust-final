@@ -82,7 +82,7 @@ export default function ISO27001HDSPage() {
                 { icon: Award, title: 'Amélioration continue', description: 'Cycle d\'amélioration permanente du SMSI' }
               ].map((item, index) => (
                 <div key={index} className="tilt-card group relative z-10 p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <item.icon className="w-8 h-8 text-cyan-400" />
@@ -256,8 +256,10 @@ export default function ISO27001HDSPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                  href="https://calendly.com/expert-securitrust"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
                 >
                   Demander un audit
                   <ArrowRight className="w-5 h-5" />
@@ -269,6 +271,26 @@ export default function ISO27001HDSPage() {
                   Voir nos offres
                 </a>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité pour piloter votre programme sécurité durablement.' },
+                { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI à temps partagé pour piloter votre stratégie de sécurité et préparer vos certifications.' },
+                { title: 'Audit de Conformité', href: '/audit-conformite', desc: 'Évaluation de votre niveau de conformité aux référentiels ISO 27001, NIS2 et DORA.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
             </div>
           </div>
         </section>

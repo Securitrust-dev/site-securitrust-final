@@ -1,0 +1,261 @@
+'use client';
+
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { Loader2, AlertTriangle, ArrowLeft, CreditCard, ShieldCheck, FileSignature, Building2, User, Mail, Hash, Feather } from 'lucide-react';
+import { toast } from 'sonner';
+import { ProposalHeader } from '@/components/sections/proposal-header';
+
+export const dynamic = 'force-dynamic';
+
+export default function SignerSignWellPage() {
+  const router = useRouter();
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [signUrl, setSignUrl] = useState<string | null>(null);
+  const [isSigned, setIsSigned] = useState(false);
+  const [isSignatureDone, setIsSignatureDone] = useState(false);
+  const [isRedirectingToStripe, setIsRedirectingToStripe] = useState(false);
+  
+  const [companyName, setCompanyName] = useState('');
+  const [email, setEmail] = useState('');
+  const [signerName, setSignerName] = useState('');
+
+  const goToPayment = useCallback(async () => {
+    sessionStorage.setItem('propositionSigned', 'true');
+    setIsRedirectingToStripe(true);
+    toast.info("Signature confirmée ! Préparation de votre paiement sécurisé...");
+    
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: 'Pro', 
+          amount: 4999,
+          email: email,
+          name: signerName || companyName || "Client SecuriTrust",
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        router.push('/paiement');
+      }
+    } catch (err) {
+      console.error("Error creating checkout session:", err);
+      router.push('/paiement');
+    }
+  }, [router, email, signerName, companyName]);
+
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('eligibilityData');
+    let cName = '', mail = '', sName = '';
+
+    if (storedData) {
+      try {
+        const data = JSON.parse(storedData);
+        const emailFromAnswers = data.answers?.find((a: any) => a.questionId === 'email')?.answer;
+        cName = data.company?.name || data.companyName || data.name || "Entreprise";
+        mail = emailFromAnswers || data.email || "client@exemple.fr";
+        sName = data.signerName || cName || "Client SecuriTrust";
+        
+        setCompanyName(cName);
+        setEmail(mail);
+        setSignerName(sName);
+      } catch (error) {
+        console.error('Error parsing order data:', error);
+      }
+    } else {
+      cName = "Entreprise";
+      mail = "client@exemple.fr";
+      sName = cName;
+      setCompanyName(cName);
+      setEmail(mail);
+      setSignerName(sName);
+    }
+
+    const triggerSign = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('/api/signwell/sign-url', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            companyName: cName,
+            email: mail,
+            signerName: sName,
+          })
+        });
+
+        const result = await response.json();
+  
+        if (!response.ok) {
+          console.error("Détails de l'erreur SignWell:", JSON.stringify(result, null, 2));
+          const detail = result.details?.error || result.details?.message || result.details?.raw || result.error || "Erreur lors de la génération du contrat";
+          throw new Error(`[${result.httpStatus || response.status}] ${detail}`);
+        }
+        
+        if (result.url) {
+            // Redirect directly to SignWell (iframe blocked by SAMEORIGIN)
+            window.location.href = result.url;
+          } else {
+            throw new Error("Erreur de génération du lien");
+          }
+      } catch (err: any) {
+        console.error("Erreur:", err);
+        setError(err.message || "Erreur inconnue");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    triggerSign();
+  }, []);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      // SignWell sends messages like { "event": "completed", "id": "..." }
+      const data = event.data;
+      
+      // We check for "completed" event from SignWell
+      if (data?.event === 'completed' || data?.message === 'completed' || data === 'completed') {
+        setIsSignatureDone(true);
+        setIsSigned(true);
+        toast.success("Contrat signé ! Redirection vers le paiement...");
+        
+        setTimeout(() => {
+          goToPayment();
+        }, 1500);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [router, goToPayment]);
+
+  const handleBack = () => {
+    router.push('/proposition');
+  };
+
+  if (loading || isRedirectingToStripe) {
+    return (
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+        <div className="text-center space-y-6">
+          <div className="relative">
+            <Loader2 className="w-16 h-16 text-[#9abff2] animate-spin mx-auto" />
+            <ShieldCheck className="w-6 h-6 text-[#9abff2] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+          </div>
+          <div className="space-y-2">
+            <p className="text-white text-xl font-bold uppercase tracking-tight">
+              {isRedirectingToStripe ? "Confirmation de la signature..." : "Chargement du contrat..."}
+            </p>
+            <p className="text-[#888888] font-mono text-xs uppercase tracking-widest animate-pulse">
+              {isRedirectingToStripe ? "Redirection vers le paiement sécurisé" : "Veuillez patienter"}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center px-6">
+        <div className="max-w-md w-full bg-red-500/5 border border-red-500/20 p-8 text-center">
+          <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-white uppercase mb-2 tracking-tight">Impossible d'afficher le contrat</h2>
+          <p className="text-[#888888] text-sm mb-6">{error}</p>
+          <button onClick={handleBack} className="w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold uppercase text-xs tracking-widest transition-colors">
+            Retour
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[#030303] flex flex-col relative text-[#e0e0e0] font-['Inter',sans-serif] antialiased">
+      <div
+        className="fixed inset-0 z-0 opacity-40 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}
+      />
+
+      <ProposalHeader clientName={companyName || "Client"} />
+      
+      <div className="h-16 border-b border-white/5 flex items-center px-6 bg-[#030303]/90 backdrop-blur-xl justify-between z-10">
+        <div className="flex items-center gap-6">
+          <button onClick={handleBack} className="text-[#888888] hover:text-[#9abff2] transition-colors flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
+            <ArrowLeft className="w-3 h-3" />
+            Retour
+          </button>
+          <div className="h-4 w-[1px] bg-white/10" />
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-semibold tracking-tight text-white">
+              {companyName || "ENTITÉ CLIENT"}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-[#9abff2]">
+            <span className="w-1.5 h-1.5 bg-[#9abff2] rounded-full animate-pulse"></span>
+            LIEN SÉCURISÉ (SIGNWELL)
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 w-full relative bg-white">
+        {signUrl && (
+          <iframe 
+            src={signUrl} 
+            className="absolute inset-0 w-full h-full border-0"
+            allow="camera; microphone"
+          />
+        )}
+      </div>
+
+      {isSignatureDone && (
+        <div className="fixed bottom-0 left-0 w-full p-8 bg-[#030303]/95 border-t border-white/10 backdrop-blur-xl z-50">
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 border border-[#9abff2]/30 flex items-center justify-center bg-[#9abff2]/5">
+                <ShieldCheck className="w-6 h-6 text-[#9abff2]" />
+              </div>
+              <div>
+                <p className="text-white font-bold uppercase tracking-tight">Contrat Signé</p>
+                <p className="text-[#888888] font-mono text-[10px] uppercase tracking-widest">Toutes les conditions acceptées</p>
+              </div>
+            </div>
+
+            <button 
+              onClick={goToPayment}
+              className="w-full sm:w-auto px-10 py-4 bg-[#9abff2] text-[#030303] font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(154,191,242,0.3)] flex items-center justify-center gap-3"
+            >
+              <span>Procéder au paiement</span>
+              <CreditCard className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      <footer className="border-t border-white/5 py-8 bg-[#030303] relative z-20">
+        <div className="max-w-[1920px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-[10px] font-mono text-[#888888] uppercase tracking-[0.3em]">
+            © {new Date().getFullYear()} SecuriTrust — Secure Signing Protocol
+          </p>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#9abff2] shadow-[0_0_8px_rgba(154,191,242,0.8)] animate-pulse"></div>
+            <span className="font-mono text-[10px] text-[#9abff2] uppercase tracking-widest">Connexion Stable</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

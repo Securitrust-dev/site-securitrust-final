@@ -40,7 +40,7 @@ function CategoryTabsContent() {
           className={cn(
             "px-5 py-2 rounded-full border text-xs font-medium transition-all uppercase tracking-wider",
             currentCategorySlug === ''
-              ? "bg-cyan-500 border-cyan-500 text-black shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+              ? "bg-cyan-500 border-cyan-500 text-black shadow-[0_0_15px_rgba(118,166,209,0.4)]"
               : "bg-white/5 border-white/10 text-slate-400 hover:border-cyan-500/50 hover:text-cyan-400"
           )}
           aria-selected={currentCategorySlug === ''}
@@ -58,7 +58,7 @@ function CategoryTabsContent() {
               className={cn(
                 "px-5 py-2 rounded-full border text-xs font-medium transition-all uppercase tracking-wider",
                 isActive
-                  ? "bg-cyan-500 border-cyan-500 text-black shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+                  ? "bg-cyan-500 border-cyan-500 text-black shadow-[0_0_15px_rgba(118,166,209,0.4)]"
                   : "bg-white/5 border-white/10 text-slate-400 hover:border-cyan-500/50 hover:text-cyan-400"
               )}
               aria-selected={isActive}

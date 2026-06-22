@@ -1,8 +1,16 @@
+import { Metadata } from 'next';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { SkyCTAButton } from '@/components/ui/sky-cta-button';
 import ThreeBackground from '@/components/three-background';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  return {
+    alternates: { canonical: `https://securitrust.fr/nous-rejoindre/${slug}` },
+  };
+}
 import MatrixRain from '@/components/matrix-rain';
 import { BrainCircuit, Hammer, Rocket, MapPin, Calendar, Briefcase, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -148,8 +156,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function JobPostingPage({ params }: { params: { slug: string } }) {
-  const job = jobData[params.slug as keyof typeof jobData];
+export default async function JobPostingPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const job = jobData[slug as keyof typeof jobData];
 
   if (!job) {
     notFound();
@@ -157,11 +166,10 @@ export default function JobPostingPage({ params }: { params: { slug: string } })
 
   const Icon = job.icon;
 
-  // Create sections dynamically based on job structure
   const displaySections = job.sections || [
-    ...(job.missions ? [{ title: 'Missions', emoji: '🎯', items: job.missions }] : []),
-    ...(job.profile ? [{ title: 'Profil recherché', emoji: '📌', items: job.profile }] : []),
-    ...(job.benefits ? [{ title: 'Ce qu\'on vous offre', emoji: '🎁', items: job.benefits }] : []),
+    ...(job.missions ? [{ title: 'Missions', emoji: '', items: job.missions }] : []),
+    ...(job.profile ? [{ title: 'Profil recherché', emoji: '', items: job.profile }] : []),
+    ...(job.benefits ? [{ title: 'Ce qu\'on vous offre', emoji: '', items: job.benefits }] : []),
   ];
 
   return (
@@ -225,8 +233,7 @@ export default function JobPostingPage({ params }: { params: { slug: string } })
               <div className="border-t border-white/10 pt-8 space-y-8">
                 {displaySections.map((section, index) => (
                   <div key={index}>
-                    <h2 className="text-2xl font-medium text-white mb-4 flex items-center gap-2">
-                      <span className="text-cyan-500">{section.emoji}</span>
+                    <h2 className="text-2xl font-medium text-white mb-4">
                       {section.title}
                     </h2>
                     <ul className="space-y-3">

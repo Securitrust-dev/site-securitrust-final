@@ -3,7 +3,6 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
-import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { Shield, Target, FileCheck, TrendingUp, Users, Lock, AlertCircle, ArrowRight, Layers, BookOpen, Scale, Box, Cpu } from 'lucide-react';
 import { SkyCTAButton } from '@/components/ui/sky-cta-button';
 
@@ -123,7 +122,7 @@ export default function GRCCyberPage() {
                 { icon: TrendingUp, title: 'Amélioration continue', desc: 'Pilotage et optimisation permanente' }
               ].map((item, index) => (
                 <div key={index} className="tilt-card group relative z-10 p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <item.icon className="w-8 h-8 text-cyan-400" />
@@ -270,15 +269,56 @@ export default function GRCCyberPage() {
                 Nos experts vous accompagnent dans la structuration de votre stratégie GRC Cyber.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                <SkyCTAButton href="/contact" text="Demander un diagnostic" />
+                <SkyCTAButton href="https://calendly.com/expert-securitrust" text="Demander un diagnostic" />
                 <SkyCTAButton href="/proposition-commerciale" text="Voir nos offres" />
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-16 px-6 text-center relative z-10">
-          <ExpertCTAButton />
+
+
+        {/* FAQ */}
+        <section className="py-24 px-6 relative z-10">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-end justify-between mb-12 border-b border-white/10 pb-4">
+              <h2 className="text-3xl font-light text-white tracking-tight">Questions fréquentes</h2>
+              <span className="text-cyan-500 font-mono text-xs hidden sm:block">FAQ</span>
+            </div>
+            <div className="space-y-6">
+              {[
+                { q: 'Qu\'est-ce que la GRC en cybersécurité ?', a: 'La GRC (Gouvernance, Risques, Conformité) en cybersécurité est l\'ensemble des pratiques permettant de piloter la sécurité de l\'information de façon structurée : définir une gouvernance (qui décide quoi), gérer les risques (identifier, évaluer, traiter), et assurer la conformité aux normes et réglementations (ISO 27001, RGPD, NIS2, DORA).' },
+                { q: 'Pourquoi mettre en place un programme GRC cyber ?', a: 'Un programme GRC permet de prioriser les investissements sécurité selon les risques réels, de répondre aux exigences réglementaires, de démontrer votre maturité aux clients et partenaires, et de réduire le risque d\'incident cyber significatif.' },
+                { q: 'Quelle est la différence entre GRC et audit de conformité ?', a: 'L\'audit de conformité est une photographie à un instant T de votre niveau de respect d\'une norme. La GRC est un programme continu qui inclut l\'audit mais aussi la gouvernance permanente, la gestion des risques en temps réel et l\'amélioration continue.' },
+                { q: 'Combien de temps prend la mise en place d\'un programme GRC ?', a: 'La mise en place d\'un programme GRC de base (registre des risques, tableau de bord, politique de sécurité) prend 3 à 6 mois. Un programme complet incluant la certification ISO 27001 nécessite 12 à 18 mois. SecuriTrust propose une approche progressive adaptée à votre maturité.' },
+              ].map((item, i) => (
+                <div key={i} className="glass-panel rounded-xl p-6 border border-white/5">
+                  <h3 className="text-white font-semibold mb-3">{item.q}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI à temps partagé pour piloter votre stratégie de sécurité et votre conformité.' },
+                { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'Accompagnement à la certification ISO 27001 et HDS par un auditeur officiel AFNOR.' },
+                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée. Offre unique en France.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Footer />

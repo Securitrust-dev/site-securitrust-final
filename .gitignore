@@ -36,6 +36,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-# .env # Removed by Orchids to allow .env files
-# .env.local # Removed by Orchids to allow .env files
-# .env*.local # Removed by Orchids to allow .env files
+.env
+.env.local
+.env*.local

@@ -1,5 +1,6 @@
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
+import { InternalLinks } from '@/components/InternalLinks';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { SkyCTAButton } from '@/components/ui/sky-cta-button';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
@@ -162,7 +163,7 @@ export default function NousRejoindre() {
         {/* CTA Section */}
         <section className="py-20 relative z-10">
           <div className="max-w-4xl mx-auto px-6">
-            <div className="glass-panel p-12 rounded-2xl border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] text-center">
+            <div className="glass-panel p-12 rounded-2xl border-cyan-500/20 shadow-[0_0_30px_rgba(118,166,209,0.1)] text-center">
               <h2 className="text-4xl font-light text-white mb-6 tracking-tight">
                 Prêt à rejoindre l&apos;aventure ?
               </h2>
@@ -181,6 +182,7 @@ export default function NousRejoindre() {
           <ExpertCTAButton />
         </section>
 
+        <InternalLinks pageKey="nous-rejoindre" />
         <Footer />
       </div>
     </>

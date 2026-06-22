@@ -1,59 +1,80 @@
 import React from 'react';
 
 export function PropositionOffer() {
-  return (
-    <section id="token" className="grid grid-cols-1 md:grid-cols-2">
-        <div className="bg-[#080808] p-8 md:p-24 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center items-center relative overflow-hidden reveal order-2 md:order-1">
-            <div className="relative w-56 h-56 md:w-64 md:h-64">
-                <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-                    <circle cx="50" cy="50" r="45" stroke="#1a1a1a" strokeWidth="8" fill="none"></circle>
-                    <circle cx="50" cy="50" r="45" stroke="#9abff2" strokeWidth="8" fill="none" strokeDasharray="283" strokeDashoffset="283" className="token-chart-ring"></circle>
-                </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-3xl md:text-4xl font-semibold text-white tracking-tighter uppercase"><span className="token-stat-number" data-target="4999">0</span>€</span>
-                      <span className="text-xs text-[#888888] uppercase tracking-wider">Forfait HT</span>
-                  </div>
-              </div>
-              
-                <div className="mt-8 grid grid-cols-2 gap-8 text-center w-full max-w-sm">
-                    <div>
-                        <div className="text-xl md:text-2xl font-semibold text-white tracking-tight">5 Jours</div>
-                        <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Délai d'exécution</div>
-                    </div>
-                  <div>
-                      <div className="text-xl md:text-2xl font-semibold text-[#9abff2] tracking-tight"><span className="token-stat-number" data-target="3">0</span></div>
-                      <div className="text-[10px] text-[#888888] uppercase tracking-widest font-mono">Experts dédiés</div>
-                  </div>
-              </div>
+  const services = [
+      "Objectif cybersécurité : Évaluer et renforcer la sécurité du système d'information en identifiant les vulnérabilités techniques et organisationnelles.",
+      "Méthodologie boîte grise : Simulation d'attaque avec un accès utilisateur standard afin d'analyser les possibilités d'escalade de privilèges.",
+      "Périmètre technique : Analyse de l'infrastructure Active Directory, incluant contrôleurs de domaine, serveurs, comptes sensibles et stratégies de groupe (GPO).",
+      "Analyse du réseau interne : Vérification des flux réseau, de la segmentation et des accès latéraux depuis un accès VPN, VDI ou physique.",
+      "Standards utilisés : Tests réalisés selon les référentiels PTES, MITRE ATT&CK et OWASP.",
+      "Évaluation des vulnérabilités : Classification des failles selon le standard CVSS v3.1.",
+      "Livrables : Rapport technique détaillé avec plan de remédiation priorisé et synthèse à destination de la direction.",
+      "Garantie de performance : Remboursement de la prestation si aucune vulnérabilité majeure ou critique (CVSS ≥ 7) n'est identifiée.",
+    ];
 
-              <div className="mt-10 flex flex-col gap-4 w-full max-w-sm reveal">
-                  <a href="/signer-proposition" className="group bg-[#9abff2] text-[#030303] px-10 py-4 text-xs font-semibold uppercase tracking-widest hover:bg-white transition-all hover:scale-[1.02] text-center shadow-[0_0_25px_rgba(0,255,163,0.4)]">
-                      Signer la proposition
-                  </a>
-                  <a href="#features" className="group bg-transparent border border-white/20 text-white px-10 py-4 text-xs font-semibold uppercase tracking-widest hover:bg-white/10 transition-all hover:border-white/40 text-center">
-                      Voir le détail
-                  </a>
-              </div>
-          </div>
+    return (
+      <>
+            {/* ── Votre Investissement ── */}
+            <section id="investissement" className="py-12 bg-gradient-to-b from-[#0a0a0a] to-[#051525]">
+            <div className="max-w-[1400px] mx-auto px-6">
+              <h2 className="text-center font-display text-4xl md:text-5xl font-black tracking-tighter text-white mb-12 reveal">
+                Votre <strong>Contrat</strong>
+              </h2>
 
-        <div className="bg-[#030303] p-8 md:p-24 flex flex-col justify-center reveal order-1 md:order-2">
-            <h3 className="font-display text-2xl md:text-3xl font-semibold mb-8 tracking-tight uppercase text-white">Détails de l'Offre</h3>
-            <div className="space-y-6">
-                {[
-                  { t: "Audit Complet", p: "Tests d'intrusion sur le périmètre défini et analyse des vulnérabilités critiques.", n: "1" },
-                  { t: "Gestion des Risques", p: "Évaluation de la maturité et recommandations basées sur les standards OWASP & ISO.", n: "2" },
-                  { t: "Soutenance Live", p: "Présentation des résultats en visio-conférence avec vos équipes techniques.", n: "3" }
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4">
-                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[#9abff2] font-semibold font-mono shrink-0">{item.n}</div>
-                      <div>
-                          <h4 className="font-semibold text-white text-lg uppercase tracking-tight">{item.t}</h4>
-                          <p className="text-sm md:text-base text-[#888888]">{item.p}</p>
-                      </div>
+            <div className="max-w-2xl mx-auto reveal text-center">
+              <div className="bg-gradient-to-br from-[#0d2540] to-[#061525] border border-[#74a2cd]/40 rounded-3xl p-10 shadow-[0_0_60px_rgba(116,162,205,0.25)]">
+
+                {/* Garantie résultat */}
+                <div className="bg-green-900/20 border border-green-500/40 rounded-xl px-5 py-4 mb-8 text-left">
+                  <div className="flex items-start gap-3">
+                    <span className="text-green-400 mt-0.5 shrink-0">
+                      <iconify-icon icon="solar:shield-check-bold" width="22"></iconify-icon>
+                    </span>
+                      <p className="text-sm text-white/80 leading-relaxed">
+                        Investissez sereinement : Si notre expertise ne révèle aucune faille majeure (CVSS ≥ 7) mettant en péril votre Active Directory, vous êtes intégralement remboursé sous 30 jours. La sécurité n'est pas une option, c'est un engagement.
+                      </p>
                   </div>
-                ))}
+                </div>
+
+                <div className="text-left mb-8">
+                  <p className="text-sm font-bold text-white mb-4">Détails de la prestation : Test d'Intrusion Active Directory</p>
+                  <ul className="space-y-2">
+                    {services.map((s, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-white leading-relaxed">
+                        <iconify-icon icon="solar:check-circle-bold" className="text-[#74a2cd] shrink-0 mt-0.5" width="18"></iconify-icon>
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Prix juste au-dessus du bouton */}
+                  <div className="mb-6">
+                    <div className="text-4xl font-black text-white mb-1">4 990 €</div>
+                    <p className="text-white text-xs tracking-widest uppercase opacity-60">Hors taxes</p>
+                  </div>
+
+                  <a
+                    href="/signer-signwell"
+                    className="flex items-center justify-center gap-2 w-full bg-[#74a2cd] hover:bg-[#5a8ab5] text-white font-bold py-4 rounded-xl text-base uppercase tracking-widest transition-all shadow-[0_0_30px_rgba(116,162,205,0.4)]"
+                  >
+                    Cliquer pour signer pour votre devis
+                    <iconify-icon icon="solar:pen-bold" width="18"></iconify-icon>
+                  </a>
+
+                  <p className="text-xs text-white mt-6">
+                  Pour toute question ou commentaire, veuillez contacter{' '}
+                  <a href="mailto:contact@securitrust.fr" className="text-[#74a2cd]">contact@securitrust.fr</a>{' '}
+                    ou{' '}
+                    <a href="tel:0186044431" className="text-[#74a2cd]">01 86 04 44 31</a>
+                </p>
+                <p className="text-[10px] text-white mt-2">
+                La signature électronique est requise pour valider votre engagement. Le montant de la prestation sera mis en caution lors de la réunion de kick-off, préalablement au démarrage des travaux.
+              </p>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
+    </>
   );
 }

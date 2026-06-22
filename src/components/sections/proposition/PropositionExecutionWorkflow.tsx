@@ -1,245 +1,311 @@
-import React from 'react';
+'use client';
 
-interface PropositionExecutionWorkflowProps {
-  companyName?: string;
-}
+import React, { useState } from 'react';
 
-export function PropositionExecutionWorkflow({ companyName }: PropositionExecutionWorkflowProps) {
+interface Props { companyName?: string; }
+
+const DAYS = [
+  {
+    day: 1,
+    label: "Jour 1",
+    phase: "Lancement",
+    title: "Reconnaissance & Vulnérabilités",
+    activities: [
+      "Identification services AD (LDAP, SMB, DNS, RPC)",
+      "Tests Zerologon, NoPac, PrintNightmare",
+      "Outils : Nmap, BloodHound, CrackMapExec",
+    ],
+  },
+  {
+    day: 2,
+    label: "Jour 2",
+    phase: "Tests",
+    title: "Élévation de Privilèges",
+    activities: [
+      "Escalade privilèges locaux et domaine",
+      "AS-REP Roasting, Kerberoasting",
+      "Silver / Golden Tickets",
+    ],
+  },
+  {
+    day: 3,
+    label: "Jour 3",
+    phase: "Tests",
+    title: "Mouvement Latéral",
+    activities: [
+      "Lateral Movement & Pivoting",
+      "Pass-the-Hash / Overpass-the-Hash",
+      "Atteindre DC ou serveurs critiques",
+    ],
+  },
+  {
+    day: 4,
+    label: "Jour 4",
+    phase: "Tests",
+    title: "Persistance & Exfiltration",
+    activities: [
+      "Shadow Credentials, comptes masqués",
+      "Extraction NTDS.dit",
+      "Corrélation des vecteurs d'attaque",
+    ],
+  },
+  {
+    day: 5,
+    label: "Jour 5",
+    phase: "Livraison",
+    title: "Reporting & Remédiation",
+    activities: [
+      "Rapport technique détaillé",
+      "Synthèse managériale",
+      "Roadmap remédiation & hardening",
+    ],
+  },
+];
+
+// 7 rows : Kick-off(col0) + J1→J5 + Reporting(col6)
+// The gantt header shows 7 columns: J0, J1, J2, J3, J4, J5, Reporting
+const ganttRows = [
+  { name: "KICK-OFF",   start: 1, duration: 1, color: "from-purple-600 to-purple-800" },
+  { name: "J1  PHASE 1", start: 2, duration: 1, color: "from-[#74a2cd] to-[#5a8ab5]" },
+  { name: "J2  PHASE 2", start: 3, duration: 1, color: "from-[#74a2cd] to-[#5a8ab5]" },
+  { name: "J3  PHASE 3", start: 4, duration: 1, color: "from-[#74a2cd] to-[#5a8ab5]" },
+  { name: "J4  PHASE 4", start: 5, duration: 1, color: "from-[#74a2cd] to-[#5a8ab5]" },
+  { name: "J5  PHASE 5", start: 6, duration: 1, color: "from-[#74a2cd] to-[#5a8ab5]" },
+  { name: "REPORTING",   start: 7, duration: 1, color: "from-purple-600 to-purple-800" },
+];
+
+export function PropositionExecutionWorkflow({ companyName }: Props) {
+  const [selectedDay, setSelectedDay] = useState<number>(1);
+
   return (
-    <section className="py-24 bg-[#030303] relative overflow-hidden border-t border-border">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#9abff2]/5 blur-[150px] rounded-full"></div>
-      </div>
-
+      <section id="calendrier" className="pt-20 md:pt-28 pb-10 bg-[#030303] relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-        <div className="mb-20 reveal">
-          <h2 className="font-display text-4xl md:text-6xl font-black tracking-tighter uppercase text-white leading-none mb-4 text-center">
-            Workflow <span className="text-[#9abff2]">d&apos;exécution</span>
+
+        {/* Header */}
+        <div className="mb-12 reveal text-center">
+          <div className="inline-flex items-center gap-2 bg-[#0d1a2e] border border-[#1e2d4a] rounded-full px-5 py-2 mb-6">
+            <span className="w-2 h-2 bg-[#10b981] rounded-full animate-pulse"></span>
+            <span className="font-mono text-[11px] text-[#10b981] uppercase tracking-widest">Planning de mission</span>
+          </div>
+          <h2 className="font-sans text-4xl md:text-5xl font-black tracking-tighter text-white leading-none mb-6">
+            Calendrier <span className="text-[#74a2cd]">Estimé</span>
           </h2>
-        </div>
-
-          <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-4 items-start justify-between">
-              {/* CARD 1: CADRAGE */}
-              <div className="w-full lg:w-1/4 lg:pt-0 reveal">
-                <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all h-full">
-                  <div className="flex justify-between items-start mb-6">
-                    <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Échange</span>
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[#9abff2]">
-                      <iconify-icon icon="solar:users-group-rounded-linear" width="18"></iconify-icon>
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-display font-semibold text-white leading-tight mb-4 uppercase">1. Cadrage<br/>& kick off</h3>
-                  <p className="text-xs text-gray-400 mb-6 leading-relaxed">
-                    Cette phase d&apos;initialisation assure l&apos;alignement organisationnel et technique avant le lancement des tests.
-                  </p>
-                  <ul className="space-y-4">
-                    <li className="flex gap-3">
-                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-[#9abff2] shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Identification des actifs</p>
-                        <p className="text-[10px] text-gray-500 leading-relaxed">Définition des IP publiques et services critiques à auditer.</p>
-                      </div>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-[#9abff2] shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Prérequis techniques</p>
-                        <p className="text-[10px] text-gray-500 leading-relaxed">Collecte des URL, domaines et documentations nécessaires.</p>
-                      </div>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-[#9abff2] shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Gouvernance</p>
-                        <p className="text-[10px] text-gray-500 leading-relaxed">Désignation d&apos;interlocuteurs et signature de l&apos;autorisation.</p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-  
-              {/* CARD 2: OFFENSIVE */}
-              <div className="w-full lg:w-[32%] lg:pt-24 reveal">
-                <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all h-full">
-                  <div className="flex justify-between items-start mb-6">
-                    <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Production</span>
-                    <div className="w-8 h-8 rounded-full bg-indigo-600/10 flex items-center justify-center text-indigo-400">
-                      <iconify-icon icon="solar:shield-up-linear" width="20"></iconify-icon>
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-display font-semibold text-white leading-tight mb-4 uppercase">2. Offensive & Tests</h3>
-                  <p className="text-xs text-gray-400 mb-6 leading-relaxed">
-                    Nos experts simulent une attaque réelle en mode &quot;Boîte Noire&quot; pour éprouver vos défenses externes.
-                  </p>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-4">
-                      <div className="flex gap-3">
-                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                        <div>
-                          <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Reconnaissance</p>
-                          <p className="text-[10px] text-gray-500 leading-relaxed">OSINT, DNS/WHOIS et cartographie numérique.</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                        <div>
-                          <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Scanning Actif</p>
-                          <p className="text-[10px] text-gray-500 leading-relaxed">Ports, sous-domaines et certificats SSL/TLS.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex gap-3">
-                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                        <div>
-                          <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Exploitation</p>
-                          <p className="text-[10px] text-gray-500 leading-relaxed">Intrusions réelles (RCE, SQLi, XXE) et OWASP Top 10.</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                        <div>
-                          <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Post-Exploitation</p>
-                          <p className="text-[10px] text-gray-500 leading-relaxed">Simulation de fuite et évaluation EDR/Logs.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      {['V1', 'V2', 'V3', 'DEF'].map((v) => (
-                        <div key={v} className="bg-indigo-600/20 text-indigo-400 px-2.5 py-1 rounded text-[9px] font-bold border border-indigo-600/30 uppercase tracking-wider">
-                          TEST {v}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex gap-2">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="w-8 h-8 rounded bg-[#d9f99d]/10 flex items-center justify-center text-[#d9f99d] border border-[#d9f99d]/20">
-                          <iconify-icon icon="solar:letter-linear" width="16"></iconify-icon>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-              {/* CARD 3: ANALYSE */}
-              <div className="w-full lg:w-[32%] lg:pt-48 reveal">
-                <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all h-full">
-                  <div className="flex justify-between items-start mb-6">
-                    <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Production</span>
-                    <div className="w-8 h-8 rounded-full bg-indigo-600/10 flex items-center justify-center text-indigo-400">
-                      <iconify-icon icon="solar:document-add-linear" width="20"></iconify-icon>
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-display font-semibold text-white leading-tight mb-4 uppercase">3. Analyse & Rapports</h3>
-                  <p className="text-xs text-gray-400 mb-6 leading-relaxed">
-                    Une analyse rigoureuse des résultats pour transformer les vulnérabilités en plan d&apos;action concret.
-                  </p>
-  
-                  <div className="bg-white/5 border border-white/10 rounded-lg p-3 mb-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                      <span className="text-[10px] text-gray-400 font-mono tracking-wider">Audit technique en cours...</span>
-                    </div>
-                    <div className="grid grid-cols-1 gap-3">
-                      <div className="flex gap-3">
-                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                        <div>
-                          <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Analyse technique</p>
-                          <p className="text-[10px] text-gray-500 leading-relaxed">Qualification manuelle et élimination des faux positifs.</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                        <div>
-                          <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Synthèse managériale</p>
-                          <p className="text-[10px] text-gray-500 leading-relaxed">Évaluation du risque global pour la direction.</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
-                        <div>
-                          <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Documentation</p>
-                          <p className="text-[10px] text-gray-500 leading-relaxed">Fiches de scénarios, PoC et captures d&apos;écran.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div className="flex flex-wrap items-center justify-between gap-4 mt-auto">
-                    <div className="flex flex-wrap items-center gap-2">
-                      {['V1', 'V2', 'V3', 'VF'].map((v) => (
-                        <div key={v} className="bg-indigo-600/20 text-indigo-400 px-2.5 py-1 rounded text-[9px] font-bold border border-indigo-600/30 uppercase tracking-wider">
-                          DOC {v}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex gap-2">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="w-8 h-8 rounded bg-[#d9f99d]/10 flex items-center justify-center text-[#d9f99d] border border-[#d9f99d]/20">
-                          <iconify-icon icon="solar:letter-linear" width="16"></iconify-icon>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-              {/* CARD 4: LIVRAISON */}
-              <div className="w-full lg:w-1/4 lg:pt-72 reveal">
-                <div className="bg-[#080808] border border-border p-6 rounded-lg relative group hover:border-[#9abff2] transition-all h-full">
-                  <div className="flex justify-between items-start mb-6">
-                    <span className="text-[10px] text-gray-500 uppercase font-mono tracking-widest">Production</span>
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white">
-                      <iconify-icon icon="solar:cloud-check-linear" width="20"></iconify-icon>
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-display font-semibold text-white leading-tight mb-4 uppercase">4. Livraison<br/>Finale</h3>
-                  <p className="text-xs text-gray-400 mb-6 leading-relaxed">
-                    Une restitution complète pour accompagner la sécurisation de votre infrastructure.
-                  </p>
-                  <ul className="space-y-4">
-                    <li className="flex gap-3">
-                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-white shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Restitution finale</p>
-                        <p className="text-[10px] text-gray-500 leading-relaxed">Démonstration technique et explication normative.</p>
-                      </div>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-white shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Plan de remédiation</p>
-                        <p className="text-[10px] text-gray-500 leading-relaxed">Classification CVSS et recommandations priorisées.</p>
-                      </div>
-                    </li>
-                    <li className="flex gap-3">
-                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-white shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Transfert</p>
-                        <p className="text-[10px] text-gray-500 leading-relaxed">Mise à disposition des scripts pour rejouer les tests.</p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-          </div>
-
-        {/* Legend / Roles Footer */}
-        <div className="mt-20 flex flex-wrap justify-center gap-4 reveal">
-          <div className="bg-indigo-600 text-white px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest shadow-lg shadow-indigo-600/20">
-            {companyName || "ENTREPRISE"}
-          </div>
-          <div className="bg-[#d9f99d] text-[#030303] px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest shadow-lg shadow-[#d9f99d]/20">
-            SECURITRUST
+          <div className="inline-flex items-center gap-3 bg-[#0d1a2e] border border-[#1e2d4a] rounded-full px-8 py-3">
+            <span className="text-3xl font-bold text-white">5 Jours</span>
+            <span className="text-white text-sm">ouvrés — prestation complète</span>
           </div>
         </div>
-      </div>
-    </section>
-  );
+
+
+
+          {/* Phase cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10 reveal">
+            {/* Étape 1 — Kick-off */}
+            <div className="bg-purple-950/30 border border-purple-500/50 rounded-2xl p-5 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-white uppercase tracking-widest">Étape 1</span>
+                  <span className="text-[10px] font-semibold bg-purple-500/20 text-white rounded-full px-2 py-0.5">Lancement</span>
+              </div>
+              <div className="font-bold text-white text-sm">Kick-off</div>
+              <ul className="flex flex-col gap-1.5">
+                {["Réunion de cadrage","Accès & credentials","Définition du périmètre"].map((a,i)=>(
+                  <li key={i} className="flex items-start gap-1.5 text-[11px] text-white leading-snug">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0"/>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Jour 1 */}
+            <div className="bg-[#0d1a2e] border border-[#1e2d4a] rounded-2xl p-5 flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-white uppercase tracking-widest">Jour 1</span>
+                  <span className="text-[10px] font-semibold bg-[#74a2cd]/20 text-white rounded-full px-2 py-0.5">Phase 1</span>
+                </div>
+              <div className="font-bold text-white text-sm">Reconnaissance & Vulnérabilités</div>
+              <ul className="flex flex-col gap-1.5">
+                {["Identification services AD","Tests Zerologon, NoPac","BloodHound, CrackMapExec"].map((a,i)=>(
+                  <li key={i} className="flex items-start gap-1.5 text-[11px] text-white leading-snug">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-[#74a2cd] shrink-0"/>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Jour 2 */}
+            <div className="bg-[#0d1a2e] border border-[#1e2d4a] rounded-2xl p-5 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono text-white uppercase tracking-widest">Jour 2</span>
+                <span className="text-[10px] font-semibold bg-[#74a2cd]/20 text-white rounded-full px-2 py-0.5">Phase 2</span>
+              </div>
+              <div className="font-bold text-white text-sm">Élévation de Privilèges</div>
+              <ul className="flex flex-col gap-1.5">
+                {["Escalade privilèges domaine","AS-REP Roasting, Kerberoasting","Silver / Golden Tickets"].map((a,i)=>(
+                  <li key={i} className="flex items-start gap-1.5 text-[11px] text-white leading-snug">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-[#74a2cd] shrink-0"/>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Jour 3 */}
+            <div className="bg-[#0d1a2e] border border-[#1e2d4a] rounded-2xl p-5 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono text-white uppercase tracking-widest">Jour 3</span>
+                <span className="text-[10px] font-semibold bg-[#74a2cd]/20 text-white rounded-full px-2 py-0.5">Phase 3</span>
+              </div>
+              <div className="font-bold text-white text-sm">Mouvement Latéral</div>
+              <ul className="flex flex-col gap-1.5">
+                {["Lateral Movement & Pivoting","Pass-the-Hash / OtH","Atteindre DC ou serveurs critiques"].map((a,i)=>(
+                  <li key={i} className="flex items-start gap-1.5 text-[11px] text-white leading-snug">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-[#74a2cd] shrink-0"/>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Jour 4 */}
+            <div className="bg-[#0d1a2e] border border-[#1e2d4a] rounded-2xl p-5 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono text-white uppercase tracking-widest">Jour 4</span>
+                <span className="text-[10px] font-semibold bg-[#74a2cd]/20 text-white rounded-full px-2 py-0.5">Phase 4</span>
+              </div>
+              <div className="font-bold text-white text-sm">Persistance & Exfiltration</div>
+              <ul className="flex flex-col gap-1.5">
+                {["Shadow Credentials","Extraction NTDS.dit","Corrélation des vecteurs"].map((a,i)=>(
+                  <li key={i} className="flex items-start gap-1.5 text-[11px] text-white leading-snug">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-[#74a2cd] shrink-0"/>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Jour 5 */}
+            <div className="bg-[#0d1a2e] border border-[#1e2d4a] rounded-2xl p-5 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono text-white uppercase tracking-widest">Jour 5</span>
+                <span className="text-[10px] font-semibold bg-[#10b981]/20 text-white rounded-full px-2 py-0.5">Phase 5</span>
+              </div>
+              <div className="font-bold text-white text-sm">Reporting & Remédiation</div>
+              <ul className="flex flex-col gap-1.5">
+                {["Rapport technique détaillé","Synthèse managériale","Roadmap remédiation"].map((a,i)=>(
+                  <li key={i} className="flex items-start gap-1.5 text-[11px] text-white leading-snug">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-[#10b981] shrink-0"/>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Étape 5 — Reporting final */}
+            <div className="bg-purple-950/30 border border-purple-500/50 rounded-2xl p-5 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono text-white uppercase tracking-widest">Étape 5</span>
+                <span className="text-[10px] font-semibold bg-purple-500/20 text-white rounded-full px-2 py-0.5">Livraison</span>
+              </div>
+              <div className="font-bold text-white text-sm">Reporting</div>
+              <ul className="flex flex-col gap-1.5">
+                {["Remise du rapport final","Présentation des résultats","Plan de remédiation priorisé"].map((a,i)=>(
+                  <li key={i} className="flex items-start gap-1.5 text-[11px] text-white leading-snug">
+                    <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0"/>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+
+          <div className="reveal bg-[#0a0a0a] border border-[#1e1e1e] rounded-2xl overflow-visible relative">
+
+          {/* Header — 7 colonnes */}
+          <div className="grid border-b border-[#1e1e1e]" style={{ gridTemplateColumns: '160px repeat(7, 1fr)' }}>
+            <div className="px-6 py-4 text-xs font-bold text-white uppercase tracking-widest">Activité</div>
+            {["Kick-off","J1","J2","J3","J4","J5","Reporting"].map((label, i) => (
+              <div key={i} className="px-4 py-4 text-xs font-bold text-white text-center">
+                <div>{label}</div>
+              </div>
+            ))}
+          </div>
+          {ganttRows.map((row, idx) => (
+            <div
+              key={idx}
+              className="grid border-b border-[#1a1a1a] last:border-b-0 items-center hover:bg-white/[0.02] transition-colors"
+              style={{ gridTemplateColumns: '160px repeat(7, 1fr)' }}
+            >
+              <div className="px-6 py-4 flex items-center gap-2 text-white/70">
+                <span className="text-xs font-bold font-mono tracking-widest uppercase whitespace-nowrap">{row.name}</span>
+              </div>
+              {Array.from({ length: 7 }, (_, dayIdx) => {
+                const col = dayIdx + 1;
+                const active = col >= row.start && col < row.start + row.duration;
+                const isSpecial = row.name === "KICK-OFF" || row.name === "REPORTING";
+                return (
+                  <div key={dayIdx} className="px-2 py-4 flex items-center justify-center">
+                    {active && (
+                        isSpecial ? (
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0">
+                            <polygon points="8,1 15,15 1,15" fill="#a855f7"/>
+                          </svg>
+                        ) : (
+                          <div className={`h-10 w-full rounded-full bg-gradient-to-r ${row.color} shadow-[0_0_8px_rgba(116,162,205,0.4)] flex items-center justify-end pr-2`}>
+                            <span className="w-5 h-5 rounded-full bg-[#0a0a0a] border border-white/10 shrink-0" />
+                          </div>
+                        )
+                      )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+          </div>
+
+          {/* ── 4 étapes process ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 reveal">
+          {[
+              {
+                num: "1",
+                icon: "solar:document-add-bold",
+                title: "Signature du contrat",
+                  desc: "L'accord de service est soumis pour validation et signature.",
+                sub: null,
+              },
+              {
+                num: "2",
+                icon: "solar:users-group-rounded-bold",
+                title: "Réunion de lancement",
+                  desc: "Une réunion est organisée avec les équipes pour cadrer les objectifs et le périmètre.",
+                sub: "Mise en caution du montant de la prestation",
+              },
+              {
+                num: "3",
+                icon: "solar:magnifer-bold",
+                title: "Évaluation",
+                  desc: "L'ensemble des tests de sécurité est réalisé sur l'infrastructure.",
+                sub: null,
+              },
+              {
+                num: "4",
+                icon: "solar:target-bold",
+                title: "Restitution",
+                  desc: "Le rapport détaillé est remis avec les recommandations de remédiation.",
+                sub: null,
+              },
+          ].map((step, i) => (
+            <div key={i} className="bg-[#0d1a2e] border border-white/[0.08] rounded-2xl p-6 flex flex-col items-center text-center gap-3 hover:border-[#74a2cd]/40 transition-colors">
+              <div className="w-14 h-14 rounded-full bg-[#1a2a3e] border border-[#74a2cd]/20 flex items-center justify-center">
+                <iconify-icon icon={step.icon} className="text-[#74a2cd]" width="26"></iconify-icon>
+              </div>
+              <div className="text-3xl font-black text-[#74a2cd]">{step.num}</div>
+              <div className="font-bold text-white text-sm uppercase tracking-wide">{step.title}</div>
+              <div className="text-xs text-white leading-relaxed">{step.desc}</div>
+              {step.sub && (
+                <div className="text-xs text-[#74a2cd]/80 italic leading-relaxed border-t border-white/10 pt-2 w-full">{step.sub}</div>
+              )}
+            </div>
+          ))}
+          </div>
+
+        </div>
+      </section>
+    );
 }

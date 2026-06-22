@@ -3,12 +3,11 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
-import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { Swords, CheckCircle, Target, Zap, AlertTriangle, ArrowRight, Box, Cpu } from 'lucide-react';
 
 export default function RedTeamPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -36,10 +35,10 @@ export default function RedTeamPage() {
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
                 RED TEAM
               </h1>
-              <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left mb-6">
+              <p className="text-lg md:text-xl text-white font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left mb-6">
                 L&apos;exercice <strong>Red Team</strong> est une <strong>simulation d&apos;attaque avancée</strong> qui reproduit les techniques, tactiques et procédures (TTP) utilisées par des <strong>groupes APT</strong> (Advanced Persistent Threat) réels.
               </p>
-              <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
+              <p className="text-lg md:text-xl text-white font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
                 Contrairement à un pentest classique, le Red Team adopte une approche <strong>furtive et persistante</strong>, combinant attaques techniques, physiques et humaines pour atteindre des objectifs stratégiques définis (vol de données, accès root...).
               </p>
             </div>
@@ -55,7 +54,7 @@ export default function RedTeamPage() {
               <div className="h-px w-12 bg-gradient-to-r from-cyan-500/60 to-transparent"></div>
             </div>
             <div className="relative w-full overflow-hidden">
-              <div className="flex gap-10 items-center whitespace-nowrap animate-marquee text-slate-300/80 text-sm md:text-base">
+              <div className="flex gap-10 items-center whitespace-nowrap animate-marquee text-white text-sm md:text-base">
                 <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
                   <Swords className="w-5 h-5 text-cyan-400" />
                   <span>Multi-vecteurs</span>
@@ -92,13 +91,13 @@ export default function RedTeamPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(118,166,209,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <Target className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Objectifs stratégiques</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Missions précises définies avec le client (accès données sensibles, privilèges domaine...)
                   </p>
                 </div>
@@ -111,7 +110,7 @@ export default function RedTeamPage() {
                     <Zap className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Approche furtive</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Techniques d&apos;évasion pour contourner la détection par les équipes bleues
                   </p>
                 </div>
@@ -124,7 +123,7 @@ export default function RedTeamPage() {
                     <Swords className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Attaques multi-vecteurs</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Combinaison d&apos;attaques réseau, applicatives, physiques et sociales
                   </p>
                 </div>
@@ -137,7 +136,7 @@ export default function RedTeamPage() {
                     <AlertTriangle className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Persistence</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Installation de backdoors et maintien de l&apos;accès sur plusieurs semaines
                   </p>
                 </div>
@@ -150,7 +149,7 @@ export default function RedTeamPage() {
                     <CheckCircle className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Test des défenses</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Évaluation de la capacité de détection et de réponse de la Blue Team
                   </p>
                 </div>
@@ -171,7 +170,7 @@ export default function RedTeamPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="glass-panel p-8 rounded-xl border border-white/5">
                 <h3 className="text-2xl font-bold text-cyan-400 mb-6">Phases d&apos;engagement</h3>
-                <ul className="space-y-4 text-slate-300">
+                <ul className="space-y-4 text-white">
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
                     <span>Reconnaissance OSINT approfondie</span>
@@ -197,7 +196,7 @@ export default function RedTeamPage() {
 
               <div className="glass-panel p-8 rounded-xl border border-white/5">
                 <h3 className="text-2xl font-bold text-cyan-400 mb-6">Rapport complet</h3>
-                <ul className="space-y-4 text-slate-300">
+                <ul className="space-y-4 text-white">
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
                     <span>Timeline détaillée de l&apos;attaque (kill chain)</span>
@@ -234,13 +233,13 @@ export default function RedTeamPage() {
               <h2 className="text-4xl md:text-5xl font-semibold text-white mb-6 tracking-tight relative z-10">
                 Testez votre résilience cyber
               </h2>
-              <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto relative z-10">
+              <p className="text-xl text-white mb-8 max-w-2xl mx-auto relative z-10">
                 Évaluez la capacité de votre organisation à détecter et répondre à une attaque avancée et persistante.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
                 >
                   Nous contacter
                   <ArrowRight className="w-5 h-5" />
@@ -250,8 +249,26 @@ export default function RedTeamPage() {
           </div>
         </section>
 
-        <section className="py-16 px-6 text-center relative z-10">
-          <ExpertCTAButton />
+
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée. Offre unique en France.' },
+                { title: 'Pentest Externe', href: '/pentest-externe', desc: 'Simulation d\'attaque depuis Internet — première étape avant une opération Red Team complète.' },
+                { title: 'OSINT', href: '/osint', desc: 'Cartographie de votre surface d\'attaque via des techniques de renseignement open source.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Footer />

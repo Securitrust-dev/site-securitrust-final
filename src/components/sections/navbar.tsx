@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Menu, X, Search } from 'lucide-react';
 import Image from 'next/image';
 import { SearchBar } from '@/components/search-bar';
@@ -9,15 +9,27 @@ export const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const servicesRef = useRef<HTMLDivElement>(null);
+
+  // Fermer le dropdown si clic en dehors
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
+        setServicesOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <div className="fixed top-0 w-full z-50">
       <header className="bg-black/95 backdrop-blur-sm border-b border-white/5">
         <nav className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 lg:h-20 flex items-center justify-between gap-4">
           {/* Logo SecuriTrust - Left */}
-          <a href="/" className="flex items-center cursor-pointer group flex-shrink-0">
+          <a href="/" data-nav-link className="flex items-center cursor-pointer group flex-shrink-0">
             <div className="relative flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                <Image 
+                <Image
                   src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=8000&height=8000&resize=contain"
                   alt="SecuriTrust - Cabinet d'audit et conseil en cybersécurité"
                   width={180}
@@ -25,19 +37,14 @@ export const Navbar = () => {
                     className="h-7 sm:h-8 lg:h-9 w-auto"
                   priority
                 />
-
             </div>
           </a>
 
-          {/* Desktop Navigation - Center and Right */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1 flex-1 justify-end">
-            {/* Services avec icône grille */}
-            <div 
-              className="relative group"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
-              <button className="flex items-center gap-2 px-3 py-2 text-xs xl:text-sm font-normal text-white/70 hover:text-white transition-colors uppercase tracking-wide">
+            {/* Services dropdown — CSS pur group-hover, aucun JS */}
+            <div className="relative group">
+              <button className="flex items-center gap-2 px-3 py-2 text-xs xl:text-sm font-normal text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wide">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="opacity-70">
                   <rect x="1" y="1" width="5" height="5" fill="currentColor"/>
                   <rect x="10" y="1" width="5" height="5" fill="currentColor"/>
@@ -45,71 +52,54 @@ export const Navbar = () => {
                   <rect x="10" y="10" width="5" height="5" fill="currentColor"/>
                 </svg>
                 Services
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="transition-transform group-hover:rotate-180">
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
               </button>
-              
-              {servicesOpen && (
-                <div className="absolute top-full left-0 pt-4 z-50">
-                  <div className="w-[700px] grid grid-cols-2 gap-6 bg-black border border-white/10 rounded-lg p-6 shadow-2xl">
-                    {/* Cybersécurité opérationnelle */}
-                    <div>
-                      <h3 className="text-sm font-semibold text-[#38bdf8] mb-3 uppercase tracking-wide">Cybersécurité opérationnelle</h3>
-                      <ul className="space-y-2">
-                        <li><a href="/audit-configuration" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Audit de configuration</a></li>
-                        <li><a href="/audit-architecture" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Audit d&apos;architecture</a></li>
-                        <li><a href="/audit-code-source" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Audit de code source</a></li>
-                        <li><a href="/audit-securite-technique" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Audit de sécurité technique</a></li>
-                        <li><a href="/audit-flash" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Audit Flash</a></li>
-                        <li><a href="/pentest-interne" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Pentest interne</a></li>
-                        <li><a href="/pentest-externe" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Pentest externe</a></li>
-                        <li><a href="/pentest-web-mobile" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Pentest web/mobile</a></li>
-                        <li><a href="/pentest-physique" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Pentest Physique</a></li>
-                        <li><a href="/protection-ransomware" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Test de ransomware</a></li>
-                        <li><a href="/red-team" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Red Team</a></li>
-                        <li><a href="/osint" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">OSINT</a></li>
-                        <li><a href="/cyber-vigilance-humaine" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Campagnes de phishing</a></li>
-                        <li><a href="/sensibilisation-formation" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Sensibilisation/formation</a></li>
-                      </ul>
-                    </div>
-                    
-                    {/* Gouvernance & Conformité */}
-                    <div>
-                      <h3 className="text-sm font-semibold text-[#06b6d4] mb-3 uppercase tracking-wide">Gouvernance & Conformité</h3>
-                      <ul className="space-y-2">
-                        <li><a href="/strategie-cybersecurite" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Stratégie Cybersécurité</a></li>
-                        <li><a href="/rssi-externalise" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">RSSI à temps partagé</a></li>
-                        <li><a href="/dpo-externalise" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">DPO externalisé</a></li>
-                        <li><a href="/gestion-risques" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Gestion des risques</a></li>
-                        <li><a href="/evaluation-maturite" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Évaluation de maturité</a></li>
-                        <li><a href="/audit-organisationnel" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Audit organisationnel</a></li>
-                        <li><a href="/audit-conformite" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Audit de conformité</a></li>
-                        <li><a href="/mise-en-conformite-rgpd" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Mise en conformité RGPD</a></li>
-                        <li><a href="/dora" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Conformité DORA</a></li>
-                        <li><a href="/tisax-security" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Certification TISAX</a></li>
-                        <li><a href="/hds-certification" className="text-sm text-white/70 hover:text-white transition-colors block py-1.5">Certification HDS</a></li>
-                      </ul>
-                    </div>
+
+              {/* Dropdown — visible au hover CSS, pas de JS */}
+              <div className="absolute top-full right-0 z-[9999] hidden group-hover:block">
+                <div className="mt-1 w-[620px] bg-[#0a0a0a] border border-white/20 rounded-xl shadow-2xl p-6 grid grid-cols-2 gap-6">
+                  {/* Cybersécurité Opérationnelle */}
+                  <div>
+                    <h3 className="text-xs font-bold text-[#76a6d1] mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Cybersécurité Opérationnelle</h3>
+                    <ul className="space-y-0.5">
+                      <li><a href="/cybersecurite-operationnelle" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-2 py-1.5 rounded">Sécurité offensive</a></li>
+                      <li><a href="/cybersecurite-operationnelle/proteger-chiffre-affaires" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-2 py-1.5 rounded">Pentest &amp; Sécurité des Systèmes Critiques</a></li>
+                      <li><a href="/cybersecurite-operationnelle/preserver-image-confiance" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-2 py-1.5 rounded">Gestion des Risques Cyber &amp; Protection de la Réputation</a></li>
+                      <li><a href="/cybersecurite-operationnelle/exigences-reglementaires" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-2 py-1.5 rounded">Audit de Conformité &amp; Cybersécurité Réglementaire</a></li>
+                    </ul>
+                  </div>
+
+                  {/* Gouvernance & Conformité */}
+                  <div>
+                    <h3 className="text-xs font-bold text-[#5a90be] mb-3 uppercase tracking-widest border-b border-white/10 pb-2">Gouvernance &amp; Conformité</h3>
+                    <ul className="space-y-0.5">
+                      <li><a href="/gouvernance-conformite/domaines-expertise" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-2 py-1.5 rounded">Domaines d&apos;expertise</a></li>
+                      <li><a href="/gouvernance-conformite/accompagnement" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-2 py-1.5 rounded">Accompagnement</a></li>
+                    </ul>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
 
-            <a href="/formations" className="px-3 py-2 text-xs xl:text-sm font-normal text-white/70 hover:text-white transition-colors uppercase tracking-wide">
-                Formations
-              </a>
-              <a href="/articles" className="px-3 py-2 text-xs xl:text-sm font-normal text-white/70 hover:text-white transition-colors uppercase tracking-wide">
-                Articles
-              </a>
-            <a href="/nous-rejoindre" className="px-3 py-2 text-xs xl:text-sm font-normal text-white/70 hover:text-white transition-colors uppercase tracking-wide whitespace-nowrap">
+            <a href="/cyber-pilote" data-nav-link className="px-3 py-2 text-xs xl:text-sm font-normal text-white hover:text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors uppercase tracking-wide whitespace-nowrap">
+              Cyber-Pilote
+            </a>
+            <a href="/articles" data-nav-link className="px-3 py-2 text-xs xl:text-sm font-normal text-white hover:text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors uppercase tracking-wide">
+              Articles
+            </a>
+            <a href="/nous-rejoindre" data-nav-link className="px-3 py-2 text-xs xl:text-sm font-normal text-white hover:text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors uppercase tracking-wide whitespace-nowrap">
               Nous rejoindre
             </a>
-            <a href="/contact" className="px-3 py-2 text-xs xl:text-sm font-normal text-white/70 hover:text-white transition-colors uppercase tracking-wide">
+            <a href="/contact" data-nav-link className="px-3 py-2 text-xs xl:text-sm font-normal text-white hover:text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors uppercase tracking-wide">
               Contact
             </a>
 
             {/* Search Icon */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="px-3 py-2 text-white/70 hover:text-white transition-colors"
+              className="px-3 py-2 text-white hover:text-white transition-colors"
               aria-label="Rechercher"
             >
               <Search className="h-5 w-5" />
@@ -118,16 +108,16 @@ export const Navbar = () => {
 
           {/* Mobile Menu Buttons */}
           <div className="lg:hidden flex items-center gap-2">
-            <button 
+            <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 text-white hover:text-[#38bdf8] transition-colors"
+              className="p-2 text-white hover:text-[#76a6d1] transition-colors"
               aria-label="Rechercher"
             >
               <Search className="h-6 w-6" />
             </button>
-            <button 
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-white hover:text-[#38bdf8] transition-colors"
+              className="p-2 text-white hover:text-[#76a6d1] transition-colors"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -139,7 +129,7 @@ export const Navbar = () => {
           <div className="lg:hidden bg-black border-t border-white/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-4 max-h-[calc(100vh-130px)] overflow-y-auto">
               <div>
-                <button 
+                <button
                   onClick={() => setServicesOpen(!servicesOpen)}
                   className="flex items-center justify-between w-full text-base font-bold text-white py-2"
                 >
@@ -147,50 +137,31 @@ export const Navbar = () => {
                   <span className="text-cyan-400">{servicesOpen ? '−' : '+'}</span>
                 </button>
                 {servicesOpen && (
-                  <div className="mt-2 space-y-3 pl-4">
+                  <div className="mt-2 space-y-4 pl-4">
                     <div>
-                      <h4 className="text-sm font-bold text-[#38bdf8] mb-2">Cybersécurité opérationnelle</h4>
-                      <ul className="space-y-2">
-                        <li><a href="/audit-configuration" className="text-sm text-slate-300 block py-1">Audit de configuration</a></li>
-                        <li><a href="/audit-architecture" className="text-sm text-slate-300 block py-1">Audit d&apos;architecture</a></li>
-                        <li><a href="/audit-code-source" className="text-sm text-slate-300 block py-1">Audit de code source</a></li>
-                        <li><a href="/audit-securite-technique" className="text-sm text-slate-300 block py-1">Audit de sécurité technique</a></li>
-                        <li><a href="/audit-flash" className="text-sm text-slate-300 block py-1">Audit Flash</a></li>
-                        <li><a href="/pentest-interne" className="text-sm text-slate-300 block py-1">Pentest interne</a></li>
-                        <li><a href="/pentest-externe" className="text-sm text-slate-300 block py-1">Pentest externe</a></li>
-                        <li><a href="/pentest-web-mobile" className="text-sm text-slate-300 block py-1">Pentest web/mobile</a></li>
-                        <li><a href="/pentest-physique" className="text-sm text-slate-300 block py-1">Pentest Physique</a></li>
-                        <li><a href="/protection-ransomware" className="text-sm text-slate-300 block py-1">Test de ransomware</a></li>
-                        <li><a href="/red-team" className="text-sm text-slate-300 block py-1">Red Team</a></li>
-                        <li><a href="/osint" className="text-sm text-slate-300 block py-1">OSINT</a></li>
-                        <li><a href="/cyber-vigilance-humaine" className="text-sm text-slate-300 block py-1">Campagnes de phishing</a></li>
-                        <li><a href="/sensibilisation-formation" className="text-sm text-slate-300 block py-1">Sensibilisation/formation</a></li>
+                      <h4 className="text-xs font-bold text-[#76a6d1] mb-2 uppercase tracking-wider">Cybersécurité Opérationnelle</h4>
+                      <ul className="space-y-1">
+                        <li><a href="/cybersecurite-operationnelle" data-nav-link className="text-sm text-slate-300 block py-1">Sécurité offensive</a></li>
+                        <li><a href="/cybersecurite-operationnelle/proteger-chiffre-affaires" data-nav-link className="text-sm text-slate-300 block py-1">Pentest &amp; Sécurité des Systèmes Critiques</a></li>
+                        <li><a href="/cybersecurite-operationnelle/preserver-image-confiance" data-nav-link className="text-sm text-slate-300 block py-1">Gestion des Risques Cyber &amp; Protection de la Réputation</a></li>
+                        <li><a href="/cybersecurite-operationnelle/exigences-reglementaires" data-nav-link className="text-sm text-slate-300 block py-1">Audit de Conformité &amp; Cybersécurité Réglementaire</a></li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-[#06b6d4] mb-2">Gouvernance & Conformité</h4>
-                      <ul className="space-y-2">
-                        <li><a href="/strategie-cybersecurite" className="text-sm text-slate-300 block py-1">Stratégie Cybersécurité</a></li>
-                        <li><a href="/rssi-externalise" className="text-sm text-slate-300 block py-1">RSSI à temps partagé</a></li>
-                        <li><a href="/dpo-externalise" className="text-sm text-slate-300 block py-1">DPO externalisé</a></li>
-                        <li><a href="/gestion-risques" className="text-sm text-slate-300 block py-1">Gestion des risques</a></li>
-                        <li><a href="/evaluation-maturite" className="text-sm text-slate-300 block py-1">Évaluation de maturité</a></li>
-                        <li><a href="/audit-organisationnel" className="text-sm text-slate-300 block py-1">Audit organisationnel</a></li>
-                        <li><a href="/audit-conformite" className="text-sm text-slate-300 block py-1">Audit de conformité</a></li>
-                        <li><a href="/mise-en-conformite-rgpd" className="text-sm text-slate-300 block py-1">Mise en conformité RGPD</a></li>
-                        <li><a href="/dora" className="text-sm text-slate-300 block py-1">Conformité DORA</a></li>
-                        <li><a href="/tisax-security" className="text-sm text-slate-300 block py-1">Certification TISAX</a></li>
-                        <li><a href="/hds-certification" className="text-sm text-slate-300 block py-1">Certification HDS</a></li>
+                      <h4 className="text-xs font-bold text-[#5a90be] mb-2 uppercase tracking-wider">Gouvernance &amp; Conformité</h4>
+                      <ul className="space-y-1">
+                        <li><a href="/gouvernance-conformite/domaines-expertise" data-nav-link className="text-sm text-slate-300 block py-1">Domaines d&apos;expertise</a></li>
+                        <li><a href="/gouvernance-conformite/accompagnement" data-nav-link className="text-sm text-slate-300 block py-1">Accompagnement</a></li>
                       </ul>
                     </div>
                   </div>
                 )}
               </div>
 
-                <a href="/formations" className="block text-base font-bold text-white py-2">Formations</a>
-                <a href="/articles" className="block text-base font-bold text-white py-2">Articles</a>
-              <a href="/nous-rejoindre" className="block text-base font-bold text-white py-2">Nous rejoindre</a>
-              <a href="/contact" className="block text-base font-bold text-white py-2">Contact</a>
+              <a href="/cyber-pilote" data-nav-link className="block text-base font-bold text-white py-2">Cyber-Pilote</a>
+              <a href="/articles" data-nav-link className="block text-base font-bold text-white py-2">Articles</a>
+              <a href="/nous-rejoindre" data-nav-link className="block text-base font-bold text-white py-2">Nous rejoindre</a>
+              <a href="/contact" data-nav-link className="block text-base font-bold text-white py-2">Contact</a>
             </div>
           </div>
         )}

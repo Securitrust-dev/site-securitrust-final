@@ -81,7 +81,7 @@ export default function MiseEnConformiteRGPDPage() {
                 { icon: CheckCircle, title: 'Mesures correctives', description: 'Actions techniques et organisationnelles' }
               ].map((item, index) => (
                 <div key={index} className="tilt-card group relative z-10 p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <item.icon className="w-8 h-8 text-cyan-400" />
@@ -175,6 +175,26 @@ export default function MiseEnConformiteRGPDPage() {
 
         <section className="py-16 px-6 text-center relative z-10">
           <ExpertCTAButton />
+        </section>
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'Délégué à la Protection des Données externalisé pour assurer votre conformité RGPD en continu.' },
+                { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre cybersécurité avec un RSSI à temps partagé, sans les contraintes d\'un recrutement.' },
+                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité pour structurer durablement votre programme sécurité.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Footer />

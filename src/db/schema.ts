@@ -87,6 +87,28 @@ export const formationPurchases = sqliteTable('formation_purchases', {
   updatedAt: text('updated_at').notNull(),
 });
 
+export const signwellSignatures = sqliteTable('signwell_signatures', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  documentId: text('document_id').notNull().unique(),
+  status: text('status').notNull().default('pending'), // pending | completed
+  signerEmail: text('signer_email'),
+  signerName: text('signer_name'),
+  createdAt: text('created_at').notNull(),
+  completedAt: text('completed_at'),
+});
+
+export const pageViews = sqliteTable('page_views', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  sessionId: text('session_id').notNull(),
+  path: text('path').notNull(),
+  referrer: text('referrer'),
+  deviceType: text('device_type'),
+  country: text('country'),
+  ip: text('ip'),
+  duration: integer('duration'),
+  createdAt: text('created_at').notNull(),
+});
+
 export const pentestOrders = sqliteTable('pentest_orders', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   orderId: text('order_id').notNull().unique(),

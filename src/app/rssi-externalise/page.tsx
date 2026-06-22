@@ -143,9 +143,9 @@ export default function RSSIExternalisePage() {
 
               {/* Card 2 */}
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(118,166,209,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <Target className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Gestion incidents</h4>
@@ -286,6 +286,49 @@ export default function RSSIExternalisePage() {
 
         <section className="py-16 px-6 text-center relative z-10">
           <ExpertCTAButton />
+        </section>
+
+        {/* FAQ */}
+        <section className="py-24 px-6 relative z-10">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-end justify-between mb-12 border-b border-white/10 pb-4">
+              <h2 className="text-3xl font-light text-white tracking-tight">Questions fréquentes</h2>
+              <span className="text-cyan-500 font-mono text-xs hidden sm:block">FAQ</span>
+            </div>
+            <div className="space-y-6">
+              {[
+                { q: 'Qu\'est-ce qu\'un RSSI externalisé ?', a: 'Un RSSI externalisé (Responsable de la Sécurité des Systèmes d\'Information) est un expert en cybersécurité qui intervient à temps partagé dans votre organisation, sans les contraintes d\'un recrutement à plein temps. Il pilote votre stratégie sécurité, votre conformité et votre gestion des risques.' },
+                { q: 'Quelle est la différence entre un RSSI interne et externalisé ?', a: 'Un RSSI interne est un salarié à temps plein, coûteux et difficile à recruter. Un RSSI externalisé apporte la même expertise à temps partagé, avec une flexibilité accrue, un coût optimisé et une indépendance garantie vis-à-vis des enjeux internes.' },
+                { q: 'Combien coûte un RSSI externalisé ?', a: 'Le coût d\'un RSSI externalisé varie selon le niveau d\'engagement (nombre de jours/mois). Chez SecuriTrust, les formules démarrent à quelques jours par mois. Contactez-nous pour un devis personnalisé adapté à la taille et aux enjeux de votre organisation.' },
+                { q: 'Quelles missions réalise un RSSI externalisé chez SecuriTrust ?', a: 'Notre RSSI externalisé prend en charge : la gouvernance sécurité, la politique de sécurité des SI (PSSI), la gestion des risques, la conformité (ISO 27001, RGPD, NIS2), le suivi des incidents, le reporting à la direction et la sensibilisation des équipes.' },
+              ].map((item, i) => (
+                <div key={i} className="glass-panel rounded-xl p-6 border border-white/5">
+                  <h3 className="text-white font-semibold mb-3">{item.q}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Services liés */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité pour structurer votre programme sécurité.' },
+                { title: 'ISO 27001 & ISO 27701', href: '/iso27001-hds', desc: 'Accompagnement à la certification ISO 27001 et ISO 27701 par un auditeur officiel AFNOR.' },
+                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée. Offre unique en France.' },
+              ].map((s, i) => (
+                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
+                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
+                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         <Footer />

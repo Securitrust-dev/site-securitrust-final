@@ -10,11 +10,11 @@ export function PropositionSingularity() {
             ))}
         </div>
         <div className="relative z-10 text-center reveal pointer-events-none px-6">
-            <span className="text-[#9abff2] font-mono text-[9px] md:text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-[#9abff2]/20">Souveraineté Numérique</span>
+            <span className="text-[#74a2cd] font-mono text-[9px] md:text-[10px] tracking-[0.5em] uppercase bg-black/50 backdrop-blur-md px-4 py-1 rounded-full border border-[#74a2cd]/20">Souveraineté Numérique</span>
             <h2 className="font-display text-4xl md:text-8xl font-bold mt-6 text-white mix-blend-difference tracking-tight uppercase">
                 SÉCURITÉ ABSOLUE
             </h2>
-            <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-6 bg-black/30 backdrop-blur-sm p-4 rounded-lg border border-white/5 italic font-light leading-relaxed">
+            <p className="text-gray-400 text-sm md:text-base max-w-md mx-auto mt-6 bg-black/30 backdrop-blur-sm p-4 rounded-lg border border-white/5 font-light leading-relaxed">
                 Une approche offensive qui renforce vos défenses à chaque mission. Votre résilience est notre priorité absolue.
             </p>
         </div>

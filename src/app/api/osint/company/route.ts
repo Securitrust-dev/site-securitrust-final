@@ -1,7 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyCompanyBySiret, extractCompanyInfo } from '@/lib/insee';
 
+function isAuthorizedOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get('origin') ?? req.headers.get('referer') ?? '';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://securitrust.fr';
+  return origin.startsWith(appUrl) || origin.startsWith('http://localhost');
+}
+
 export async function GET(request: NextRequest) {
+  if (!isAuthorizedOrigin(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
+  }
+
   try {
     const searchParams = request.nextUrl.searchParams;
     const siret = searchParams.get('siret');

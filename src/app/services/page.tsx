@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
-import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
+import { InternalLinks } from '@/components/InternalLinks';
 import { useState } from 'react';
 import { FileText, Shield, TrendingUp, FileCheck, DollarSign, AlertTriangle, Users, Grid, Lock, Activity, CheckCircle, Target, Zap } from 'lucide-react';
 
@@ -314,10 +314,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-16 px-6 text-center">
-        <ExpertCTAButton />
-      </section>
 
+
+      <InternalLinks pageKey="services" />
       <Footer />
     </div>
   );

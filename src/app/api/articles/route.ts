@@ -6,6 +6,33 @@ import Parser from 'rss-parser';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
 import { classifyArticle, CYBER_CATEGORIES } from '@/lib/articles';
+import sanitizeHtml from 'sanitize-html';
+
+const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'img', 'figure', 'figcaption',
+    'table', 'thead', 'tbody', 'tr', 'th', 'td',
+    'pre', 'code', 'blockquote',
+  ]),
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    '*': ['class'],
+    'a': ['href', 'target', 'rel', 'title'],
+    'img': ['src', 'alt', 'width', 'height', 'loading'],
+    'td': ['colspan', 'rowspan'],
+    'th': ['colspan', 'rowspan', 'scope'],
+  },
+  allowedSchemes: ['https', 'http', 'mailto'],
+  allowedSchemesByTag: { img: ['https', 'data'] },
+};
+
+// Authenticate API key for write operations
+function authenticateRequest(request: NextRequest): boolean {
+  const apiKey = request.headers.get('x-api-key');
+  const expected = process.env.ARTICLE_API_KEY;
+  return !!expected && apiKey === expected;
+}
 
 // Helper function to generate URL-friendly slugs
 function generateSlug(title: string): string {
@@ -193,8 +220,8 @@ export async function POST(request: NextRequest) {
       titleFr: titleFr.trim(),
       excerpt: excerpt.trim(),
       excerptFr: excerptFr.trim(),
-      content: content.trim(),
-      contentFr: contentFr.trim(),
+      content: sanitizeHtml(content.trim(), SANITIZE_OPTIONS),
+      contentFr: sanitizeHtml(contentFr.trim(), SANITIZE_OPTIONS),
       image: image.trim(),
       category: category.trim(),
       tags: typeof tags === 'string' ? tags : JSON.stringify(tags),

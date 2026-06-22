@@ -1,109 +1,66 @@
-'use client';
-
-import { GraduationCap } from 'lucide-react';
 import Image from 'next/image';
 
-const certifications = [
-  {
-    id: 'acn',
-    title: "Membre de l'ACN",
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/acn-logo-minimalist-black-text-acn-with--35bffffc-20251209154251.jpg',
-  },
-    {
-      id: 'france-cyber',
-      title: 'Labellisé France Cybersecurity',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795709475.png?width=1024&height=1024&resize=contain',
-    },
-      {
-        id: 'boost-aerospace',
-        title: 'Boost Aerospace',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765795655244.png?width=1024&height=1024&resize=contain',
-      },
-      {
-        id: 'afnor',
-        title: 'AFNOR Certification',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/25f201e2-066a-4cea-babf-1fc0d950aaa1-1769528000810.jpg?width=1024&quality=100',
-      },
-      {
-        id: 'oscp',
-        title: 'OSCP - OffSec Certified Professional',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/oscp-certification-badge-orange-hexagona-0467659f-20251209154250.jpg',
-      },
-      {
-        id: 'ceh',
-        title: 'CEH - Certified Ethical Hacker',
-        logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769527976036.png?width=1024&quality=100',
-        hasCTA: true,
-      },
-    {
-      id: 'iso-implementer',
-      title: 'ISO 27001 Lead Implementer',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765796267931.png?width=1024&height=1024&resize=contain',
-    },
-    {
-      id: 'iso-auditor',
-      title: 'ISO 27001 Lead Auditor',
-      logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/image-1765796267931.png?width=1024&height=1024&resize=contain',
-    },
-  {
-    id: 'secnum',
-    title: 'SecNum Académie ANSSI',
-    logo: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/8aebdc26-3d06-42e3-bb7c-f1c035c7f99b/generated_images/secnum-acad-mie-anssi-logo-french-cybers-34522932-20251209154251.jpg',
-  },
+type Cert = { src: string; alt: string; label: string; desc: string };
+
+const certs: Cert[] = [
+  { src: '/afaq-iso27001-securite-trimmed.png', alt: 'AFAQ ISO 27001',  label: 'AFAQ ISO 27001',   desc: "Auditeur officiel AFNOR — Sécurité de l'information" },
+  { src: '/afaq-protection-donnees.png',        alt: 'AFAQ RGPD',       label: 'AFAQ RGPD',        desc: 'Protection des données personnelles' },
+  { src: '/afaq-hds.png',                       alt: 'AFAQ HDS',        label: 'AFAQ HDS',         desc: 'Hébergeur de Données de Santé' },
+  { src: '/afaq-intelligence-artificielle.png', alt: 'AFAQ IA',         label: 'ISO 42001',        desc: 'Intelligence artificielle — AFNOR' },
+  { src: '/oscp-badge.png',                     alt: 'OSCP',            label: 'OSCP',             desc: 'Offensive Security Certified Professional' },
+  { src: '/ceh-badge.png',                      alt: 'CEH',             label: 'CEH',              desc: 'Certified Ethical Hacker — EC-Council' },
+  { src: '/pnpt-badge.png',                     alt: 'PNPT',            label: 'PNPT',             desc: 'Practical Network Penetration Tester' },
+  { src: '/iso27001-lead-auditor.png',          alt: 'Lead Auditor',    label: 'Lead Auditor',     desc: 'ISO 27001 — Bureau Veritas' },
+  { src: '/iso27001-lead-implementer.png',      alt: 'Lead Implementer',label: 'Lead Implementer', desc: 'ISO 27001 — Bureau Veritas' },
+  { src: '/ebios-badge.png',                    alt: 'EBIOS',           label: 'EBIOS RM',         desc: 'Risk Manager — ANSSI' },
 ];
 
-export const OfficialAuditorSection = () => {
-  return (
-    <section className="relative py-24 px-4 bg-black overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.05)_0%,transparent_50%)]" />
-      </div>
-      
-      <div className="relative max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <GraduationCap className="w-8 h-8 text-cyan-500" />
-            <h2 className="text-4xl md:text-5xl font-bold text-white font-brand uppercase tracking-wide">
-              Auditeur Officiel
-            </h2>
-          </div>
-            <p className="text-lg text-white max-w-3xl mx-auto opacity-90">
-              Certifications et accréditations officielles pour garantir des audits de haute qualité
-            </p>
-          </div>
+export const OfficialAuditorSection = () => (
+  <section className="relative py-24 bg-[#020817] overflow-hidden">
+    {/* Section number filigree */}
+    <div className="pointer-events-none absolute top-8 right-8 text-[9rem] font-black text-white/[0.025] leading-none select-none"
+      style={{ fontFamily: "'Sora', sans-serif" }}>03</div>
 
-          {/* Certifications Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((cert, index) => (
-              <div
-                key={cert.id}
-                className="relative group bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center text-center min-h-[320px] transition-all duration-500 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                }}
-              >
-                  {/* Logo */}
-                  <div className="mb-6 h-40 w-full flex items-center justify-center bg-white rounded-xl p-3">
-                    <Image
-                      src={cert.logo}
-                      alt={cert.title}
-                      width={256}
-                      height={256}
-                      quality={100}
-                      className="object-contain w-auto h-full transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-base font-medium text-white mb-4">
-                    {cert.title}
-                  </h3>
-                </div>
-              ))}
-          </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-14">
+        <p className="text-cyan-500/70 text-xs uppercase tracking-widest font-semibold mb-3">Labels &amp; Certifications</p>
+        <h2 className="text-3xl sm:text-4xl font-bold text-white" style={{ fontFamily: "'Sora', sans-serif" }}>
+          Une expertise certifiée,<br />reconnue en France
+        </h2>
+        <p className="text-slate-400 mt-4 max-w-xl mx-auto text-sm leading-relaxed">
+          Nos certifications couvrent l&apos;audit, le test d&apos;intrusion, la conformité réglementaire et la gouvernance de la sécurité.
+        </p>
       </div>
-    </section>
-  );
-};
+
+      {/* Certs grid — dark native style */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-px bg-slate-800/40 rounded-2xl overflow-hidden border border-slate-800/60">
+        {certs.map(({ src, alt, label, desc }) => (
+          <div key={label}
+            className="group flex flex-col items-center gap-3 p-5 bg-[#020817] hover:bg-cyan-500/[0.04] transition-colors duration-200">
+            <div className="w-12 h-12 flex items-center justify-center">
+              <Image
+                src={src} alt={alt} width={48} height={48}
+                className="object-contain w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
+            <div className="text-center">
+              <p className="text-slate-200 text-xs font-semibold">{label}</p>
+              <p className="text-slate-500 text-[10px] mt-0.5 leading-tight">{desc}</p>
+            </div>
+          </div>
+        ))}
+
+        {/* PASSI — en cours */}
+        <div className="flex flex-col items-center gap-3 p-5 bg-[#020817]">
+          <div className="w-12 h-12 flex items-center justify-center rounded-full border border-amber-500/30 bg-amber-500/10">
+            <span className="text-amber-400 font-bold text-xs">PASSI</span>
+          </div>
+          <div className="text-center">
+            <p className="text-amber-400 text-xs font-semibold">En cours</p>
+            <p className="text-slate-600 text-[10px] mt-0.5">Qualification ANSSI</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);

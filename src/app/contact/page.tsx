@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
+import { InternalLinks } from '@/components/InternalLinks';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import ThreeBackground from '@/components/three-background';
 import MatrixRain from '@/components/matrix-rain';
@@ -50,7 +51,7 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: 'Téléphone',
-      details: ['06 08 94 87 97']
+      details: ['01 86 04 44 31']
     },
     {
       icon: Mail,
@@ -100,12 +101,12 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Form */}
               <div className="perspective-normal">
-                <div className="glass-panel p-8 rounded-2xl transform hover:rotate-y-0 transition-transform duration-500 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+                <div className="glass-panel p-8 rounded-2xl transform hover:rotate-y-0 transition-transform duration-500 shadow-[0_0_30px_rgba(118,166,209,0.1)]">
                   <h2 className="text-3xl font-light text-white mb-6 tracking-tight">Envoyez-nous un message</h2>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-1">
-                      <label htmlFor="name" className="text-xs uppercase tracking-widest text-slate-500">
+                      <label htmlFor="name" className="text-xs uppercase tracking-widest text-slate-300">
                         Nom complet
                       </label>
                       <input
@@ -115,13 +116,13 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={(e) => handleChange('name', e.target.value)}
                         required
-                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-700"
+                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-500"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-1">
-                        <label htmlFor="email" className="text-xs uppercase tracking-widest text-slate-500">
+                        <label htmlFor="email" className="text-xs uppercase tracking-widest text-slate-300">
                           Email
                         </label>
                         <input
@@ -131,12 +132,12 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={(e) => handleChange('email', e.target.value)}
                           required
-                          className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-700"
+                          className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-500"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <label htmlFor="phone" className="text-xs uppercase tracking-widest text-slate-500">
+                        <label htmlFor="phone" className="text-xs uppercase tracking-widest text-slate-300">
                           Téléphone
                         </label>
                         <input
@@ -146,13 +147,13 @@ export default function ContactPage() {
                           value={formData.phone}
                           onChange={(e) => handleChange('phone', e.target.value)}
                           required
-                          className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-700"
+                          className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-500"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1">
-                      <label htmlFor="company" className="text-xs uppercase tracking-widest text-slate-500">
+                      <label htmlFor="company" className="text-xs uppercase tracking-widest text-slate-300">
                         Entreprise
                       </label>
                       <input
@@ -161,12 +162,12 @@ export default function ContactPage() {
                         placeholder="Nom de votre entreprise"
                         value={formData.company}
                         onChange={(e) => handleChange('company', e.target.value)}
-                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-700"
+                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-500"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label htmlFor="subject" className="text-xs uppercase tracking-widest text-slate-500">
+                      <label htmlFor="subject" className="text-xs uppercase tracking-widest text-slate-300">
                         Sujet
                       </label>
                       <input
@@ -176,12 +177,12 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={(e) => handleChange('subject', e.target.value)}
                         required
-                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-700"
+                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-500"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label htmlFor="message" className="text-xs uppercase tracking-widest text-slate-500">
+                      <label htmlFor="message" className="text-xs uppercase tracking-widest text-slate-300">
                         Message
                       </label>
                       <textarea
@@ -191,14 +192,14 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={(e) => handleChange('message', e.target.value)}
                         required
-                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-700 resize-none"
+                        className="w-full bg-black/50 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-slate-500 resize-none"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-cyan-600 hover:bg-cyan-500 text-white py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-cyan-600 hover:bg-cyan-500 text-white py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {isSubmitting ? (
                         <>
@@ -237,7 +238,7 @@ export default function ContactPage() {
                             <h3 className="text-lg font-medium text-white mb-2">{info.title}</h3>
                             <div className="space-y-1">
                               {info.details.map((detail, idx) => (
-                                <p key={idx} className="text-slate-400 text-sm font-light">
+                                <p key={idx} className="text-slate-200 text-sm font-light">
                                   {detail}
                                 </p>
                               ))}
@@ -261,7 +262,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-white mb-1">Suivez-nous sur LinkedIn</h3>
-                    <p className="text-slate-400 text-sm font-light">Restez informé de nos actualités</p>
+                    <p className="text-slate-200 text-sm font-light">Restez informé de nos actualités</p>
                   </div>
                 </a>
               </div>
@@ -273,6 +274,7 @@ export default function ContactPage() {
           <ExpertCTAButton />
         </section>
 
+        <InternalLinks pageKey="contact" />
         <Footer />
       </div>
     </>

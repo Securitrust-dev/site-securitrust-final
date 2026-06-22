@@ -36,9 +36,7 @@ export async function POST(req: NextRequest) {
       ? formation.price 
       : formation.priceMonthly;
 
-    const origin = req.headers.get('origin') 
-      || req.headers.get('referer')?.split('/').slice(0, 3).join('/') 
-      || 'http://localhost:3000';
+    const origin = process.env.NEXT_PUBLIC_APP_URL || 'https://securitrust.fr';
 
     const sessionConfig: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ['card'],

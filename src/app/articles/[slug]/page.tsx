@@ -7,23 +7,41 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { JsonLd } from '@/components/json-ld';
+import { BreadcrumbSchema } from '@/components/StructuredData';
+import sanitizeHtml from 'sanitize-html';
+import { db } from '@/db';
+import { articles } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
 async function getArticle(slug: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://site-web-aura-3d-s-curitrust.vercel.app';
-  const response = await fetch(`${baseUrl}/api/articles/slug/${slug}`, {
-    next: { revalidate: 3600 }
-  });
-  
-  if (!response.ok) {
+  try {
+    let result = await db.select().from(articles).where(eq(articles.slugFr, slug)).limit(1);
+    if (!result.length) {
+      result = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1);
+    }
+    return result[0] || null;
+  } catch {
     return null;
   }
-  
-  return response.json();
+}
+
+export async function generateStaticParams() {
+  try {
+    const dbArticles = await db
+      .select({ slug: articles.slug, slugFr: articles.slugFr })
+      .from(articles)
+      .where(eq(articles.published, true));
+
+    return dbArticles.map(a => ({
+      slug: a.slugFr || a.slug,
+    }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: ArticlePageProps) {
@@ -36,7 +54,7 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://site-web-aura-3d-s-curitrust.vercel.app';
+  const baseUrl = 'https://securitrust.fr';
   const isRss = article.sourceType === 'rss';
 
   return {
@@ -82,6 +100,40 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
+  const safeContent = sanitizeHtml(article.content, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+      'img', 'figure', 'figcaption', 'picture', 'source',
+      'table', 'thead', 'tbody', 'tr', 'th', 'td',
+      'pre', 'code', 'blockquote', 'details', 'summary',
+    ]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      '*': ['class', 'id'],
+      'a': ['href', 'target', 'rel', 'title'],
+      'img': ['src', 'alt', 'width', 'height', 'loading'],
+      'source': ['src', 'srcset', 'type', 'media'],
+      'td': ['colspan', 'rowspan'],
+      'th': ['colspan', 'rowspan', 'scope'],
+      'code': ['class'],
+    },
+    allowedSchemes: ['https', 'http', 'mailto'],
+    allowedSchemesByTag: {
+      img: ['https', 'data'],
+    },
+    // Block dangerous patterns
+    transformTags: {
+      'a': (tagName, attribs) => ({
+        tagName,
+        attribs: {
+          ...attribs,
+          rel: 'noopener noreferrer',
+          target: attribs.href?.startsWith('http') ? '_blank' : attribs.target,
+        },
+      }),
+    },
+  });
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('fr-FR', { 
@@ -113,13 +165,21 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${process.env.NEXT_PUBLIC_APP_URL || 'https://site-web-aura-3d-s-curitrust.vercel.app'}/articles/${article.slug}`,
+      '@id': `https://securitrust.fr/articles/${article.slug}`,
     },
   };
 
   return (
     <>
-      <JsonLd data={jsonLd} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Accueil', url: 'https://securitrust.fr' },
+        { name: 'Articles', url: 'https://securitrust.fr/articles' },
+        { name: article.title, url: `https://securitrust.fr/articles/${article.slug}` },
+      ]} />
       <PromoBanner />
       <div className="relative min-h-screen bg-[#030303]">
         {/* Background Effects */}
@@ -210,7 +270,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   prose-ul:text-slate-300 prose-ol:text-slate-300
                   prose-li:my-2
                   prose-blockquote:border-l-4 prose-blockquote:border-cyan-500 prose-blockquote:text-slate-300 prose-blockquote:italic"
-                dangerouslySetInnerHTML={{ __html: article.content }}
+                dangerouslySetInnerHTML={{ __html: safeContent }}
               />
             </div>
 
@@ -218,7 +278,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="text-center mt-16">
               <Link 
                 href="/articles"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] rounded group"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] rounded group"
               >
                 <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
                 <span>Tous les articles</span>

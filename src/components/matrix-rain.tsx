@@ -39,7 +39,7 @@ export default function MatrixRain() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Set text properties - lighter color with lower opacity
-      ctx.fillStyle = 'rgba(56, 189, 248, 0.15)'; // Very subtle cyan
+      ctx.fillStyle = 'rgba(118, 166, 209, 0.15)'; // Very subtle cyan
       ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
 
       // Loop through drops

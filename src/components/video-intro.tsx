@@ -97,7 +97,7 @@ export const VideoIntro = () => {
         className="w-full h-full object-cover"
       >
         <source
-          src="https://qfihegeffntsxrwhvnlm.supabase.co/storage/v1/object/sign/Video_securitrust/pentest_au_resultat.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wYzAxOTEwZS02NzNlLTQ3ZmUtYTFjMC01MzlmYmQxOTczNTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWaWRlb19zZWN1cml0cnVzdC9wZW50ZXN0X2F1X3Jlc3VsdGF0Lm1wNCIsImlhdCI6MTc2NDg0NTYwOSwiZXhwIjoyMDgwMjA1NjA5fQ.fnyqdUFT2bx3pEyY82QSUmcW4JHj85k-3SRb1PMG-oM"
+          src={process.env.NEXT_PUBLIC_SUPABASE_INTRO_VIDEO_URL}
           type="video/mp4"
         />
       </video>

@@ -3,6 +3,7 @@
 import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
+import { InternalLinks } from '@/components/InternalLinks';
 import { OrangeBeamCTA } from '@/components/ui/orange-beam-cta';
 import ThreeBackground from '@/components/three-background';
 import MatrixRain from '@/components/matrix-rain';
@@ -110,7 +111,7 @@ export default function PortfolioPage() {
                 const Icon = stat.icon;
                 return (
                   <div key={index} className="glass-panel p-6 rounded-xl border border-white/5">
-                    <Icon className="w-8 h-8 text-[#38bdf8] mx-auto mb-3" />
+                    <Icon className="w-8 h-8 text-[#76a6d1] mx-auto mb-3" />
                     <div className="text-3xl font-bold text-white mb-2">{stat.number}</div>
                     <div className="text-sm text-slate-400">{stat.label}</div>
                   </div>
@@ -124,7 +125,7 @@ export default function PortfolioPage() {
         <section className="relative py-20 px-6 bg-gradient-to-b from-transparent via-[#0b1221]/30 to-transparent">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl font-bold text-white text-center mb-6">
-              Clients de <span className="text-[#38bdf8]">Confiance</span>
+              Clients de <span className="text-[#76a6d1]">Confiance</span>
             </h2>
             <p className="text-slate-300 text-center mb-12 max-w-2xl mx-auto">
               Des entreprises de tous secteurs nous font confiance pour leur cybersécurité
@@ -140,7 +141,7 @@ export default function PortfolioPage() {
                 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients-150x150-1764596078949.png?width=8000&height=8000&resize=contain',
                 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-clients_Plan-de-travail-1-copie-150x150-1764596094822.png?width=8000&height=8000&resize=contain',
               ].map((logo, idx) => (
-                <div key={idx} className="group relative aspect-video rounded-xl overflow-hidden bg-white/95 border border-white/10 hover:border-[#38bdf8]/30 transition-all duration-300 flex items-center justify-center p-8">
+                <div key={idx} className="group relative aspect-video rounded-xl overflow-hidden bg-white/95 border border-white/10 hover:border-[#76a6d1]/30 transition-all duration-300 flex items-center justify-center p-8">
                   <Image 
                     src={logo}
                     alt={`Client ${idx + 1}`}
@@ -158,7 +159,7 @@ export default function PortfolioPage() {
         <section className="relative py-20 px-6">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl font-bold text-white text-center mb-6">
-              Projets <span className="text-[#38bdf8]">Récents</span>
+              Projets <span className="text-[#76a6d1]">Récents</span>
             </h2>
             <p className="text-slate-300 text-center mb-12 max-w-2xl mx-auto">
               Exemples de missions réalisées pour nos clients
@@ -168,7 +169,7 @@ export default function PortfolioPage() {
               {projects.map((project, index) => (
                 <div 
                   key={index}
-                  className="group glass-panel rounded-2xl border border-white/5 hover:border-[#38bdf8]/30 transition-all duration-300 overflow-hidden"
+                  className="group glass-panel rounded-2xl border border-white/5 hover:border-[#76a6d1]/30 transition-all duration-300 overflow-hidden"
                 >
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden bg-[#1a2332]">
@@ -181,7 +182,7 @@ export default function PortfolioPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0b1221] via-transparent to-transparent opacity-60" />
                     
                     {/* Category Badge */}
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-[#38bdf8]/90 backdrop-blur-sm rounded-full">
+                    <div className="absolute top-4 left-4 px-3 py-1 bg-[#76a6d1]/90 backdrop-blur-sm rounded-full">
                       <span className="text-xs font-semibold text-white">
                         {project.category}
                       </span>
@@ -190,7 +191,7 @@ export default function PortfolioPage() {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#38bdf8] transition-colors">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#76a6d1] transition-colors">
                       {project.title}
                     </h3>
                     
@@ -202,7 +203,7 @@ export default function PortfolioPage() {
                     <ul className="space-y-2 mb-6">
                       {project.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle className="w-4 h-4 text-[#38bdf8] flex-shrink-0 mt-0.5" />
+                          <CheckCircle className="w-4 h-4 text-[#76a6d1] flex-shrink-0 mt-0.5" />
                           <span className="text-sm text-slate-400">{achievement}</span>
                         </li>
                       ))}
@@ -210,8 +211,8 @@ export default function PortfolioPage() {
 
                     {/* CTA */}
                     <a
-                      href="/contact"
-                      className="inline-flex items-center gap-2 text-[#38bdf8] font-semibold text-sm hover:gap-3 transition-all group/btn"
+                      href="https://calendly.com/expert-securitrust"
+                      className="inline-flex items-center gap-2 text-[#76a6d1] font-semibold text-sm hover:gap-3 transition-all group/btn"
                     >
                       <span>En savoir plus</span>
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
@@ -226,7 +227,7 @@ export default function PortfolioPage() {
         {/* CTA Section */}
         <section className="relative py-20 px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="glass-panel p-12 rounded-2xl border-2 border-[#38bdf8]/30">
+            <div className="glass-panel p-12 rounded-2xl border-2 border-[#76a6d1]/30">
               <h2 className="text-4xl font-bold text-white mb-6">
                 Prêt à sécuriser votre entreprise ?
               </h2>
@@ -234,13 +235,14 @@ export default function PortfolioPage() {
                 Rejoignez nos clients satisfaits et bénéficiez d'une expertise en cybersécurité de premier plan
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <OrangeBeamCTA href="/contact" text="Demander un devis" />
+                <OrangeBeamCTA href="https://calendly.com/expert-securitrust" text="Demander un devis" external />
                 <OrangeBeamCTA href="/services" text="Nos services" />
               </div>
             </div>
           </div>
         </section>
 
+        <InternalLinks pageKey="portfolio" />
         <Footer />
       </div>
     </>
