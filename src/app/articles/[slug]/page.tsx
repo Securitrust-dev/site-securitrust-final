@@ -17,16 +17,66 @@ interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
-async function getArticle(slug: string) {
+type ArticleRow = typeof articles.$inferSelect & {
+  sourceType?: string;
+};
+
+/** Fetch an RSS article from the internal API by its slug */
+async function getRssArticleBySlug(slug: string): Promise<ArticleRow | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/articles?limit=100`, {
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) return null;
+    const allArticles = await res.json();
+
+    const match = allArticles.find(
+      (a: any) => a.slug === slug && a.sourceType === 'rss'
+    );
+    if (!match) return null;
+
+    // Map from API format to ArticleRow
+    return {
+      id: 0,
+      title: match.title || 'Sans titre',
+      titleFr: null,
+      excerpt: match.excerpt || '',
+      excerptFr: null,
+      content: match.content || '',
+      contentFr: null,
+      image: match.image || '/default-article.jpg',
+      author: match.author || 'The Hacker News',
+      category: match.category || 'Actualités',
+      tags: match.tags || null,
+      lang: 'en',
+      source: 'rss',
+      sourceUrl: match.sourceUrl || null,
+      slug: match.slug,
+      slugFr: null,
+      published: true,
+      createdAt: match.createdAt || new Date().toISOString(),
+      updatedAt: match.updatedAt || new Date().toISOString(),
+      sourceType: 'rss',
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function getArticle(slug: string): Promise<ArticleRow | null> {
   try {
     let result = await db.select().from(articles).where(eq(articles.slugFr, slug)).limit(1);
     if (!result.length) {
       result = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1);
     }
-    return result[0] || null;
+    if (result.length) return result[0];
   } catch {
-    return null;
+    // Fall through to RSS lookup
   }
+
+  // Fallback: look up in the RSS feed (articles not stored in DB)
+  return getRssArticleBySlug(slug);
 }
 
 export async function generateStaticParams() {
