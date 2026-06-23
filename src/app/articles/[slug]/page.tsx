@@ -13,6 +13,7 @@ import Parser from 'rss-parser';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -22,62 +23,63 @@ type ArticleRow = typeof articles.$inferSelect & {
   sourceType?: string;
 };
 
-/** Generate a URL-friendly slug from a title */
-function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
-/** Fetch an RSS article from The Hacker News feed by its slug */
+/** Fetch an RSS article from The Hacker News feed by its French-translated slug */
 async function getRssArticleBySlug(slug: string): Promise<ArticleRow | null> {
   try {
     const parser = new Parser();
     const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
 
-    for (const item of feed.items) {
-      const articleSlug = generateSlug(item.title || '');
-      if (articleSlug !== slug) continue;
+    // Translate all titles in parallel and match by French slug (same logic as API)
+    const itemsWithSlugs = await Promise.all(
+      feed.items.slice(0, 30).map(async (item) => {
+        const titleFr = await translateToFrench(item.title || '');
+        return { item, frenchSlug: generateFrenchSlug(titleFr) };
+      })
+    );
 
-      // Extract image
-      let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
-      if (item.enclosure?.url) {
-        imageUrl = item.enclosure.url;
-      } else if (item.content) {
-        const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-        if (imgMatch) imageUrl = imgMatch[1];
-      }
+    const matched = itemsWithSlugs.find((m) => m.frenchSlug === slug);
+    if (!matched) return null;
+    const { item } = matched;
 
-      return {
-        id: 0,
-        title: item.title || 'Sans titre',
-        titleFr: null,
-        excerpt: item.contentSnippet?.slice(0, 200) ||
-                 item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '',
-        excerptFr: null,
-        content: item.content || item.description || '',
-        contentFr: null,
-        image: imageUrl,
-        author: item.creator || 'The Hacker News',
-        category: 'Actualités',
-        tags: null,
-        lang: 'en',
-        source: 'rss',
-        sourceUrl: item.link || null,
-        slug: articleSlug,
-        slugFr: null,
-        published: true,
-        createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
-        updatedAt: item.pubDate || item.isoDate || new Date().toISOString(),
-        sourceType: 'rss',
-      };
+    // Extract image
+    let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
+    if (item.enclosure?.url) {
+      imageUrl = item.enclosure.url;
+    } else if (item.content) {
+      const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+      if (imgMatch) imageUrl = imgMatch[1];
     }
 
-    return null;
+    // Extract excerpt
+    const excerpt = item.contentSnippet?.slice(0, 200) ||
+                    item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '';
+
+    const englishSlug = item.title
+      ? item.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+      : slug;
+
+    return {
+      id: 0,
+      title: item.title || 'Sans titre',
+      titleFr: null,
+      excerpt,
+      excerptFr: null,
+      content: item.content || item.description || '',
+      contentFr: null,
+      image: imageUrl,
+      author: item.creator || 'The Hacker News',
+      category: 'Actualités',
+      tags: null,
+      lang: 'en',
+      source: 'rss',
+      sourceUrl: item.link || null,
+      slug: englishSlug,
+      slugFr: null,
+      published: true,
+      createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
+      updatedAt: item.pubDate || item.isoDate || new Date().toISOString(),
+      sourceType: 'rss',
+    };
   } catch {
     return null;
   }
