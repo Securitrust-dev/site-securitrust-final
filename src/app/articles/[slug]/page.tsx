@@ -7,9 +7,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { headers } from 'next/headers';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import sanitizeHtml from 'sanitize-html';
+import Parser from 'rss-parser';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
@@ -22,47 +22,62 @@ type ArticleRow = typeof articles.$inferSelect & {
   sourceType?: string;
 };
 
-/** Fetch an RSS article from the internal API by its slug */
+/** Generate a URL-friendly slug from a title */
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+/** Fetch an RSS article from The Hacker News feed by its slug */
 async function getRssArticleBySlug(slug: string): Promise<ArticleRow | null> {
   try {
-    // Use the current request's host so the fetch targets the same deployment
-    const host = (await headers()).get('host') || 'www.securitrust.fr';
-    const protocol = host.startsWith('localhost') || host.startsWith('127.0.0.1') ? 'http' : 'https';
-    const baseUrl = `${protocol}://${host}`;
-    const res = await fetch(`${baseUrl}/api/articles?limit=100`, {
-      next: { revalidate: 300 },
-    });
-    if (!res.ok) return null;
-    const allArticles = await res.json();
+    const parser = new Parser();
+    const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
 
-    const match = allArticles.find(
-      (a: any) => a.slug === slug && a.sourceType === 'rss'
-    );
-    if (!match) return null;
+    for (const item of feed.items) {
+      const articleSlug = generateSlug(item.title || '');
+      if (articleSlug !== slug) continue;
 
-    // Map from API format to ArticleRow
-    return {
-      id: 0,
-      title: match.title || 'Sans titre',
-      titleFr: null,
-      excerpt: match.excerpt || '',
-      excerptFr: null,
-      content: match.content || '',
-      contentFr: null,
-      image: match.image || '/default-article.jpg',
-      author: match.author || 'The Hacker News',
-      category: match.category || 'Actualités',
-      tags: match.tags || null,
-      lang: 'en',
-      source: 'rss',
-      sourceUrl: match.sourceUrl || null,
-      slug: match.slug,
-      slugFr: null,
-      published: true,
-      createdAt: match.createdAt || new Date().toISOString(),
-      updatedAt: match.updatedAt || new Date().toISOString(),
-      sourceType: 'rss',
-    };
+      // Extract image
+      let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
+      if (item.enclosure?.url) {
+        imageUrl = item.enclosure.url;
+      } else if (item.content) {
+        const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+        if (imgMatch) imageUrl = imgMatch[1];
+      }
+
+      return {
+        id: 0,
+        title: item.title || 'Sans titre',
+        titleFr: null,
+        excerpt: item.contentSnippet?.slice(0, 200) ||
+                 item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '',
+        excerptFr: null,
+        content: item.content || item.description || '',
+        contentFr: null,
+        image: imageUrl,
+        author: item.creator || 'The Hacker News',
+        category: 'Actualités',
+        tags: null,
+        lang: 'en',
+        source: 'rss',
+        sourceUrl: item.link || null,
+        slug: articleSlug,
+        slugFr: null,
+        published: true,
+        createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
+        updatedAt: item.pubDate || item.isoDate || new Date().toISOString(),
+        sourceType: 'rss',
+      };
+    }
+
+    return null;
   } catch {
     return null;
   }
