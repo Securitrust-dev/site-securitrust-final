@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: 'Conformité Cybersécurité à Paris — NIS2, RGPD, DORA, ISO 27001 | SecuriTrust',
   description: 'Cabinet de conformité cybersécurité à Paris. Accompagnement NIS2, RGPD, DORA, ISO 27001, HDS, TISAX. Auditeur officiel AFNOR certifié. Audit d\'écarts et plan d\'action priorisé.',
   alternates: {
-    canonical: 'https://securitrust.fr/conformite',
+    canonical: 'https://www.securitrust.fr/conformite',
   },
   openGraph: {
     title: 'Conformité Cybersécurité — NIS2, RGPD, DORA, ISO 27001 | SecuriTrust',
     description: 'Accompagnement conformité cybersécurité : NIS2, RGPD, DORA, ISO 27001, HDS, TISAX. Auditeur officiel AFNOR. Paris.',
-    url: 'https://securitrust.fr/conformite',
+    url: 'https://www.securitrust.fr/conformite',
   },
 };
 
@@ -131,13 +131,13 @@ export default function ConformitePage() {
   return (
     <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
       <BreadcrumbSchema items={[
-        { name: 'Accueil', url: 'https://securitrust.fr' },
-        { name: 'Conformité Cybersécurité', url: 'https://securitrust.fr/conformite' },
+        { name: 'Accueil', url: 'https://www.securitrust.fr' },
+        { name: 'Conformité Cybersécurité', url: 'https://www.securitrust.fr/conformite' },
       ]} />
       <ServiceSchema
         name="Conformité Cybersécurité — NIS2, RGPD, DORA, ISO 27001"
         description="Accompagnement conformité cybersécurité à Paris : NIS2, RGPD, DORA, ISO 27001, HDS, TISAX. Auditeur officiel AFNOR certifié. Audit d'écarts et plan d'action priorisé."
-        url="https://securitrust.fr/conformite"
+        url="https://www.securitrust.fr/conformite"
       />
       <FAQSchema faqs={FAQ_ITEMS} />
 

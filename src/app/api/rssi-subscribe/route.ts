@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 function isAuthorizedOrigin(req: NextRequest): boolean {
   const origin = req.headers.get('origin') ?? req.headers.get('referer') ?? '';
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://securitrust.fr';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.securitrust.fr';
   return origin.startsWith(appUrl) || origin.startsWith('http://localhost');
 }
 
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
   const apiToken    = process.env.SIGNWELL_API_KEY;
   const templateId  = process.env.SIGNWELL_TEMPLATE_ID;
-  const appUrl      = process.env.NEXT_PUBLIC_APP_URL || 'https://securitrust.fr';
+  const appUrl      = process.env.NEXT_PUBLIC_APP_URL || 'https://www.securitrust.fr';
 
   if (!apiToken || !templateId) {
     return NextResponse.redirect(

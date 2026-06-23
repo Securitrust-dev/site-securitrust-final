@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   description: "Accompagnement TISAX pour fournisseurs et sous-traitants du secteur automobile. Diagnostic, mise en conformité et préparation à l'audit TISAX final. Experts certifiés SecuriTrust.",
   keywords: ['TISAX', 'certification TISAX', 'conformité automobile', 'sécurité information automobile', 'audit TISAX', 'fournisseurs automobile'],
   alternates: {
-    canonical: 'https://securitrust.fr/tisax-security',
+    canonical: 'https://www.securitrust.fr/tisax-security',
   },
   openGraph: {
     title: 'Certification TISAX — Conformité Automobile & Sécurité Information',
     description: "Accompagnement TISAX de A à Z pour fournisseurs et sous-traitants automobiles : diagnostic, mise en conformité, audit final. SecuriTrust.",
-    url: 'https://securitrust.fr/tisax-security',
+    url: 'https://www.securitrust.fr/tisax-security',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',
@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <ServiceSchema
         name="Certification TISAX — Conformité Automobile & Sécurité Information"
         description="Accompagnement TISAX pour fournisseurs et sous-traitants du secteur automobile. Diagnostic, mise en conformité et préparation à l'audit TISAX final."
-        url="https://securitrust.fr/tisax-security"
+        url="https://www.securitrust.fr/tisax-security"
       />
       {children}
     </>

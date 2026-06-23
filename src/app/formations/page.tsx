@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   description: 'Formations en ligne en cybersécurité : Pentest, OWASP, Hacking Éthique, Forensics, RGPD. Apprenez à votre rythme avec nos experts certifiés OSCP.',
   keywords: ['formation cybersécurité', 'e-learning pentest', 'formation OWASP', 'cours hacking éthique', 'formation RGPD', 'certification cybersécurité'],
   alternates: {
-    canonical: 'https://securitrust.fr/formations',
+    canonical: 'https://www.securitrust.fr/formations',
   },
   openGraph: {
     title: 'Formations Cybersécurité E-Learning — Pentest, RGPD, ISO 27001',
     description: 'Formations en ligne en cybersécurité par des experts certifiés OSCP : Pentest, OWASP, Hacking Éthique, Forensics, RGPD.',
-    url: 'https://securitrust.fr/formations',
+    url: 'https://www.securitrust.fr/formations',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',

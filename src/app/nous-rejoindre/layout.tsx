@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   description: "Rejoignez l'équipe SecuriTrust : offres d'emploi en cybersécurité, pentest, audit SSI, conformité RGPD/ISO 27001. Cabinet expert basé à Paris 75116. Devenez expert certifié.",
   keywords: ['emploi cybersécurité', 'recrutement pentest', 'carrière sécurité informatique', 'offre emploi audit SSI', 'rejoindre cabinet cybersécurité Paris'],
   alternates: {
-    canonical: 'https://securitrust.fr/nous-rejoindre',
+    canonical: 'https://www.securitrust.fr/nous-rejoindre',
   },
   openGraph: {
     title: 'Rejoindre SecuriTrust — Carrières en Cybersécurité à Paris',
     description: "Rejoignez SecuriTrust : pentest, audit SSI, conformité. Offres d'emploi en cybersécurité à Paris.",
-    url: 'https://securitrust.fr/nous-rejoindre',
+    url: 'https://www.securitrust.fr/nous-rejoindre',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',

@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return dbArticles
       .filter(article => article.slugFr || article.slug)
       .map(article => ({
-        url: `https://securitrust.fr/articles/${article.slugFr || article.slug}`,
+        url: `https://www.securitrust.fr/articles/${article.slugFr || article.slug}`,
         lastModified: new Date(article.updatedAt || article.createdAt),
         changeFrequency: 'weekly' as const,
         priority: 0.7,

@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: 'https://securitrust.fr',
+  siteUrl: 'https://www.securitrust.fr',
   generateRobotsTxt: true,
   changefreq: 'weekly',
   priority: 0.7,

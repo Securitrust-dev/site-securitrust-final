@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   title: 'Conformité DORA — Résilience Numérique Secteur Financier',
   description: 'Mise en conformité DORA pour banques, assurances et services financiers. Tests de résilience, gouvernance TIC, gestion des risques tiers. SecuriTrust Paris.',
   alternates: {
-    canonical: 'https://securitrust.fr/conformite-dora',
+    canonical: 'https://www.securitrust.fr/conformite-dora',
   },
   openGraph: {
     title: 'Conformité DORA — Résilience Numérique Secteur Financier | SecuriTrust',
     description: 'Mise en conformité DORA pour banques, assurances et services financiers. Tests TLPT, gouvernance TIC, gestion des risques tiers.',
-    url: 'https://securitrust.fr/conformite-dora',
+    url: 'https://www.securitrust.fr/conformite-dora',
   },
 };
 

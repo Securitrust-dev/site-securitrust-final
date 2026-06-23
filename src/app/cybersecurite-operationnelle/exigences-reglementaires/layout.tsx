@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Audit de Conformité & Cybersécurité Réglementaire | SecuriTrust',
     description: 'Services d\'audit cybersécurité et de conformité pour PME et ETI françaises. Configuration, architecture, code source, flash, COMEX. Experts certifiés.',
-    url: 'https://securitrust.fr/cybersecurite-operationnelle/exigences-reglementaires',
+    url: 'https://www.securitrust.fr/cybersecurite-operationnelle/exigences-reglementaires',
   },
   alternates: {
-    canonical: 'https://securitrust.fr/cybersecurite-operationnelle/exigences-reglementaires',
+    canonical: 'https://www.securitrust.fr/cybersecurite-operationnelle/exigences-reglementaires',
   },
 };
 

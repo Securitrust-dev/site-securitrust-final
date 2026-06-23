@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: { params: Promise<{ plan: str
   if (!p) return {};
   return {
     title: `Souscription Cyber-Pilote — Plan ${p.name} | SecuriTrust`,
-    alternates: { canonical: `https://securitrust.fr/cyber-pilote/souscrire/${plan}` },
+    alternates: { canonical: `https://www.securitrust.fr/cyber-pilote/souscrire/${plan}` },
   };
 }
 

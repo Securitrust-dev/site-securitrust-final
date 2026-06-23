@@ -6,7 +6,7 @@ import { Metadata, Viewport } from 'next';
 import { OrganizationSchema, LocalBusinessSchema } from '@/components/StructuredData';
 import { AnalyticsTracker } from '@/components/AnalyticsTracker';
 
-const BASE_URL = 'https://securitrust.fr';
+const BASE_URL = 'https://www.securitrust.fr';
 
 export const viewport: Viewport = {
   themeColor: '#030303',

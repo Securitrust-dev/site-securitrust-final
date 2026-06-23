@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   description: "Audit de configuration de vos équipements réseau, serveurs, systèmes d'exploitation et applications : identification des faiblesses de paramétrage, rapport détaillé et plan de remédiation.",
   keywords: ['audit configuration', 'audit serveurs', 'audit réseau', 'configuration sécurisée', 'hardening', 'faiblesses paramétrage'],
   alternates: {
-    canonical: 'https://securitrust.fr/audit-configuration',
+    canonical: 'https://www.securitrust.fr/audit-configuration',
   },
   openGraph: {
     title: 'Audit de Configuration — Serveurs, Réseau & Systèmes',
     description: "Audit de configuration : identification des faiblesses de paramétrage réseau, serveurs et systèmes. SecuriTrust.",
-    url: 'https://securitrust.fr/audit-configuration',
+    url: 'https://www.securitrust.fr/audit-configuration',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',
@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <ServiceSchema
         name="Audit de Configuration — Serveurs, Réseau & Systèmes"
         description="Audit de configuration de vos équipements réseau, serveurs, systèmes d'exploitation et applications : identification des faiblesses de paramétrage, rapport détaillé et plan de remédiation."
-        url="https://securitrust.fr/audit-configuration"
+        url="https://www.securitrust.fr/audit-configuration"
       />
       {children}
     </>

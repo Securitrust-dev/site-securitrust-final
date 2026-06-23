@@ -3,7 +3,7 @@ import { client } from '@/db';
 
 function isAuthorizedOrigin(req: NextRequest): boolean {
   const origin = req.headers.get('origin') ?? req.headers.get('referer') ?? '';
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://securitrust.fr';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.securitrust.fr';
   return origin.startsWith(appUrl) || origin.startsWith('http://localhost');
 }
 

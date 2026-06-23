@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   title: 'Conformité NIS2 — Accompagnement & Audit',
   description: "Accompagnement à la mise en conformité NIS2. Évaluation de votre exposition, plan d'action, audits et gouvernance cybersécurité. SecuriTrust, auditeur AFNOR.",
   alternates: {
-    canonical: 'https://securitrust.fr/conformite-nis2',
+    canonical: 'https://www.securitrust.fr/conformite-nis2',
   },
   openGraph: {
     title: 'Conformité NIS2 — Accompagnement & Audit | SecuriTrust',
     description: "La directive NIS2 s'applique à votre organisation ? SecuriTrust vous accompagne dans votre mise en conformité : analyse d'écart, plan d'action, audit.",
-    url: 'https://securitrust.fr/conformite-nis2',
+    url: 'https://www.securitrust.fr/conformite-nis2',
   },
 };
 

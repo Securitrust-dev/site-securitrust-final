@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'GRC Cybersécurité — Gouvernance, Risques & Conformité',
   description: "Accompagnement GRC cybersécurité : ISO 27001, NIS2, DORA, HDS, TISAX. Analyse de risques EBIOS & ISO 27005. SecuriTrust, auditeur officiel AFNOR.",
   alternates: {
-    canonical: 'https://securitrust.fr/grc-cyber',
+    canonical: 'https://www.securitrust.fr/grc-cyber',
   },
 };
 
@@ -34,11 +34,11 @@ export default function GRCLayout({ children }: { children: React.ReactNode }) {
       <ServiceSchema
         name="GRC Cybersécurité — Gouvernance, Risques & Conformité"
         description="Accompagnement GRC cybersécurité : ISO 27001, NIS2, DORA, HDS, TISAX. Analyse de risques EBIOS & ISO 27005. SecuriTrust, auditeur officiel AFNOR."
-        url="https://securitrust.fr/grc-cyber"
+        url="https://www.securitrust.fr/grc-cyber"
       />
       <BreadcrumbSchema items={[
-        { name: 'Accueil', url: 'https://securitrust.fr' },
-        { name: 'GRC Cybersécurité', url: 'https://securitrust.fr/grc-cyber' },
+        { name: 'Accueil', url: 'https://www.securitrust.fr' },
+        { name: 'GRC Cybersécurité', url: 'https://www.securitrust.fr/grc-cyber' },
       ]} />
       <FAQSchema faqs={faqs} />
       {children}

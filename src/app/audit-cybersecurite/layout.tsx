@@ -15,7 +15,7 @@ export default function AuditLayout({ children }: { children: React.ReactNode })
       <ServiceSchema
         name="Audit de Cybersécurité | Expertises Techniques & Organisationnelles"
         description="Réalisez un audit complet de votre sécurité informatique : architecture réseau, dispositifs de sécurité, droits d'accès et conformité."
-        url="https://securitrust.fr/audit-cybersecurite"
+        url="https://www.securitrust.fr/audit-cybersecurite"
       />
       {children}
     </>

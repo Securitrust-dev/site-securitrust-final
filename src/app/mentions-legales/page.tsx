@@ -5,7 +5,7 @@ import { Footer } from '@/components/sections/footer';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales | SecuriTrust',
-  alternates: { canonical: 'https://securitrust.fr/mentions-legales' },
+  alternates: { canonical: 'https://www.securitrust.fr/mentions-legales' },
 };
 
 export default function MentionsLegalesPage() {

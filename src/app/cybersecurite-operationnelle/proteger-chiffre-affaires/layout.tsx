@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pentest & Sécurité des Systèmes Critiques | SecuriTrust',
     description: 'Tests d\'intrusion professionnels pour PME et ETI françaises. Pentest interne, externe, web/mobile, ransomware. Livrables COMEX-ready.',
-    url: 'https://securitrust.fr/cybersecurite-operationnelle/proteger-chiffre-affaires',
+    url: 'https://www.securitrust.fr/cybersecurite-operationnelle/proteger-chiffre-affaires',
   },
   alternates: {
-    canonical: 'https://securitrust.fr/cybersecurite-operationnelle/proteger-chiffre-affaires',
+    canonical: 'https://www.securitrust.fr/cybersecurite-operationnelle/proteger-chiffre-affaires',
   },
 };
 

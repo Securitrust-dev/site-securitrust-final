@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Gestion des Risques Cyber & Protection de la Réputation | SecuriTrust',
     description: 'OSINT, Red Team, phishing et pentest externe pour protéger la réputation de votre PME. Experts certifiés, livrables COMEX-ready.',
-    url: 'https://securitrust.fr/cybersecurite-operationnelle/preserver-image-confiance',
+    url: 'https://www.securitrust.fr/cybersecurite-operationnelle/preserver-image-confiance',
   },
   alternates: {
-    canonical: 'https://securitrust.fr/cybersecurite-operationnelle/preserver-image-confiance',
+    canonical: 'https://www.securitrust.fr/cybersecurite-operationnelle/preserver-image-confiance',
   },
 };
 

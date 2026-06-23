@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import sanitizeHtml from 'sanitize-html';
 import { db } from '@/db';
@@ -24,7 +25,10 @@ type ArticleRow = typeof articles.$inferSelect & {
 /** Fetch an RSS article from the internal API by its slug */
 async function getRssArticleBySlug(slug: string): Promise<ArticleRow | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    // Use the current request's host so the fetch targets the same deployment
+    const host = (await headers()).get('host') || 'www.securitrust.fr';
+    const protocol = host.startsWith('localhost') || host.startsWith('127.0.0.1') ? 'http' : 'https';
+    const baseUrl = `${protocol}://${host}`;
     const res = await fetch(`${baseUrl}/api/articles?limit=100`, {
       next: { revalidate: 300 },
     });
@@ -104,7 +108,7 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     };
   }
 
-  const baseUrl = 'https://securitrust.fr';
+  const baseUrl = 'https://www.securitrust.fr';
   const isRss = article.sourceType === 'rss';
 
   return {
@@ -215,7 +219,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://securitrust.fr/articles/${article.slug}`,
+      '@id': `https://www.securitrust.fr/articles/${article.slug}`,
     },
   };
 
@@ -226,9 +230,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <BreadcrumbSchema items={[
-        { name: 'Accueil', url: 'https://securitrust.fr' },
-        { name: 'Articles', url: 'https://securitrust.fr/articles' },
-        { name: article.title, url: `https://securitrust.fr/articles/${article.slug}` },
+        { name: 'Accueil', url: 'https://www.securitrust.fr' },
+        { name: 'Articles', url: 'https://www.securitrust.fr/articles' },
+        { name: article.title, url: `https://www.securitrust.fr/articles/${article.slug}` },
       ]} />
       <PromoBanner />
       <div className="relative min-h-screen bg-[#030303]">

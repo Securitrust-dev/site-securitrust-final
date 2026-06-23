@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   description: "Découvrez les réalisations de SecuriTrust : missions de pentest au résultat, audits de sécurité, certifications ISO 27001 et HDS, accompagnement RGPD pour nos clients.",
   keywords: ['portfolio cybersécurité', 'références securitrust', 'réalisations pentest', 'cas clients cybersécurité', 'missions audit sécurité'],
   alternates: {
-    canonical: 'https://securitrust.fr/portfolio',
+    canonical: 'https://www.securitrust.fr/portfolio',
   },
   openGraph: {
     title: 'Portfolio & Références — Réalisations Cybersécurité',
     description: "Les réalisations SecuriTrust : pentest, audits de sécurité, certifications ISO 27001, RGPD. Références clients.",
-    url: 'https://securitrust.fr/portfolio',
+    url: 'https://www.securitrust.fr/portfolio',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',

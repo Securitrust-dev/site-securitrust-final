@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   description: "Audit organisationnel de cybersécurité : évaluation des aspects humains et processuels, gouvernance SSI, définition des rôles et responsabilités, politique de sécurité.",
   keywords: ['audit organisationnel', 'gouvernance SSI', 'processus sécurité', 'organisation cybersécurité', 'politique sécurité', 'rôles responsabilités SSI'],
   alternates: {
-    canonical: 'https://securitrust.fr/audit-organisationnel',
+    canonical: 'https://www.securitrust.fr/audit-organisationnel',
   },
   openGraph: {
     title: 'Audit Organisationnel Cybersécurité — Gouvernance & Processus',
     description: "Audit organisationnel SSI : gouvernance, processus, rôles et responsabilités en cybersécurité. SecuriTrust.",
-    url: 'https://securitrust.fr/audit-organisationnel',
+    url: 'https://www.securitrust.fr/audit-organisationnel',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',
@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <ServiceSchema
         name="Audit Organisationnel Cybersécurité — Gouvernance & Processus"
         description="Audit organisationnel de cybersécurité : évaluation des aspects humains et processuels, gouvernance SSI, définition des rôles et responsabilités, politique de sécurité."
-        url="https://securitrust.fr/audit-organisationnel"
+        url="https://www.securitrust.fr/audit-organisationnel"
       />
       {children}
     </>

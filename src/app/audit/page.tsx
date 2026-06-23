@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   title: 'Audit Cybersécurité à Paris — Technique, Organisationnel & Conformité | SecuriTrust',
   description: 'Cabinet d\'audit cybersécurité à Paris. Audit technique, architecture SI, configuration, code source, organisationnel et conformité réglementaire. Experts certifiés OSCP & auditeur AFNOR.',
   alternates: {
-    canonical: 'https://securitrust.fr/audit',
+    canonical: 'https://www.securitrust.fr/audit',
   },
   openGraph: {
     title: 'Audit Cybersécurité — Technique, Organisationnel & Conformité | SecuriTrust',
     description: 'Audit cybersécurité complet à Paris : technique, architecture, configuration, code source, organisationnel et conformité. Auditeur AFNOR certifié.',
-    url: 'https://securitrust.fr/audit',
+    url: 'https://www.securitrust.fr/audit',
   },
 };
 
@@ -112,13 +112,13 @@ export default function AuditPage() {
   return (
     <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
       <BreadcrumbSchema items={[
-        { name: 'Accueil', url: 'https://securitrust.fr' },
-        { name: 'Audits Cybersécurité', url: 'https://securitrust.fr/audit' },
+        { name: 'Accueil', url: 'https://www.securitrust.fr' },
+        { name: 'Audits Cybersécurité', url: 'https://www.securitrust.fr/audit' },
       ]} />
       <ServiceSchema
         name="Audit Cybersécurité — Technique, Organisationnel & Conformité"
         description="Cabinet d'audit cybersécurité à Paris. Audit technique, architecture SI, configuration, code source, organisationnel et conformité. Experts certifiés OSCP & auditeur AFNOR."
-        url="https://securitrust.fr/audit"
+        url="https://www.securitrust.fr/audit"
       />
       <FAQSchema faqs={FAQ_ITEMS} />
 

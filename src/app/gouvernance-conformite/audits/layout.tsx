@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   description: "Audits cybersécurité et conformité avec livrables actionnables : audit RGPD, ISO 27001, NIS2, DORA, audit organisationnel, audit technique. SecuriTrust, experts certifiés.",
   keywords: ['audit cybersécurité', 'audit conformité', 'audit RGPD', 'audit ISO 27001', 'audit NIS2', 'audit technique sécurité', 'rapport audit'],
   alternates: {
-    canonical: 'https://securitrust.fr/gouvernance-conformite/audits',
+    canonical: 'https://www.securitrust.fr/gouvernance-conformite/audits',
   },
   openGraph: {
     title: 'Audits Cybersécurité & Conformité — Livrables Actionnables',
     description: "Audits cybersécurité avec livrables actionnables : RGPD, ISO 27001, NIS2, DORA, audit organisationnel. SecuriTrust, experts certifiés.",
-    url: 'https://securitrust.fr/gouvernance-conformite/audits',
+    url: 'https://www.securitrust.fr/gouvernance-conformite/audits',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',

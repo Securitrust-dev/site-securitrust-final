@@ -1,4 +1,4 @@
-const BASE_URL = 'https://securitrust.fr';
+const BASE_URL = 'https://www.securitrust.fr';
 
 export function OrganizationSchema() {
   const schema = {

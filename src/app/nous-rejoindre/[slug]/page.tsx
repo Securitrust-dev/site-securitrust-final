@@ -8,7 +8,7 @@ import ThreeBackground from '@/components/three-background';
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   return {
-    alternates: { canonical: `https://securitrust.fr/nous-rejoindre/${slug}` },
+    alternates: { canonical: `https://www.securitrust.fr/nous-rejoindre/${slug}` },
   };
 }
 import MatrixRain from '@/components/matrix-rain';

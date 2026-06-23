@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'RSSI Externalisé à Paris — Pilotage Cybersécurité',
   description: "RSSI externalisé ou à temps partagé. Pilotage stratégique et opérationnel de votre sécurité SI. +2500 jours-homme d'expérience. Certifié ISO 27001 Lead Auditor.",
   alternates: {
-    canonical: 'https://securitrust.fr/rssi-externalise',
+    canonical: 'https://www.securitrust.fr/rssi-externalise',
   },
 };
 
@@ -34,11 +34,11 @@ export default function RSSIExternaliseLayout({ children }: { children: React.Re
       <ServiceSchema
         name="RSSI Externalisé à Paris — Pilotage Cybersécurité"
         description="RSSI externalisé ou à temps partagé. Pilotage stratégique et opérationnel de votre sécurité SI. +2500 jours-homme d'expérience. Certifié ISO 27001 Lead Auditor."
-        url="https://securitrust.fr/rssi-externalise"
+        url="https://www.securitrust.fr/rssi-externalise"
       />
       <BreadcrumbSchema items={[
-        { name: 'Accueil', url: 'https://securitrust.fr' },
-        { name: 'RSSI Externalisé', url: 'https://securitrust.fr/rssi-externalise' },
+        { name: 'Accueil', url: 'https://www.securitrust.fr' },
+        { name: 'RSSI Externalisé', url: 'https://www.securitrust.fr/rssi-externalise' },
       ]} />
       <FAQSchema faqs={faqs} />
       {children}

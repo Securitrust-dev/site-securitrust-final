@@ -34,11 +34,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // www → non-www canonical redirect
+      // non-www → www canonical redirect
       {
         source: '/(.*)',
-        has: [{ type: 'host', value: 'www.securitrust.fr' }],
-        destination: 'https://securitrust.fr/:path*',
+        has: [{ type: 'host', value: 'securitrust.fr' }],
+        destination: 'https://www.securitrust.fr/:path*',
         permanent: true,
       },
       { source: '/test-intrusion', destination: '/pentest-externe', permanent: true },

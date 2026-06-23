@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   description: 'Articles et analyses cybersécurité par les experts SecuriTrust : pentest, RGPD, ISO 27001, NIS2, DORA, menaces cyber, gouvernance SSI.',
   keywords: ['cybersécurité', 'pentest', 'RGPD', 'ISO 27001', 'NIS2', 'DORA', 'blog sécurité', 'actualités cyber', 'veille cybersécurité'],
   alternates: {
-    canonical: 'https://securitrust.fr/articles',
+    canonical: 'https://www.securitrust.fr/articles',
   },
   openGraph: {
     title: 'Blog Cybersécurité — Analyses, Conseils & Actualités',
     description: 'Articles et analyses cybersécurité par les experts SecuriTrust : pentest, RGPD, ISO 27001, NIS2, DORA, menaces cyber, gouvernance SSI.',
-    url: 'https://securitrust.fr/articles',
+    url: 'https://www.securitrust.fr/articles',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',

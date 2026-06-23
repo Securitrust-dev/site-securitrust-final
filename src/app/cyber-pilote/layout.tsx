@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   description:
     'Cyber-Pilote par SecuriTrust : RSSI externalisé et cybersécurité opérationnelle. Conformité NIS2, RGPD, ISO 27001. Déploiement en 48h. Dès 1 950 €/mois.',
   alternates: {
-    canonical: 'https://securitrust.fr/cyber-pilote',
+    canonical: 'https://www.securitrust.fr/cyber-pilote',
   },
   openGraph: {
     title: 'Cyber-Pilote — Votre RSSI externalisé | SecuriTrust',
     description:
       "RSSI externalisé + cybersécurité opérationnelle. Conformité NIS2, RGPD, ISO 27001 garanties. Déploiement opérationnel en 48h pour moins de 15 000 €/an.",
-    url: 'https://securitrust.fr/cyber-pilote',
+    url: 'https://www.securitrust.fr/cyber-pilote',
   },
 };
 
@@ -22,7 +22,7 @@ export default function CyberPiloteLayout({ children }: { children: React.ReactN
       <ServiceSchema
         name="Cyber-Pilote — RSSI Externalisé | SecuriTrust"
         description="RSSI externalisé et cybersécurité opérationnelle. Conformité NIS2, RGPD, ISO 27001. Déploiement en 48h. Dès 1 950 €/mois."
-        url="https://securitrust.fr/cyber-pilote"
+        url="https://www.securitrust.fr/cyber-pilote"
       />
       {children}
     </>

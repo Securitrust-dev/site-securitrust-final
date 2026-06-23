@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Offre invalide' }, { status: 400 });
     }
 
-    const origin = process.env.NEXT_PUBLIC_APP_URL || 'https://securitrust.fr';
+    const origin = process.env.NEXT_PUBLIC_APP_URL || 'https://www.securitrust.fr';
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

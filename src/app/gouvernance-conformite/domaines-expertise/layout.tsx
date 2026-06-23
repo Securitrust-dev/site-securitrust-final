@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   description: "Cartographie de vos obligations réglementaires par secteur : santé (HDS), finance (DORA), industrie (TISAX), collectivités (NIS2). RGPD, ISO 27001, experts SecuriTrust.",
   keywords: ['domaines expertise cybersécurité', 'réglementation secteur', 'HDS santé', 'DORA finance', 'TISAX automobile', 'NIS2 collectivités', 'conformité sectorielle'],
   alternates: {
-    canonical: 'https://securitrust.fr/gouvernance-conformite/domaines-expertise',
+    canonical: 'https://www.securitrust.fr/gouvernance-conformite/domaines-expertise',
   },
   openGraph: {
     title: 'Domaines d\'Expertise Cybersécurité — Secteurs & Réglementations',
     description: "Vos obligations réglementaires par secteur : santé, finance, industrie, collectivités. RGPD, HDS, DORA, NIS2, TISAX. SecuriTrust.",
-    url: 'https://securitrust.fr/gouvernance-conformite/domaines-expertise',
+    url: 'https://www.securitrust.fr/gouvernance-conformite/domaines-expertise',
     type: 'website',
     siteName: 'SecuriTrust',
     locale: 'fr_FR',

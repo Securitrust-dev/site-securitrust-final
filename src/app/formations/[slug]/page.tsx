@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: formation.title,
     description: formation.shortDescription,
-    alternates: { canonical: `https://securitrust.fr/formations/${slug}` },
+    alternates: { canonical: `https://www.securitrust.fr/formations/${slug}` },
   };
 }
 

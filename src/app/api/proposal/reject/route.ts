@@ -12,7 +12,7 @@ function escapeHtml(str: unknown): string {
 
 function isAuthorizedOrigin(req: NextRequest): boolean {
   const origin = req.headers.get('origin') ?? req.headers.get('referer') ?? '';
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://securitrust.fr';
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.securitrust.fr';
   return origin.startsWith(appUrl) || origin.startsWith('http://localhost');
 }
 
@@ -410,7 +410,7 @@ export async function POST(request: NextRequest) {
                   <p class="footer-title">SecuriTrust</p>
                   <p class="footer-text">
                     Votre partenaire en cybersécurité et conformité<br>
-                    <a href="https://securitrust.fr" class="footer-link">www.securitrust.fr</a>
+                    <a href="https://www.securitrust.fr" class="footer-link">www.securitrust.fr</a>
                   </p>
                   <div class="footer-divider">
                     <p class="footer-copyright">
