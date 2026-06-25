@@ -55,6 +55,14 @@ const nextConfig = {
     ];
   },
   async headers() {
+    // En dev, Next (webpack/HMR + react-refresh) exécute du code via eval() :
+    // sans 'unsafe-eval' la CSP bloque l'hydratation de TOUTES les pages.
+    // Autorisé en développement uniquement — la prod reste stricte (pas d'eval).
+    const isDev = process.env.NODE_ENV !== 'production';
+    const scriptSrc =
+      "script-src 'self' 'unsafe-inline'" +
+      (isDev ? " 'unsafe-eval'" : '') +
+      ' https://js.stripe.com https://vercel.live https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.iconify.design https://*.supabase.co';
     return [
       {
         source: '/(.*)',
@@ -83,7 +91,7 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' https://js.stripe.com https://vercel.live https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.iconify.design https://*.supabase.co",
+              scriptSrc,
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://randomuser.me https://logo.clearbit.com https://blogger.googleusercontent.com",
