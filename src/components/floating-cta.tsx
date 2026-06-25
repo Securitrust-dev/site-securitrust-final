@@ -1,11 +1,17 @@
 'use client';
 
 import { ArrowRight, Shield } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { useCTAVisibility } from '@/hooks/use-cta-visibility';
 
+/* Routes (LP autonomes) qui ont leur propre CTA et ne veulent pas du CTA flottant global. */
+const HIDE_ON = ['/rssi-externalise-lp'];
+
 export const FloatingCTA = () => {
+  const pathname = usePathname();
   const { isVisible, hideCTA } = useCTAVisibility();
 
+  if (pathname && HIDE_ON.includes(pathname)) return null;
   if (!isVisible) return null;
 
   return (
