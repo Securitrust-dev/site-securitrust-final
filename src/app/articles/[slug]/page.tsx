@@ -9,11 +9,9 @@ import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import sanitizeHtml from 'sanitize-html';
-import Parser from 'rss-parser';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -23,61 +21,41 @@ type ArticleRow = typeof articles.$inferSelect & {
   sourceType?: string;
 };
 
-/** Fetch an RSS article from The Hacker News feed by its French-translated slug */
+/** Fallback: fetch an RSS article from the internal API by its French-translated slug */
 async function getRssArticleBySlug(slug: string): Promise<ArticleRow | null> {
   try {
-    const parser = new Parser();
-    const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/articles?limit=100`, {
+      next: { revalidate: 300 },
+    });
+    if (!res.ok) return null;
+    const allArticles = await res.json();
 
-    // Translate all titles in parallel and match by French slug (same logic as API)
-    const itemsWithSlugs = await Promise.all(
-      feed.items.slice(0, 30).map(async (item) => {
-        const titleFr = await translateToFrench(item.title || '');
-        return { item, frenchSlug: generateFrenchSlug(titleFr) };
-      })
+    const match = allArticles.find(
+      (a: any) => a.slug === slug && a.sourceType === 'rss'
     );
-
-    const matched = itemsWithSlugs.find((m) => m.frenchSlug === slug);
-    if (!matched) return null;
-    const { item } = matched;
-
-    // Extract image
-    let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
-    if (item.enclosure?.url) {
-      imageUrl = item.enclosure.url;
-    } else if (item.content) {
-      const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-      if (imgMatch) imageUrl = imgMatch[1];
-    }
-
-    // Extract excerpt
-    const excerpt = item.contentSnippet?.slice(0, 200) ||
-                    item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '';
-
-    const englishSlug = item.title
-      ? item.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-      : slug;
+    if (!match) return null;
 
     return {
       id: 0,
-      title: item.title || 'Sans titre',
+      title: match.title || 'Sans titre',
       titleFr: null,
-      excerpt,
+      excerpt: match.excerpt || '',
       excerptFr: null,
-      content: item.content || item.description || '',
+      content: match.content || '',
       contentFr: null,
-      image: imageUrl,
-      author: item.creator || 'The Hacker News',
-      category: 'Actualités',
-      tags: null,
+      image: match.image || '/default-article.jpg',
+      author: match.author || 'The Hacker News',
+      category: match.category || 'Actualités',
+      tags: match.tags || null,
       lang: 'en',
       source: 'rss',
-      sourceUrl: item.link || null,
-      slug: englishSlug,
+      sourceUrl: match.sourceUrl || null,
+      slug: match.slug,
       slugFr: null,
       published: true,
-      createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
-      updatedAt: item.pubDate || item.isoDate || new Date().toISOString(),
+      createdAt: match.createdAt || new Date().toISOString(),
+      updatedAt: match.updatedAt || new Date().toISOString(),
       sourceType: 'rss',
     };
   } catch {
@@ -96,7 +74,7 @@ async function getArticle(slug: string): Promise<ArticleRow | null> {
     // Fall through to RSS lookup
   }
 
-  // Fallback: look up in the RSS feed (articles not stored in DB)
+  // Fallback: RSS articles not stored in DB → use API that already handles translation
   return getRssArticleBySlug(slug);
 }
 
