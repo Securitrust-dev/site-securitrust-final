@@ -15,6 +15,22 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
+/* Logos clients réels, repris du site (cf. hero-section-v2.tsx / public/clients).
+   Rendu monochrome (invert + mix-blend screen) qui neutralise les fonds blancs
+   des JPG sur le navy de la LP. Défilement via @keyframes marquee (globals.css). */
+const clientLogos = [
+  { src: "/clients/abeille-assurance.jpg", alt: "Abeille Assurance" },
+  { src: "/clients/axa.webp", alt: "AXA" },
+  { src: "/clients/bollore.webp", alt: "Bolloré Logistics" },
+  { src: "/clients/cegedim.jpg", alt: "Cegedim" },
+  { src: "/clients/malakoff.jpg", alt: "Malakoff Médéric" },
+  { src: "/clients/lyvoc.png", alt: "Lyvoc" },
+  { src: "/clients/thales.jpg", alt: "Thales" },
+  { src: "/clients/natixis.jpg", alt: "Natixis" },
+  { src: "/clients/munich-re.svg", alt: "Munich Re" },
+  { src: "/clients/backupta.png", alt: "BackupTa" },
+];
+
 export default function RSSIExternaliseLPPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -51,10 +67,7 @@ export default function RSSIExternaliseLPPage() {
             <div className="hero-left">
               {/* 1. Logo / wordmark */}
               <div className="brandbar">
-                <span className="brand-mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#020817" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
-                </span>
-                <span className="brand-name">Securi<b>Trust</b></span>
+                <img className="brand-logo" src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=400&resize=contain" alt="SecuriTrust" width={180} height={37} />
               </div>
 
               {/* 2. H1 */}
@@ -63,13 +76,33 @@ export default function RSSIExternaliseLPPage() {
               {/* 3. Sous-header */}
               <p className="hero-sub">Un RSSI externe senior pour piloter votre sécurité, sans le coût d'un plein temps.</p>
 
+              {/* 4. Réassurance : note, certification, clients */}
+              <div className="hero-trust">
+                <div className="ht-item">
+                  <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
+                  <span className="ht-txt">Certifié <b>ISO&nbsp;27001</b></span>
+                </div>
+                <div className="ht-item">
+                  <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                  <span className="ht-txt"><b>+100</b> clients accompagnés</span>
+                </div>
+                <div className="ht-item ht-stars" aria-label="Note moyenne 4,7 sur 5">
+                  <span className="stars" aria-hidden="true">
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <svg key={i} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26 6.86.7-5.12 4.62 1.43 6.76L12 17.77 5.93 21.1l1.43-6.76L2.24 8.96l6.86-.7z" /></svg>
+                    ))}
+                  </span>
+                  <span className="ht-txt"><b>4,7/5</b></span>
+                </div>
+              </div>
+
             </div>
 
             {/* COLONNE DROITE : FORMULAIRE */}
             <aside>
               <div className="formcard" id="form-anchor">
                 <form id="callback-form" noValidate ref={formRef} onSubmit={handleSubmit} style={showSuccess ? { display: "none" } : undefined}>
-                  <h2>Recevez votre fourchette de prix sous 2h</h2>
+                  <h2>Parlez à un expert RSSI</h2>
 
                   <div className="field">
                     <label htmlFor="f-name">Nom</label>
@@ -84,8 +117,8 @@ export default function RSSIExternaliseLPPage() {
                     <input type="tel" id="f-phone" name="phone" placeholder="06 12 34 56 78" autoComplete="tel" />
                   </div>
 
-                  <button type="submit" className="btn btn-primary">Recevoir ma fourchette de prix →</button>
-                  <p className="micro"><b>Sans engagement</b> · <b>Réponse sous 2h</b> · <b>100% confidentiel</b></p>
+                  <button type="submit" className="btn btn-primary">Être rappelé sous 2h →</button>
+                  <p className="micro"><b>Réponse sous 2h</b> · <b>100% confidentiel</b></p>
                 </form>
 
                 {/* État de succès */}
@@ -106,11 +139,14 @@ export default function RSSIExternaliseLPPage() {
       <section className="trustband" aria-label="Clients">
         <div className="wrap">
           <p className="label">Ils nous font confiance</p>
-          <div className="logos">
-            <span className="wordmark wm-sg"><span className="dot"></span>Société Générale</span>
-            <span className="wordmark wm-ab">Abeille Assurances</span>
-            <span className="wordmark wm-bfm">Banque Française Mutualiste</span>
-            <span className="wordmark"><span className="dot"></span>Ma Place en Crèche</span>
+          <div className="logo-marquee">
+            <div className="logo-track">
+              {[...clientLogos, ...clientLogos].map((logo, i) => (
+                <div className="logo-item" key={i}>
+                  <img className="logo-img" src={logo.src} alt={logo.alt} loading="lazy" aria-hidden={i >= clientLogos.length} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -141,7 +177,7 @@ export default function RSSIExternaliseLPPage() {
       <section className="section" id="offre">
         <div className="wrap">
           <h2>Le RSSI externalisé à temps partagé&nbsp;: en quoi ça consiste&nbsp;?</h2>
-          <p className="lead">Le principe du RSSI as a service : une fonction RSSI complète à temps partagé — sur site ou à distance, intégrée à votre comité de direction, ajustable selon vos priorités — sans en porter le coût ni la charge interne.</p>
+          <p className="lead">Le principe du RSSI as a service : une fonction RSSI complète à temps partagé, sur site ou à distance, intégrée à votre comité de direction, ajustable selon vos priorités, sans en porter le coût ni la charge interne.</p>
 
           <div className="bento">
 
@@ -173,7 +209,6 @@ export default function RSSIExternaliseLPPage() {
             <div className="bento-card feature" aria-label="Votre RSSI externalisé — SecuriTrust">
               <div className="feat-orb"><img src="/rssi-lp/orb.webp" alt="" loading="lazy" /></div>
               <h3>Votre RSSI externalisé</h3>
-              <p className="feat-tag">Tout votre pilotage cyber, au même endroit.</p>
             </div>
 
             {/* C — Coordination de crise (carte haute) */}
@@ -205,136 +240,52 @@ export default function RSSIExternaliseLPPage() {
         </div>
       </section>
 
-      {/* ======================= PRIX / FORMULES ======================= */}
-      <section className="section" id="prix">
+      {/* ======================= COMMENT ÇA SE PASSE ======================= */}
+      <section className="section" id="process">
         <div className="wrap">
-          <h2>Combien coûte un RSSI externalisé&nbsp;? Nos ordres de grandeur</h2>
-          <p className="lead">Pas de prix caché ni de «&nbsp;sur devis&nbsp;» opaque : voici nos fourchettes indicatives, calées après l'audit offert.</p>
-
-          <div className="pricing">
-            <div className="price-card">
-              <div className="tier">Essentiel</div>
-              <div className="from">À partir de</div>
-              <div className="amount">1 950 €<span> /mois HT</span></div>
-              <div className="who">PME jusqu'à ~50 salariés, poser les fondamentaux de la gouvernance cyber.</div>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Analyse des risques &amp; feuille de route</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> PSSI &amp; mise en conformité de base</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Tableaux de bord trimestriels</li>
-              </ul>
-              <a href="#form-anchor" className="btn btn-ghost pc-cta">Vérifier mon éligibilité</a>
+          <h2>De l'audit au pilotage continu, en 3 étapes</h2>
+          <div className="steps">
+            <div className="step">
+              <div className="n">1</div>
+              <h3>Audit préliminaire offert</h3>
+              <p>On évalue votre sécurité, vos risques et vos obligations (NIS2, RGPD, HDS). Vous repartez avec un diagnostic clair et des priorités d'action concrètes.</p>
+              <span className="free">Offert</span>
             </div>
-
-            <div className="price-card featured">
-              <span className="tag">Le plus choisi</span>
-              <div className="tier">Premium</div>
-              <div className="from">À partir de</div>
-              <div className="amount">4 500 €<span> /mois HT</span></div>
-              <div className="who">PME &amp; ETI 50–300 salariés, protection active et pilotage continu.</div>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Tout l'Essentiel + supervision projets IT</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Gestion de crise 24/7 incluse</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Dossier assureur cyber &amp; conformité NIS2</li>
-              </ul>
-              <a href="#form-anchor" className="btn btn-primary pc-cta">Recevoir un devis précis</a>
+            <div className="step">
+              <div className="n">2</div>
+              <h3>Plan de pilotage &amp; devis</h3>
+              <p>Feuille de route priorisée, mission dimensionnée selon vos besoins. Devis précis. Déploiement en 48h.</p>
             </div>
-
-            <div className="price-card">
-              <div className="tier">Entreprise</div>
-              <div className="from">Dès</div>
-              <div className="amount">8 500 €<span> /mois HT</span></div>
-              <div className="who">ETI &amp; enjeux forts (HDS, DORA, multi-sites), dispositif sur mesure.</div>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> RSSI dédié + équipe pluridisciplinaire</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Conformité sectorielle (santé/HDS, finance/DORA)</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Coordination infogérant &amp; sous-traitants</li>
-              </ul>
-              <a href="#form-anchor" className="btn btn-ghost pc-cta">Cadrer mon périmètre</a>
+            <div className="step">
+              <div className="n">3</div>
+              <h3>Run &amp; pilotage continu</h3>
+              <p>Votre RSSI pilote la sécurité, anime les tableaux de bord en comité de direction, gère conformité, veille et crise. Une gouvernance vivante, ajustable mois après mois.</p>
             </div>
           </div>
-
-
-          <p className="pricing-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="9" /><path d="M12 8h.01M11 12h1v4h1" /></svg> <span>Des points de départ indicatifs, calés après l'audit offert — à comparer aux 80–120 k€/an d'un RSSI interne. <strong style={{ color: "var(--muted)" }}>Volume de jours indicatif par formule :</strong> [À COMPLÉTER : ex. Essentiel ~2 j/mois · Premium ~4 j/mois · Entreprise sur-mesure].</span></p>
-        </div>
-      </section>
-
-      {/* ======================= INTERNE VS EXTERNALISÉ ======================= */}
-      <section className="section" id="comparatif">
-        <div className="wrap">
-          <h2>Externaliser la fonction RSSI ou recruter&nbsp;? Le comparatif honnête</h2>
-          <p className="lead">Avant de recruter, comparez : externaliser offre la même expertise, plus de flexibilité, à coût réduit.</p>
-
-          <div className="compare">
-            <div className="compare-row compare-head">
-              <div>Critère</div>
-              <div className="col-int">RSSI interne</div>
-              <div className="col-ext">RSSI externalisé</div>
-            </div>
-            <div className="compare-row">
-              <div className="crit">Coût</div>
-              <div className="col-int"><span className="cross">✕</span>80 000 à 120 000 €/an de salaire chargé</div>
-              <div className="col-ext"><span className="tick">✓</span>À partir de 1 950 €/mois, jusqu'à 10× moins</div>
-            </div>
-            <div className="compare-row">
-              <div className="crit">Engagement</div>
-              <div className="col-int"><span className="cross">✕</span>CDI : préavis, indemnités, rigidité</div>
-              <div className="col-ext"><span className="tick">✓</span>Sans engagement, résiliable sous 30 jours</div>
-            </div>
-            <div className="compare-row">
-              <div className="crit">Disponibilité de l'expertise</div>
-              <div className="col-int"><span className="cross">✕</span>Plusieurs mois de recrutement</div>
-              <div className="col-ext"><span className="tick">✓</span>Expertise de haut niveau immédiate</div>
-            </div>
-            <div className="compare-row">
-              <div className="crit">Charge RH &amp; turnover</div>
-              <div className="col-int"><span className="cross">✕</span>Recrutement, management, risque de départ</div>
-              <div className="col-ext"><span className="tick">✓</span>Zéro charge RH, continuité garantie</div>
-            </div>
-            <div className="compare-row">
-              <div className="crit">Étendue des compétences</div>
-              <div className="col-int"><span className="cross">✕</span>Une personne, un périmètre limité</div>
-              <div className="col-ext"><span className="tick">✓</span>Un cabinet, toutes les expertises (audit, crise, conformité)</div>
-            </div>
-            <div className="compare-row">
-              <div className="crit">Indépendance</div>
-              <div className="col-int"><span className="cross">✕</span>Soumis aux enjeux internes et politiques</div>
-              <div className="col-ext"><span className="tick">✓</span>Regard externe, indépendant et objectif</div>
-            </div>
-            <div className="compare-row">
-              <div className="crit">Flexibilité du volume</div>
-              <div className="col-int"><span className="cross">✕</span>Temps plein figé, qu'importe la charge réelle</div>
-              <div className="col-ext"><span className="tick">✓</span>Temps partagé, ajustable mois après mois</div>
-            </div>
+          <div className="cmp-cta">
+            <a href="#form-anchor" className="btn btn-primary">Démarrer par l'audit offert →</a>
+            <p className="cmp-cta-note">Audit offert · Réponse sous 2h</p>
           </div>
         </div>
       </section>
 
-      {/* ======================= COEXISTENCE IT / INFOGÉRANT + CRISE 24/7 ======================= */}
-      <section className="section" id="dispositif">
+      {/* ======================= TÉMOIGNAGE SIMPLE (RÉASSURANCE) ======================= */}
+      {/* Vrai témoignage : avis Google 5★ de Saida (extrait synthétique). */}
+      <section className="section" id="temoignage">
         <div className="wrap">
-          <h2>Le RSSI externalisé renforce vos équipes, il ne les remplace pas</h2>
-          <p className="lead">Déjà une DSI ou un infogérant ? Le RSSI externe pilote la gouvernance, vos équipes gardent l'exploitation. Chacun son rôle.</p>
-
-          <div className="split">
-            <div className="feature">
-              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /></svg> Vous avez déjà un responsable IT ou un infogérant</h3>
-              <p>Le RSSI externe pilote la gouvernance et la feuille de route ; votre IT garde l'exécution. Matrice RACI claire dès le cadrage.</p>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> RSSI = gouvernance, stratégie, conformité, arbitrage</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> IT / infogérant = exploitation, run, maintien en condition</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Votre responsable IT est renforcé et monté en compétence, jamais court-circuité</li>
-              </ul>
+          <div className="testimonial">
+            <div className="t-stars" aria-hidden="true">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <svg key={i} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26 6.86.7-5.12 4.62 1.43 6.76L12 17.77 5.93 21.1l1.43-6.76L2.24 8.96l6.86-.7z" /></svg>
+              ))}
             </div>
-
-            <div className="feature accent">
-              <span className="badge24"><span className="pulse"></span> Gestion de crise 24/7</span>
-              <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><path d="M12 9v4M12 17h.01" /></svg> Quand ça pète, on est là</h3>
-              <p>Gestion de crise intégrée à la mission, pas en option. En cas d'incident, un interlocuteur senior décroche — pas un standard — active la cellule de crise et coordonne la réponse.</p>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Astreinte 24/7 incluse (Premium &amp; Entreprise)</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Cellule de crise, réponse à incident, PCA/PRA</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Les SLA précis (délais garantis) sont contractualisés selon votre exposition</li>
-              </ul>
+            <blockquote className="t-quote">«&nbsp;Nous sommes extrêmement satisfaits de l'accompagnement de SecuriTrust. Leur expertise en cybersécurité a été un véritable atout, notamment pour l'obtention de notre certification SOC 2 Type II&nbsp;: méthodologie rigoureuse, délais respectés et conseils pertinents.&nbsp;»</blockquote>
+            <div className="t-author">
+              <div className="t-avatar" aria-hidden="true">S</div>
+              <div className="t-meta">
+                <div className="t-name">Saida</div>
+                <div className="t-role">Avis vérifié sur Google</div>
+              </div>
             </div>
           </div>
         </div>
@@ -348,64 +299,235 @@ export default function RSSIExternaliseLPPage() {
 
           <div className="sectors">
             <div className="sector">
-              <div className="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4" /></svg></div>
-              <h3>Finance &amp; assurance</h3>
-              <p>DORA, exigences ACPR, due diligence investisseurs. Banques, assureurs et fintech.</p>
+              <div className="s-head">
+                <h3>Finance &amp; assurance</h3>
+                <p>DORA, exigences ACPR, due diligence investisseurs. Banques, assureurs et fintech.</p>
+              </div>
+              <div className="s-art">
+                <img className="s-art-img" src="/sectors/finance.webp" alt="" loading="lazy" />
+              </div>
             </div>
             <div className="sector">
-              <div className="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg></div>
-              <h3>Santé &amp; HDS</h3>
-              <p>Données de santé, hébergement HDS, séparation des accès. SecuriTrust est certifié HDS (AFAQ).</p>
+              <div className="s-head">
+                <h3>Santé &amp; HDS</h3>
+                <p>Données de santé, hébergement HDS, séparation des accès. SecuriTrust est certifié HDS (AFAQ).</p>
+              </div>
+              <div className="s-art">
+                <img className="s-art-img" src="/sectors/sante.webp" alt="" loading="lazy" />
+              </div>
             </div>
             <div className="sector">
-              <div className="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 9V5a3 3 0 0 0-6 0v4M5 9h14l1 12H4L5 9z" /></svg></div>
-              <h3>Industrie &amp; multi-sites</h3>
-              <p>SI hybride, OT/IT, franchises et réseaux. Inventaire et gouvernance d'un parc distribué.</p>
+              <div className="s-head">
+                <h3>Industrie &amp; multi-sites</h3>
+                <p>SI hybride, OT/IT, franchises et réseaux. Inventaire et gouvernance d'un parc distribué.</p>
+              </div>
+              <div className="s-art">
+                <img className="s-art-img" src="/sectors/industrie.webp" alt="" loading="lazy" />
+              </div>
             </div>
             <div className="sector">
-              <div className="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M6 21V8l6-4 6 4v13M10 21v-5h4v5" /></svg></div>
-              <h3>Public &amp; ESS</h3>
-              <p>Collectivités, mutuelles et associations. Intervention en marché public (MAPA, appel d'offres).</p>
+              <div className="s-head">
+                <h3>Public &amp; ESS</h3>
+                <p>Collectivités, mutuelles et associations. Intervention en marché public (MAPA, appel d'offres).</p>
+              </div>
+              <div className="s-art">
+                <img className="s-art-img" src="/sectors/public.webp" alt="" loading="lazy" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ======================= CAS CLIENTS (GABARITS À COMPLÉTER AVANT MISE EN LIGNE) ======================= */}
-      <section className="section" id="cas" style={{ display: "none" }}>{/* ⚠️ MASQUÉE POUR LE LANCEMENT : retire style="display:none" UNE FOIS les 3 cas réels remplis. Les placeholders [À COMPLÉTER] visibles nuisent à la conversion (testé). */}
+      {/* ======================= PREUVE : CHIFFRES + CERTIFS ======================= */}
+      <section className="section" id="preuve">
+        <div className="wrap">
+          <h2>Une expertise de haut niveau, prouvée par les chiffres</h2>
+          <p className="lead" style={{ marginBottom: "26px" }}>Depuis 15 ans, du diagnostic au pilotage continu, portés par un CISO (RSSI) externe senior.</p>
+          <div className="stats-wall">
+            <div className="stat-box"><div className="num">+2 500</div><div className="lbl">jours-homme de RSSI externalisé</div></div>
+            <div className="stat-box"><div className="num">15 ans</div><div className="lbl">d'expérience cyber</div></div>
+            <div className="stat-box"><div className="num">+100</div><div className="lbl">entreprises sécurisées</div></div>
+            <div className="stat-box"><div className="num">+86</div><div className="lbl">pentests au résultat garanti</div></div>
+            <div className="stat-box"><div className="num">97%</div><div className="lbl">des vulnérabilités critiques détectées</div></div>
+            <div className="stat-box"><div className="num">+105</div><div className="lbl">conformités ISO 27001 obtenues</div></div>
+          </div>
+
+          <div className="certs">
+            <span className="cert highlight cert-featured"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> Auditeur officiel AFNOR</span>
+            <div className="cert-list">
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> ISO 27001 (AFAQ)</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> RGPD (AFAQ)</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> HDS (AFAQ)</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> ISO 42001</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> OSCP</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> CEH</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> PNPT</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> EBIOS RM</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Lead Auditor / Implementer ISO 27001</span>
+              <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg> PASSI (en cours)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= INTERNE VS EXTERNALISÉ ======================= */}
+      <section className="section" id="comparatif">
+        <div className="wrap">
+          <h2>Externaliser la fonction RSSI ou recruter&nbsp;?</h2>
+          <p className="lead">Avant de recruter, comparez : externaliser offre la même expertise, plus de flexibilité, à coût réduit.</p>
+
+          <div className="cmp">
+            <div className="cmp-grid">
+              <div className="cmp-row cmp-head">
+                <div className="cmp-crit">Critère</div>
+                <div className="cmp-int"><span className="cmp-th">RSSI internalisé</span></div>
+                <div className="cmp-ext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg><span className="cmp-th">RSSI externalisé</span></div>
+              </div>
+              <div className="cmp-row">
+                <div className="cmp-crit"><span className="cmp-ct">Coût</span></div>
+                <div className="cmp-int"><span className="x">✕</span><span className="cmp-lbl">Interne&nbsp;: </span>80 000 à 120 000 €/an chargé</div>
+                <div className="cmp-ext"><span className="v">✓</span><span className="cmp-lbl">Externalisé&nbsp;: </span>Dès 1 950 €/mois, jusqu'à 10× moins</div>
+              </div>
+              <div className="cmp-row">
+                <div className="cmp-crit"><span className="cmp-ct">Disponibilité de l'expertise</span></div>
+                <div className="cmp-int"><span className="x">✕</span><span className="cmp-lbl">Interne&nbsp;: </span>Plusieurs mois de recrutement</div>
+                <div className="cmp-ext"><span className="v">✓</span><span className="cmp-lbl">Externalisé&nbsp;: </span>Expertise senior immédiate</div>
+              </div>
+              <div className="cmp-row">
+                <div className="cmp-crit"><span className="cmp-ct">Charge RH &amp; turnover</span></div>
+                <div className="cmp-int"><span className="x">✕</span><span className="cmp-lbl">Interne&nbsp;: </span>Recrutement, management, risque de départ</div>
+                <div className="cmp-ext"><span className="v">✓</span><span className="cmp-lbl">Externalisé&nbsp;: </span>Zéro charge RH, continuité garantie</div>
+              </div>
+              <div className="cmp-row">
+                <div className="cmp-crit"><span className="cmp-ct">Étendue des compétences</span></div>
+                <div className="cmp-int"><span className="x">✕</span><span className="cmp-lbl">Interne&nbsp;: </span>Une personne, périmètre limité</div>
+                <div className="cmp-ext"><span className="v">✓</span><span className="cmp-lbl">Externalisé&nbsp;: </span>Un cabinet, toutes les expertises</div>
+              </div>
+            </div>
+            <div className="cmp-cta">
+              <a href="#form-anchor" className="btn btn-primary">Parlez à un expert RSSI →</a>
+              <p className="cmp-cta-note">Audit offert · Réponse sous 2h</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= PRIX / FORMULES ======================= */}
+      <section className="section" id="prix">
+        <div className="wrap">
+          <h2>Combien coûte un RSSI externalisé&nbsp;?</h2>
+          <p className="lead">Pas de prix caché ni de «&nbsp;sur devis&nbsp;» opaque : voici nos ordres de grandeur, calés après l'audit offert.</p>
+
+          <div className="pricing">
+            <div className="price-card">
+              <div className="tier">Essentiel</div>
+              <div className="from">À partir de</div>
+              <div className="amount">1 950 €<span> /mois HT</span></div>
+              <div className="who">PME jusqu'à ~50 salariés, poser les fondamentaux de la gouvernance cyber.</div>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Analyse des risques &amp; feuille de route</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> PSSI &amp; mise en conformité de base</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Tableaux de bord trimestriels</li>
+              </ul>
+              <a href="#form-anchor" className="btn btn-ghost pc-cta">Parler à un expert</a>
+            </div>
+
+            <div className="price-card featured">
+              <span className="tag">Le plus choisi</span>
+              <div className="tier">Premium</div>
+              <div className="from">À partir de</div>
+              <div className="amount">4 500 €<span> /mois HT</span></div>
+              <div className="who">PME &amp; ETI 50–300 salariés, protection active et pilotage continu.</div>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Tout l'Essentiel + supervision projets IT</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Gestion de crise 24/7 incluse</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Dossier assureur cyber &amp; conformité NIS2</li>
+              </ul>
+              <a href="https://calendly.com/securitrust-rssi/20min" className="btn btn-primary pc-cta" target="_blank" rel="noopener noreferrer">Réserver 20 min</a>
+            </div>
+
+            <div className="price-card">
+              <div className="tier">Entreprise</div>
+              <div className="from">Dès</div>
+              <div className="amount">8 500 €<span> /mois HT</span></div>
+              <div className="who">ETI &amp; enjeux forts (HDS, DORA, multi-sites), dispositif sur mesure.</div>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> RSSI dédié + équipe pluridisciplinaire</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Conformité sectorielle (santé/HDS, finance/DORA)</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Coordination infogérant &amp; sous-traitants</li>
+              </ul>
+              <a href="#form-anchor" className="btn btn-ghost pc-cta">Parler à un expert</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= CAS CLIENTS ======================= */}
+      {/* Cas réels repris du portfolio du site (clients déjà publics). Réalisations factuelles, sans chiffres ni citations inventés. */}
+      <section className="section" id="cas">
         <div className="wrap">
           <h2>Ce que ça donne concrètement, secteur par secteur</h2>
-          <p className="lead">Des missions réelles, des résultats mesurables. <em style={{ color: "var(--muted-2)" }}>Gabarits à compléter par SecuriTrust avec de vrais cas (anonymisés par secteur si nécessaire) avant la mise en ligne. Ne pas publier avec les mentions « À COMPLÉTER ».</em></p>
+          <p className="lead">Des accompagnements réels, du pilotage RSSI à la conformité, pour des organisations de tous secteurs.</p>
 
           <div className="grid g3" style={{ marginTop: "36px" }}>
 
-            <div className="card" style={{ borderStyle: "dashed" }}>
-              <span className="eyebrow" style={{ marginBottom: "10px", color: "var(--cyan)" }}>[À COMPLÉTER : Secteur, ex : Distribution / ETI]</span>
-              <h3>[À COMPLÉTER : taille &amp; contexte, ex : ETI distribution, 200 salariés]</h3>
-              <p><strong style={{ color: "#fff" }}>Situation&nbsp;:</strong> [À COMPLÉTER : le problème de départ, ex : aucune gouvernance cyber, l'assureur exigeait un niveau de sécurité documenté pour renouveler la police].</p>
-              <p><strong style={{ color: "#fff" }}>Mission&nbsp;:</strong> [À COMPLÉTER : ce que le RSSI externe a mis en place, ex : analyse des risques EBIOS RM, PSSI, feuille de route, dossier assureur].</p>
-              <p><strong style={{ color: "var(--sky)" }}>Résultat&nbsp;:</strong> [À COMPLÉTER : résultat chiffré, ex : conformité obtenue en 4 mois, prime assureur −18 %, dossier accepté].</p>
-              <p style={{ fontSize: ".86rem", color: "var(--muted-2)", borderLeft: "2px solid var(--line)", paddingLeft: "12px", marginTop: "14px" }}>«&nbsp;[À COMPLÉTER : verbatim client court]&nbsp;», [Poste], [Secteur / taille]</p>
+            <div className="card case">
+              <div className="case-media">
+                <img src="/rssi-lp/cas-affluens.webp" alt="" loading="lazy" />
+                <div className="case-fade" aria-hidden="true"></div>
+                <div className="case-logo"><img src="/rssi-lp/logo-affluens.png" alt="Affluens" loading="lazy" /></div>
+              </div>
+              <div className="case-body">
+                <h3 className="case-client">Affluens</h3>
+                <span className="case-sector"><span className="cs-label">Technologie</span></span>
+                <p className="case-desc">RSSI externalisé à temps partagé et stratégie de cybersécurité d'ensemble.</p>
+              </div>
             </div>
 
-            <div className="card" style={{ borderStyle: "dashed" }}>
-              <span className="eyebrow" style={{ marginBottom: "10px", color: "var(--cyan)" }}>[À COMPLÉTER : Secteur, ex : Industrie / multi-sites]</span>
-              <h3>[À COMPLÉTER : taille &amp; contexte, ex : industrie, 150 salariés, SI hybride OT/IT]</h3>
-              <p><strong style={{ color: "#fff" }}>Situation&nbsp;:</strong> [À COMPLÉTER : ex : parc complexe, plusieurs sites, aucune supervision des accès].</p>
-              <p><strong style={{ color: "#fff" }}>Mission&nbsp;:</strong> [À COMPLÉTER : ex : inventaire, cartographie, supervision, plan de remédiation priorisé].</p>
-              <p><strong style={{ color: "var(--sky)" }}>Résultat&nbsp;:</strong> [À COMPLÉTER : ex : X vulnérabilités critiques corrigées, PCA/PRA testé, audit passé].</p>
-              <p style={{ fontSize: ".86rem", color: "var(--muted-2)", borderLeft: "2px solid var(--line)", paddingLeft: "12px", marginTop: "14px" }}>«&nbsp;[À COMPLÉTER : verbatim client court]&nbsp;», [Poste], [Secteur / taille]</p>
+            <div className="card case">
+              <div className="case-media">
+                <img src="/rssi-lp/cas-sg.webp" alt="" loading="lazy" />
+                <div className="case-fade" aria-hidden="true"></div>
+                <div className="case-logo"><img src="/rssi-lp/logo-sg.png" alt="Société Générale" loading="lazy" /></div>
+              </div>
+              <div className="case-body">
+                <h3 className="case-client">Société Générale</h3>
+                <span className="case-sector"><span className="cs-label">Finance</span></span>
+                <p className="case-desc">Audit de cybersécurité complet et mise en conformité ISO&nbsp;27001.</p>
+              </div>
             </div>
 
-            <div className="card" style={{ borderStyle: "dashed" }}>
-              <span className="eyebrow" style={{ marginBottom: "10px", color: "var(--cyan)" }}>[À COMPLÉTER : Secteur, ex : SaaS / levée de fonds ou Santé / HDS]</span>
-              <h3>[À COMPLÉTER : taille &amp; contexte, ex : scale-up SaaS, 60 salariés, due diligence Série A]</h3>
-              <p><strong style={{ color: "#fff" }}>Situation&nbsp;:</strong> [À COMPLÉTER : ex : due diligence investisseur / exigence client grand compte / conformité HDS].</p>
-              <p><strong style={{ color: "#fff" }}>Mission&nbsp;:</strong> [À COMPLÉTER : ex : rapport EBIOS RM, attestation ISO 27001, synthèse pour data room].</p>
-              <p><strong style={{ color: "var(--sky)" }}>Résultat&nbsp;:</strong> [À COMPLÉTER : ex : dossier sécurité validé par l'investisseur, contrat grand compte signé].</p>
-              <p style={{ fontSize: ".86rem", color: "var(--muted-2)", borderLeft: "2px solid var(--line)", paddingLeft: "12px", marginTop: "14px" }}>«&nbsp;[À COMPLÉTER : verbatim client court]&nbsp;», [Poste], [Secteur / taille]</p>
+            <div className="card case">
+              <div className="case-media">
+                <img src="/rssi-lp/cas-veolia.webp" alt="" loading="lazy" />
+                <div className="case-fade" aria-hidden="true"></div>
+                <div className="case-logo"><img src="/rssi-lp/logo-veolia.png" alt="Veolia Eau d'Île-de-France" loading="lazy" /></div>
+              </div>
+              <div className="case-body">
+                <h3 className="case-client">Veolia Eau d'Île-de-France</h3>
+                <span className="case-sector"><span className="cs-label">Services publics</span></span>
+                <p className="case-desc">Conformité NIS&nbsp;2 et protection des infrastructures critiques.</p>
+              </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ======================= CTA FINAL ======================= */}
+      <section className="section" id="contact">
+        <div className="wrap">
+          <div className="finalcta">
+            <div className="bg-glow"></div>
+            <div className="finalcta-inner">
+              <h2>Parlez à un expert RSSI dès aujourd'hui</h2>
+              <p>Un RSSI senior vous rappelle sous 2h, ou réservez 20 min. Audit offert, 100% confidentiel.</p>
+              <div className="finalcta-btns">
+                <a href="#form-anchor" className="btn btn-primary">Être rappelé sous 2h →</a>
+                <a href="https://calendly.com/securitrust-rssi/20min" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Réserver 20 min</a>
+              </div>
+              <p className="micro"><b>Réponse sous 2h</b> · <b>NDA dès le 1er échange</b></p>
+            </div>
           </div>
         </div>
       </section>
@@ -421,10 +543,6 @@ export default function RSSIExternaliseLPPage() {
               <summary>Combien ça coûte vraiment, et pourquoi pas un prix unique&nbsp;?<span className="plus">+</span></summary>
               <p>Nos formules démarrent à 1 950 €/mois HT (PME jusqu'à ~50 salariés), 4 500 €/mois HT (PME et ETI 50–300 salariés), et dès 8 500 €/mois HT pour les enjeux forts (HDS, DORA, multi-sites). Ce sont des points de départ honnêtes, affichés pour que vous puissiez vous situer avant même de nous parler.</p>
               <p>Le prix exact dépend de votre taille, de votre exposition réglementaire et du volume de jours réellement utile&nbsp;: nous le calons après l'audit préliminaire offert, sans surprise. À comparer aux 80–120 k€/an d'un RSSI interne.</p>
-            </details>
-            <details>
-              <summary>Y a-t-il un engagement de durée&nbsp;?<span className="plus">+</span></summary>
-              <p>Non. Toutes nos missions de RSSI externalisé sont sans engagement de durée&nbsp;: le contrat est résiliable à tout moment avec 30 jours de préavis, sans pénalité de sortie. Vous ajustez aussi le volume de jours mois après mois selon vos priorités. Nous préférons vous garder par la qualité du pilotage, pas par un contrat verrouillé.</p>
             </details>
             <details>
               <summary>Quels sont les avantages d'un RSSI externalisé&nbsp;?<span className="plus">+</span></summary>
@@ -484,89 +602,13 @@ export default function RSSIExternaliseLPPage() {
         </div>
       </section>
 
-      {/* ======================= PREUVE : CHIFFRES + CERTIFS ======================= */}
-      <section className="section" id="preuve">
-        <div className="wrap">
-          <h2>Une expertise de haut niveau, prouvée par les chiffres</h2>
-          <p className="lead" style={{ marginBottom: "26px" }}>Depuis 15 ans, du diagnostic au pilotage continu, portés par un CISO (RSSI) externe senior.</p>
-          <div className="stats-wall">
-            <div className="stat-box"><div className="num">+2 500</div><div className="lbl">jours-homme de RSSI externalisé</div></div>
-            <div className="stat-box"><div className="num">15 ans</div><div className="lbl">d'expérience cyber</div></div>
-            <div className="stat-box"><div className="num">+100</div><div className="lbl">entreprises sécurisées</div></div>
-            <div className="stat-box"><div className="num">+86</div><div className="lbl">pentests au résultat garanti</div></div>
-            <div className="stat-box"><div className="num">97%</div><div className="lbl">des vulnérabilités critiques détectées</div></div>
-            <div className="stat-box"><div className="num">+105</div><div className="lbl">conformités ISO 27001 obtenues</div></div>
-          </div>
-
-          <div className="certs">
-            <span className="cert highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> Auditeur officiel AFNOR</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> ISO 27001 (AFAQ)</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> RGPD (AFAQ)</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> HDS (AFAQ)</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> ISO 42001</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> OSCP</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> CEH</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> PNPT</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> EBIOS RM</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Lead Auditor / Implementer ISO 27001</span>
-            <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg> PASSI (en cours)</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================= COMMENT ÇA SE PASSE ======================= */}
-      <section className="section" id="process">
-        <div className="wrap">
-          <h2>De l'audit au pilotage continu, en 3 étapes</h2>
-          <div className="steps">
-            <div className="step">
-              <div className="n">1</div>
-              <h3>Audit préliminaire offert</h3>
-              <p>On évalue votre sécurité, vos risques et vos obligations (NIS2, RGPD, HDS). Vous repartez avec un diagnostic clair et une fourchette de prix ferme.</p>
-              <span className="free">Offert</span>
-            </div>
-            <div className="step">
-              <div className="n">2</div>
-              <h3>Plan de pilotage &amp; devis</h3>
-              <p>Feuille de route priorisée, mission dimensionnée selon vos besoins. Devis précis, sans engagement. Déploiement en 48h.</p>
-            </div>
-            <div className="step">
-              <div className="n">3</div>
-              <h3>Run &amp; pilotage continu</h3>
-              <p>Votre RSSI pilote la sécurité, anime les tableaux de bord en comité de direction, gère conformité, veille et crise. Une gouvernance vivante, ajustable mois après mois.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================= CTA FINAL ======================= */}
-      <section className="section" id="contact">
-        <div className="wrap">
-          <div className="finalcta">
-            <div className="bg-glow"></div>
-            <div className="finalcta-inner">
-              <h2>Parlez à un expert RSSI dès aujourd'hui</h2>
-              <p>Recevez votre fourchette de prix sous 2h, ou réservez 20 min. Audit offert, sans engagement, 100% confidentiel.</p>
-              <div className="finalcta-btns">
-                <a href="#form-anchor" className="btn btn-primary">Recevoir ma fourchette de prix →</a>
-                <a href="https://calendly.com/securitrust-rssi/20min" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Réserver 20 min</a>
-              </div>
-              <p className="micro"><b>Sans engagement</b> · <b>Résiliable sous 30 jours</b> · <b>Réponse sous 2h</b> · <b>NDA dès le 1er échange</b></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ======================= FOOTER ======================= */}
       <footer>
         <div className="wrap">
           <div className="footer-grid">
             <div>
               <div className="brandbar" style={{ marginBottom: "10px" }}>
-                <span className="brand-mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#020817" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
-                </span>
-                <span className="brand-name">Securi<b>Trust</b></span>
+                <img className="brand-logo" src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=400&resize=contain" alt="SecuriTrust" width={180} height={37} />
               </div>
               <p>Cabinet de cybersécurité, auditeur officiel AFNOR. RSSI externalisé à temps partagé, audit, conformité et gestion de crise pour PME et ETI.</p>
             </div>
@@ -587,7 +629,7 @@ export default function RSSIExternaliseLPPage() {
 
       {/* ======================= STICKY MOBILE CTA ======================= */}
       <div className="sticky-cta">
-        <a href="#form-anchor" className="btn btn-primary">Recevoir ma fourchette de prix →</a>
+        <a href="#form-anchor" className="btn btn-primary">Parler à un expert →</a>
       </div>
     </div>
   );
