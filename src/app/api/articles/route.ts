@@ -6,26 +6,7 @@ import Parser from 'rss-parser';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
 import { classifyArticle, CYBER_CATEGORIES } from '@/lib/articles';
-import sanitizeHtml from 'sanitize-html';
-
-const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'img', 'figure', 'figcaption',
-    'table', 'thead', 'tbody', 'tr', 'th', 'td',
-    'pre', 'code', 'blockquote',
-  ]),
-  allowedAttributes: {
-    ...sanitizeHtml.defaults.allowedAttributes,
-    '*': ['class'],
-    'a': ['href', 'target', 'rel', 'title'],
-    'img': ['src', 'alt', 'width', 'height', 'loading'],
-    'td': ['colspan', 'rowspan'],
-    'th': ['colspan', 'rowspan', 'scope'],
-  },
-  allowedSchemes: ['https', 'http', 'mailto'],
-  allowedSchemesByTag: { img: ['https', 'data'] },
-};
+import { RSS_RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug } from '@/lib/rss-utils';
 
 // Authenticate API key for write operations
 function authenticateRequest(request: NextRequest): boolean {
@@ -34,16 +15,7 @@ function authenticateRequest(request: NextRequest): boolean {
   return !!expected && apiKey === expected;
 }
 
-// Helper function to generate URL-friendly slugs
-function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
+// Helper function to generate URL-friendly slugs (imported from rss-utils)
 
 // GET handler - Fetch articles from DB and RSS
 export async function GET(request: NextRequest) {
@@ -85,7 +57,7 @@ export async function GET(request: NextRequest) {
 
     // 2. Fetch from RSS (External veille)
     const parser = new Parser();
-    const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
+    const feed = await parser.parseURL(RSS_FEED_URL);
     
     // Process RSS items with translation and caching
     const rssArticles = await Promise.all(feed.items.slice(0, limit * 2).map(async (item, index) => {
@@ -244,8 +216,8 @@ export async function POST(request: NextRequest) {
       titleFr: titleFr.trim(),
       excerpt: excerpt.trim(),
       excerptFr: excerptFr.trim(),
-      content: sanitizeHtml(content.trim(), SANITIZE_OPTIONS),
-      contentFr: sanitizeHtml(contentFr.trim(), SANITIZE_OPTIONS),
+      content: sanitizeHtml(content.trim(), RSS_SANITIZE_OPTIONS),
+      contentFr: sanitizeHtml(contentFr.trim(), RSS_SANITIZE_OPTIONS),
       image: image.trim(),
       category: category.trim(),
       tags: typeof tags === 'string' ? tags : JSON.stringify(tags),

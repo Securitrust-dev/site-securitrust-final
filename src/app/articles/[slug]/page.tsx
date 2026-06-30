@@ -16,26 +16,10 @@ import Parser from 'rss-parser';
 import { synthesizeArticle } from '@/lib/claude';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { classifyArticle } from '@/lib/articles';
+import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage, RSS_STOP_WORDS } from '@/lib/rss-utils';
 import ArticleInfographic from '@/components/ArticleInfographic';
 
-const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-    'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'img', 'figure', 'figcaption',
-    'table', 'thead', 'tbody', 'tr', 'th', 'td',
-    'pre', 'code', 'blockquote',
-  ]),
-  allowedAttributes: {
-    ...sanitizeHtml.defaults.allowedAttributes,
-    '*': ['class'],
-    'a': ['href', 'target', 'rel', 'title'],
-    'img': ['src', 'alt', 'width', 'height', 'loading'],
-    'td': ['colspan', 'rowspan'],
-    'th': ['colspan', 'rowspan', 'scope'],
-  },
-  allowedSchemes: ['https', 'http', 'mailto'],
-  allowedSchemesByTag: { img: ['https', 'data'] },
-};
+const SANITIZE_OPTIONS = RSS_SANITIZE_OPTIONS;
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -44,16 +28,6 @@ interface ArticlePageProps {
 type ArticleRow = typeof articles.$inferSelect & {
   sourceType?: string;
 };
-
-function generateSlug(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
 
 /** Synthesize an RSS item via Claude and store in DB */
 async function synthesizeAndInsertArticle(item: any, slug: string): Promise<ArticleRow | null> {
@@ -82,16 +56,36 @@ async function synthesizeAndInsertArticle(item: any, slug: string): Promise<Arti
     if (!synthesized) return null;
 
     // Extract image
-    let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
-    if (item.enclosure?.url) {
-      imageUrl = item.enclosure.url;
-    } else if (item.content) {
-      const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-      if (imgMatch) imageUrl = imgMatch[1];
+    const imageUrl = extractImage(item);
+
+    // Check if the generated slug already exists in DB (avoid UNIQUE constraint violation)
+    const slugCheck = await db
+      .select({ id: articles.id, sourceUrl: articles.sourceUrl })
+      .from(articles)
+      .where(eq(articles.slug, s))
+      .limit(1);
+
+    // If slug exists, update instead of insert
+    if (slugCheck.length > 0) {
+      await client.execute({
+        sql: `UPDATE articles SET title = ?, title_fr = ?, excerpt = ?, excerpt_fr = ?, content = ?, content_fr = ?, image = ?, category = ?, tags = ?, source_url = ?, updated_at = ? WHERE id = ?`,
+        args: [
+          item.title || '', synthesized.titleFr,
+          item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
+          sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+          imageUrl, synthesized.category,
+          JSON.stringify(synthesized.tags),
+          sourceUrl,
+          updatedAt,
+          slugCheck[0].id,
+        ],
+      });
+      const result = await db.select().from(articles).where(eq(articles.id, slugCheck[0].id)).limit(1);
+      if (result.length) return result[0];
+      return null;
     }
 
     // Store in DB
-    const s = generateSlug(synthesized.titleFr);
     const publishedDate = item.pubDate || item.isoDate || new Date().toISOString();
     const updatedAt = new Date().toISOString();
     const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
@@ -143,7 +137,7 @@ async function synthesizeAndInsertArticle(item: any, slug: string): Promise<Arti
 async function synthesizeAndStoreRssArticle(slug: string): Promise<ArticleRow | null> {
   try {
     const parser = new Parser();
-    const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
+    const feed = await parser.parseURL(RSS_FEED_URL);
 
     // 1. Try exact slug match (English title → slug)
     for (const item of feed.items) {
@@ -158,13 +152,7 @@ async function synthesizeAndStoreRssArticle(slug: string): Promise<ArticleRow | 
 
     // 2. Fallback: keyword-based matching for French slugs
     // The URL slug may be from a French translation that doesn't match the English title
-    const stopWords = new Set([
-      'une', 'de', 'des', 'du', 'la', 'le', 'les', 'pour', 'que', 'est',
-      'pas', 'par', 'sur', 'dans', 'avec', 'au', 'aux', 'en', 'se', 'ce',
-      'et', 'ou', 'qui', 'dont', 'sont', 'fait', 'plus', 'apres', 'vers',
-      'faille', 'dans', 'tous', 'tout', 'entre', 'sans', 'chez', 'avant',
-      'pendant', 'depuis', 'jusque', 'mais', 'donc', 'ni', 'car', 'or',
-    ]);
+    const stopWords = RSS_STOP_WORDS;
     const slugWords = slug.split('-').filter(w => w.length > 2 && !stopWords.has(w));
 
     let bestItem: any = null;
@@ -186,6 +174,23 @@ async function synthesizeAndStoreRssArticle(slug: string): Promise<ArticleRow | 
       return synthesizeAndInsertArticle(bestItem, slug);
     }
 
+    // 3. Google Translate fallback: try translating top candidates' titles
+    // Handles cases where French slug words don't match English title keywords
+    const topCandidates = [...feed.items]
+      .filter(i => i.title)
+      .slice(0, 5);
+    for (const candidate of topCandidates) {
+      try {
+        const frenchTitle = await translateToFrench(candidate.title || '');
+        const frenchSlug = generateFrenchSlug(frenchTitle);
+        if (frenchSlug === slug) {
+          return synthesizeAndInsertArticle(candidate, slug);
+        }
+      } catch {
+        continue; // Translation failed, try next
+      }
+    }
+
     return null;
   } catch {
     return null;
@@ -199,7 +204,7 @@ async function synthesizeMissingRssArticle(article: ArticleRow): Promise<Article
 
     // Look up the original RSS item by source URL
     const parser = new Parser();
-    const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
+    const feed = await parser.parseURL(RSS_FEED_URL);
     const item = feed.items.find((i) => (i.link || i.guid) === article.sourceUrl);
     if (!item) return null;
 
@@ -264,7 +269,7 @@ async function synthesizeMissingRssArticle(article: ArticleRow): Promise<Article
 async function getRssArticleDirect(slug: string): Promise<ArticleRow | null> {
   try {
     const parser = new Parser();
-    const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
+    const feed = await parser.parseURL(RSS_FEED_URL);
 
     // Find matching item (same logic as synthesizeAndStoreRssArticle)
     let bestItem: any = null;
@@ -278,13 +283,7 @@ async function getRssArticleDirect(slug: string): Promise<ArticleRow | null> {
 
     // 2. Keyword fallback for French slugs
     if (!bestItem) {
-      const stopWords = new Set([
-        'une', 'de', 'des', 'du', 'la', 'le', 'les', 'pour', 'que', 'est',
-        'pas', 'par', 'sur', 'dans', 'avec', 'au', 'aux', 'en', 'se', 'ce',
-        'et', 'ou', 'qui', 'dont', 'sont', 'fait', 'plus', 'apres', 'vers',
-        'faille', 'dans', 'tous', 'tout', 'entre', 'sans', 'chez', 'avant',
-        'pendant', 'depuis', 'jusque', 'mais', 'donc', 'ni', 'car', 'or',
-      ]);
+      const stopWords = RSS_STOP_WORDS;
       const slugWords = slug.split('-').filter((w: string) => w.length > 2 && !stopWords.has(w));
       for (const item of feed.items) {
         if (!item.title) continue;
@@ -298,16 +297,23 @@ async function getRssArticleDirect(slug: string): Promise<ArticleRow | null> {
       if (bestScore < 2) bestItem = null;
     }
 
-    if (!bestItem) return null;
+    if (!bestItem) {
+      // 3. Google Translate fallback: try translating top candidates' titles
+      const topCandidates = [...feed.items].filter(i => i.title).slice(0, 5);
+      for (const candidate of topCandidates) {
+        try {
+          const frenchTitle = await translateToFrench(candidate.title || '');
+          const frenchSlug = generateFrenchSlug(frenchTitle);
+          if (frenchSlug === slug) { bestItem = candidate; break; }
+        } catch {
+          continue;
+        }
+      }
+      if (!bestItem) return null;
+    }
 
     // Extract image
-    let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
-    if (bestItem.enclosure?.url) {
-      imageUrl = bestItem.enclosure.url;
-    } else if (bestItem.content) {
-      const imgMatch = bestItem.content.match(/<img[^>]+src="([^">]+)"/);
-      if (imgMatch) imageUrl = imgMatch[1];
-    }
+    const imageUrl = extractImage(bestItem);
 
     const excerptEn = (bestItem.contentSnippet || bestItem.description || '').slice(0, 300);
     const titleFr = await translateToFrench(bestItem.title || '');
