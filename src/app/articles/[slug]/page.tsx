@@ -52,74 +52,160 @@ function generateSlug(text: string): string {
     .replace(/^-|-$/g, '');
 }
 
+/** Synthesize an RSS item via Claude and store in DB */
+async function synthesizeAndInsertArticle(item: any, slug: string): Promise<ArticleRow | null> {
+  try {
+    const sourceUrl = item.link || item.guid;
+    if (!sourceUrl) return null;
+
+    // Check if already in DB (from another concurrent request)
+    const existing = await db
+      .select({ id: articles.id })
+      .from(articles)
+      .where(eq(articles.sourceUrl, sourceUrl))
+      .limit(1);
+    if (existing.length > 0) {
+      const result = await db.select().from(articles).where(eq(articles.id, existing[0].id)).limit(1);
+      if (result.length) return result[0];
+    }
+
+    const synthesized = await synthesizeArticle({
+      title: item.title || '',
+      content: item.content || item.description || '',
+      excerpt: item.contentSnippet?.slice(0, 300) || '',
+      sourceUrl,
+    });
+
+    if (!synthesized) return null;
+
+    // Extract image
+    let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
+    if (item.enclosure?.url) {
+      imageUrl = item.enclosure.url;
+    } else if (item.content) {
+      const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+      if (imgMatch) imageUrl = imgMatch[1];
+    }
+
+    // Store in DB
+    const s = generateSlug(synthesized.titleFr);
+    const publishedDate = item.pubDate || item.isoDate || new Date().toISOString();
+    const updatedAt = new Date().toISOString();
+    await client.execute({
+      sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [
+        item.title || '', synthesized.titleFr,
+        item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
+        sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+        imageUrl, 'SecuriTrust', synthesized.category,
+        JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
+        s, s, 1, publishedDate, updatedAt,
+      ],
+    });
+
+    // Return the newly created article
+    const result = await db.select().from(articles).where(eq(articles.slug, s)).limit(1);
+    if (result.length) return result[0];
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 /** On-demand Claude synthesis for RSS articles not yet in DB */
 async function synthesizeAndStoreRssArticle(slug: string): Promise<ArticleRow | null> {
   try {
     const parser = new Parser();
     const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
 
-    // Try to find the matching RSS item by matching slug to translated title
+    // 1. Try exact slug match (English title → slug)
     for (const item of feed.items) {
       const sourceUrl = item.link || item.guid;
       if (!sourceUrl) continue;
 
-      // Check if already in DB
-      const existing = await db
-        .select({ id: articles.id })
-        .from(articles)
-        .where(eq(articles.sourceUrl, sourceUrl))
-        .limit(1);
-      if (existing.length > 0) {
-        // Already synthesized — fetch and return
-        const result = await db.select().from(articles).where(eq(articles.id, existing[0].id)).limit(1);
-        if (result.length) return result[0];
-      }
-
-      // Match the slug to this item's translated title
       const itemSlug = generateSlug(item.title || '');
       if (itemSlug !== slug) continue;
 
-      // Found matching RSS article — synthesize via Claude
-      const synthesized = await synthesizeArticle({
-        title: item.title || '',
-        content: item.content || item.description || '',
-        excerpt: item.contentSnippet?.slice(0, 300) || '',
-        sourceUrl,
-      });
-
-      if (!synthesized) return null;
-
-      // Extract image
-      let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
-      if (item.enclosure?.url) {
-        imageUrl = item.enclosure.url;
-      } else if (item.content) {
-        const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-        if (imgMatch) imageUrl = imgMatch[1];
-      }
-
-      // Store in DB
-      const s = generateSlug(synthesized.titleFr);
-      const publishedDate = item.pubDate || item.isoDate || new Date().toISOString();
-      const updatedAt = new Date().toISOString();
-      await client.execute({
-        sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, created_at, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        args: [
-          item.title || '', synthesized.titleFr,
-          item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
-          sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
-          imageUrl, 'SecuriTrust', synthesized.category,
-          JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
-          s, s, 1, publishedDate, updatedAt,
-        ],
-      });
-
-      // Return the newly created article
-      const result = await db.select().from(articles).where(eq(articles.slug, s)).limit(1);
-      if (result.length) return result[0];
+      return synthesizeAndInsertArticle(item, slug);
     }
 
+    // 2. Fallback: keyword-based matching for French slugs
+    // The URL slug may be from a French translation that doesn't match the English title
+    const stopWords = new Set([
+      'une', 'de', 'des', 'du', 'la', 'le', 'les', 'pour', 'que', 'est',
+      'pas', 'par', 'sur', 'dans', 'avec', 'au', 'aux', 'en', 'se', 'ce',
+      'et', 'ou', 'qui', 'dont', 'sont', 'fait', 'plus', 'apres', 'vers',
+      'faille', 'dans', 'tous', 'tout', 'entre', 'sans', 'chez', 'avant',
+      'pendant', 'depuis', 'jusque', 'mais', 'donc', 'ni', 'car', 'or',
+    ]);
+    const slugWords = slug.split('-').filter(w => w.length > 2 && !stopWords.has(w));
+
+    let bestItem: any = null;
+    let bestScore = 0;
+    for (const item of feed.items) {
+      if (!item.title) continue;
+      const titleLower = item.title.toLowerCase();
+      let score = 0;
+      for (const word of slugWords) {
+        if (titleLower.includes(word)) score++;
+      }
+      if (score > bestScore) {
+        bestScore = score;
+        bestItem = item;
+      }
+    }
+
+    if (bestItem && bestScore >= 2) {
+      return synthesizeAndInsertArticle(bestItem, slug);
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/** Re-synthesize an RSS article that exists in DB but has no French content yet */
+async function synthesizeMissingRssArticle(article: ArticleRow): Promise<ArticleRow | null> {
+  try {
+    if (!article.sourceUrl) return null;
+
+    // Look up the original RSS item by source URL
+    const parser = new Parser();
+    const feed = await parser.parseURL('https://feeds.feedburner.com/TheHackersNews');
+    const item = feed.items.find((i) => (i.link || i.guid) === article.sourceUrl);
+    if (!item) return null;
+
+    // Synthesize via Claude
+    const synthesized = await synthesizeArticle({
+      title: item.title || article.title,
+      content: item.content || item.description || article.content,
+      excerpt: item.contentSnippet?.slice(0, 300) || article.excerpt,
+      sourceUrl: article.sourceUrl,
+    });
+
+    if (!synthesized) return null;
+
+    // Update the DB record with French content
+    const s = generateSlug(synthesized.titleFr);
+    await client.execute({
+      sql: `UPDATE articles SET title_fr = ?, excerpt_fr = ?, content_fr = ?, slug_fr = ?, category = ?, tags = ?, updated_at = ? WHERE id = ?`,
+      args: [
+        synthesized.titleFr,
+        synthesized.excerptFr,
+        sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+        s,
+        synthesized.category,
+        JSON.stringify(synthesized.tags),
+        new Date().toISOString(),
+        article.id,
+      ],
+    });
+
+    // Return the updated article
+    const result = await db.select().from(articles).where(eq(articles.id, article.id)).limit(1);
+    if (result.length) return result[0];
     return null;
   } catch {
     return null;
@@ -133,7 +219,14 @@ async function getArticle(slug: string): Promise<ArticleRow | null> {
     if (!result.length) {
       result = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1);
     }
-    if (result.length) return result[0];
+    if (result.length) {
+      // If the article has a source URL but no French content, synthesize it now
+      if (!result[0].contentFr && result[0].sourceUrl) {
+        const updated = await synthesizeMissingRssArticle(result[0]);
+        if (updated) return updated;
+      }
+      return result[0];
+    }
   } catch {
     // Fall through
   }
