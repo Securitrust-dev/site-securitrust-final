@@ -14,6 +14,7 @@ import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import { synthesizeArticle } from '@/lib/claude';
+import ArticleInfographic from '@/components/ArticleInfographic';
 
 const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat([
@@ -486,8 +487,17 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     action: 'ÉVALUATION DE SÉCURITÉ ET MISE EN PLACE DE MESURES CORRECTIVES',
   };
 
+  // Build infographic props with stored or fallback impacts
   const finalImpacts = dbImpacts.length > 0 ? dbImpacts : fallback.impacts;
   const finalAction = article.remediation || fallback.action;
+  const infographicProps = {
+    cve: cveNumber,
+    title: displayTitle.toUpperCase(),
+    summary: displayExcerpt,
+    impacts: finalImpacts,
+    action: finalAction,
+    source: article.source === 'rss' ? 'The Hacker News' : 'SecuriTrust',
+  };
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -597,17 +607,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="relative z-10 pb-32">
           <div className="max-w-4xl mx-auto px-6">
             <div className="glass-panel rounded-2xl p-8 md:p-12 lg:p-16">
-              {/* CVE Tag (if applicable) */}
-              {cveNumber && (
-                <div className="mb-8">
-                  <span className="inline-block rounded border border-orange-500/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-orange-400">
-                    [ {cveNumber} ]
-                  </span>
-                </div>
-              )}
-
               {/* Excerpt */}
-              <p className="text-xl text-slate-300 font-light leading-relaxed mb-12 pb-12 border-b border-white/10 italic">
+              <p className="text-lg text-slate-300 font-light leading-relaxed mb-10">
                 {displayExcerpt}
               </p>
 
@@ -628,30 +629,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 dangerouslySetInnerHTML={{ __html: safeContent }}
               />
 
-              {/* ===== IMPACTS + ACTION SECTION (for ALL articles) ===== */}
-              <div className="border-t border-cyan-500/20 pt-12">
-                <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-white mb-6 text-center">
-                  IMPACTS POUR LES ORGANISATIONS
-                </h2>
-                <ul className="space-y-4 mb-8 max-w-2xl mx-auto">
-                  {finalImpacts.map((impact, i) => (
-                    <li key={i} className="flex items-start gap-3 text-base text-slate-200">
-                      <span className="mt-0.5 shrink-0 text-cyan-400">&#9656;</span>
-                      <span>{impact}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="text-center">
-                  <span className="inline-block text-base font-bold uppercase tracking-wider text-cyan-400 sm:text-lg">
-                    &#9654; {finalAction}
-                  </span>
-                </div>
-                <div className="mt-8 text-center">
-                  <span className="text-xs text-slate-500">
-                    Source : {article.source === 'rss' ? 'The Hacker News' : 'SecuriTrust'}
-                  </span>
-                </div>
-              </div>
+              {/* Infographic component - impacts + action for all articles */}
+              <ArticleInfographic {...infographicProps} />
             </div>
 
             {/* Back to Articles CTA */}
