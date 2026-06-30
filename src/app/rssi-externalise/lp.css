@@ -229,10 +229,12 @@ html{scroll-behavior:smooth}
 #lp-root#lp-root .logo-marquee::after{content:"";position:absolute;top:0;bottom:0;width:72px;z-index:2;pointer-events:none}
 #lp-root#lp-root .logo-marquee::before{left:0;background:linear-gradient(to right,var(--navy),rgba(2,8,23,0))}
 #lp-root#lp-root .logo-marquee::after{right:0;background:linear-gradient(to left,var(--navy),rgba(2,8,23,0))}
-#lp-root#lp-root .logo-track{display:flex;align-items:center;gap:56px;width:max-content;animation:marquee 32s linear infinite;will-change:transform}
+#lp-root#lp-root .logo-track{display:flex;align-items:center;gap:34px;width:max-content;animation:marquee 32s linear infinite;will-change:transform}
 #lp-root#lp-root .logo-marquee:hover .logo-track{animation-play-state:paused}
-#lp-root#lp-root .logo-item{flex:none;height:34px;display:flex;align-items:center}
-#lp-root#lp-root .logo-img{height:34px;width:auto;object-fit:contain;filter:invert(1);opacity:.7;mix-blend-mode:screen}
+/* Pastilles blanches : on affiche les vrais logos en couleur (les JPG/webp ont un
+   fond blanc), neutralisés proprement sur le navy de la LP. */
+#lp-root#lp-root .logo-item{flex:none;height:56px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;padding:12px 20px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+#lp-root#lp-root .logo-img{height:30px;width:auto;max-width:150px;object-fit:contain}
 @media (prefers-reduced-motion:reduce){#lp-root#lp-root .logo-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;gap:24px 48px}}
 
 /* ---------- GRID HELPERS ---------- */
@@ -284,6 +286,36 @@ html{scroll-behavior:smooth}
 #lp-root#lp-root .price-card .pc-cta{margin-top:auto}
 #lp-root#lp-root .pricing-note{font-size:.92rem;color:var(--muted-2);margin-top:26px;max-width:780px;display:flex;gap:10px;align-items:flex-start}
 #lp-root#lp-root .pricing-note svg{width:18px;height:18px;color:var(--sky);flex:none;margin-top:3px}
+
+/* ---------- TJM (tarif journalier) ---------- */
+#lp-root#lp-root .tjm{
+  margin-top:36px;background:linear-gradient(180deg,rgba(11,26,51,.72),rgba(7,18,39,.5));
+  border:1px solid var(--sky);border-radius:var(--radius);padding:30px 32px;
+  box-shadow:0 0 0 1px rgba(56,189,248,.25),0 18px 50px rgba(0,0,0,.4);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:26px;
+}
+#lp-root#lp-root .tjm-head{flex:1 1 360px}
+#lp-root#lp-root .tjm .from{font-size:.82rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:.08em}
+#lp-root#lp-root .tjm .amount{font-size:2.6rem;font-weight:500;color:#fff;letter-spacing:-.02em;line-height:1.05;margin:4px 0 10px}
+#lp-root#lp-root .tjm .amount span{font-size:1.05rem;font-weight:600;color:var(--muted-2)}
+#lp-root#lp-root .tjm-who{font-size:.95rem;color:var(--muted);max-width:560px;margin:0}
+#lp-root#lp-root .tjm-cta{width:auto;min-width:240px;padding-left:34px;padding-right:34px;flex:none}
+
+/* ---------- TIMELINE (déroulé mission, année 1) ---------- */
+#lp-root#lp-root .timeline{display:grid;grid-template-columns:1fr 1.35fr;gap:22px;margin-top:22px}
+#lp-root#lp-root .tl-item{
+  background:linear-gradient(180deg,rgba(11,26,51,.6),rgba(7,18,39,.4));
+  border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;
+}
+#lp-root#lp-root .tl-tag{
+  display:inline-block;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);
+  color:var(--sky);font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px;margin-bottom:14px;
+}
+#lp-root#lp-root .tl-item h3{font-size:1.12rem;margin-bottom:14px}
+#lp-root#lp-root .tl-item ul{list-style:none;display:grid;gap:10px}
+#lp-root#lp-root .tl-item li{display:flex;align-items:flex-start;gap:9px;font-size:.93rem;color:var(--muted)}
+#lp-root#lp-root .tl-item li svg{width:16px;height:16px;color:var(--sky);flex:none;margin-top:3px}
 
 /* ---------- MODALITIES ---------- */
 #lp-root#lp-root .modalities{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
@@ -497,7 +529,7 @@ html{scroll-behavior:smooth}
 @media (max-width:920px){
   #lp-root#lp-root .hero-grid{grid-template-columns:1fr;gap:32px}
   #lp-root#lp-root .formcard{position:static}
-  #lp-root#lp-root .g3,#lp-root#lp-root .risk-grid,#lp-root#lp-root .stats-wall,#lp-root#lp-root .steps,#lp-root#lp-root .pricing{grid-template-columns:1fr}
+  #lp-root#lp-root .g3,#lp-root#lp-root .risk-grid,#lp-root#lp-root .stats-wall,#lp-root#lp-root .steps,#lp-root#lp-root .pricing,#lp-root#lp-root .timeline{grid-template-columns:1fr}
   #lp-root#lp-root .sectors{grid-template-columns:repeat(2,1fr)}
   #lp-root#lp-root .g2,#lp-root#lp-root .split{grid-template-columns:1fr}
   #lp-root#lp-root .cmp-grid{display:block;border:0;border-radius:0;overflow:visible}

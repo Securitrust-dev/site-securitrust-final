@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useCTAVisibility } from '@/hooks/use-cta-visibility';
 
 /* Routes (LP autonomes) qui ont leur propre CTA et ne veulent pas du CTA flottant global. */
-const HIDE_ON = ['/rssi-externalise-lp'];
+const HIDE_ON = ['/rssi-externalise'];
 
 export const FloatingCTA = () => {
   const pathname = usePathname();

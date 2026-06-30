@@ -52,6 +52,8 @@ const nextConfig = {
       { source: '/test-dintrusion', destination: '/pentest-externe', permanent: true },
       { source: '/rssi-automatise', destination: '/cyber-pilote', permanent: true },
       { source: '/rssi-automatise/:path*', destination: '/cyber-pilote/:path*', permanent: true },
+      // L'ancienne URL de preview de la LP pointe désormais vers la page RSSI canonique.
+      { source: '/rssi-externalise-lp', destination: '/rssi-externalise', permanent: true },
     ];
   },
   async headers() {
