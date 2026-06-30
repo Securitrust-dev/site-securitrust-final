@@ -15,21 +15,21 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
-/* Logos clients réels, repris du site (cf. hero-section-v2.tsx / public/clients).
-   Rendu en couleur sur pastilles blanches (cf. .logo-item dans lp.css) pour
-   afficher les vraies couleurs de marque sur le navy de la LP. Défilement via
+/* Logos clients réels, repris du site (public/clients). Versions monochromes
+   blanches détourées (fond transparent) générées depuis les logos officiels —
+   rendu net et lisible sur le navy de la LP, sans pastille. Défilement via
    @keyframes marquee (globals.css). */
 const clientLogos = [
-  { src: "/clients/abeille-assurance.jpg", alt: "Abeille Assurance" },
-  { src: "/clients/axa.webp", alt: "AXA" },
-  { src: "/clients/bollore.webp", alt: "Bolloré Logistics" },
-  { src: "/clients/cegedim.jpg", alt: "Cegedim" },
-  { src: "/clients/malakoff.jpg", alt: "Malakoff Médéric" },
-  { src: "/clients/lyvoc.png", alt: "Lyvoc" },
-  { src: "/clients/thales.jpg", alt: "Thales" },
-  { src: "/clients/natixis.jpg", alt: "Natixis" },
-  { src: "/clients/munich-re.svg", alt: "Munich Re" },
-  { src: "/clients/backupta.png", alt: "BackupTa" },
+  { src: "/clients/white/abeille-assurance.png", alt: "Abeille Assurance" },
+  { src: "/clients/white/axa.png", alt: "AXA" },
+  { src: "/clients/white/bollore.png", alt: "Bolloré Logistics" },
+  { src: "/clients/white/cegedim.png", alt: "Cegedim" },
+  { src: "/clients/white/malakoff.png", alt: "Malakoff Médéric" },
+  { src: "/clients/white/lyvoc.png", alt: "Lyvoc" },
+  { src: "/clients/white/thales.png", alt: "Thales" },
+  { src: "/clients/white/natixis.png", alt: "Natixis" },
+  { src: "/clients/white/munich-re.png", alt: "Munich Re" },
+  { src: "/clients/white/backupta.png", alt: "BackupTa" },
 ];
 
 export default function RSSIExternaliseLPPage() {
@@ -127,7 +127,7 @@ export default function RSSIExternaliseLPPage() {
                   <div className="ok-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg></div>
                   <h3>Merci, c'est bien reçu.</h3>
                   <p>Un RSSI senior vous rappelle sous 2h pour cadrer votre besoin. Vous ne voulez pas attendre&nbsp;? Réservez votre créneau dès maintenant.</p>
-                  <a href="https://calendly.com/securitrust-rssi/20min" className="btn btn-primary" target="_blank" rel="noopener noreferrer" style={{ marginTop: "18px" }}>Réserver mon créneau de 20 min →</a>
+                  <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer" style={{ marginTop: "18px" }}>Réserver mon créneau de 20 min →</a>
                 </div>
               </div>
             </aside>
@@ -244,22 +244,35 @@ export default function RSSIExternaliseLPPage() {
       {/* ======================= COMMENT ÇA SE PASSE ======================= */}
       <section className="section" id="process">
         <div className="wrap">
-          <h2>De l'audit au pilotage continu, en 3 étapes</h2>
-          <div className="steps">
-            <div className="step">
-              <div className="n">1</div>
+          <h2>Comment se déroule la mission, mois après mois</h2>
+          <p className="lead">Une montée en sécurité progressive sur la première année, puis un pilotage continu ajustable selon vos priorités.</p>
+          <div className="timeline">
+            <div className="tl-item">
+              <div className="tl-tag">Mois 1</div>
               <h3>Audit préliminaire &amp; cadrage</h3>
-              <p>On évalue votre sécurité, vos risques et vos obligations (NIS2, RGPD, HDS). Vous repartez avec un diagnostic clair et des priorités d'action concrètes.</p>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> État des lieux de votre sécurité, de vos risques et de vos obligations (NIS2, RGPD, HDS)</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Cartographie des vulnérabilités et analyse EBIOS&nbsp;RM</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Feuille de route priorisée selon vos enjeux métier</li>
+              </ul>
             </div>
-            <div className="step">
-              <div className="n">2</div>
-              <h3>Plan de pilotage &amp; devis</h3>
-              <p>Feuille de route priorisée, mission dimensionnée selon vos besoins. Devis précis. Déploiement en 48h.</p>
+            <div className="tl-item">
+              <div className="tl-tag">Mois 2 à 6</div>
+              <h3>Mise en place du socle</h3>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Déploiement des mesures de sécurité prioritaires</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> PSSI &amp; mise en conformité (ISO&nbsp;27001, NIS2, DORA)</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Sensibilisation des équipes &amp; simulations de phishing</li>
+              </ul>
             </div>
-            <div className="step">
-              <div className="n">3</div>
-              <h3>Run &amp; pilotage continu</h3>
-              <p>Votre RSSI pilote la sécurité, anime les tableaux de bord en comité de direction, gère conformité, veille et crise. Une gouvernance vivante, ajustable mois après mois.</p>
+            <div className="tl-item">
+              <div className="tl-tag">Mois 6 +</div>
+              <h3>Pilotage continu</h3>
+              <ul>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Maintenance &amp; monitoring continu des risques cyber</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Tableaux de bord &amp; reporting en comité de direction</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Gestion de crise et astreinte senior 24/7</li>
+              </ul>
             </div>
           </div>
           <div className="cmp-cta">
@@ -426,29 +439,6 @@ export default function RSSIExternaliseLPPage() {
             </div>
             <a href="#form-anchor" className="btn btn-primary tjm-cta">Réserver mon créneau de 20 min →</a>
           </div>
-
-          {/* Déroulé de la mission : pré-frame de la 1re année (mois 1 / mois 2-12) */}
-          <div className="timeline">
-            <div className="tl-item">
-              <div className="tl-tag">Mois 1</div>
-              <h3>Audit préliminaire &amp; cadrage</h3>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> État des lieux de votre sécurité, de vos risques et de vos obligations (NIS2, RGPD, HDS)</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Cartographie des vulnérabilités et analyse EBIOS&nbsp;RM</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Feuille de route priorisée selon vos enjeux métier</li>
-              </ul>
-            </div>
-            <div className="tl-item">
-              <div className="tl-tag">Mois 2 à 12</div>
-              <h3>Pilotage continu</h3>
-              <ul>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Mise en place du socle fondamental de la cybersécurité</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Maintenance &amp; monitoring continu des risques cyber</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Mise en conformité (ISO&nbsp;27001, NIS2, DORA) &amp; tableaux de bord en comité de direction</li>
-                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg> Gestion de crise et astreinte senior 24/7</li>
-              </ul>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -457,7 +447,7 @@ export default function RSSIExternaliseLPPage() {
       <section className="section" id="cas">
         <div className="wrap">
           <h2>Ce que ça donne concrètement, secteur par secteur</h2>
-          <p className="lead">Des accompagnements réels, du pilotage RSSI à la conformité, pour des organisations de tous secteurs.</p>
+          <p className="lead">Des accompagnements réels, du pilotage RSSI au test d'intrusion, pour des organisations de tous secteurs.</p>
 
           <div className="grid g3" style={{ marginTop: "36px" }}>
 
@@ -478,12 +468,12 @@ export default function RSSIExternaliseLPPage() {
               <div className="case-media">
                 <img src="/rssi-lp/cas-sg.webp" alt="" loading="lazy" />
                 <div className="case-fade" aria-hidden="true"></div>
-                <div className="case-logo"><img src="/rssi-lp/logo-sg.png" alt="Société Générale" loading="lazy" /></div>
+                <div className="case-logo"><img src="/clients/abeille-assurance.jpg" alt="Abeille Assurances" loading="lazy" /></div>
               </div>
               <div className="case-body">
-                <h3 className="case-client">Société Générale</h3>
-                <span className="case-sector"><span className="cs-label">Finance</span></span>
-                <p className="case-desc">Audit de cybersécurité complet et mise en conformité ISO&nbsp;27001.</p>
+                <h3 className="case-client">Abeille Assurances</h3>
+                <span className="case-sector"><span className="cs-label">Assurance</span></span>
+                <p className="case-desc">RSSI externalisé à temps partagé pour piloter la sécurité et la conformité.</p>
               </div>
             </div>
 
@@ -491,12 +481,12 @@ export default function RSSIExternaliseLPPage() {
               <div className="case-media">
                 <img src="/rssi-lp/cas-veolia.webp" alt="" loading="lazy" />
                 <div className="case-fade" aria-hidden="true"></div>
-                <div className="case-logo"><img src="/rssi-lp/logo-veolia.png" alt="Veolia Eau d'Île-de-France" loading="lazy" /></div>
+                <div className="case-logo"><img src="/clients/pizzorno.png" alt="Groupe Pizzorno Environnement" loading="lazy" /></div>
               </div>
               <div className="case-body">
-                <h3 className="case-client">Veolia Eau d'Île-de-France</h3>
-                <span className="case-sector"><span className="cs-label">Services publics</span></span>
-                <p className="case-desc">Conformité NIS&nbsp;2 et protection des infrastructures critiques.</p>
+                <h3 className="case-client">Groupe Pizzorno Environnement</h3>
+                <span className="case-sector"><span className="cs-label">Environnement</span></span>
+                <p className="case-desc">Tests d'intrusion (pentest) des systèmes et infrastructures.</p>
               </div>
             </div>
 
@@ -514,7 +504,7 @@ export default function RSSIExternaliseLPPage() {
               <p>Un RSSI senior vous rappelle sous 2h, ou réservez 20 min. 100% confidentiel.</p>
               <div className="finalcta-btns">
                 <a href="#form-anchor" className="btn btn-primary">Être rappelé sous 2h →</a>
-                <a href="https://calendly.com/securitrust-rssi/20min" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Réserver 20 min</a>
+                <a href="https://calendly.com/expert-securitrust" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Réserver 20 min</a>
               </div>
               <p className="micro"><b>Réponse sous 2h</b> · <b>NDA dès le 1er échange</b></p>
             </div>
