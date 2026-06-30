@@ -105,10 +105,12 @@ export async function generateMetadata({ params }: ArticlePageProps) {
 
   const baseUrl = 'https://www.securitrust.fr';
   const isRss = article.sourceType === 'rss';
+  const metaTitle = article.titleFr || article.title;
+  const metaDescription = article.excerptFr || article.excerpt;
 
   return {
-    title: `${article.title} | SecuriTrust`,
-    description: article.excerpt,
+    title: `${metaTitle} | SecuriTrust`,
+    description: metaDescription,
     robots: {
       index: !isRss,
       follow: true,
@@ -117,8 +119,8 @@ export async function generateMetadata({ params }: ArticlePageProps) {
       canonical: isRss ? article.sourceUrl : `${baseUrl}/articles/${article.slug}`,
     },
     openGraph: {
-      title: article.title,
-      description: article.excerpt,
+      title: metaTitle,
+      description: metaDescription,
       url: `${baseUrl}/articles/${article.slug}`,
       type: 'article',
       publishedTime: article.createdAt,
@@ -128,14 +130,14 @@ export async function generateMetadata({ params }: ArticlePageProps) {
           url: article.image,
           width: 1200,
           height: 630,
-          alt: article.title,
+          alt: metaTitle,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: article.title,
-      description: article.excerpt,
+      title: metaTitle,
+      description: metaDescription,
       images: [article.image],
     },
   };
@@ -149,7 +151,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
-  const safeContent = sanitizeHtml(article.content, {
+  const displayTitle = article.titleFr || article.title;
+  const displayExcerpt = article.excerptFr || article.excerpt;
+  const displayContent = article.contentFr || article.content;
+
+  const safeContent = sanitizeHtml(displayContent, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat([
       'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
       'img', 'figure', 'figcaption', 'picture', 'source',
@@ -195,8 +201,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': article.sourceType === 'rss' ? 'NewsArticle' : 'Article',
-    headline: article.title,
-    description: article.excerpt,
+    headline: displayTitle,
+    description: displayExcerpt,
     image: article.image,
     datePublished: article.createdAt,
     dateModified: article.updatedAt || article.createdAt,
@@ -227,7 +233,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <BreadcrumbSchema items={[
         { name: 'Accueil', url: 'https://www.securitrust.fr' },
         { name: 'Articles', url: 'https://www.securitrust.fr/articles' },
-        { name: article.title, url: `https://www.securitrust.fr/articles/${article.slug}` },
+        { name: displayTitle, url: `https://www.securitrust.fr/articles/${article.slug}` },
       ]} />
       <PromoBanner />
       <div className="relative min-h-screen bg-[#030303]">
@@ -262,8 +268,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             {/* Title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-white tracking-tight leading-tight mb-8">
-              {article.title}
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-light text-white tracking-tight leading-snug mb-8 max-w-4xl">
+              {displayTitle}
             </h1>
 
             {/* Meta Info */}
@@ -286,7 +292,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden glass-panel">
               <Image
                 src={article.image}
-                alt={article.title}
+                alt={displayTitle}
                 fill
                 className="object-cover"
                 priority
@@ -302,7 +308,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="glass-panel rounded-2xl p-8 md:p-12 lg:p-16">
               {/* Excerpt */}
               <p className="text-xl text-slate-300 font-light leading-relaxed mb-12 pb-12 border-b border-white/10 italic">
-                {article.excerpt}
+                {displayExcerpt}
               </p>
 
               {/* Content */}
