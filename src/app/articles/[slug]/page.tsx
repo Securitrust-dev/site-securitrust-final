@@ -93,21 +93,40 @@ async function synthesizeAndInsertArticle(item: any, slug: string): Promise<Arti
     const publishedDate = item.pubDate || item.isoDate || new Date().toISOString();
     const updatedAt = new Date().toISOString();
     const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
-    await client.execute({
-      sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, impacts, remediation, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      args: [
-        item.title || '', synthesized.titleFr,
-        item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
-        sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
-        imageUrl, 'SecuriTrust', synthesized.category,
-        JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
-        s, s, 1,
-        impactsJson,
-        synthesized.action || null,
-        publishedDate, updatedAt,
-      ],
-    });
+
+    // Try full INSERT (with impacts + remediation), fall back to minimal if schema lacks these columns
+    try {
+      await client.execute({
+        sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, impacts, remediation, created_at, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        args: [
+          item.title || '', synthesized.titleFr,
+          item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
+          sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+          imageUrl, 'SecuriTrust', synthesized.category,
+          JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
+          s, s, 1,
+          impactsJson,
+          synthesized.action || null,
+          publishedDate, updatedAt,
+        ],
+      });
+    } catch {
+      // Fallback for DB schema without impacts/remediation columns
+      await client.execute({
+        sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, created_at, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        args: [
+          item.title || '', synthesized.titleFr,
+          item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
+          sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+          imageUrl, 'SecuriTrust', synthesized.category,
+          JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
+          s, s, 1,
+          publishedDate, updatedAt,
+        ],
+      });
+    }
 
     // Return the newly created article
     const result = await db.select().from(articles).where(eq(articles.slug, s)).limit(1);
@@ -195,21 +214,40 @@ async function synthesizeMissingRssArticle(article: ArticleRow): Promise<Article
     // Update the DB record with French content
     const s = generateSlug(synthesized.titleFr);
     const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
-    await client.execute({
-      sql: `UPDATE articles SET title_fr = ?, excerpt_fr = ?, content_fr = ?, slug_fr = ?, category = ?, tags = ?, impacts = ?, remediation = ?, updated_at = ? WHERE id = ?`,
-      args: [
-        synthesized.titleFr,
-        synthesized.excerptFr,
-        sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
-        s,
-        synthesized.category,
-        JSON.stringify(synthesized.tags),
-        impactsJson,
-        synthesized.action || null,
-        new Date().toISOString(),
-        article.id,
-      ],
-    });
+
+    // Try full UPDATE (with impacts + remediation), fall back to minimal if schema lacks these columns
+    try {
+      await client.execute({
+        sql: `UPDATE articles SET title_fr = ?, excerpt_fr = ?, content_fr = ?, slug_fr = ?, category = ?, tags = ?, impacts = ?, remediation = ?, updated_at = ? WHERE id = ?`,
+        args: [
+          synthesized.titleFr,
+          synthesized.excerptFr,
+          sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+          s,
+          synthesized.category,
+          JSON.stringify(synthesized.tags),
+          impactsJson,
+          synthesized.action || null,
+          new Date().toISOString(),
+          article.id,
+        ],
+      });
+    } catch {
+      // Fallback for DB schema without impacts/remediation columns
+      await client.execute({
+        sql: `UPDATE articles SET title_fr = ?, excerpt_fr = ?, content_fr = ?, slug_fr = ?, category = ?, tags = ?, updated_at = ? WHERE id = ?`,
+        args: [
+          synthesized.titleFr,
+          synthesized.excerptFr,
+          sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+          s,
+          synthesized.category,
+          JSON.stringify(synthesized.tags),
+          new Date().toISOString(),
+          article.id,
+        ],
+      });
+    }
 
     // Return the updated article
     const result = await db.select().from(articles).where(eq(articles.id, article.id)).limit(1);
