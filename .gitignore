@@ -41,6 +41,9 @@ rapport-securite-securitrust.html
 # scripts
 /scripts/
 
+# RSS synthesis scratch scripts
+synthesize-rss.*
+
 # orchids (IDE artifacts)
 .orchids/
 
