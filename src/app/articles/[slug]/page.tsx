@@ -92,16 +92,20 @@ async function synthesizeAndInsertArticle(item: any, slug: string): Promise<Arti
     const s = generateSlug(synthesized.titleFr);
     const publishedDate = item.pubDate || item.isoDate || new Date().toISOString();
     const updatedAt = new Date().toISOString();
+    const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
     await client.execute({
-      sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, impacts, remediation, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [
         item.title || '', synthesized.titleFr,
         item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
         sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
         imageUrl, 'SecuriTrust', synthesized.category,
         JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
-        s, s, 1, publishedDate, updatedAt,
+        s, s, 1,
+        impactsJson,
+        synthesized.action || null,
+        publishedDate, updatedAt,
       ],
     });
 
@@ -190,8 +194,9 @@ async function synthesizeMissingRssArticle(article: ArticleRow): Promise<Article
 
     // Update the DB record with French content
     const s = generateSlug(synthesized.titleFr);
+    const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
     await client.execute({
-      sql: `UPDATE articles SET title_fr = ?, excerpt_fr = ?, content_fr = ?, slug_fr = ?, category = ?, tags = ?, updated_at = ? WHERE id = ?`,
+      sql: `UPDATE articles SET title_fr = ?, excerpt_fr = ?, content_fr = ?, slug_fr = ?, category = ?, tags = ?, impacts = ?, remediation = ?, updated_at = ? WHERE id = ?`,
       args: [
         synthesized.titleFr,
         synthesized.excerptFr,
@@ -199,6 +204,8 @@ async function synthesizeMissingRssArticle(article: ArticleRow): Promise<Article
         s,
         synthesized.category,
         JSON.stringify(synthesized.tags),
+        impactsJson,
+        synthesized.action || null,
         new Date().toISOString(),
         article.id,
       ],
@@ -371,19 +378,29 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     (article.tags || '').match(/(CVE-\d{4}-\d{4,})/i);
   const cveNumber = cveMatch ? cveMatch[1].toUpperCase() : undefined;
 
+  // Parse real impacts from DB (stored as JSON string) or use fallback
+  let realImpacts: string[] = [];
+  if (article.impacts) {
+    try {
+      const parsed = JSON.parse(article.impacts);
+      if (Array.isArray(parsed)) realImpacts = parsed;
+    } catch {}
+  }
+  const remediation = article.remediation || null;
+
   // Build infographic props from article data
   const infographicProps = isVulnerabilityAlert
     ? {
         cve: cveNumber,
         title: displayTitle.toUpperCase(),
         summary: displayExcerpt,
-        impacts: [
-          'Prise de contrôle complète du système sans authentification.',
-          'Vecteur d\'attaque exploitable à distance (sans privilèges préalables).',
-          'Exposition critique des infrastructures réseau et des données sensibles.',
+        impacts: realImpacts.length > 0 ? realImpacts : [
+          'Prise de contrôle complète du système sans authentification préalable.',
+          'Vecteur d\'attaque exploitable à distance exposant les infrastructures réseau.',
+          'Exposition critique des données sensibles et des systèmes d\'information.',
         ],
-        action: 'MISE À JOUR URGENTE FORTEMENT RECOMMANDÉE',
-        source: 'The Hacker News',
+        action: remediation || 'MISE À JOUR URGENTE FORTEMENT RECOMMANDÉE',
+        source: article.source === 'rss' ? 'The Hacker News' : 'SecuriTrust',
       }
     : null;
 
@@ -495,30 +512,36 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="relative z-10 pb-32">
           <div className="max-w-4xl mx-auto px-6">
             <div className="glass-panel rounded-2xl p-8 md:p-12 lg:p-16">
-              {/* Excerpt */}
-              <p className="text-xl text-slate-300 font-light leading-relaxed mb-12 pb-12 border-b border-white/10 italic">
-                {displayExcerpt}
-              </p>
+              {isVulnerabilityAlert ? (
+                <>
+                  {/* Vulnerability Infographic (full format for CVE articles) */}
+                  {infographicProps && <ArticleInfographic {...infographicProps} />}
+                </>
+              ) : (
+                <>
+                  {/* Excerpt */}
+                  <p className="text-xl text-slate-300 font-light leading-relaxed mb-12 pb-12 border-b border-white/10 italic">
+                    {displayExcerpt}
+                  </p>
 
-              {/* Vulnerability Infographic */}
-              {infographicProps && <ArticleInfographic {...infographicProps} />}
-
-              {/* Content */}
-              <div 
-                className="prose prose-invert prose-lg max-w-none
-                  prose-headings:text-white prose-headings:font-light prose-headings:tracking-tight
-                  prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                  prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                  prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6
-                  prose-strong:text-white prose-strong:font-medium
-                  prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300
-                  prose-code:text-cyan-400 prose-code:bg-black/50 prose-code:px-2 prose-code:py-1 prose-code:rounded
-                  prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10
-                  prose-ul:text-slate-300 prose-ol:text-slate-300
-                  prose-li:my-2
-                  prose-blockquote:border-l-4 prose-blockquote:border-cyan-500 prose-blockquote:text-slate-300 prose-blockquote:italic"
-                dangerouslySetInnerHTML={{ __html: safeContent }}
-              />
+                  {/* Content */}
+                  <div
+                    className="prose prose-invert prose-lg max-w-none
+                      prose-headings:text-white prose-headings:font-light prose-headings:tracking-tight
+                      prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+                      prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+                      prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6
+                      prose-strong:text-white prose-strong:font-medium
+                      prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300
+                      prose-code:text-cyan-400 prose-code:bg-black/50 prose-code:px-2 prose-code:py-1 prose-code:rounded
+                      prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10
+                      prose-ul:text-slate-300 prose-ol:text-slate-300
+                      prose-li:my-2
+                      prose-blockquote:border-l-4 prose-blockquote:border-cyan-500 prose-blockquote:text-slate-300 prose-blockquote:italic"
+                    dangerouslySetInnerHTML={{ __html: safeContent }}
+                  />
+                </>
+              )}
             </div>
 
             {/* Back to Articles CTA */}

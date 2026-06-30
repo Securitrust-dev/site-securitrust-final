@@ -6,6 +6,8 @@ export interface SynthesizedArticle {
   contentFr: string;
   category: string;
   tags: string[];
+  impacts: string[];
+  action: string;
 }
 
 const SYSTEM_PROMPT = `Tu es un rédacteur expert en cybersécurité et en SEO pour le blog de SecuriTrust, un cabinet de cybersécurité français.
@@ -16,10 +18,11 @@ Respecte impérativement ce format de sortie (JSON UNIQUEMENT, sans markdown, sa
 
 {
   "titleFr": "Titre informatif de 8 à 12 mots intégrant les principaux mots-clés SEO",
-  "excerptFr": "Maximum 10 lignes. Résumer uniquement les informations essentielles. Expliquer brièvement ce qui s'est passé et pourquoi c'est important. Utiliser un style professionnel, fluide et journalistique. Intégrer naturellement les mots-clés SEO sans sur-optimisation. Ne jamais inventer d'informations ni donner d'opinions.",
+  "excerptFr": "Maximum 5 lignes. Résumer uniquement les informations essentielles. Expliquer brièvement ce qui s'est passé et pourquoi c'est important. Utiliser un style professionnel, fluide et journalistique. Intégrer naturellement les mots-clés SEO sans sur-optimisation. Ne jamais inventer d'informations ni donner d'opinions.",
   "theme": "3 à 5 mots-clés séparés par des slash (ex: Ransomware / Phishing / Microsoft 365)",
-  "impacts": ["Impact 1 - une ligne", "Impact 2 - une ligne", "Impact 3 - une ligne", "Impact 4 - une ligne"],
-  "contentFr": "Article complet formaté en HTML. D'abord la synthèse en un paragraphe <p>. Puis <strong>Impacts pour les organisations</strong> suivi d'une liste <ul><li>. Enfin la source en <p> avec <a>.",
+  "impacts": ["Impact 1 - ce qui est en jeu pour les entreprises", "Impact 2 - ce qui est en jeu", "Impact 3 - ce qui est en jeu", "Impact 4 - ce qui est en jeu"],
+  "action": "Appel à l'action impératif, par exemple: MISE À JOUR URGENTE FORTEMENT RECOMMANDÉE",
+  "contentFr": "Article complet formaté en HTML (150 mots max). Uniquement du texte de fond <p> sur la vulnérabilité/menace : contexte, technique, recommandations. N'inclus PAS les impacts ni l'action dans ce champ. Terminer par la source en <p> avec <a>.",
   "category": "Une catégorie parmi : Vulnérabilités & CVE, Ransomware, Phishing & Fraude, Threat Intelligence, Cloud & IAM, Malware & Exploits, Zero Trust & Architecture, SOC / SecOps, Conformité & GRC, Red Team & Pentest, Supply Chain, Actualités & Réglementation",
   "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"]
 }

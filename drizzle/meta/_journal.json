@@ -29,6 +29,13 @@
       "when": 1765214467820,
       "tag": "0003_condemned_mastermind",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1766000000000,
+      "tag": "0004_add_impacts_remediation",
+      "breakpoints": true
     }
   ]
 }

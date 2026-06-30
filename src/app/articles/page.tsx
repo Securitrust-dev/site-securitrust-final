@@ -19,7 +19,16 @@ async function getInitialArticles(): Promise<ArticleItem[]> {
       .orderBy(desc(articles.createdAt))
       .limit(20);
 
-    return dbArticles.map(a => ({
+    // Deduplicate by sourceUrl: keep only the first entry for each sourceUrl
+    const seenUrls = new Set<string>();
+    const deduped = dbArticles.filter(a => {
+      if (!a.sourceUrl) return true;
+      if (seenUrls.has(a.sourceUrl)) return false;
+      seenUrls.add(a.sourceUrl);
+      return true;
+    });
+
+    return deduped.map(a => ({
       id: `db-${a.id}`,
       title: a.titleFr || a.title,
       excerpt: a.excerptFr || a.excerpt || '',

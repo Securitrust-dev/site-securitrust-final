@@ -157,8 +157,27 @@ export async function GET(request: NextRequest) {
       return matchesQuery && matchesCategory;
     });
 
-    // 3. Format DB articles to match the same interface
-    const formattedDbArticles = dbArticlesData.map(article => ({
+    // Get all source URLs from DB articles to avoid duplicates
+    const dbSourceUrls = new Set(
+      dbArticlesData.filter(a => a.sourceUrl).map(a => a.sourceUrl)
+    );
+
+    // 3. Deduplicate DB articles: keep only the latest entry per sourceUrl
+    const dedupedDbMap = new Map<string, typeof dbArticlesData[0]>();
+    const seenSourceUrls = new Set<string>();
+    for (const article of dbArticlesData) {
+      // Always include articles without sourceUrl
+      if (!article.sourceUrl) {
+        dedupedDbMap.set(`no-url-${article.id}`, article);
+      } else if (!seenSourceUrls.has(article.sourceUrl)) {
+        seenSourceUrls.add(article.sourceUrl);
+        dedupedDbMap.set(article.sourceUrl, article);
+      }
+    }
+    const dedupedDbData = Array.from(dedupedDbMap.values());
+
+    // 4. Format DB articles to match the same interface
+    const formattedDbArticles = dedupedDbData.map(article => ({
       ...article,
       id: `db-${article.id}`,
       title: article.titleFr || article.title,
@@ -171,8 +190,13 @@ export async function GET(request: NextRequest) {
       tags: article.tags || '[]'
     }));
 
-    // 4. Merge and sort by date
-    const allArticles = [...formattedDbArticles, ...filteredRssArticles]
+    // 4. Filter RSS articles: skip those already in DB (same sourceUrl)
+    const dedupedRssArticles = filteredRssArticles.filter(
+      a => !dbSourceUrls.has(a.sourceUrl)
+    );
+
+    // 5. Merge and sort by date
+    const allArticles = [...formattedDbArticles, ...dedupedRssArticles]
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, limit);
 

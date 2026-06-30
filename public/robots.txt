@@ -1,13 +1,19 @@
-# robots.txt for SecuriTrust
-# Production: Allow all
-# Staging/Dev: Should be blocked with basic auth
-
+# *
 User-agent: *
 Allow: /
-
-# Block admin/internal pages if they exist
 Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
+Disallow: /admin-stats
+Disallow: /prise-de-rdv
+Disallow: /proposition
+Disallow: /eligibilite
+Disallow: /paiement
+Disallow: /signature-complete
+Disallow: /signer-signwell
+Disallow: /signer-proposition
+Disallow: /informations-prestation
 
+# Host
+Host: https://www.securitrust.fr
+
+# Sitemaps
 Sitemap: https://www.securitrust.fr/sitemap.xml

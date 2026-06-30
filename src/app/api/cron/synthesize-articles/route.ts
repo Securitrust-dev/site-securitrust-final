@@ -99,9 +99,10 @@ export async function GET(request: NextRequest) {
       const imageUrl = extractImage(item);
 
       // Store in DB using raw SQL to avoid Drizzle autoIncrement issues
+      const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
       await client.execute({
-        sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, created_at, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, impacts, remediation, created_at, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         args: [
           item.title || '',
           synthesized.titleFr,
@@ -119,6 +120,8 @@ export async function GET(request: NextRequest) {
           slug,
           slugFr,
           1,
+          impactsJson,
+          synthesized.action || null,
           item.pubDate || item.isoDate || new Date().toISOString(),
           new Date().toISOString(),
         ],

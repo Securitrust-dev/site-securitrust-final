@@ -18,6 +18,8 @@ export const articles = sqliteTable('articles', {
   slug: text('slug').notNull().unique(),
   slugFr: text('slug_fr').unique(),
   published: integer('published', { mode: 'boolean' }).default(false),
+  impacts: text('impacts'),
+  action: text('remediation'),
   createdAt: text('created_at').notNull(),
   updatedAt: text('updated_at').notNull(),
 });
