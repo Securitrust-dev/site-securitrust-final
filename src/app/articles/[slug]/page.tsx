@@ -174,23 +174,8 @@ async function synthesizeAndStoreRssArticle(slug: string): Promise<ArticleRow | 
       return synthesizeAndInsertArticle(bestItem, slug);
     }
 
-    // 3. Google Translate fallback: try translating top candidates' titles
-    // Handles cases where French slug words don't match English title keywords
-    const topCandidates = [...feed.items]
-      .filter(i => i.title)
-      .slice(0, 5);
-    for (const candidate of topCandidates) {
-      try {
-        const frenchTitle = await translateToFrench(candidate.title || '');
-        const frenchSlug = generateFrenchSlug(frenchTitle);
-        if (frenchSlug === slug) {
-          return synthesizeAndInsertArticle(candidate, slug);
-        }
-      } catch {
-        continue; // Translation failed, try next
-      }
-    }
-
+    // 3. Skip Google Translate fallback here — let getRssArticleDirect handle it
+    // That function renders directly from RSS without needing Claude
     return null;
   } catch {
     return null;
@@ -299,7 +284,7 @@ async function getRssArticleDirect(slug: string): Promise<ArticleRow | null> {
 
     if (!bestItem) {
       // 3. Google Translate fallback: try translating top candidates' titles
-      const topCandidates = [...feed.items].filter(i => i.title).slice(0, 5);
+      const topCandidates = [...feed.items].filter(i => i.title).slice(0, 20);
       for (const candidate of topCandidates) {
         try {
           const frenchTitle = await translateToFrench(candidate.title || '');
