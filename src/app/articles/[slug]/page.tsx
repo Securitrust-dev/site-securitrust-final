@@ -14,7 +14,6 @@ import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import { synthesizeArticle } from '@/lib/claude';
-import ArticleInfographic from '@/components/ArticleInfographic';
 
 const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat([
@@ -363,46 +362,132 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     });
   };
 
-  // Detect if article is about a CVE/vulnerability to show the infographic
-  const tagsLower = (article.tags || '').toLowerCase();
-  const titleLower = displayTitle.toLowerCase();
-  const isVulnerabilityAlert =
-    tagsLower.includes('vulnérabilité') ||
-    tagsLower.includes('cve') ||
-    titleLower.includes('cve-') ||
-    titleLower.includes('faille critique') ||
-    titleLower.includes('vulnérabilité');
-
   // Extract CVE number from title or tags
   const cveMatch = displayTitle.match(/(CVE-\d{4}-\d{4,})/i) ||
     (article.tags || '').match(/(CVE-\d{4}-\d{4,})/i);
   const cveNumber = cveMatch ? cveMatch[1].toUpperCase() : undefined;
 
-  // Parse real impacts from DB (stored as JSON string) or use fallback
-  let realImpacts: string[] = [];
+  // Parse impacts from DB (stored as JSON string)
+  let dbImpacts: string[] = [];
   if (article.impacts) {
     try {
       const parsed = JSON.parse(article.impacts);
-      if (Array.isArray(parsed)) realImpacts = parsed;
+      if (Array.isArray(parsed)) dbImpacts = parsed;
     } catch {}
   }
-  const remediation = article.remediation || null;
 
-  // Build infographic props from article data
-  const infographicProps = isVulnerabilityAlert
-    ? {
-        cve: cveNumber,
-        title: displayTitle.toUpperCase(),
-        summary: displayExcerpt,
-        impacts: realImpacts.length > 0 ? realImpacts : [
-          'Prise de contrôle complète du système sans authentification préalable.',
-          'Vecteur d\'attaque exploitable à distance exposant les infrastructures réseau.',
-          'Exposition critique des données sensibles et des systèmes d\'information.',
-        ],
-        action: remediation || 'MISE À JOUR URGENTE FORTEMENT RECOMMANDÉE',
-        source: article.source === 'rss' ? 'The Hacker News' : 'SecuriTrust',
-      }
-    : null;
+  // Category-based fallback impacts when DB doesn't have stored impacts
+  const CATEGORY_IMPACTS: Record<string, { impacts: string[]; action: string }> = {
+    'Vulnérabilités & CVE': {
+      impacts: [
+        'Prise de contrôle complète du système par un attaquant non authentifié.',
+        'Exposition des données sensibles et des infrastructures critiques.',
+        'Vecteur d\'attaque exploitable à distance, sans interaction utilisateur.',
+      ],
+      action: 'MISE À JOUR DE SÉCURITÉ URGENTE FORTEMENT RECOMMANDÉE',
+    },
+    'Ransomware': {
+      impacts: [
+        'Chiffrement des données critiques et paralysie de l\'activité.',
+        'Exfiltration de données sensibles (vol de données).',
+        'Rançon élevée et coûts de remédiation considérables.',
+      ],
+      action: 'ISOLEMENT IMMÉDIAT DES SYSTÈMES COMPROMIS ET RESTAURATION DES SAUVEGARDES',
+    },
+    'Phishing & Fraude': {
+      impacts: [
+        'Vol d\'identifiants et compromission des comptes professionnels.',
+        'Propagation de malwares au sein du réseau interne.',
+        'Atteinte à la réputation et perte de confiance des clients.',
+      ],
+      action: 'FORMATION DES ÉQUIPES ET ACTIVATION DE L\'AUTHENTIFICATION MULTI-FACTEURS',
+    },
+    'Threat Intelligence': {
+      impacts: [
+        'Exposition aux APT et groupes cybercriminels ciblant le secteur.',
+        'Risque de compromission durable (persistance avancée).',
+        'Vol de propriété intellectuelle ou de données stratégiques.',
+      ],
+      action: 'RENFORCEMENT DE LA VEILLE ET MISE À JOUR DES MESURES DE DÉFENSE',
+    },
+    'Malware & Exploits': {
+      impacts: [
+        'Infection massive des postes de travail et serveurs.',
+        'Exfiltration de données et installation de portes dérobées.',
+        'Utilisation des ressources compromises pour des attaques secondaires.',
+      ],
+      action: 'DÉPLOIEMENT DES CORRECTIFS ET ANALYSE FORENSIQUE IMMÉDIATE',
+    },
+    'Cloud & IAM': {
+      impacts: [
+        'Compromission des identités et accès non autorisés aux ressources cloud.',
+        'Exposition des données hébergées et violation de la conformité.',
+        'Propagation latérale au sein de l\'infrastructure cloud.',
+      ],
+      action: 'RENFORCEMENT DE LA GOUVERNANCE DES ACCÈS ET ACTIVATION DE LA MFA',
+    },
+    'Zero Trust & Architecture': {
+      impacts: [
+        'Mobilité latérale des attaquants au sein du réseau.',
+        'Accès non autorisé aux ressources critiques.',
+        'Visibilité insuffisante sur les flux et les accès.',
+      ],
+      action: 'MISE EN PLACE D\'UNE ARCHITECTURE ZERO TRUST ET SEGMENTATION RÉSEAU',
+    },
+    'SOC / SecOps': {
+      impacts: [
+        'Délai de détection accru exposant à des dommages étendus.',
+        'Surcharge d\'alertes et fatigue des analystes.',
+        'Capacité de réponse insuffisante face aux incidents.',
+      ],
+      action: 'AUTOMATISATION DES OPÉRATIONS DE SÉCURITÉ ET RENFORCEMENT DU SOC',
+    },
+    'Conformité & GRC': {
+      impacts: [
+        'Non-conformité réglementaire exposant à des sanctions financières.',
+        'Atteinte à la réputation et perte de confiance des parties prenantes.',
+        'Obligation de mise en conformité sous contrainte de délais.',
+      ],
+      action: 'ÉVALUATION DE LA CONFORMITÉ ET MISE EN PLACE DES MESURES CORRECTIVES',
+    },
+    'Red Team & Pentest': {
+      impacts: [
+        'Identification tardive de vulnérabilités exploitables.',
+        'Exposition à des attaques ciblées non détectées.',
+        'Lacunes dans la posture de sécurité globale.',
+      ],
+      action: 'PROGRAMME DE TESTS D\'INTRUSION RÉGULIERS ET EXERCICES RED TEAM',
+    },
+    'Supply Chain': {
+      impacts: [
+        'Compromission via un fournisseur ou un sous-traitant.',
+        'Propagation de l\'attaque à l\'ensemble de la chaîne logistique.',
+        'Difficulté de détection et traçabilité des incidents.',
+      ],
+      action: 'ÉVALUATION DES RISQUES FOURNISSEURS ET CONTRÔLE DE LA CHAÎNE LOGISTIQUE',
+    },
+    'Actualités & Réglementation': {
+      impacts: [
+        'Non-conformité réglementaire exposant à des sanctions financières.',
+        'Atteinte à la réputation et perte de confiance des parties prenantes.',
+        'Obligation de mise en conformité sous contrainte de délais.',
+      ],
+      action: 'ÉVALUATION DE LA CONFORMITÉ ET MISE EN PLACE DES MESURES CORRECTIVES',
+    },
+  };
+
+  const articleCategory = article.category || 'Actualités & Réglementation';
+  const fallback = CATEGORY_IMPACTS[articleCategory] || {
+    impacts: [
+      'Exposition à des risques de sécurité nécessitant une attention immédiate.',
+      'Impact potentiel sur la continuité des activités et l\'intégrité des données.',
+      'Nécessité d\'une évaluation et de mesures correctives adaptées.',
+    ],
+    action: 'ÉVALUATION DE SÉCURITÉ ET MISE EN PLACE DE MESURES CORRECTIVES',
+  };
+
+  const finalImpacts = dbImpacts.length > 0 ? dbImpacts : fallback.impacts;
+  const finalAction = article.remediation || fallback.action;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -512,36 +597,61 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="relative z-10 pb-32">
           <div className="max-w-4xl mx-auto px-6">
             <div className="glass-panel rounded-2xl p-8 md:p-12 lg:p-16">
-              {isVulnerabilityAlert ? (
-                <>
-                  {/* Vulnerability Infographic (full format for CVE articles) */}
-                  {infographicProps && <ArticleInfographic {...infographicProps} />}
-                </>
-              ) : (
-                <>
-                  {/* Excerpt */}
-                  <p className="text-xl text-slate-300 font-light leading-relaxed mb-12 pb-12 border-b border-white/10 italic">
-                    {displayExcerpt}
-                  </p>
-
-                  {/* Content */}
-                  <div
-                    className="prose prose-invert prose-lg max-w-none
-                      prose-headings:text-white prose-headings:font-light prose-headings:tracking-tight
-                      prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                      prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                      prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6
-                      prose-strong:text-white prose-strong:font-medium
-                      prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300
-                      prose-code:text-cyan-400 prose-code:bg-black/50 prose-code:px-2 prose-code:py-1 prose-code:rounded
-                      prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10
-                      prose-ul:text-slate-300 prose-ol:text-slate-300
-                      prose-li:my-2
-                      prose-blockquote:border-l-4 prose-blockquote:border-cyan-500 prose-blockquote:text-slate-300 prose-blockquote:italic"
-                    dangerouslySetInnerHTML={{ __html: safeContent }}
-                  />
-                </>
+              {/* CVE Tag (if applicable) */}
+              {cveNumber && (
+                <div className="mb-8">
+                  <span className="inline-block rounded border border-orange-500/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-orange-400">
+                    [ {cveNumber} ]
+                  </span>
+                </div>
               )}
+
+              {/* Excerpt */}
+              <p className="text-xl text-slate-300 font-light leading-relaxed mb-12 pb-12 border-b border-white/10 italic">
+                {displayExcerpt}
+              </p>
+
+              {/* Content */}
+              <div
+                className="prose prose-invert prose-lg max-w-none mb-16
+                  prose-headings:text-white prose-headings:font-light prose-headings:tracking-tight
+                  prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+                  prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+                  prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6
+                  prose-strong:text-white prose-strong:font-medium
+                  prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300
+                  prose-code:text-cyan-400 prose-code:bg-black/50 prose-code:px-2 prose-code:py-1 prose-code:rounded
+                  prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10
+                  prose-ul:text-slate-300 prose-ol:text-slate-300
+                  prose-li:my-2
+                  prose-blockquote:border-l-4 prose-blockquote:border-cyan-500 prose-blockquote:text-slate-300 prose-blockquote:italic"
+                dangerouslySetInnerHTML={{ __html: safeContent }}
+              />
+
+              {/* ===== IMPACTS + ACTION SECTION (for ALL articles) ===== */}
+              <div className="border-t border-cyan-500/20 pt-12">
+                <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-white mb-6 text-center">
+                  IMPACTS POUR LES ORGANISATIONS
+                </h2>
+                <ul className="space-y-4 mb-8 max-w-2xl mx-auto">
+                  {finalImpacts.map((impact, i) => (
+                    <li key={i} className="flex items-start gap-3 text-base text-slate-200">
+                      <span className="mt-0.5 shrink-0 text-cyan-400">&#9656;</span>
+                      <span>{impact}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-center">
+                  <span className="inline-block text-base font-bold uppercase tracking-wider text-cyan-400 sm:text-lg">
+                    &#9654; {finalAction}
+                  </span>
+                </div>
+                <div className="mt-8 text-center">
+                  <span className="text-xs text-slate-500">
+                    Source : {article.source === 'rss' ? 'The Hacker News' : 'SecuriTrust'}
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Back to Articles CTA */}

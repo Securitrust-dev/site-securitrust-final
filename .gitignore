@@ -38,6 +38,12 @@ debug.log
 pnpm-lock.yaml
 rapport-securite-securitrust.html
 
+# scripts
+/scripts/
+
+# orchids (IDE artifacts)
+.orchids/
+
 # vercel
 .vercel
 
