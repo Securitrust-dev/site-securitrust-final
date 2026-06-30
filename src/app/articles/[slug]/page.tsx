@@ -14,6 +14,7 @@ import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import { synthesizeArticle } from '@/lib/claude';
+import ArticleInfographic from '@/components/ArticleInfographic';
 
 const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
   allowedTags: sanitizeHtml.defaults.allowedTags.concat([
@@ -348,12 +349,43 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', { 
-      day: 'numeric', 
-      month: 'long', 
-      year: 'numeric' 
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
     });
   };
+
+  // Detect if article is about a CVE/vulnerability to show the infographic
+  const tagsLower = (article.tags || '').toLowerCase();
+  const titleLower = displayTitle.toLowerCase();
+  const isVulnerabilityAlert =
+    tagsLower.includes('vulnérabilité') ||
+    tagsLower.includes('cve') ||
+    titleLower.includes('cve-') ||
+    titleLower.includes('faille critique') ||
+    titleLower.includes('vulnérabilité');
+
+  // Extract CVE number from title or tags
+  const cveMatch = displayTitle.match(/(CVE-\d{4}-\d{4,})/i) ||
+    (article.tags || '').match(/(CVE-\d{4}-\d{4,})/i);
+  const cveNumber = cveMatch ? cveMatch[1].toUpperCase() : undefined;
+
+  // Build infographic props from article data
+  const infographicProps = isVulnerabilityAlert
+    ? {
+        cve: cveNumber,
+        title: displayTitle.toUpperCase(),
+        summary: displayExcerpt,
+        impacts: [
+          'Prise de contrôle complète du système sans authentification.',
+          'Vecteur d\'attaque exploitable à distance (sans privilèges préalables).',
+          'Exposition critique des infrastructures réseau et des données sensibles.',
+        ],
+        action: 'MISE À JOUR URGENTE FORTEMENT RECOMMANDÉE',
+        source: 'The Hacker News',
+      }
+    : null;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -467,6 +499,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <p className="text-xl text-slate-300 font-light leading-relaxed mb-12 pb-12 border-b border-white/10 italic">
                 {displayExcerpt}
               </p>
+
+              {/* Vulnerability Infographic */}
+              {infographicProps && <ArticleInfographic {...infographicProps} />}
 
               {/* Content */}
               <div 
