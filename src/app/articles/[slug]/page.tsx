@@ -3,7 +3,6 @@ import { Footer } from '@/components/sections/footer';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import ThreeBackground from '@/components/three-background';
 import MatrixRain from '@/components/matrix-rain';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
@@ -442,41 +441,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const displayTitle = article.titleFr || article.title;
   const displayExcerpt = article.excerptFr || article.excerpt;
-  const displayContent = article.contentFr || article.content;
-
-  const safeContent = sanitizeHtml(displayContent, {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-      'img', 'figure', 'figcaption', 'picture', 'source',
-      'table', 'thead', 'tbody', 'tr', 'th', 'td',
-      'pre', 'code', 'blockquote', 'details', 'summary',
-    ]),
-    allowedAttributes: {
-      ...sanitizeHtml.defaults.allowedAttributes,
-      '*': ['class', 'id'],
-      'a': ['href', 'target', 'rel', 'title'],
-      'img': ['src', 'alt', 'width', 'height', 'loading'],
-      'source': ['src', 'srcset', 'type', 'media'],
-      'td': ['colspan', 'rowspan'],
-      'th': ['colspan', 'rowspan', 'scope'],
-      'code': ['class'],
-    },
-    allowedSchemes: ['https', 'http', 'mailto'],
-    allowedSchemesByTag: {
-      img: ['https', 'data'],
-    },
-    // Block dangerous patterns
-    transformTags: {
-      'a': (tagName, attribs) => ({
-        tagName,
-        attribs: {
-          ...attribs,
-          rel: 'noopener noreferrer',
-          target: attribs.href?.startsWith('http') ? '_blank' : attribs.target,
-        },
-      }),
-    },
-  });
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -711,48 +675,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
         </div>
 
-        {/* Article Image */}
-        <div className="relative z-10 mb-16">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden glass-panel">
-              <Image
-                src={article.image}
-                alt={displayTitle}
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-            </div>
-          </div>
-        </div>
-
         {/* Article Content */}
         <div className="relative z-10 pb-32">
           <div className="max-w-4xl mx-auto px-6">
             <div className="glass-panel rounded-2xl p-8 md:p-12 lg:p-16">
-              {/* Excerpt */}
-              <p className="text-lg text-slate-300 font-light leading-relaxed mb-10">
-                {displayExcerpt}
-              </p>
-
-              {/* Content */}
-              <div
-                className="prose prose-invert prose-lg max-w-none mb-16
-                  prose-headings:text-white prose-headings:font-light prose-headings:tracking-tight
-                  prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                  prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                  prose-p:text-slate-300 prose-p:leading-relaxed prose-p:mb-6
-                  prose-strong:text-white prose-strong:font-medium
-                  prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:text-cyan-300
-                  prose-code:text-cyan-400 prose-code:bg-black/50 prose-code:px-2 prose-code:py-1 prose-code:rounded
-                  prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10
-                  prose-ul:text-slate-300 prose-ol:text-slate-300
-                  prose-li:my-2
-                  prose-blockquote:border-l-4 prose-blockquote:border-cyan-500 prose-blockquote:text-slate-300 prose-blockquote:italic"
-                dangerouslySetInnerHTML={{ __html: safeContent }}
-              />
-
               {/* Infographic component - impacts + action for all articles */}
               <ArticleInfographic {...infographicProps} />
             </div>
