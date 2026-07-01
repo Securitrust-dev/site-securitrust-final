@@ -640,20 +640,22 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         {/* Article Hero */}
         <div className="relative z-10 pt-32 pb-12">
           <div className="max-w-5xl mx-auto px-6">
-            {/* Back Button */}
-            <Link 
-              href="/articles"
-              className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 mb-8 group"
-            >
-              <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              <span className="text-sm uppercase tracking-wider font-medium">Retour aux articles</span>
-            </Link>
+            <div className="flex flex-col items-start gap-4 mb-8">
+              {/* Back Button */}
+              <Link
+                href="/articles"
+                className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 group"
+              >
+                <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                <span className="text-sm uppercase tracking-wider font-medium">Retour aux articles</span>
+              </Link>
 
-            {/* Category Badge */}
-            <div className="inline-block px-4 py-2 bg-cyan-500/90 backdrop-blur-sm rounded mb-6">
-              <span className="text-xs font-semibold text-black uppercase tracking-wider">
-                {article.category}
-              </span>
+              {/* Category Badge */}
+              <div className="px-4 py-2 bg-cyan-500/90 backdrop-blur-sm rounded">
+                <span className="text-xs font-semibold text-black uppercase tracking-wider">
+                  {article.category}
+                </span>
+              </div>
             </div>
 
             {/* Title */}
