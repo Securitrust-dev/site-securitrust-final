@@ -83,8 +83,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr">
       <body>
-        {/* Google Tag Manager — site-wide (toutes les pages) */}
-        <Script id="gtm-P5D5S5WJ" strategy="afterInteractive">
+        {/* Google Tag Manager — site-wide, chargé dans le <head> (beforeInteractive) pour être détecté par Tag Assistant */}
+        <Script id="gtm-P5D5S5WJ" strategy="beforeInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
