@@ -6,7 +6,7 @@ import Parser from 'rss-parser';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
 import { classifyArticle, CYBER_CATEGORIES } from '@/lib/articles';
-import { RSS_RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug } from '@/lib/rss-utils';
+import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug } from '@/lib/rss-utils';
 
 // Authenticate API key for write operations
 function authenticateRequest(request: NextRequest): boolean {
@@ -129,10 +129,11 @@ export async function GET(request: NextRequest) {
       return matchesQuery && matchesCategory;
     });
 
-    // Get all source URLs from DB articles to avoid duplicates
+    // Get all source URLs and slugs from DB articles to avoid duplicates
     const dbSourceUrls = new Set(
       dbArticlesData.filter(a => a.sourceUrl).map(a => a.sourceUrl)
     );
+    const dbSlugs = new Set(dbArticlesData.map(a => a.slugFr || a.slug).filter(Boolean));
 
     // 3. Deduplicate DB articles: keep only the latest entry per sourceUrl
     const dedupedDbMap = new Map<string, typeof dbArticlesData[0]>();
@@ -162,9 +163,9 @@ export async function GET(request: NextRequest) {
       tags: article.tags || '[]'
     }));
 
-    // 4. Filter RSS articles: skip those already in DB (same sourceUrl)
+    // 4. Filter RSS articles: skip those already in DB (same sourceUrl or same slug)
     const dedupedRssArticles = filteredRssArticles.filter(
-      a => !dbSourceUrls.has(a.sourceUrl)
+      a => !dbSourceUrls.has(a.sourceUrl) && !dbSlugs.has(a.slug)
     );
 
     // 5. Merge and sort by date
