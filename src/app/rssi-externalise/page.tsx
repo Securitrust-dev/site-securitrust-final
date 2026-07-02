@@ -32,6 +32,15 @@ const clientLogos = [
   { src: "/clients/white/backupta.png", alt: "BackupTa" },
 ];
 
+// Domaines email personnels/grand public à refuser (on ne garde que les adresses pro).
+const PERSONAL_EMAIL_DOMAINS = new Set([
+  "gmail.com", "googlemail.com", "yahoo.com", "yahoo.fr", "ymail.com",
+  "hotmail.com", "hotmail.fr", "outlook.com", "outlook.fr", "live.com", "live.fr", "msn.com",
+  "icloud.com", "me.com", "mac.com", "aol.com", "gmx.com", "gmx.fr",
+  "free.fr", "orange.fr", "wanadoo.fr", "sfr.fr", "laposte.net", "bbox.fr",
+  "neuf.fr", "numericable.fr", "protonmail.com", "proton.me", "yopmail.com",
+]);
+
 export default function RSSIExternaliseLPPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -40,6 +49,18 @@ export default function RSSIExternaliseLPPage() {
     e.preventDefault();
     const form = formRef.current;
     if (!form) return;
+
+    // Bloque les adresses email personnelles (Gmail, Yahoo, etc.) : on ne garde que le pro.
+    const emailInput = form.querySelector<HTMLInputElement>("#f-email");
+    if (emailInput) {
+      const domain = emailInput.value.trim().split("@")[1]?.toLowerCase() ?? "";
+      emailInput.setCustomValidity(
+        domain && PERSONAL_EMAIL_DOMAINS.has(domain)
+          ? "Merci d'utiliser une adresse email professionnelle."
+          : "",
+      );
+    }
+
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -91,7 +112,7 @@ export default function RSSIExternaliseLPPage() {
               </div>
 
               {/* 2. H1 */}
-              <h1>Votre <span className="hl">RSSI externalisé</span> certifié à temps partagé, à partir de 1 100 €/jour</h1>
+              <h1>Votre <span className="hl">RSSI externalisé</span> certifié à temps partagé</h1>
 
               {/* 3. Sous-header */}
               <p className="hero-sub">Un RSSI externe senior pour piloter votre sécurité, sans le coût d'un plein temps.</p>
@@ -106,13 +127,21 @@ export default function RSSIExternaliseLPPage() {
                   <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
                   <span className="ht-txt"><b>+100</b> clients accompagnés</span>
                 </div>
-                <div className="ht-item ht-stars" aria-label="Note moyenne 4,7 sur 5">
+                <div className="ht-item ht-stars" aria-label="Note Google 5 sur 5">
                   <span className="stars" aria-hidden="true">
                     {[0, 1, 2, 3, 4].map((i) => (
                       <svg key={i} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26 6.86.7-5.12 4.62 1.43 6.76L12 17.77 5.93 21.1l1.43-6.76L2.24 8.96l6.86-.7z" /></svg>
                     ))}
                   </span>
-                  <span className="ht-txt"><b>4,7/5</b></span>
+                  <span className="ht-txt"><b>5/5</b></span>
+                  <span className="ht-google" aria-label="Avis Google" style={{ display: "inline-flex", alignItems: "center", marginLeft: 6 }}>
+                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style={{ display: "block" }}>
+                      <path fill="#4285F4" d="M23.52 12.27c0-.82-.07-1.6-.2-2.36H12v4.48h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.57-5.17 3.57-8.75z" />
+                      <path fill="#34A853" d="M12 24c3.24 0 5.96-1.08 7.95-2.91l-3.88-3.01c-1.08.72-2.45 1.15-4.07 1.15-3.13 0-5.78-2.11-6.73-4.96H1.26v3.11A12 12 0 0 0 12 24z" />
+                      <path fill="#FBBC05" d="M5.27 14.27a7.2 7.2 0 0 1 0-4.54v-3.1H1.26a12 12 0 0 0 0 10.75l4.01-3.11z" />
+                      <path fill="#EA4335" d="M12 4.77c1.76 0 3.35.61 4.6 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0A12 12 0 0 0 1.26 6.62l4.01 3.11C6.22 6.88 8.87 4.77 12 4.77z" />
+                    </svg>
+                  </span>
                 </div>
               </div>
 
