@@ -1,6 +1,5 @@
 import './globals.css';
 import { ReactNode } from 'react';
-import Script from 'next/script';
 import { FloatingCTA } from '@/components/floating-cta';
 import { Metadata, Viewport } from 'next';
 import { OrganizationSchema, LocalBusinessSchema } from '@/components/StructuredData';
@@ -83,14 +82,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr">
       <body>
-        {/* Google Tag Manager — site-wide, chargé dans le <head> (beforeInteractive) pour être détecté par Tag Assistant */}
-        <Script id="gtm-P5D5S5WJ" strategy="beforeInteractive">
-          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P5D5S5WJ');`}
-        </Script>
+        {/* Google Tag Manager — init du dataLayer (inline, tout en haut du body) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});",
+          }}
+        />
+        {/* GTM loader — <script async> hoisté dans le <head> par React 19 (détectable par Tag Assistant) */}
+        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-P5D5S5WJ" />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
