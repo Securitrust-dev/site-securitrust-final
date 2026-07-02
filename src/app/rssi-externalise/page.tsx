@@ -575,7 +575,7 @@ export default function RSSIExternaliseLPPage() {
             </details>
             <details>
               <summary>Qui porte la responsabilité juridique&nbsp;?<span className="plus">+</span></summary>
-              <p>La responsabilité réglementaire de l'entreprise (NIS2, RGPD, DORA) reste celle de sa direction, c'est la loi, et personne ne peut s'y substituer. En revanche, SecuriTrust s'engage contractuellement par une obligation de moyens documentée et est couvert par une assurance responsabilité civile professionnelle (plafond [À COMPLÉTER] € par sinistre, attestation sur demande). Le périmètre, les engagements et la répartition des responsabilités sont précisés au contrat, et nous vous en communiquons un extrait avant signature.</p>
+              <p>La responsabilité réglementaire de l'entreprise (NIS2, RGPD, DORA) reste celle de sa direction, c'est la loi, et personne ne peut s'y substituer. En revanche, SecuriTrust s'engage contractuellement par une obligation de moyens documentée et est couvert par une assurance responsabilité civile professionnelle (attestation sur demande). Le périmètre, les engagements et la répartition des responsabilités sont précisés au contrat, et nous vous en communiquons un extrait avant signature.</p>
             </details>
             <details>
               <summary>Quelle réactivité en cas d'incident&nbsp;?<span className="plus">+</span></summary>

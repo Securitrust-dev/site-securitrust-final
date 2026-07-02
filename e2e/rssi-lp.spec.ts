@@ -13,9 +13,9 @@ test.describe("LP RSSI externalisé — /rssi-externalise-lp", () => {
   test("rend la LP : wrapper, H1, grille pricing, formulaire", async ({ page }) => {
     await expect(page.locator("#lp-root")).toBeVisible();
     await expect(page.locator("h1")).toContainText("RSSI externalisé");
-    // Pricing en style natif de la LP : 3 cartes dont une "featured".
-    await expect(page.locator("#lp-root .price-card")).toHaveCount(3);
-    await expect(page.locator("#lp-root .price-card.featured")).toHaveCount(1);
+    // Pricing refondu en tarif à la journée (décision 2026-06-29) : plus de 3 cartes .price-card,
+    // désormais un tarif unique « à partir de 1 100 €/jour HT ».
+    await expect(page.locator("#lp-root .amount").first()).toContainText("1 100");
     await expect(page.locator("#callback-form")).toBeVisible();
   });
 

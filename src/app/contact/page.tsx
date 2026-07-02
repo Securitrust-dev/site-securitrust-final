@@ -25,13 +25,22 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast.success('Message envoyé avec succès! Nous vous recontacterons dans les plus brefs délais.');
-    setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' });
-    setIsSubmitting(false);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error('request failed');
+
+      toast.success('Message envoyé avec succès! Nous vous recontacterons dans les plus brefs délais.');
+      setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' });
+    } catch {
+      toast.error("Une erreur est survenue. Réessayez ou écrivez-nous à contact@securitrust.fr.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {

@@ -138,6 +138,20 @@ export default function EligibilitePage() {
       return;
     }
     setContactErrors({});
+
+    // Capture du lead dès que les coordonnées sont saisies (avant le questionnaire),
+    // en best-effort, pour ne perdre aucun prospect même en cas d'abandon.
+    try {
+      fetch('/api/eligibilite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ company: companyInfo, contact: contactInfo, siret: siretInput.trim() }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      /* noop — ne jamais bloquer le tunnel */
+    }
+
     setCurrentStep('questions');
   };
 
