@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Script from "next/script";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
@@ -75,24 +74,6 @@ const faqs = [
 export default function RSSIExternaliseLPLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/* Google Tag Manager — chargé uniquement sur la LP /rssi-externalise */}
-      <Script id="gtm-P5D5S5WJ" strategy="afterInteractive">
-        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P5D5S5WJ');`}
-      </Script>
-      {/* Google Tag Manager (noscript) */}
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-P5D5S5WJ"
-          height="0"
-          width="0"
-          style={{ display: "none", visibility: "hidden" }}
-        />
-      </noscript>
-
       <ServiceSchema
         name="RSSI externalisé certifié à temps partagé"
         description="RSSI externalisé à temps partagé pour PME et ETI, à partir de 1 100 €/jour. Pilotage stratégique et opérationnel de votre sécurité SI. +2 500 jours-homme d'expérience. Auditeur officiel AFNOR, certifié ISO 27001."
