@@ -8,7 +8,7 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, phone, company, subject, message } = await req.json();
+    const { name, email, phone, company, subject, message, source } = await req.json();
     if (!name || !email) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
           email,
           phone,
           company,
-          source: 'Contact',
+          source: source === 'LP RSSI' ? 'LP RSSI' : 'Contact',
           subjectMessage: [subject, message].filter(Boolean).join(' — '),
         });
       } catch (e) {

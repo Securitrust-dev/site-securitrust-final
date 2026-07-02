@@ -97,3 +97,42 @@ test('formulaire /contact → la ligne arrive complète dans Notion', async ({ p
     await archivePage(rows[0].id);
   }
 });
+
+test('formulaire LP /rssi-externalise → la ligne arrive dans Notion (source LP RSSI)', async ({ page }) => {
+  expect(NOTION_TOKEN, 'NOTION_TOKEN doit être présent dans .env.local').toBeTruthy();
+
+  const stamp = Date.now();
+  const name = `E2E LP ${stamp}`;
+  const email = `e2e-lp-${stamp}@test.securitrust.fr`;
+
+  await page.goto('/rssi-externalise');
+  await page.fill('#f-name', name);
+  await page.fill('#f-email', email);
+  await page.fill('#f-phone', '0611223344');
+
+  const [resp] = await Promise.all([
+    page.waitForResponse(
+      (r) => r.url().includes('/api/contact') && r.request().method() === 'POST',
+      { timeout: 25000 },
+    ),
+    page.click('#callback-form button[type="submit"]'),
+  ]);
+  expect(resp.status(), 'POST /api/contact doit répondre 200').toBe(200);
+
+  let rows: any[] = [];
+  for (let i = 0; i < 12 && rows.length === 0; i++) {
+    rows = await queryByEmail(email);
+    if (rows.length === 0) await page.waitForTimeout(1000);
+  }
+  expect(rows.length, 'exactement 1 ligne dans Notion pour cet email').toBe(1);
+
+  const props = rows[0].properties;
+  try {
+    expect(title(props['Nom'])).toBe(name);
+    expect(props['Email'].email).toBe(email);
+    expect(props['Téléphone'].phone_number).toBe('0611223344');
+    expect(props['Source'].select?.name).toBe('LP RSSI');
+  } finally {
+    await archivePage(rows[0].id);
+  }
+});

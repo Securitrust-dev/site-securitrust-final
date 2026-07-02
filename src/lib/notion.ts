@@ -18,8 +18,8 @@ export type NotionLeadInput = {
   phone?: string;
   /** Colonne "Société". */
   company?: string;
-  /** Colonne "Source" — doit correspondre à une option du select. */
-  source?: 'Hero' | 'Contact' | 'Éligibilité';
+  /** Colonne "Source" — l'option du select est créée automatiquement si absente. */
+  source?: 'Hero' | 'Contact' | 'Éligibilité' | 'LP RSSI';
   /** Colonne "Sujet & message". */
   subjectMessage?: string;
   /** Colonne "SIRET & activité". */

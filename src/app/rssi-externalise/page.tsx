@@ -44,6 +44,25 @@ export default function RSSIExternaliseLPPage() {
       form.reportValidity();
       return;
     }
+
+    // Capture du lead dans Notion (best-effort — ne bloque jamais l'affichage du succès).
+    try {
+      const fd = new FormData(form);
+      fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fd.get("name"),
+          email: fd.get("email"),
+          phone: fd.get("phone"),
+          source: "LP RSSI",
+        }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      /* noop */
+    }
+
     setShowSuccess(true);
     // rAF : on attend le commit DOM de React (le form passe en display:none et
     // #form-success en .show) avant de scroller, pour reproduire le
