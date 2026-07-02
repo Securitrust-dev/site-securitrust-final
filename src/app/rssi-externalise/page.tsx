@@ -353,7 +353,8 @@ export default function RSSIExternaliseLPPage() {
               <div className="t-avatar" aria-hidden="true">S</div>
               <div className="t-meta">
                 <div className="t-name">Saida</div>
-                <div className="t-role">Avis vérifié sur Google</div>
+                <div className="t-role">CEO, Élite Aéroport</div>
+                <div className="t-role" style={{ opacity: 0.68 }}>Avis vérifié sur Google</div>
               </div>
             </div>
           </div>
