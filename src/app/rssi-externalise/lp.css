@@ -136,6 +136,10 @@ html{scroll-behavior:smooth}
 #lp-root#lp-root .hero-trust .ht-item .ic{width:17px;height:17px;color:var(--sky);flex:none}
 #lp-root#lp-root .hero-trust .ht-stars .stars{display:inline-flex;gap:2px;color:#fbbf24}
 #lp-root#lp-root .hero-trust .ht-stars .stars svg{width:17px;height:17px}
+/* rangée de certifications clés du RSSI dans le hero */
+#lp-root#lp-root .hero-certs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+#lp-root#lp-root .hero-certs .cert{padding:7px 13px;font-size:.8rem}
+#lp-root#lp-root .hero-certs .cert svg{width:14px;height:14px}
 #lp-root#lp-root .price-anchor{
   display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;
   background:linear-gradient(135deg,rgba(56,189,248,.1),rgba(6,182,212,.06));
