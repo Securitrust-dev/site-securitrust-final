@@ -61,10 +61,11 @@ const nextConfig = {
     // sans 'unsafe-eval' la CSP bloque l'hydratation de TOUTES les pages.
     // Autorisé en développement uniquement — la prod reste stricte (pas d'eval).
     const isDev = process.env.NODE_ENV !== 'production';
+    // GTM (gtm.js) + tagmanager.google.com requis pour le mode Preview de Tag Assistant.
     const scriptSrc =
       "script-src 'self' 'unsafe-inline'" +
       (isDev ? " 'unsafe-eval'" : '') +
-      ' https://js.stripe.com https://vercel.live https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.iconify.design https://*.supabase.co';
+      ' https://js.stripe.com https://vercel.live https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.iconify.design https://*.supabase.co https://*.googletagmanager.com https://tagmanager.google.com';
     return [
       {
         source: '/(.*)',
@@ -94,12 +95,13 @@ const nextConfig = {
             value: [
               "default-src 'self'",
               scriptSrc,
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              // Domaines Google : liste officielle CSP pour GTM + GA4 (+ mode Preview Tag Assistant)
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://randomuser.me https://logo.clearbit.com https://blogger.googleusercontent.com",
-              "connect-src 'self' https://*.supabase.co https://api.stripe.com https://vitals.vercel-insights.com",
+              "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://randomuser.me https://logo.clearbit.com https://blogger.googleusercontent.com https://*.google-analytics.com https://*.googletagmanager.com https://ssl.gstatic.com https://www.gstatic.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com",
+              "connect-src 'self' https://*.supabase.co https://api.stripe.com https://vitals.vercel-insights.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com",
               "media-src 'self' https://*.supabase.co",
-              "frame-src https://js.stripe.com https://hooks.stripe.com",
+              "frame-src https://js.stripe.com https://hooks.stripe.com https://www.googletagmanager.com https://td.doubleclick.net",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
