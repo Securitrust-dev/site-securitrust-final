@@ -563,7 +563,6 @@ export default function RSSIExternaliseLPPage() {
               <p>Un RSSI senior vous rappelle sous 2h, ou réservez 20 min. 100% confidentiel.</p>
               <div className="finalcta-btns">
                 <a href="#form-anchor" className="btn btn-primary">Être rappelé sous 2h →</a>
-                <a href="https://calendly.com/expert-securitrust" className="btn btn-ghost" target="_blank" rel="noopener noreferrer">Réserver 20 min</a>
               </div>
               <p className="micro"><b>Réponse sous 2h</b> · <b>NDA dès le 1er échange</b></p>
             </div>
