@@ -54,6 +54,9 @@ const nextConfig = {
       { source: '/rssi-automatise/:path*', destination: '/cyber-pilote/:path*', permanent: true },
       // L'ancienne URL de preview de la LP pointe désormais vers la page RSSI canonique.
       { source: '/rssi-externalise-lp', destination: '/rssi-externalise', permanent: true },
+      // Article de blog qui cannibalisait la LP « RSSI externalisé » : on redirige
+      // vers la LP canonique pour consolider le référencement sur une seule URL.
+      { source: '/articles/rssi-externalise-prix-missions-et-roi-pour-les-pme', destination: '/rssi-externalise', permanent: true },
     ];
   },
   async headers() {
