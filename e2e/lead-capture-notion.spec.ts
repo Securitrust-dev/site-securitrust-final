@@ -90,6 +90,7 @@ test('formulaire /contact → la ligne arrive complète dans Notion', async ({ p
     expect(rt(props['Société'])).toBe(lead.company);
     expect(props['Source'].select?.name).toBe('Contact');
     expect(props['Statut'].select?.name).toBe('Nouveau');
+    expect(props['Date']?.date?.start, 'la colonne Date doit être remplie').toBeTruthy();
     expect(rt(props['Sujet & message'])).toContain(lead.subject);
     expect(rt(props['Sujet & message'])).toContain(lead.message);
   } finally {

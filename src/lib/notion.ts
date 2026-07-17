@@ -42,6 +42,8 @@ export async function createLeadInNotion(lead: NotionLeadInput): Promise<string>
   const properties: Record<string, unknown> = {
     Nom: { title: [{ text: { content: lead.name || 'Lead sans nom' } }] },
     Statut: { select: { name: 'Nouveau' } },
+    // Colonne "Date" (type date) — date de capture du lead, en clair dans la base.
+    Date: { date: { start: new Date().toISOString() } },
   };
   if (lead.email) properties['Email'] = { email: lead.email };
   if (lead.phone) properties['Téléphone'] = { phone_number: lead.phone };
