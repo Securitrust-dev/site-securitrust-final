@@ -73,19 +73,6 @@ export const HeroSection = () => {
               )}
             </div>
 
-          {/* Right Content - Video */}
-          <div className="relative hidden lg:block">
-            <div className="relative rounded-2xl overflow-hidden border-2 border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.3)]">
-              <video
-                ref={videoRef}
-                src="https://qfihegeffntsxrwhvnlm.supabase.co/storage/v1/object/sign/Video_securitrust/pentest_au_resultat.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wYzAxOTEwZS02NzNlLTQ3ZmUtYTFjMC01MzlmYmQxOTczNTIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWaWRlb19zZWN1cml0cnVzdC9wZW50ZXN0X2F1X3Jlc3VsdGF0Lm1wNCIsImlhdCI6MTc2NDg0NzUwNiwiZXhwIjoyMDgwMjA3NTA2fQ.6uuGphXfWdHHAjNw-YTtkkLC3EZB-l7fYibEdGjrEmM"
-                muted
-                playsInline
-                controls
-                className="w-full h-auto"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </section>
