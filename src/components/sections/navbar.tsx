@@ -83,8 +83,8 @@ export const Navbar = () => {
               </div>
             </div>
 
-            <a href="/cyber-pilote" data-nav-link className="px-3 py-2 text-xs xl:text-sm font-normal text-white hover:text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors uppercase tracking-wide whitespace-nowrap">
-              Cyber-Pilote
+            <a href="/rssi-externalise" data-nav-link className="px-3 py-2 text-xs xl:text-sm font-normal text-white hover:text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors uppercase tracking-wide whitespace-nowrap">
+              RSSI externalisé
             </a>
             <a href="/articles" data-nav-link className="px-3 py-2 text-xs xl:text-sm font-normal text-white hover:text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors uppercase tracking-wide">
               Articles
@@ -158,7 +158,7 @@ export const Navbar = () => {
                 )}
               </div>
 
-              <a href="/cyber-pilote" data-nav-link className="block text-base font-bold text-white py-2">Cyber-Pilote</a>
+              <a href="/rssi-externalise" data-nav-link className="block text-base font-bold text-white py-2">RSSI externalisé</a>
               <a href="/articles" data-nav-link className="block text-base font-bold text-white py-2">Articles</a>
               <a href="/nous-rejoindre" data-nav-link className="block text-base font-bold text-white py-2">Nous rejoindre</a>
               <a href="/contact" data-nav-link className="block text-base font-bold text-white py-2">Contact</a>
