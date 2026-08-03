@@ -60,17 +60,26 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    return [
-      // Pages HTML statiques (public/*.html) servies sur des URLs propres, sans l'extension .html
-      { source: '/iso27001', destination: '/iso27001.html' },
-      { source: '/nis2', destination: '/nis2.html' },
-      { source: '/hds', destination: '/hds.html' },
-      { source: '/tisax', destination: '/tisax.html' },
-      { source: '/audit-o365', destination: '/audit-o365.html' },
-      { source: '/pentest-web', destination: '/pentest-web.html' },
-      { source: '/pentest-ad', destination: '/pentest-ad.html' },
-      { source: '/pentest-mobile', destination: '/pentest-mobile.html' },
-    ];
+    return {
+      // beforeFiles : prioritaire sur les routes Next.js existantes (nécessaire pour
+      // remplacer la home app router par la page statique public/index.html).
+      beforeFiles: [
+        { source: '/', destination: '/index.html' },
+      ],
+      // afterFiles : ces sources n'ont pas de route Next.js concurrente, un rewrite
+      // standard suffit pour servir les pages HTML statiques (public/*.html) sur des
+      // URLs propres, sans l'extension .html.
+      afterFiles: [
+        { source: '/iso27001', destination: '/iso27001.html' },
+        { source: '/nis2', destination: '/nis2.html' },
+        { source: '/hds', destination: '/hds.html' },
+        { source: '/tisax', destination: '/tisax.html' },
+        { source: '/audit-o365', destination: '/audit-o365.html' },
+        { source: '/pentest-web', destination: '/pentest-web.html' },
+        { source: '/pentest-ad', destination: '/pentest-ad.html' },
+        { source: '/pentest-mobile', destination: '/pentest-mobile.html' },
+      ],
+    };
   },
   async headers() {
     // En dev, Next (webpack/HMR + react-refresh) exécute du code via eval() :
