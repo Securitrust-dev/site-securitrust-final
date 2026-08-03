@@ -74,6 +74,21 @@ const config = {
       lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
     };
   },
+  // Pages HTML statiques (public/*.html), servies via rewrites dans next.config.js.
+  // Absentes du build Next.js, next-sitemap ne les détecte pas automatiquement.
+  additionalPaths: async (config) => {
+    const staticHtmlPages = [
+      '/iso27001',
+      '/nis2',
+      '/hds',
+      '/tisax',
+      '/audit-o365',
+      '/pentest-web',
+      '/pentest-ad',
+      '/pentest-mobile',
+    ];
+    return Promise.all(staticHtmlPages.map((path) => config.transform(config, path)));
+  },
 };
 
 export default config;

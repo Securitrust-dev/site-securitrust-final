@@ -59,6 +59,19 @@ const nextConfig = {
       { source: '/articles/rssi-externalise-prix-missions-et-roi-pour-les-pme', destination: '/rssi-externalise', permanent: true },
     ];
   },
+  async rewrites() {
+    return [
+      // Pages HTML statiques (public/*.html) servies sur des URLs propres, sans l'extension .html
+      { source: '/iso27001', destination: '/iso27001.html' },
+      { source: '/nis2', destination: '/nis2.html' },
+      { source: '/hds', destination: '/hds.html' },
+      { source: '/tisax', destination: '/tisax.html' },
+      { source: '/audit-o365', destination: '/audit-o365.html' },
+      { source: '/pentest-web', destination: '/pentest-web.html' },
+      { source: '/pentest-ad', destination: '/pentest-ad.html' },
+      { source: '/pentest-mobile', destination: '/pentest-mobile.html' },
+    ];
+  },
   async headers() {
     // En dev, Next (webpack/HMR + react-refresh) exécute du code via eval() :
     // sans 'unsafe-eval' la CSP bloque l'hydratation de TOUTES les pages.
