@@ -221,6 +221,75 @@ header.nav.scrolled{background:rgba(10,10,10,.75);backdrop-filter:blur(14px);bor
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(10,10,10,.85)}70%{box-shadow:0 0 0 9px rgba(10,10,10,0)}100%{box-shadow:0 0 0 0 rgba(10,10,10,0)}}
 @media(max-width:1240px){.nav-links{gap:20px}.nav-links a{font-size:13px}}
 @media(max-width:1080px){.nav-links{display:none}}
+.nav-item{position:relative}
+.nav-item-trigger{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.nav-caret{width:9px;height:9px;flex:0 0 9px;opacity:.7;transition:transform .25s var(--ease)}
+.nav-item:hover .nav-caret,.nav-item:focus-within .nav-caret{transform:rotate(180deg)}
+.nav-dropdown{
+  position:absolute;top:100%;left:50%;padding-top:14px;
+  transform:translateX(-50%);width:max-content;min-width:220px;
+  opacity:0;pointer-events:none;transition:opacity .2s var(--ease),transform .2s var(--ease);
+}
+.nav-dropdown-inner{
+  background:#0e0e0e;border:1px solid var(--line);border-radius:14px;
+  padding:8px;display:flex;flex-direction:column;gap:2px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+.nav-item:hover .nav-dropdown,.nav-item:focus-within .nav-dropdown{
+  opacity:1;pointer-events:auto;
+}
+.nav-dropdown a{font-size:13px;padding:9px 12px;border-radius:8px;white-space:nowrap;color:var(--muted);display:block}
+.nav-dropdown a:hover{background:var(--glass);color:var(--ink)}
+
+/* ---------- NAV MOBILE (menu hamburger, identique index) ---------- */
+.nav-toggle{
+  display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  width:40px;height:40px;flex:0 0 40px;background:rgba(18,18,18,.5);
+  border:1px solid var(--line);border-radius:10px;cursor:pointer;z-index:210;
+}
+.nav-toggle span{width:18px;height:1.5px;background:var(--ink);transition:transform .3s var(--ease),opacity .3s var(--ease)}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+@media(max-width:1080px){.nav-toggle{display:flex}}
+
+.nav-backdrop{
+  position:fixed;inset:0;z-index:190;background:rgba(4,4,4,.6);backdrop-filter:blur(2px);
+  opacity:0;pointer-events:none;transition:opacity .35s var(--ease);
+}
+.nav-backdrop.open{opacity:1;pointer-events:auto}
+
+.nav-links-mobile{
+  position:fixed;top:0;right:0;bottom:0;z-index:200;
+  width:min(320px,80vw);background:#0e0e0e;border-left:1px solid var(--line);
+  padding:100px 30px 40px;display:flex;flex-direction:column;gap:6px;
+  transform:translateX(100%);transition:transform .4s var(--ease);
+  overflow-y:auto;
+}
+.nav-links-mobile.open{transform:translateX(0)}
+.nav-links-mobile a{
+  font-family:'Space Grotesk';font-size:19px;font-weight:600;color:var(--ink);
+  padding:14px 4px;border-bottom:1px solid var(--line-soft);transition:color .25s;
+}
+.nav-links-mobile a:hover{color:var(--cyan)}
+.nav-mobile-group{border-bottom:1px solid var(--line-soft)}
+.nav-mobile-group summary{
+  font-family:'Space Grotesk';font-size:19px;font-weight:600;color:var(--ink);
+  padding:14px 4px;cursor:pointer;list-style:none;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-mobile-group summary::-webkit-details-marker{display:none}
+.nav-mobile-group summary::after{content:"+";color:var(--cyan);font-size:20px;font-weight:400}
+.nav-mobile-group[open] summary::after{content:"−"}
+.nav-mobile-group a{
+  font-family:'Inter';font-size:15px;font-weight:500;color:var(--muted);
+  padding:10px 4px 10px 14px;border-bottom:none;display:block;
+}
+.nav-mobile-group a:hover{color:var(--cyan)}
+.nav-links-mobile .nav-cta{
+  margin-top:20px;justify-content:center;width:100%;padding:15px 20px;
+}
+body.nav-open{overflow:hidden}
 
 /* ============ LAYOUT ============ */
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,44px)}
@@ -485,18 +554,70 @@ footer{border-top:1px solid var(--line);padding:60px 0 30px;margin-top:60px;posi
     <img src="/assets/logo-securitrust.png" alt="SecuriTrust" class="brand-mark" />
   </a>
   <nav class="nav-links">
-    <a href="/#pentest">Pentest</a>
-    <a href="/#offre">RSSI externalisé</a>
-    <a href="/#obligation" class="active">Obligation Cyber</a>
+    <div class="nav-item">
+      <a href="/pentest" class="nav-item-trigger">Pentest
+        <svg class="nav-caret" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-inner">
+          <a href="/audit-o365">Audit Microsoft 365</a>
+          <a href="/pentest-web">Pentest Web</a>
+          <a href="/pentest-ad">Pentest Active Directory</a>
+          <a href="/pentest-mobile">Pentest Mobile</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/gouvernance-conformite" class="nav-item-trigger">Gouvernance
+        <svg class="nav-caret" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-inner">
+          <a href="/iso27001">ISO 27001</a>
+          <a href="/nis2">NIS2</a>
+          <a href="/hds">HDS</a>
+          <a href="/tisax">TISAX</a>
+        </div>
+      </div>
+    </div>
     <a href="/articles">Articles</a>
     <a href="/nous-rejoindre">Nous rejoindre</a>
-    <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener">Nous contacter</a>
+    <a href="/contact">Contact</a>
   </nav>
   <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener" class="nav-cta" data-hot>
     <span class="pulse-dot" aria-hidden="true"></span>
     Parler à un expert
   </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navMobile">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<div class="nav-backdrop" id="navBackdrop"></div>
+<nav class="nav-links-mobile" id="navMobile" aria-hidden="true">
+  <details class="nav-mobile-group">
+    <summary>Pentest</summary>
+    <a href="/audit-o365">Audit Microsoft 365</a>
+    <a href="/pentest-web">Pentest Web</a>
+    <a href="/pentest-ad">Pentest Active Directory</a>
+    <a href="/pentest-mobile">Pentest Mobile</a>
+  </details>
+  <details class="nav-mobile-group">
+    <summary>Gouvernance</summary>
+    <a href="/iso27001">ISO 27001</a>
+    <a href="/nis2">NIS2</a>
+    <a href="/hds">HDS</a>
+    <a href="/tisax">TISAX</a>
+  </details>
+  <a href="/articles">Articles</a>
+  <a href="/nous-rejoindre">Nous rejoindre</a>
+  <a href="/contact">Contact</a>
+  <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener" class="nav-cta" data-hot>
+    <span class="pulse-dot" aria-hidden="true"></span>
+    Parler à un expert
+  </a>
+</nav>
+
 
 <!-- ============ HERO HDS ============ -->
 <section class="hero-nis2">
@@ -901,6 +1022,23 @@ function raf(t){lenis.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(ra
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>30);
 });
+
+/* ============ Nav mobile (hamburger) ============ */
+const navToggle=document.getElementById('navToggle');
+const navMobile=document.getElementById('navMobile');
+const navBackdrop=document.getElementById('navBackdrop');
+function setNavOpen(open){
+  navToggle.setAttribute('aria-expanded',open);
+  navMobile.classList.toggle('open',open);
+  navMobile.setAttribute('aria-hidden',!open);
+  navBackdrop.classList.toggle('open',open);
+  document.body.classList.toggle('nav-open',open);
+}
+navToggle.addEventListener('click',()=>setNavOpen(navToggle.getAttribute('aria-expanded')!=='true'));
+navBackdrop.addEventListener('click',()=>setNavOpen(false));
+navMobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setNavOpen(false)));
+window.addEventListener('resize',()=>{if(window.innerWidth>1080)setNavOpen(false)});
+
 
 /* ============ Reveal on scroll (IntersectionObserver) ============ */
 const io=new IntersectionObserver(entries=>{
