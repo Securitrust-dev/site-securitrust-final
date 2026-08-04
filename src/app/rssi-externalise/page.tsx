@@ -331,7 +331,7 @@ export default function RSSIExternaliseLPPage() {
             </div>
           </div>
           <div className="cmp-cta">
-            <a href="#form-anchor" className="btn btn-primary">Réserver mon créneau de 20 min →</a>
+            <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Réserver mon créneau de 20 min →</a>
             <p className="cmp-cta-note">Réponse sous 2h · 100% confidentiel</p>
           </div>
         </div>
@@ -477,7 +477,7 @@ export default function RSSIExternaliseLPPage() {
               </div>
             </div>
             <div className="cmp-cta">
-              <a href="#form-anchor" className="btn btn-primary">Parlez à un expert RSSI →</a>
+              <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Parlez à un expert RSSI →</a>
               <p className="cmp-cta-note">Réponse sous 2h · 100% confidentiel</p>
             </div>
           </div>
@@ -496,7 +496,7 @@ export default function RSSIExternaliseLPPage() {
               <div className="amount">1 100 €<span> /jour HT</span></div>
               <p className="tjm-who">Un RSSI senior certifié, à temps partagé&nbsp;: de quelques jours par mois à plusieurs jours par semaine selon vos enjeux. Le volume exact est calé après l'audit préliminaire.</p>
             </div>
-            <a href="#form-anchor" className="btn btn-primary tjm-cta">Réserver mon créneau de 20 min →</a>
+            <a href="https://calendly.com/expert-securitrust" className="btn btn-primary tjm-cta" target="_blank" rel="noopener noreferrer">Réserver mon créneau de 20 min →</a>
           </div>
         </div>
       </section>
@@ -562,7 +562,7 @@ export default function RSSIExternaliseLPPage() {
               <h2>Parlez à un expert RSSI dès aujourd'hui</h2>
               <p>Un RSSI senior vous rappelle sous 2h, ou réservez 20 min. 100% confidentiel.</p>
               <div className="finalcta-btns">
-                <a href="#form-anchor" className="btn btn-primary">Être rappelé sous 2h →</a>
+                <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Être rappelé sous 2h →</a>
               </div>
               <p className="micro"><b>Réponse sous 2h</b> · <b>NDA dès le 1er échange</b></p>
             </div>
@@ -667,7 +667,7 @@ export default function RSSIExternaliseLPPage() {
 
       {/* ======================= STICKY MOBILE CTA ======================= */}
       <div className="sticky-cta">
-        <a href="#form-anchor" className="btn btn-primary">Parler à un expert →</a>
+        <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Parler à un expert →</a>
       </div>
     </div>
   );

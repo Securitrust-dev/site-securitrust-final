@@ -308,7 +308,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion par des experts certifiés OSCP — devis sous 24h.' },
     { title: 'Audit Flash', href: '/audit-flash', desc: 'Diagnostic cybersécurité express en 48h.' },
     { title: 'Formations', href: '/formations', desc: 'Formations certifiantes pour vos équipes.' },
-    { title: 'Prendre rendez-vous', href: '/prise-de-rdv', desc: 'Choisissez directement un créneau avec nos experts.' },
+    { title: 'Prendre rendez-vous', href: 'https://calendly.com/expert-securitrust', desc: 'Choisissez directement un créneau avec nos experts.' },
   ],
   portfolio: [
     { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion — découvrez nos cas clients en cybersécurité offensive.' },
@@ -351,6 +351,7 @@ export function InternalLinks({ pageKey, title = 'À explorer également', maxLi
             <Link
               key={i}
               href={link.href}
+              {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all"
             >
               <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors text-sm">

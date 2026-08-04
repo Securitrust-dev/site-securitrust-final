@@ -184,10 +184,10 @@ export default function LandingSecteur({ data }: { data: any }) {
               {data.cta.bouton}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </Link>
-            <Link href="/prise-de-rdv"
+            <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-slate-700 text-slate-300 font-semibold px-8 py-4 rounded-xl hover:border-[#76a6d1]/50 hover:text-[#76a6d1] transition-all duration-200">
               Prendre rendez-vous
-            </Link>
+            </a>
           </div>
           <p className="text-slate-500 text-sm">Diagnostic offert · Sans engagement · Réponse sous 48h ouvrées</p>
         </div>
