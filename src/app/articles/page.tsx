@@ -1,10 +1,7 @@
-import { Navbar } from '@/components/sections/navbar';
-import { Footer } from '@/components/sections/footer';
+import Link from 'next/link';
+import { StaticThemeShell } from '@/components/static-theme/StaticThemeShell';
 import { InternalLinks } from '@/components/InternalLinks';
-import { PromoBanner } from '@/components/sections/promo-banner';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
-import ThreeBackground from '@/components/three-background';
-import MatrixRain from '@/components/matrix-rain';
 import { ArticlesClient, type ArticleItem } from './ArticlesClient';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
@@ -74,43 +71,31 @@ export default async function ArticlesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PromoBanner />
-      <div className="relative min-h-screen bg-[#030303]">
-        {/* Background Effects */}
-        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute w-full h-full bg-void opacity-60"></div>
-          <div className="stars opacity-20"></div>
-        </div>
-        <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
-
-        <ThreeBackground />
-        <MatrixRain />
-        <Navbar />
-
-        {/* Hero Header */}
-        <div className="relative z-10 pt-32 pb-12 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-end justify-between mb-4 border-b border-white/10 pb-4">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-light text-white tracking-tight">
-                Articles
-              </h1>
-              <span className="text-cyan-500 font-mono text-xs hidden sm:block">01 // BLOG</span>
-            </div>
-            <p className="text-lg text-slate-400 max-w-2xl font-light tracking-wide mb-8">
-              Découvrez nos dernières analyses et actualités en cybersécurité
+      <StaticThemeShell active="articles">
+        <section className="hero-simple">
+          <div className="wrap">
+            <p className="crumb">
+              <Link href="/">Accueil</Link>
+              <span className="sep">›</span>
+              <span className="now">Articles</span>
             </p>
+            <h1>Articles</h1>
+            <p className="hero-sub">Découvrez nos dernières analyses et actualités en cybersécurité</p>
+          </div>
+        </section>
 
+        <section className="sec" style={{ paddingTop: 0 }}>
+          <div className="wrap">
             <ArticlesClient initialArticles={initialArticles} />
           </div>
-        </div>
+        </section>
 
-        <section className="py-16 px-6 text-center">
+        <section className="sec sec--dark" style={{ textAlign: 'center' }}>
           <ExpertCTAButton />
         </section>
 
         <InternalLinks pageKey="articles" />
-        <Footer />
-      </div>
+      </StaticThemeShell>
     </>
   );
 }

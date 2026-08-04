@@ -60,81 +60,60 @@ function ArticlesContent({ initialArticles }: { initialArticles: ArticleItem[] }
   return (
     <>
       <SearchBar />
-      <div className="mt-8">
+      <div style={{ marginTop: 32 }}>
         <CategoryTabs />
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center py-20">
-          <div className="h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 0' }}>
+          <div
+            className="animate-spin"
+            style={{
+              width: 48, height: 48, borderRadius: '50%',
+              border: '4px solid rgba(118,166,209,.3)', borderTopColor: 'var(--cyan)',
+            }}
+          />
         </div>
       ) : articles.length === 0 ? (
-        <div className="text-center py-20">
-          <p className="text-slate-400 font-light italic">Aucun article trouvé pour cette sélection.</p>
+        <div style={{ textAlign: 'center', padding: '80px 0', color: 'var(--muted)' }}>
+          <p>Aucun article trouvé pour cette sélection.</p>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid-3" style={{ marginTop: 40 }}>
             {articles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/articles/${article.slug}`}
-                className="tilt-card group relative block"
-              >
-                <div className="glass-panel h-full rounded-xl overflow-hidden relative">
-                  <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
+              <Link key={article.id} href={`/articles/${article.slug}`} className="article-card reveal">
+                <div className="thumb">
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <span className="cat">{article.category}</span>
+                </div>
 
-                  <div className="relative h-48 overflow-hidden bg-black/50">
-                    <Image
-                      src={article.image}
-                      alt={article.title}
-                      fill
-                      className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-cyan-500/90 backdrop-blur-sm rounded">
-                      <span className="text-xs font-semibold text-black uppercase tracking-wider">
-                        {article.category}
-                      </span>
-                    </div>
+                <div className="body">
+                  <div className="meta">
+                    <span><Calendar size={13} />{formatDate(article.createdAt)}</span>
+                    <span><User size={13} />{article.author}</span>
                   </div>
 
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 mb-4 text-xs text-slate-400 uppercase tracking-widest">
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="h-3.5 w-3.5" />
-                        <span>{formatDate(article.createdAt)}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <User className="h-3.5 w-3.5" />
-                        <span>{article.author}</span>
-                      </div>
-                    </div>
+                  <h3>{article.title}</h3>
+                  <p>{article.excerpt}</p>
 
-                    <h2 className="text-xl font-medium text-white mb-3 line-clamp-2 group-hover:text-cyan-400 transition-colors">
-                      {article.title}
-                    </h2>
-
-                    <p className="text-sm text-slate-400 mb-6 line-clamp-3 leading-relaxed font-light">
-                      {article.excerpt}
-                    </p>
-
-                    <div className="flex items-center gap-2 text-cyan-400 font-medium text-sm group/btn hover:gap-3 transition-all uppercase tracking-wider">
-                      <span>Lire l'article</span>
-                      <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
+                  <span className="more">
+                    Lire l&apos;article
+                    <ArrowRight />
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
 
           {articles.length >= 20 && !searchQuery && !currentCategory && (
-            <div className="text-center mt-16">
-              <button className="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] rounded">
-                Charger plus d'articles
-              </button>
+            <div style={{ textAlign: 'center', marginTop: 56 }}>
+              <button className="btn-primary">Charger plus d&apos;articles</button>
             </div>
           )}
         </>
@@ -146,8 +125,14 @@ function ArticlesContent({ initialArticles }: { initialArticles: ArticleItem[] }
 export function ArticlesClient({ initialArticles }: { initialArticles: ArticleItem[] }) {
   return (
     <Suspense fallback={
-      <div className="flex justify-center items-center py-20">
-        <div className="h-12 w-12 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '80px 0' }}>
+        <div
+          className="animate-spin"
+          style={{
+            width: 48, height: 48, borderRadius: '50%',
+            border: '4px solid rgba(118,166,209,.3)', borderTopColor: 'var(--cyan)',
+          }}
+        />
       </div>
     }>
       <ArticlesContent initialArticles={initialArticles} />

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "../styles/static-theme.css" layer(static-theme);
 @custom-variant dark (&:is(.dark *));
 
 :root {
