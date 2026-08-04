@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import '@/styles/static-theme.css';
 import { staticThemeFontVars } from './fonts';
 import { StaticNavbar, type StaticNavActive } from './StaticNavbar';
 import { StaticFooter } from './StaticFooter';
@@ -18,7 +19,7 @@ export function StaticThemeShell({
   active?: StaticNavActive;
 }) {
   return (
-    <div className={`static-theme ${staticThemeFontVars}`}>
+    <div id="static-theme-root" className={`static-theme ${staticThemeFontVars}`}>
       <StaticThemeFX />
       <StaticNavbar active={active} />
       {children}
