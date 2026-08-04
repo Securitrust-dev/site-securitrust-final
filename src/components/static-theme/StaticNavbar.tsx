@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export type StaticNavActive = 'pentest' | 'gouvernance' | 'articles' | 'nous-rejoindre' | 'contact';
+export type StaticNavActive = 'pentest' | 'gouvernance' | 'rssi-externalise' | 'articles' | 'nous-rejoindre' | 'contact';
 
 const PENTEST_LINKS = [
   { href: '/audit-o365', label: 'Audit Microsoft 365' },
@@ -61,12 +61,12 @@ export function StaticNavbar({ active }: { active?: StaticNavActive }) {
         </Link>
         <nav className="nav-links">
           <div className="nav-item">
-            <Link href="/pentest" className={`nav-item-trigger${active === 'pentest' ? ' active' : ''}`}>
+            <span className={`nav-item-trigger${active === 'pentest' ? ' active' : ''}`} tabIndex={0}>
               Pentest
               <svg className="nav-caret" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
-            </Link>
+            </span>
             <div className="nav-dropdown">
               <div className="nav-dropdown-inner">
                 {PENTEST_LINKS.map((l) => (
@@ -76,12 +76,12 @@ export function StaticNavbar({ active }: { active?: StaticNavActive }) {
             </div>
           </div>
           <div className="nav-item">
-            <Link href="/gouvernance-conformite" className={`nav-item-trigger${active === 'gouvernance' ? ' active' : ''}`}>
+            <span className={`nav-item-trigger${active === 'gouvernance' ? ' active' : ''}`} tabIndex={0}>
               Gouvernance
               <svg className="nav-caret" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
-            </Link>
+            </span>
             <div className="nav-dropdown">
               <div className="nav-dropdown-inner">
                 {GOUVERNANCE_LINKS.map((l) => (
@@ -90,6 +90,7 @@ export function StaticNavbar({ active }: { active?: StaticNavActive }) {
               </div>
             </div>
           </div>
+          <Link href="/rssi-externalise" className={active === 'rssi-externalise' ? 'active' : ''}>RSSI externalisé</Link>
           <Link href="/articles" className={active === 'articles' ? 'active' : ''}>Articles</Link>
           <Link href="/nous-rejoindre" className={active === 'nous-rejoindre' ? 'active' : ''}>Nous rejoindre</Link>
           <Link href="/contact" className={active === 'contact' ? 'active' : ''}>Contact</Link>
@@ -131,6 +132,7 @@ export function StaticNavbar({ active }: { active?: StaticNavActive }) {
             <Link key={l.href} href={l.href} onClick={closeMobile}>{l.label}</Link>
           ))}
         </details>
+        <Link href="/rssi-externalise" onClick={closeMobile}>RSSI externalisé</Link>
         <Link href="/articles" onClick={closeMobile}>Articles</Link>
         <Link href="/nous-rejoindre" onClick={closeMobile}>Nous rejoindre</Link>
         <Link href="/contact" onClick={closeMobile}>Contact</Link>
