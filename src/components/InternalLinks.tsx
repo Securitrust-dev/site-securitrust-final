@@ -118,6 +118,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Mesurez formellement votre niveau de maturité cybersécurité organisationnelle.' },
   ],
   'audit-conformite': [
+    { title: 'Gap Analysis', href: '/gap-analysis', desc: 'Notre méthodologie dédiée d\'audit d\'écart face à un référentiel cible précis.' },
     { title: 'Mise en Conformité RGPD', href: '/mise-en-conformite-rgpd', desc: 'Accompagnement complet pour combler les écarts RGPD identifiés lors de l\'audit.' },
     { title: 'Conformité NIS2', href: '/conformite-nis2', desc: 'Plan d\'action pour atteindre la conformité NIS2 après l\'audit d\'écarts.' },
     { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'Préparez votre certification ISO 27001 suite aux résultats de l\'audit de conformité.' },
@@ -148,6 +149,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   ],
   'mise-en-conformite-rgpd': [
     { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'Désignez un DPO externalisé pour piloter votre conformité RGPD en continu.' },
+    { title: 'DPA & RGPD', href: '/dpa-rgpd', desc: 'Sécurisez vos accords de sous-traitance avec vos prestataires (article 28 RGPD).' },
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Mesurez vos écarts RGPD actuels avec un audit certifié.' },
     { title: 'Conformité NIS2', href: '/conformite-nis2', desc: 'NIS2 renforce les exigences de sécurité autour des données personnelles — à combiner.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez le RGPD dans un pilotage global de la conformité et des risques.' },
@@ -185,6 +187,38 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Complétez l\'analyse PCAPR A par un audit de conformité réglementaire.' },
     { title: 'Stratégie Cybersécurité', href: '/strategie-cybersecurite', desc: 'Construisez votre feuille de route cyber sur la base des analyses de risques PCAPR A.' },
   ],
+  'ia-act': [
+    { title: 'Gouvernance & Conformité', href: '/gouvernance-conformite', desc: 'Retrouvez l\'ensemble de nos prestations de gouvernance et de mise en conformité.' },
+    { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'ISO 42001 (management de l\'IA) s\'articule naturellement avec un SMSI ISO 27001 existant.' },
+    { title: 'Mise en Conformité RGPD', href: '/mise-en-conformite-rgpd', desc: 'Un système d\'IA traitant des données personnelles reste soumis au RGPD en parallèle de l\'IA Act.' },
+    { title: 'EBIOS RM', href: '/ebios-rm', desc: 'Analysez les risques spécifiques de vos systèmes d\'IA avec la méthode EBIOS RM.' },
+    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez la conformité IA Act dans un pilotage global de la gouvernance et des risques.' },
+  ],
+  'ebios-rm': [
+    { title: 'Gestion des Risques', href: '/gestion-risques', desc: 'EBIOS RM est la méthode structurante de notre service de gestion des risques cyber.' },
+    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez votre analyse de risques dans un pilotage global de la gouvernance.' },
+    { title: 'Conformité NIS2', href: '/conformite-nis2', desc: 'NIS2 exige une gestion des risques formalisée — EBIOS RM y répond directement.' },
+    { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'EBIOS RM couvre l\'exigence d\'analyse de risques de l\'Annexe A d\'ISO 27001.' },
+    { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour piloter la gestion des risques dans la durée.' },
+  ],
+  'gap-analysis': [
+    { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Élargissez la Gap Analysis à un audit de conformité réglementaire complet.' },
+    { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Complétez l\'audit d\'écart par une évaluation formelle de votre maturité sécurité.' },
+    { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'La Gap Analysis est la première étape avant un projet de certification ISO 27001.' },
+    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez le plan d\'action de votre Gap Analysis dans un pilotage GRC global.' },
+  ],
+  'pilotage-smsi': [
+    { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Le pilotage SMSI est l\'un des piliers de notre offre de RSSI à temps partagé.' },
+    { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'Préparez votre certification ISO 27001 grâce à un SMSI activement piloté.' },
+    { title: 'EBIOS RM', href: '/ebios-rm', desc: 'La gestion des risques de votre SMSI s\'appuie sur la méthode EBIOS RM.' },
+    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez le pilotage SMSI dans une gouvernance cybersécurité globale.' },
+  ],
+  'dpa-rgpd': [
+    { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'Le suivi de vos DPA s\'inscrit naturellement dans une mission de DPO externalisé.' },
+    { title: 'Mise en Conformité RGPD', href: '/mise-en-conformite-rgpd', desc: 'Élargissez la sécurisation de vos DPA à un accompagnement RGPD complet.' },
+    { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Vérifiez l\'ensemble de vos écarts de conformité RGPD au-delà des seuls DPA.' },
+    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez la gouvernance des données dans un pilotage GRC global.' },
+  ],
 
   // ─── GRC & SERVICES MANAGÉS ─────────────────────────────────
   'grc-cyber': [
@@ -203,6 +237,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   ],
   'dpo-externalise': [
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'RSSI et DPO travaillent ensemble — externalisez les deux pour une couverture complète.' },
+    { title: 'DPA & RGPD', href: '/dpa-rgpd', desc: 'Sécurisez vos accords de sous-traitance dans le cadre de votre mission DPO.' },
     { title: 'Mise en Conformité RGPD', href: '/mise-en-conformite-rgpd', desc: 'Votre DPO pilote et met en œuvre votre conformité RGPD.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez le rôle DPO dans votre gouvernance cybersécurité globale.' },
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Le DPO s\'appuie sur l\'audit de conformité pour prioriser ses actions.' },
@@ -215,6 +250,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Pentest', href: '/pentest', desc: 'Validez techniquement vos défenses dans le cadre de votre plan stratégique.' },
   ],
   'gestion-risques': [
+    { title: 'EBIOS RM', href: '/ebios-rm', desc: 'Notre méthode de référence pour structurer votre analyse de risques cyber.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'La gestion des risques est le cœur du pilier GRC — gérez l\'ensemble dans un cadre unifié.' },
     { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Évaluez votre maturité de gestion des risques avant de structurer la démarche.' },
     { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'L\'audit alimente le registre des risques avec des vulnérabilités concrètes.' },
@@ -278,9 +314,10 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   'gouvernance-conformite': [
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Service GRC complet pour piloter votre gouvernance et conformité au quotidien.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour incarner et piloter votre gouvernance cybersécurité.' },
-    { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Identifiez vos écarts réglementaires avec un audit certifié AFNOR.' },
+    { title: 'Gap Analysis', href: '/gap-analysis', desc: 'Identifiez vos écarts face à un référentiel cible avec un plan d\'action priorisé.' },
     { title: 'Conformité NIS2', href: '/conformite-nis2', desc: 'Mise en conformité avec la directive NIS2 pour les entités concernées.' },
     { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'DPO externalisé pour le volet protection des données personnelles.' },
+    { title: 'IA Act', href: '/ia-act', desc: 'Mise en conformité avec le règlement européen sur l\'intelligence artificielle.' },
   ],
   services: [
     { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion — validez la résistance de votre SI aux attaques réelles.' },

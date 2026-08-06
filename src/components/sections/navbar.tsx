@@ -60,11 +60,16 @@ export const Navbar = () => {
               </a>
 
               <div className="absolute top-full right-0 z-[9999] hidden group-hover:block">
-                <div className="mt-1 w-56 bg-[#0a0a0a] border border-white/20 rounded-xl shadow-2xl p-2">
+                <div className="mt-1 w-64 bg-[#0a0a0a] border border-white/20 rounded-xl shadow-2xl p-2">
                   <a href="/iso27001" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">ISO 27001</a>
                   <a href="/nis2" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">NIS2</a>
                   <a href="/hds" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">HDS</a>
                   <a href="/tisax" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">TISAX</a>
+                  <div className="my-2 border-t border-white/10" />
+                  <a href="/gouvernance-conformite/domaines-expertise" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">Domaines d&apos;Expertise</a>
+                  <a href="/gouvernance-conformite/accompagnement" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">Accompagnement</a>
+                  <a href="/gouvernance-conformite/audits" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">Audits</a>
+                  <a href="/gouvernance-conformite/services-externalises" data-nav-link className="text-sm text-white/65 hover:text-white hover:bg-white/5 transition-colors block px-3 py-2 rounded">Services Externalisés</a>
                 </div>
               </div>
             </div>
@@ -143,6 +148,10 @@ export const Navbar = () => {
                     <li><a href="/nis2" data-nav-link className="text-sm text-slate-300 block py-1">NIS2</a></li>
                     <li><a href="/hds" data-nav-link className="text-sm text-slate-300 block py-1">HDS</a></li>
                     <li><a href="/tisax" data-nav-link className="text-sm text-slate-300 block py-1">TISAX</a></li>
+                    <li className="pt-1 mt-1 border-t border-white/10"><a href="/gouvernance-conformite/domaines-expertise" data-nav-link className="text-sm text-slate-300 block py-1">Domaines d&apos;Expertise</a></li>
+                    <li><a href="/gouvernance-conformite/accompagnement" data-nav-link className="text-sm text-slate-300 block py-1">Accompagnement</a></li>
+                    <li><a href="/gouvernance-conformite/audits" data-nav-link className="text-sm text-slate-300 block py-1">Audits</a></li>
+                    <li><a href="/gouvernance-conformite/services-externalises" data-nav-link className="text-sm text-slate-300 block py-1">Services Externalisés</a></li>
                   </ul>
                 )}
               </div>

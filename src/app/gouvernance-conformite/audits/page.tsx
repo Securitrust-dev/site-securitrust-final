@@ -8,7 +8,7 @@ import { CheckCircle, ArrowRight, ArrowLeft, Box, Cpu } from 'lucide-react';
 const typeAudits = [
   {
     id: '01',
-    href: '/audit-conformite',
+    href: '/gap-analysis',
     title: 'Audit d\'Écart (Gap Analysis)',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
@@ -25,7 +25,7 @@ const typeAudits = [
   },
   {
     id: '02',
-    href: '/audit-cybersecurite',
+    href: '/evaluation-maturite',
     title: 'Évaluation de Maturité',
     accent: 'text-violet-400',
     border: 'border-violet-500/30',
