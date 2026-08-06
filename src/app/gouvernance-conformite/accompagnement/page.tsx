@@ -64,6 +64,7 @@ const livrables = [
     glow: 'shadow-[0_0_15px_rgba(249,115,22,0.1)]',
     contenu: "Identification structurée des scénarios de risques cyber selon la méthode de référence ANSSI. Le rapport couvre la cartographie des valeurs métier, l'identification des sources de risques, la modélisation des scénarios stratégiques et opérationnels, et le plan de traitement du risque.",
     casUsage: "Homologation RGS, conformité NIS2, préparation à la certification ISO 27001, réponse aux exigences des donneurs d'ordre OIV/OSE, appels d'offres publics.",
+    href: '/ebios-rm',
   },
   {
     title: 'PSSI',
@@ -80,6 +81,7 @@ const livrables = [
     glow: 'shadow-[0_0_15px_rgba(59,130,246,0.1)]',
     contenu: "Plan de Continuité d'Activité documentant les procédures de maintien et de reprise des processus critiques en situation de crise. Inclut l'analyse d'impact métier (BIA), les seuils RTO/RPO, les stratégies de continuité et les procédures de test.",
     casUsage: "Exigence réglementaire DORA (résilience opérationnelle numérique), conformité ISO 22301, conditions d'éligibilité à certaines couvertures d'assurance cyber, contractualisation avec des donneurs d'ordre exigeants.",
+    href: '/pcapra',
   },
   {
     title: 'Exercice de crise cyber',
@@ -321,6 +323,12 @@ export default function AccompagnementPage() {
                       <p className="text-xs text-white uppercase tracking-wide font-semibold mb-2">Exemples de cas d&apos;usage</p>
                       <p className="text-sm text-white leading-relaxed">{item.casUsage}</p>
                     </div>
+                    {'href' in item && item.href && (
+                      <a href={item.href} className={`mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest ${item.accent} hover:underline`}>
+                        En savoir plus
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}

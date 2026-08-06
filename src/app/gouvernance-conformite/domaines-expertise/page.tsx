@@ -25,6 +25,7 @@ interface Referentiel {
   resout: string;
   cta: string;
   ctaType: 'tofu' | 'mofu' | 'bofu';
+  href?: string;
 }
 
 interface FormStep {
@@ -50,6 +51,7 @@ const referentiels: Referentiel[] = [
   { acronyme: 'Certification HDS', badge: 'Données de Santé', traduction: "Le bouclier légal obligatoire pour manipuler, traiter et héberger des données de santé.", resout: "Protège la responsabilité pénale des dirigeants et ouvre l'accès aux marchés des hôpitaux.", cta: "Obtenir le guide des 6 activités HDS", ctaType: 'tofu' },
   { acronyme: 'Directive NIS 2', badge: 'Législation Européenne', traduction: "Le nouveau standard légal européen contre le risque de cyberattaques systémiques.", resout: "Immunise l'entité contre des sanctions financières massives (jusqu'à 10M€) et élimine la mise en cause personnelle de la direction.", cta: "Simulateur : Suis-je soumis à NIS 2 ?", ctaType: 'mofu' },
   { acronyme: 'Règlement DORA', badge: 'Résilience Financière', traduction: "La conformité obligatoire pour les acteurs de la finance et leurs prestataires technologiques.", resout: "Valide avec succès les audits stricts des régulateurs (ACPR, BCE) concernant la maîtrise de vos risques tiers et IT.", cta: "Planifier un pré-audit DORA (Offert)", ctaType: 'bofu' },
+  { acronyme: 'IA Act', badge: 'Intelligence Artificielle', traduction: "Le règlement européen qui encadre le développement et l'usage des systèmes d'intelligence artificielle.", resout: "Anticipe les obligations de classification, de documentation et de gouvernance avant les échéances 2026-2027.", cta: "Découvrir notre offre IA Act", ctaType: 'bofu', href: '/ia-act' },
 ];
 
 /* ────────── Modal Component ────────── */
@@ -298,19 +300,35 @@ export default function DomainesExpertisePage() {
                   </div>
 
                   {/* CTA */}
-                  <button
-                    onClick={() => ctaHandler(r)}
-                    className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded font-medium text-xs uppercase tracking-widest transition-all group/btn ${
-                      r.ctaType === 'bofu'
-                        ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.2)]'
-                        : r.ctaType === 'mofu'
-                        ? 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_15px_rgba(6,182,212,0.2)]'
-                        : 'border border-cyan-500/30 hover:border-cyan-500/60 text-cyan-400 hover:text-white bg-transparent hover:bg-cyan-500/10'
-                    }`}
-                  >
-                    {r.cta}
-                    <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
-                  </button>
+                  {r.href ? (
+                    <a
+                      href={r.href}
+                      className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded font-medium text-xs uppercase tracking-widest transition-all group/btn ${
+                        r.ctaType === 'bofu'
+                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                          : r.ctaType === 'mofu'
+                          ? 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                          : 'border border-cyan-500/30 hover:border-cyan-500/60 text-cyan-400 hover:text-white bg-transparent hover:bg-cyan-500/10'
+                      }`}
+                    >
+                      {r.cta}
+                      <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => ctaHandler(r)}
+                      className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded font-medium text-xs uppercase tracking-widest transition-all group/btn ${
+                        r.ctaType === 'bofu'
+                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                          : r.ctaType === 'mofu'
+                          ? 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                          : 'border border-cyan-500/30 hover:border-cyan-500/60 text-cyan-400 hover:text-white bg-transparent hover:bg-cyan-500/10'
+                      }`}
+                    >
+                      {r.cta}
+                      <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

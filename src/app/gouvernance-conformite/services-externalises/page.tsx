@@ -150,6 +150,10 @@ export default function ServicesExternalisesPage() {
                       </li>
                     ))}
                   </ul>
+                  <a href="/pilotage-smsi" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-cyan-400 hover:underline">
+                    En savoir plus sur le pilotage SMSI
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </div>
 
@@ -229,6 +233,10 @@ export default function ServicesExternalisesPage() {
                       </li>
                     ))}
                   </ul>
+                  <a href="/dpa-rgpd" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-400 hover:underline">
+                    En savoir plus sur les DPA
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </div>
 
