@@ -19,6 +19,13 @@ const GOUVERNANCE_LINKS = [
   { href: '/tisax', label: 'TISAX' },
 ];
 
+const GOUVERNANCE_PILLARS = [
+  { href: '/gouvernance-conformite/domaines-expertise', label: "Domaines d'Expertise" },
+  { href: '/gouvernance-conformite/accompagnement', label: 'Accompagnement' },
+  { href: '/gouvernance-conformite/audits', label: 'Audits' },
+  { href: '/gouvernance-conformite/services-externalises', label: 'Services Externalisés' },
+];
+
 /**
  * Navbar identique aux pages statiques (public/*.html) : mêmes classes CSS
  * (static-theme.css), même structure. `active` met en évidence l'entrée de
@@ -87,6 +94,10 @@ export function StaticNavbar({ active }: { active?: StaticNavActive }) {
                 {GOUVERNANCE_LINKS.map((l) => (
                   <Link key={l.href} href={l.href}>{l.label}</Link>
                 ))}
+                <div style={{ margin: '6px 10px', borderTop: '1px solid rgba(255,255,255,.12)' }} />
+                {GOUVERNANCE_PILLARS.map((l) => (
+                  <Link key={l.href} href={l.href}>{l.label}</Link>
+                ))}
               </div>
             </div>
           </div>
@@ -129,6 +140,9 @@ export function StaticNavbar({ active }: { active?: StaticNavActive }) {
         <details className="nav-mobile-group">
           <summary>Gouvernance</summary>
           {GOUVERNANCE_LINKS.map((l) => (
+            <Link key={l.href} href={l.href} onClick={closeMobile}>{l.label}</Link>
+          ))}
+          {GOUVERNANCE_PILLARS.map((l) => (
             <Link key={l.href} href={l.href} onClick={closeMobile}>{l.label}</Link>
           ))}
         </details>
