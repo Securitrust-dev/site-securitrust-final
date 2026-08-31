@@ -802,7 +802,7 @@
           <label for="phone">Téléphone (facultatif, sinon réponse par email)</label>
           <input id="phone" type="tel" placeholder="06 12 34 56 78" />
         </div>
-        <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Être rappelé sous 2h →</a>
+        <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener noreferrer" id="rappel-cta" class="btn btn-primary">Être rappelé sous 2h →</a>
         <p class="contact-foot">Réponse sous 2h · 100% confidentiel</p>
       </form>
     </div>
@@ -984,5 +984,28 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var btn = document.getElementById('rappel-cta');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var name = (document.getElementById('name') || {}).value || '';
+    var email = (document.getElementById('email') || {}).value || '';
+    var phone = (document.getElementById('phone') || {}).value || '';
+    if (!name && !email && !phone) return;
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        phone: phone,
+        subject: 'Demande de rappel sous 2h — DORA',
+        source: 'DORA — bouton Être rappelé sous 2h'
+      })
+    }).catch(function () {});
+  });
+})();
+</script>
 </body>
 </html>
