@@ -63,7 +63,7 @@ export default function OSINTPage() {
               </h2>
               <div className="space-y-3 sm:space-y-4 text-white leading-relaxed">
                 <p className="text-xs sm:text-sm lg:text-base">
-                  L'<span className="text-[#00ff41] font-mono">Open Source Intelligence (OSINT)</span> est une méthode de collecte et d'analyse d'informations provenant de sources publiques et légales sur Internet.
+                  L'<span className="text-[#00ff41] font-mono">Open Source Intelligence (OSINT)</span> est une méthodologie de collecte et d'analyse d'informations provenant de sources publiques et légales sur Internet.
                 </p>
                 <p className="text-xs sm:text-sm lg:text-base">
                   Notre outil permet d'analyser l'empreinte numérique d'une entreprise à partir de son numéro SIRET en consultant automatiquement plus de <span className="text-[#76a6d1] font-bold">13 sources différentes</span> : registres officiels, réseaux sociaux, bases de données financières, et bien plus.
