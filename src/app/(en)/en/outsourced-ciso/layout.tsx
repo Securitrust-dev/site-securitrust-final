@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { ServiceSchema } from "@/components/StructuredData";
 
 /* ============================================================================
-   DRAFT — English home page (/en).
+   DRAFT — English home page, served at /en/outsourced-ciso.
 
    `noindex, nofollow` until Charles signs it off. At go-live: drop the
    `robots` block below, and keep the hreflang alternates — Google only honours
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     "Cybersecurity consultancy in Paris. Outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2 and DORA compliance. Strategic security leadership without the cost of a full-time hire.",
   robots: { index: false, follow: false },
   alternates: {
-    canonical: `${BASE_URL}/en`,
+    canonical: `${BASE_URL}/en/outsourced-ciso`,
     languages: {
-      "en-GB": `${BASE_URL}/en`,
+      "en-GB": `${BASE_URL}/en/outsourced-ciso`,
       "fr-FR": `${BASE_URL}/`,
       "x-default": `${BASE_URL}/`,
     },
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
       "Cybersecurity consultancy in Paris. Outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2 and DORA compliance.",
     type: "website",
     locale: "en_GB",
-    url: `${BASE_URL}/en`,
+    url: `${BASE_URL}/en/outsourced-ciso`,
   },
 };
 
@@ -46,7 +46,7 @@ export default function EnHomeLayout({ children }: { children: React.ReactNode }
       <ServiceSchema
         name="Cybersecurity consultancy"
         description="Cybersecurity consultancy based in Paris since 2016: outsourced CISO on a fractional basis, Cyber-Pilote, results-guaranteed penetration testing, ISO 27001, NIS2, DORA and GDPR compliance. Accredited AFNOR auditor."
-        url={`${BASE_URL}/en`}
+        url={`${BASE_URL}/en/outsourced-ciso`}
       />
       {children}
     </>

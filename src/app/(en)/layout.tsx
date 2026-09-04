@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_GB',
     alternateLocale: ['fr_FR'],
-    url: `${BASE_URL}/en`,
+    url: `${BASE_URL}/en/outsourced-ciso`,
     siteName: 'SecuriTrust',
   },
   twitter: { card: 'summary_large_image' },

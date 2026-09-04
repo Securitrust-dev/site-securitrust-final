@@ -53,6 +53,10 @@ const nextConfig = {
       { source: '/rssi-automatise', destination: '/cyber-pilote', permanent: true },
       { source: '/rssi-automatise/:path*', destination: '/cyber-pilote/:path*', permanent: true },
       // L'ancienne URL de preview de la LP pointe désormais vers la page RSSI canonique.
+      // Le segment de langue seul ne doit pas renvoyer un 404 : /en amène sur la
+      // page anglaise. Redirection TEMPORAIRE (302) — si une vraie home anglaise
+      // est créée un jour sur /en, elle reprendra sa place sans 301 à défaire.
+      { source: '/en', destination: '/en/outsourced-ciso', permanent: false },
       { source: '/rssi-externalise-lp', destination: '/rssi-externalise', permanent: true },
       // Article de blog qui cannibalisait la LP « RSSI externalisé » : on redirige
       // vers la LP canonique pour consolider le référencement sur une seule URL.

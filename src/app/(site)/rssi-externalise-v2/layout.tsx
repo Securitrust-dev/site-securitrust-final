@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://www.securitrust.fr/",
     languages: {
       "fr-FR": "https://www.securitrust.fr/",
-      "en-GB": "https://www.securitrust.fr/en",
+      "en-GB": "https://www.securitrust.fr/en/outsourced-ciso",
       "x-default": "https://www.securitrust.fr/",
     },
   },
