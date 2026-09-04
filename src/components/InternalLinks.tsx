@@ -183,7 +183,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   ],
   pcapra: [
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez PCAPR A dans un pilotage global de la gouvernance et des risques.' },
-    { title: 'Gestion des Risques', href: '/gestion-risques', desc: 'Méthode structurée de qualification et traitement des risques cyber.' },
+    { title: 'Gestion des Risques', href: '/gestion-risques', desc: 'Méthodologie structurée de qualification et traitement des risques cyber.' },
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Complétez l\'analyse PCAPR A par un audit de conformité réglementaire.' },
     { title: 'Stratégie Cybersécurité', href: '/strategie-cybersecurite', desc: 'Construisez votre feuille de route cyber sur la base des analyses de risques PCAPR A.' },
   ],
@@ -224,7 +224,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   'grc-cyber': [
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI expert pour piloter opérationnellement votre GRC au quotidien.' },
     { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'Complétez votre GRC avec un DPO pour le volet protection des données.' },
-    { title: 'Gestion des Risques', href: '/gestion-risques', desc: 'Méthode structurée pour identifier, évaluer et traiter vos risques cyber.' },
+    { title: 'Gestion des Risques', href: '/gestion-risques', desc: 'Méthodologie structurée pour identifier, évaluer et traiter vos risques cyber.' },
     { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Mesurez votre niveau de maturité cybersécurité actuel avant de structurer la GRC.' },
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Évaluez vos écarts réglementaires en complément de la GRC.' },
   ],

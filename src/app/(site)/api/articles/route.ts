@@ -48,72 +48,83 @@ export async function GET(request: NextRequest) {
       conditions.push(eq(articles.category, targetCategory));
     }
 
-    const dbArticlesData = await db
-      .select()
-      .from(articles)
-      .where(and(...conditions))
-      .orderBy(desc(articles.createdAt))
-      .limit(limit);
+    let dbArticlesData: (typeof articles.$inferSelect)[] = [];
+    try {
+      dbArticlesData = await db
+        .select()
+        .from(articles)
+        .where(and(...conditions))
+        .orderBy(desc(articles.createdAt))
+        .limit(limit);
+    } catch (error) {
+      console.error('DB articles fetch error:', error);
+    }
 
-    // 2. Fetch from RSS (External veille)
-    const parser = new Parser();
-    const feed = await parser.parseURL(RSS_FEED_URL);
-    
-    // Process RSS items with translation and caching
-    const rssArticles = await Promise.all(feed.items.slice(0, limit * 2).map(async (item, index) => {
-      const cacheKey = item.guid || item.link || item.title || '';
-      const cached = rssCache[cacheKey];
-      
-      let article;
-      if (cached && (Date.now() - cached.timestamp < CACHE_TTL)) {
-        article = cached.data;
-      } else {
-        // Extract image
-        let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
-        if (item.enclosure?.url) {
-          imageUrl = item.enclosure.url;
-        } else if (item.content) {
-          const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
-          if (imgMatch) imageUrl = imgMatch[1];
+    // 2. Fetch from RSS (External veille) — best-effort : une panne du flux ou de la
+    // traduction ne doit pas priver les visiteurs des articles internes (DB).
+    let rssArticles: any[] = [];
+    try {
+      const parser = new Parser();
+      const feed = await parser.parseURL(RSS_FEED_URL);
+
+      // Process RSS items with translation and caching
+      rssArticles = await Promise.all(feed.items.slice(0, limit * 2).map(async (item, index) => {
+        const cacheKey = item.guid || item.link || item.title || '';
+        const cached = rssCache[cacheKey];
+
+        let article;
+        if (cached && (Date.now() - cached.timestamp < CACHE_TTL)) {
+          article = cached.data;
+        } else {
+          // Extract image
+          let imageUrl = 'https://thehackernews.com/images/default-article.jpg';
+          if (item.enclosure?.url) {
+            imageUrl = item.enclosure.url;
+          } else if (item.content) {
+            const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+            if (imgMatch) imageUrl = imgMatch[1];
+          }
+
+          // Extract excerpt
+          const excerptEn = item.contentSnippet?.slice(0, 200) || item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '';
+
+          // Translate to French
+          const titleFr = await translateToFrench(item.title || '');
+          const excerptFr = await translateToFrench(excerptEn);
+          const contentEn = item.content || item.description || '';
+
+          // Classification
+          const classification = classifyArticle(titleFr || item.title || '', excerptFr || excerptEn, contentEn);
+
+          article = {
+            id: `rss-${index}`,
+            title: titleFr || item.title || 'Sans titre',
+            titleEn: item.title,
+            excerpt: excerptFr || excerptEn,
+            excerptEn: excerptEn,
+            content: contentEn,
+            image: imageUrl,
+            createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
+            author: item.creator || 'The Hacker News',
+            category: classification.category,
+            tags: JSON.stringify(classification.tags),
+            slug: generateFrenchSlug(titleFr || item.title || ''),
+            sourceType: 'rss',
+            sourceUrl: item.link,
+            published: true
+          };
+
+          rssCache[cacheKey] = {
+            timestamp: Date.now(),
+            data: article
+          };
         }
 
-        // Extract excerpt
-        const excerptEn = item.contentSnippet?.slice(0, 200) || item.description?.replace(/<[^>]*>/g, '').slice(0, 200) || '';
-        
-        // Translate to French
-        const titleFr = await translateToFrench(item.title || '');
-        const excerptFr = await translateToFrench(excerptEn);
-        const contentEn = item.content || item.description || '';
-        
-        // Classification
-        const classification = classifyArticle(titleFr || item.title || '', excerptFr || excerptEn, contentEn);
-        
-        article = {
-          id: `rss-${index}`,
-          title: titleFr || item.title || 'Sans titre',
-          titleEn: item.title,
-          excerpt: excerptFr || excerptEn,
-          excerptEn: excerptEn,
-          content: contentEn,
-          image: imageUrl,
-          createdAt: item.pubDate || item.isoDate || new Date().toISOString(),
-          author: item.creator || 'The Hacker News',
-          category: classification.category,
-          tags: JSON.stringify(classification.tags),
-          slug: generateFrenchSlug(titleFr || item.title || ''),
-          sourceType: 'rss',
-          sourceUrl: item.link,
-          published: true
-        };
-
-        rssCache[cacheKey] = {
-          timestamp: Date.now(),
-          data: article
-        };
-      }
-
-      return article;
-    }));
+        return article;
+      }));
+    } catch (error) {
+      console.error('RSS articles fetch error:', error);
+    }
 
     // Filter RSS articles by query and category if needed
     const filteredRssArticles = rssArticles.filter(a => {

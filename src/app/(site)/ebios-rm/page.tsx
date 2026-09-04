@@ -25,7 +25,7 @@ const FAQ_ITEMS = [
     answer: 'EBIOS Risk Manager (EBIOS RM) est la méthode française de référence en analyse de risques cyber, publiée par l\'ANSSI. Elle structure l\'identification des scénarios de risque en 5 ateliers, de la définition des valeurs métier au plan de traitement du risque.',
   },
   {
-    question: 'Pourquoi choisir EBIOS RM plutôt qu\'une autre méthode d\'analyse de risques ?',
+    question: 'Pourquoi choisir EBIOS RM plutôt qu\'une autre méthodologie d\'analyse de risques ?',
     answer: 'EBIOS RM raisonne par scénarios d\'attaque réalistes plutôt que par simple liste de vulnérabilités techniques. Elle implique le COMEX dans la définition des enjeux stratégiques et produit un livrable directement opposable face aux régulateurs, assureurs et donneurs d\'ordre.',
   },
   {

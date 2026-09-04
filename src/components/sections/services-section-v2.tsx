@@ -61,7 +61,7 @@ export const ServicesSectionV2 = () => (
           </h2>
         </div>
         <p className="text-slate-300 text-sm leading-relaxed max-w-sm md:text-right">
-          Nous répondons aux enjeux majeurs de la cybersécurité avec une méthode structurée et des normes de référence, assurant une protection robuste et durable.
+          Nous répondons aux enjeux majeurs de la cybersécurité avec une méthodologie structurée et des normes de référence, assurant une protection robuste et durable.
         </p>
       </div>
 

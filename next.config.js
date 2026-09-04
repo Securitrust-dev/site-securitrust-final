@@ -68,9 +68,11 @@ const nextConfig = {
   async rewrites() {
     return {
       // beforeFiles : prioritaire sur les routes Next.js existantes (nécessaire pour
-      // remplacer la home app router par la page statique public/index.html).
+      // remplacer la home app router par la page statique public/index.html, et pour
+      // /dora qui a une route React concurrente sous src/app/dora/).
       beforeFiles: [
         { source: '/', destination: '/index.html' },
+        { source: '/dora', destination: '/dora.html' },
       ],
       // afterFiles : ces sources n'ont pas de route Next.js concurrente, un rewrite
       // standard suffit pour servir les pages HTML statiques (public/*.html) sur des
@@ -84,6 +86,7 @@ const nextConfig = {
         { source: '/pentest-web', destination: '/pentest-web.html' },
         { source: '/pentest-ad', destination: '/pentest-ad.html' },
         { source: '/pentest-mobile', destination: '/pentest-mobile.html' },
+        { source: '/rgpd', destination: '/rgpd.html' },
       ],
     };
   },
