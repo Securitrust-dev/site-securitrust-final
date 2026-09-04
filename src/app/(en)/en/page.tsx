@@ -2,8 +2,8 @@
 
 import { useRef, useState } from "react";
 import { Space_Grotesk } from "next/font/google";
-import "../rssi-externalise/lp.css";
-import "../rssi-externalise-v2/lp-v2.css";
+import "../../(site)/rssi-externalise/lp.css";
+import "../../(site)/rssi-externalise-v2/lp-v2.css";
 
 /* ============================================================================
    DRAFT — English version of the securitrust.fr home page, in the LP design.

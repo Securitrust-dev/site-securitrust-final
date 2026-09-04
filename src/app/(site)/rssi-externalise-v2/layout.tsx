@@ -18,6 +18,16 @@ export const metadata: Metadata = {
   description:
     "Cabinet de conseil en cybersécurité à Paris. RSSI externalisé à temps partagé, pentests au résultat garanti, mise en conformité ISO 27001, NIS2, DORA. Un pilotage stratégique de votre sécurité, sans le coût d'un plein temps.",
   robots: { index: false, follow: false },
+  // hreflang réciproques : Google n'honore les alternates que si la page
+  // pointée pointe en retour (cf. (en)/en/layout.tsx).
+  alternates: {
+    canonical: "https://www.securitrust.fr/",
+    languages: {
+      "fr-FR": "https://www.securitrust.fr/",
+      "en-GB": "https://www.securitrust.fr/en",
+      "x-default": "https://www.securitrust.fr/",
+    },
+  },
   openGraph: {
     title: "SecuriTrust — Votre RSSI externalisé, pilote de votre sécurité",
     description:

@@ -1,4 +1,4 @@
-import './globals.css';
+import '../globals.css';
 import { ReactNode } from 'react';
 import { FloatingCTA } from '@/components/floating-cta';
 import { Metadata, Viewport } from 'next';
