@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/en/outsourced-ciso`,
     languages: {
       "en-GB": `${BASE_URL}/en/outsourced-ciso`,
-      "fr-FR": `${BASE_URL}/`,
-      "x-default": `${BASE_URL}/`,
+      "fr-FR": `${BASE_URL}/rssi-externalise`,
+      "x-default": `${BASE_URL}/rssi-externalise`,
     },
   },
   openGraph: {

@@ -57,6 +57,8 @@ const nextConfig = {
       // page anglaise. Redirection TEMPORAIRE (302) — si une vraie home anglaise
       // est créée un jour sur /en, elle reprendra sa place sans 301 à défaire.
       { source: '/en', destination: '/en/outsourced-ciso', permanent: false },
+      // URL de brouillon de la refonte, au cas où le lien de preview circule.
+      { source: '/rssi-externalise-v2', destination: '/rssi-externalise', permanent: true },
       { source: '/rssi-externalise-lp', destination: '/rssi-externalise', permanent: true },
       // Article de blog qui cannibalisait la LP « RSSI externalisé » : on redirige
       // vers la LP canonique pour consolider le référencement sur une seule URL.
