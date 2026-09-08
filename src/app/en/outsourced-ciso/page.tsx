@@ -136,7 +136,7 @@ export default function HomeDesignLPEnPage() {
                 <img className="brand-logo" src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=400&resize=contain" alt="SecuriTrust" width={180} height={37} />
               </div>
 
-              <p className="eyebrow">Cybersecurity consultancy · Paris</p>
+              <p className="eyebrow">Cybersecurity consultancy</p>
 
               <h1>Take back <span className="hl">control</span> of your security.</h1>
 
@@ -532,7 +532,7 @@ export default function HomeDesignLPEnPage() {
               <div className="brandbar" style={{ marginBottom: "10px" }}>
                 <img className="brand-logo" src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=400&resize=contain" alt="SecuriTrust" width={180} height={37} />
               </div>
-              <p>Cybersecurity consultancy based in Paris. We have been steering security for high-stakes organisations since 2016.</p>
+              <p>Cybersecurity consultancy. We have been steering security for high-stakes organisations since 2016.</p>
             </div>
 
             <div className="footer-cols">
