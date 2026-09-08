@@ -25,6 +25,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${BASE_URL}/en/outsourced-ciso`,
   },
+  keywords: [
+    "outsourced CISO", "fractional CISO", "vCISO", "cybersecurity consultancy",
+    "penetration testing", "pentest", "ISO 27001", "NIS2", "DORA", "GDPR compliance",
+    "security governance", "cyber risk management",
+  ],
+  twitter: {
+    card: "summary_large_image",
+    title: "SecuriTrust — Outsourced CISO, steering your security",
+    description:
+      "Outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2 and DORA compliance.",
+  },
   openGraph: {
     title: "SecuriTrust — Outsourced CISO, steering your security",
     description:
