@@ -515,8 +515,6 @@ export default function HomeDesignLPEnPage() {
               <div className="finalcta-contact">
                 <a href="tel:+33186044431">+33 1 86 04 44 31</a>
                 <span className="fc-sep">·</span>
-                <span>11 Rue Saint-Didier, 75116 Paris, France</span>
-                <span className="fc-sep">·</span>
                 <span>Mon–Fri · 09:00–18:30 CET</span>
               </div>
             </div>
@@ -552,8 +550,6 @@ export default function HomeDesignLPEnPage() {
               </div>
               <div className="footer-col">
                 <h4>Contact</h4>
-                <span>11 Rue Saint-Didier</span>
-                <span>75116 Paris, France</span>
                 <a className="fc-strong" href="tel:+33186044431">+33 1 86 04 44 31</a>
                 <span>Mon–Fri · 09:00–18:30 CET</span>
               </div>
