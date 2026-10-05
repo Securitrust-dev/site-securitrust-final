@@ -51,7 +51,7 @@ export default function EnHomeLayout({ children }: { children: React.ReactNode }
     <>
       <ServiceSchema
         name="Cybersecurity consultancy"
-        description="Cybersecurity consultancy since 2016: outsourced CISO on a fractional basis, Cyber-Pilote, results-guaranteed penetration testing, ISO 27001, NIS2, DORA and GDPR compliance. Accredited AFNOR auditor."
+        description="Cybersecurity consultancy since 2016: outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2, DORA and GDPR compliance. Accredited AFNOR auditor."
         url={`${BASE_URL}/en/outsourced-ciso`}
       />
       {children}

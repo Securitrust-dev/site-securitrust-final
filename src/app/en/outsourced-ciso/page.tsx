@@ -15,8 +15,7 @@ import "../../rssi-externalise/lp-v2.css";
    Conventions:
    - British English (organisation, prioritised, defence) — the firm is Paris
      based and sells NIS2 / DORA / GDPR compliance to a European market.
-   - « RSSI externalisé » → "Outsourced CISO". « Cyber-Pilote » is a product
-     name and is left untranslated.
+   - « RSSI externalisé » → "Outsourced CISO".
    - French-specific references are kept and made explicit rather than
      dropped: EBIOS RM, HDS, AFNOR, PASSI.
    - No price is shown, in line with the French version.
@@ -56,12 +55,8 @@ const CHECK = (
 );
 
 const ICO = {
-  pilotage: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" /></svg>,
   gouvernance: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="9" y1="13" x2="15" y2="13" /><line x1="9" y1="17" x2="13" y2="17" /></svg>,
-  audit: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>,
   conformite: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>,
-  crise: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>,
-  support: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>,
   rssi: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>,
   pentest: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>,
   iso: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6" /><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" /></svg>,
@@ -181,7 +176,7 @@ export default function HomeDesignLPEnPage() {
                     <select id="f-besoin" name="besoin" defaultValue="" required>
                       <option value="" disabled>Select your need…</option>
                       <option>Results-guaranteed pentest</option>
-                      <option>Outsourced CISO (Cyber-Pilote)</option>
+                      <option>Outsourced CISO</option>
                       <option>Compliance &amp; audit</option>
                       <option>Other / not sure yet</option>
                     </select>
@@ -240,18 +235,6 @@ export default function HomeDesignLPEnPage() {
               <a href="#rssi-externalise" className="btn btn-primary offer-cta">Learn more →</a>
             </div>
 
-            <div className="offer">
-              <span className="offer-tag">Strategic leadership</span>
-              <h3>Cyber-Pilote</h3>
-              <p>A dedicated expert CISO, on a fractional basis, steering your security strategy.</p>
-              <ul className="offer-list">
-                <li>{CHECK} Senior expert embedded in your team</li>
-                <li>{CHECK} Continuous board-level reporting</li>
-                <li>{CHECK} Volume adjusted month by month</li>
-              </ul>
-              <a href="#cyber-pilote" className="btn btn-secondary offer-cta">Learn more →</a>
-            </div>
-
           </div>
         </div>
       </section>
@@ -306,52 +289,6 @@ export default function HomeDesignLPEnPage() {
               <span className="cert">{CHECK} ISO 27001 Lead Auditor / Implementer</span>
               <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg> PASSI (in progress)</span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================= CYBER-PILOTE ======================= */}
-      <section className="section" id="cyber-pilote">
-        <div className="wrap">
-          <p className="eyebrow">Cyber-Pilote</p>
-          <h2>An expert CISO steers your security strategy.</h2>
-          <p className="lead">The turnkey solution: a senior CISO certified CISSP/CISM, dedicated to your organisation, from a few days a month to several days a week depending on what is at stake.</p>
-
-          <div className="feat-grid">
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.pilotage}</div>
-              <h3>Strategic CISO leadership</h3>
-              <p>A dedicated senior expert steering your security on a fractional basis: decisions, trade-offs, board-level reporting. Available immediately, with no recruitment delay.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.gouvernance}</div>
-              <h3>Security governance</h3>
-              <p>Security policies aligned with your business priorities: a clear framework, defined responsibilities, and traceable escalation and decision-making.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.audit}</div>
-              <h3>Audit &amp; roadmap</h3>
-              <p>A full assessment, EBIOS&nbsp;RM risk analysis, and a security roadmap prioritised around your business priorities.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.conformite}</div>
-              <h3>Compliance oversight</h3>
-              <p>NIS2, ISO&nbsp;27001, DORA, GDPR: support from audit through to certification, annual audits and continuous updates.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.crise}</div>
-              <h3>24/7 crisis management</h3>
-              <p>A crisis unit you can activate, tested business continuity and disaster recovery plans, and senior staff on call around the clock. You know who to ring and what to do when an incident hits.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.support}</div>
-              <h3>Technical support</h3>
-              <p>Hands-on support implementing controls, integration with your IT team, and liaison with your partners and suppliers.</p>
-            </div>
-          </div>
-
-          <div className="cmp-cta">
-            <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Learn more about Cyber-Pilote →</a>
           </div>
         </div>
       </section>
@@ -536,7 +473,6 @@ export default function HomeDesignLPEnPage() {
             <div className="footer-cols">
               <div className="footer-col">
                 <h4>Expertise</h4>
-                <a href="#cyber-pilote">Cyber-Pilote</a>
                 <a href="#rssi-externalise">Outsourced CISO</a>
                 <a href="#rssi-externalise">Audits &amp; pentests</a>
                 <a href="#rssi-externalise">NIS2 / DORA compliance</a>

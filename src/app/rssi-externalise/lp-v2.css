@@ -3,8 +3,8 @@
 
    Ce fichier ne contient QUE les composants absents de
    ../rssi-externalise/lp.css, qui reste la source du design :
-   les 3 « portes d'entrée » du hero, les grilles d'offres à
-   6 blocs (Cyber-Pilote / RSSI externalisé), le bloc tarif sans
+   les « portes d'entrée » du hero, la grille d'offres à
+   6 blocs (RSSI externalisé), le bloc tarif sans
    montant, le consentement RGPD et le footer 3 colonnes.
 
    Tous les tokens (--sky, --navy-3, --radius…) et tous les
@@ -14,9 +14,9 @@
    Ne jamais repasser en simple ID.
    ============================================================ */
 
-/* ---------- HERO : les 3 portes d'entrée ---------- */
+/* ---------- HERO : les portes d'entrée ---------- */
 #lp-root#lp-root .offers{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:34px;
 }
 #lp-root#lp-root .offer{
   background:linear-gradient(180deg,rgba(11,26,51,.6),rgba(7,18,39,.4));
@@ -56,8 +56,8 @@
 
 /* ---------- SECTIONS D'OFFRE : grilles de 6 blocs ---------- */
 /* Le bento de la LP est figé à 5 emplacements (nth-child(1..5) avec des
-   grid-column explicites) : les sections Cyber-Pilote et RSSI externalisé
-   comptent 6 blocs chacune, d'où cette grille 3x2 dans le même langage
+   grid-column explicites) : la section RSSI externalisé
+   compte 6 blocs, d'où cette grille 3x2 dans le même langage
    visuel (mêmes fond, bordure, rayon et hover que .tl-item / .bento-card). */
 #lp-root#lp-root .feat-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px;

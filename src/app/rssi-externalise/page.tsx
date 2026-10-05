@@ -9,8 +9,8 @@ import "./lp-v2.css";
    BROUILLON — la page d'accueil securitrust.fr habillée du design de la LP.
 
    Le TEXTE est celui de la nouvelle home (public/index.html, commit d69ab38),
-   repris mot pour mot et dans son ordre : headline, les 3 portes d'entrée,
-   la preuve par les chiffres, Cyber-Pilote, RSSI externalisé, le déroulé de
+   repris mot pour mot et dans son ordre : headline, les portes d'entrée,
+   la preuve par les chiffres, RSSI externalisé, le déroulé de
    la mission, le comparatif, le tarif, le CTA final, le footer.
 
    Le DESIGN est celui de /rssi-externalise : lp.css est importé tel quel,
@@ -55,14 +55,10 @@ const CHECK = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg>
 );
 
-/* Icônes des 12 blocs d'offre (Cyber-Pilote + RSSI externalisé). */
+/* Icônes des blocs d'offre RSSI externalisé. */
 const ICO = {
-  pilotage: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" /></svg>,
   gouvernance: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="9" y1="13" x2="15" y2="13" /><line x1="9" y1="17" x2="13" y2="17" /></svg>,
-  audit: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>,
   conformite: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>,
-  crise: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>,
-  support: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>,
   rssi: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>,
   pentest: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>,
   iso: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6" /><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" /></svg>,
@@ -189,7 +185,7 @@ export default function HomeDesignLPPage() {
                     <select id="f-besoin" name="besoin" defaultValue="" required>
                       <option value="" disabled>Sélectionnez votre besoin…</option>
                       <option>Pentest au résultat</option>
-                      <option>RSSI externalisé (Cyber-Pilote)</option>
+                      <option>RSSI externalisé</option>
                       <option>Conformité &amp; audit</option>
                       <option>Autre / je ne sais pas encore</option>
                     </select>
@@ -219,7 +215,7 @@ export default function HomeDesignLPPage() {
         </div>
       </header>
 
-      {/* ======================= LES 3 PORTES D'ENTRÉE ======================= */}
+      {/* ======================= LES PORTES D'ENTRÉE ======================= */}
       <section className="section" id="offres">
         <div className="wrap">
           <div className="offers">
@@ -246,18 +242,6 @@ export default function HomeDesignLPPage() {
                 <li>{CHECK} Gestion de crise</li>
               </ul>
               <a href="#rssi-externalise" className="btn btn-primary offer-cta">En savoir plus →</a>
-            </div>
-
-            <div className="offer">
-              <span className="offer-tag">Pilotage stratégique</span>
-              <h3>Cyber-Pilote</h3>
-              <p>Un RSSI expert dédié, à temps partagé, pilote votre stratégie sécurité.</p>
-              <ul className="offer-list">
-                <li>{CHECK} Expert senior intégré</li>
-                <li>{CHECK} Reporting COMEX continu</li>
-                <li>{CHECK} Volume ajustable mois après mois</li>
-              </ul>
-              <a href="#cyber-pilote" className="btn btn-secondary offer-cta">En savoir plus →</a>
             </div>
 
           </div>
@@ -314,52 +298,6 @@ export default function HomeDesignLPPage() {
               <span className="cert">{CHECK} Lead Auditor / Implementer ISO 27001</span>
               <span className="cert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg> PASSI (en cours)</span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================= CYBER-PILOTE ======================= */}
-      <section className="section" id="cyber-pilote">
-        <div className="wrap">
-          <p className="eyebrow">Cyber-Pilote</p>
-          <h2>Un RSSI expert pilote votre stratégie sécurité.</h2>
-          <p className="lead">La solution clé en main&nbsp;: un RSSI senior certifié CISSP/CISM, dédié à votre organisation, de quelques jours par mois à plusieurs jours par semaine selon vos enjeux.</p>
-
-          <div className="feat-grid">
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.pilotage}</div>
-              <h3>Pilotage stratégique RSSI</h3>
-              <p>Un expert senior dédié qui pilote votre sécurité à temps partagé&nbsp;: décisions, arbitrages, reporting COMEX. Disponibilité immédiate, sans délai de recrutement.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.gouvernance}</div>
-              <h3>Gouvernance SSI</h3>
-              <p>Politiques de sécurité alignées sur vos enjeux métier&nbsp;: cadre clair, responsabilités définies, escalade et prise de décision tracées.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.audit}</div>
-              <h3>Audit &amp; roadmap</h3>
-              <p>État des lieux complet, analyse de risques EBIOS&nbsp;RM, feuille de route sécurité priorisée selon vos enjeux métier.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.conformite}</div>
-              <h3>Pilotage conformité</h3>
-              <p>NIS2, ISO&nbsp;27001, DORA, RGPD&nbsp;: accompagnement de l&apos;audit à la certification, audit annuel, mise à jour continue.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.crise}</div>
-              <h3>Gestion de crise 24/7</h3>
-              <p>Cellule de crise activable, PCA/PRA testés, astreinte senior 24/7. Vous savez qui appeler et quoi faire en cas d&apos;incident.</p>
-            </div>
-            <div className="feat-card">
-              <div className="feat-ico">{ICO.support}</div>
-              <h3>Support technique</h3>
-              <p>Appui opérationnel dans l&apos;implémentation des mesures, intégration à votre équipe IT, liaison avec vos partenaires et prestataires.</p>
-            </div>
-          </div>
-
-          <div className="cmp-cta">
-            <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer">En savoir plus sur Cyber-Pilote →</a>
           </div>
         </div>
       </section>
@@ -547,7 +485,6 @@ export default function HomeDesignLPPage() {
             <div className="footer-cols">
               <div className="footer-col">
                 <h4>Expertise</h4>
-                <a href="#cyber-pilote">Cyber-Pilote</a>
                 <a href="#rssi-externalise">RSSI externalisé</a>
                 <a href="#rssi-externalise">Audits &amp; Pentests</a>
                 <a href="#rssi-externalise">Conformité NIS2 / DORA</a>
