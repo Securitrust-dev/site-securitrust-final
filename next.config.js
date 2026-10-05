@@ -50,8 +50,12 @@ const nextConfig = {
       { source: '/dpo-data-protection-officer', destination: '/dpo-externalise', permanent: true },
       { source: '/audit-conformite-sur-le-rgpd', destination: '/audit-conformite', permanent: true },
       { source: '/test-dintrusion', destination: '/pentest-externe', permanent: true },
-      { source: '/rssi-automatise', destination: '/cyber-pilote', permanent: true },
-      { source: '/rssi-automatise/:path*', destination: '/cyber-pilote/:path*', permanent: true },
+      // Offre Cyber-Pilote retirée : ses anciennes URLs pointent vers le RSSI externalisé.
+      { source: '/rssi-automatise', destination: '/rssi-externalise', permanent: true },
+      { source: '/rssi-automatise/:path*', destination: '/rssi-externalise', permanent: true },
+      { source: '/cyber-pilote', destination: '/rssi-externalise', permanent: true },
+      { source: '/cyber-pilote/:path*', destination: '/rssi-externalise', permanent: true },
+      { source: '/cyber-pilote2', destination: '/rssi-externalise', permanent: true },
       // L'ancienne URL de preview de la LP pointe désormais vers la page RSSI canonique.
       // Le segment de langue seul ne doit pas renvoyer un 404.
       { source: '/en', destination: '/en/outsourced-ciso', permanent: false },

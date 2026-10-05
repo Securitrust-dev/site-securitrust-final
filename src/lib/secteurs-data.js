@@ -81,7 +81,7 @@ export const SECTEURS = {
           texte: "Tests d'intrusion externes, internes, applicatifs et TLPT red team conduits par nos pentesters OSCP. Rapports conformes aux attentes réglementaires, restitution au CODIR et suivi de remédiation inclus.",
         },
         {
-          titre: "RSSI externalisé Finance (Cyber-Pilote)",
+          titre: "RSSI externalisé Finance",
           texte: "Un RSSI senior dédié à votre établissement, disponible en fractionnaire ou temps plein. Pilotage du plan cyber, animation du comité de sécurité, interlocuteur unique face à l'AMF, l'ACPR et vos commissaires aux comptes.",
         },
         {
@@ -169,7 +169,7 @@ export const SECTEURS = {
         { titre: "Audit blanc HDS", texte: "Identification des écarts par rapport au référentiel HDS v2 avant l'audit de certification." },
         { titre: "Mise en place du SMSI", texte: "Construction ou renforcement de votre système de management ISO 27001:2022." },
         { titre: "Préparation à l'audit", texte: "Accompagnement jusqu'à l'audit de l'organisme certificateur accrédité Cofrac, pour réussir du premier coup." },
-        { titre: "Surveillance continue", texte: "Maintien de la conformité entre les audits annuels via le service Cyber-Pilote." },
+        { titre: "Surveillance continue", texte: "Maintien de la conformité entre les audits annuels via notre RSSI externalisé." },
       ],
     },
     cta: {
@@ -251,7 +251,7 @@ export const SECTEURS = {
         { titre: "Audit de sécurité produit", texte: "Pentest applicatif, revue de code, analyse de l'infrastructure cloud et des dépendances." },
         { titre: "Intégration DevSecOps", texte: "Sécurisation de votre pipeline CI/CD, scans automatisés et politiques de secrets." },
         { titre: "Préparation à la certification", texte: "Accompagnement ISO 27001 ou SOC 2 pour débloquer vos ventes grands comptes." },
-        { titre: "RSSI externalisé", texte: "Cyber-Pilote : la posture de sécurité d'une grande entreprise, au coût d'une startup." },
+        { titre: "RSSI externalisé", texte: "La posture de sécurité d'une grande entreprise, au coût d'une startup." },
       ],
     },
     cta: {
@@ -497,7 +497,7 @@ export const SECTEURS = {
         { titre: "Cartographie IT/OT", texte: "Inventaire de vos systèmes industriels et analyse de risques alignée IEC 62443." },
         { titre: "Segmentation & durcissement", texte: "Cloisonnement des réseaux, sécurisation des accès distants, durcissement des automates." },
         { titre: "Conformité NIS2", texte: "Mise en œuvre des 10 mesures de l'article 21 et de la chaîne de notification ANSSI." },
-        { titre: "Continuité opérationnelle", texte: "Plans PCA/PRA testés, sauvegardes isolées et pilotage continu via Cyber-Pilote." },
+        { titre: "Continuité opérationnelle", texte: "Plans PCA/PRA testés, sauvegardes isolées et pilotage continu via notre RSSI externalisé." },
       ],
     },
     cta: {

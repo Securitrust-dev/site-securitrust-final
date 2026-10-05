@@ -233,7 +233,6 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Gouvernance, risques et conformité — le cadre dans lequel évolue votre RSSI externalisé.' },
     { title: 'Stratégie Cybersécurité', href: '/strategie-cybersecurite', desc: 'Votre RSSI définit et pilote votre feuille de route cybersécurité.' },
     { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Le premier chantier de votre RSSI externalisé : un audit complet de l\'existant.' },
-    { title: 'Cyber Pilote', href: '/cyber-pilote', desc: 'Notre offre d\'abonnement cybersécurité tout-en-un pour PME.' },
   ],
   'dpo-externalise': [
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'RSSI et DPO travaillent ensemble — externalisez les deux pour une couverture complète.' },
@@ -291,19 +290,6 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Cyber Vigilance Humaine', href: '/cyber-vigilance-humaine', desc: 'Protégez vos collaborateurs exposés dans les résultats de recherche open source.' },
     { title: 'Red Team', href: '/red-team', desc: 'L\'OSINT est la première phase de toute opération Red Team — combinez les deux.' },
   ],
-  'cyber-pilote': [
-    { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Option avancée : un RSSI dédié pour piloter votre cybersécurité.' },
-    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Gouvernance, risques et conformité — le cadre dans lequel s\'inscrit Cyber Pilote.' },
-    { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Mesurez votre niveau de maturité actuel avant de souscrire.' },
-    { title: 'Audit Flash', href: '/audit-flash', desc: 'Démarrez par un diagnostic rapide de votre posture de sécurité.' },
-    { title: 'Contact', href: '/contact', desc: 'Discutez avec un expert pour choisir la formule Cyber Pilote adaptée.' },
-  ],
-  'cyber-pilote2': [
-    { title: 'Cyber Pilote', href: '/cyber-pilote', desc: 'Notre offre d\'abonnement cybersécurité tout-en-un pour PME.' },
-    { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Option avancée pour les entreprises souhaitant un RSSI dédié.' },
-    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Gouvernance, risques et conformité dans un cadre intégré.' },
-    { title: 'Contact', href: '/contact', desc: 'Échangez avec nos experts pour choisir la formule adaptée à vos besoins.' },
-  ],
   'cybersecurite-operationnelle': [
     { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion pour valider votre sécurité opérationnelle en conditions réelles.' },
     { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Audit complet de votre posture opérationnelle technique et organisationnelle.' },
@@ -325,12 +311,10 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Conformité', href: '/conformite', desc: 'NIS2, RGPD, DORA, ISO 27001 — accompagnement sur toutes les réglementations.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Gouvernance, risques et conformité dans un cadre de pilotage unifié.' },
     { title: 'Formations', href: '/formations', desc: 'Formations certifiantes en cybersécurité pour vos équipes.' },
-    { title: 'Cyber Pilote', href: '/cyber-pilote', desc: 'Abonnement cybersécurité tout-en-un pour PME — notre offre managée.' },
   ],
   formations: [
     { title: 'Sensibilisation Formation', href: '/sensibilisation-formation', desc: 'Formations de sensibilisation intra-entreprise pour tous vos collaborateurs.' },
     { title: 'Cyber Vigilance Humaine', href: '/cyber-vigilance-humaine', desc: 'Programme de vigilance continue au-delà des sessions de formation.' },
-    { title: 'Cyber Pilote', href: '/cyber-pilote', desc: 'Notre abonnement cybersécurité inclut des modules de formation. ' },
     { title: 'Contact', href: '/contact', desc: 'Discutez avec nous de votre programme de formation sur mesure.' },
   ],
   articles: [

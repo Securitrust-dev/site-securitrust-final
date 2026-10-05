@@ -21,7 +21,6 @@ const config = {
     '/signer-signwell',
     '/signer-proposition',
     '/signer-proposition/success',
-    '/cyber-pilote/souscrire/*',
     '/informations-prestation',
   ],
   robotsTxtOptions: {
@@ -38,7 +37,7 @@ const config = {
       '/', '/services', '/contact',
       '/pentest-externe', '/pentest-interne', '/pentest-web-mobile', '/red-team',
       '/pentest-paris', '/pentest-au-resultat',
-      '/audit-cybersecurite', '/rssi-externalise', '/cyber-pilote',
+      '/audit-cybersecurite', '/rssi-externalise',
       '/grc-cyber', '/mise-en-conformite-rgpd', '/iso27001-hds',
       '/conformite-nis2', '/conformite-dora',
       '/gouvernance-conformite',
@@ -60,7 +59,7 @@ const config = {
       '/secteurs', '/secteurs/banque-finance', '/secteurs/sante',
       '/secteurs/tech', '/secteurs/public', '/secteurs/retail', '/secteurs/industrie',
       '/conformite', '/audit', '/pentest', '/pentest-paris',
-      '/rssi-automatise', '/cyber-pilote2', '/informations-prestation',
+      '/informations-prestation',
     ];
 
     let priority = config.priority;

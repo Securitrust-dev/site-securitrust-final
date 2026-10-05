@@ -16,7 +16,7 @@ const segments = [
   {
     icon: ShieldCheck,
     title: 'Piloter ma sécurité',
-    sub: 'Cyber-Pilote · RSSI externalisé',
+    sub: 'RSSI externalisé',
     desc: 'Un RSSI expert dédié à votre PME, sans les charges d\'un recrutement. Stratégie, pilotage, gouvernance.',
     href: '/rssi-externalise',
     badge: null,
