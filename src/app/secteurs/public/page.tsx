@@ -4,8 +4,9 @@ import { SECTEURS } from "@/lib/secteurs-data";
 const data = SECTEURS["public"];
 
 export const metadata = {
-  title: `${data.label} — Cybersécurité & conformité NIS2 | SecuriTrust`,
+  title: `${data.label} — Cybersécurité & conformité NIS2`,
   description: data.hero.sousTitre.slice(0, 155),
+  alternates: { canonical: 'https://www.securitrust.fr/secteurs/public' },
 };
 
 export default function Page() {

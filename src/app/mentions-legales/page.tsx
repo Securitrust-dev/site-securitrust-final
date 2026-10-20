@@ -4,7 +4,7 @@ import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
 
 export const metadata: Metadata = {
-  title: 'Mentions Légales | SecuriTrust',
+  title: 'Mentions Légales',
   alternates: { canonical: 'https://www.securitrust.fr/mentions-legales' },
 };
 
@@ -33,7 +33,7 @@ export default function MentionsLegalesPage() {
           {/* Introduction */}
           <section>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
-              Conformément aux dispositions des articles 6-III et 19 de la Loi n°2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, dite L.C.E.N., il est porté à la connaissance des utilisateurs et visiteurs du site SecuriTrust les présentes mentions légales. Le site Internet SecuriTrust (ci-après le « Site ») est accessible à l'adresse suivante : https://www.securitrust.com L'accès et l'utilisation du Site sont soumis aux présentes "Mentions Légales" et aux suivantes « Conditions Générales », ainsi qu'aux lois et/ou règlements applicables. La connexion, l'utilisation et l'accès au Site impliquent l'acceptation intégrale et sans réserve de l'internaute de toutes les dispositions des présentes
+              Conformément aux dispositions des articles 6-III et 19 de la Loi n°2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, dite L.C.E.N., il est porté à la connaissance des utilisateurs et visiteurs du site SecuriTrust les présentes mentions légales. Le site Internet SecuriTrust (ci-après le « Site ») est accessible à l'adresse suivante : https://www.securitrust.fr L'accès et l'utilisation du Site sont soumis aux présentes "Mentions Légales" et aux suivantes « Conditions Générales », ainsi qu'aux lois et/ou règlements applicables. La connexion, l'utilisation et l'accès au Site impliquent l'acceptation intégrale et sans réserve de l'internaute de toutes les dispositions des présentes
             </p>
 
             <div className="space-y-4">

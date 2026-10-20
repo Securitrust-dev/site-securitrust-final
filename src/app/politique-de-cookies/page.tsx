@@ -1,6 +1,13 @@
 import { Cookie } from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Politique de Cookies',
+  description: "Cookies déposés sur le site SecuriTrust, finalités et gestion de votre consentement.",
+  alternates: { canonical: 'https://www.securitrust.fr/politique-de-cookies' },
+};
 
 export default function PolitiqueCookiesPage() {
   return (
@@ -33,7 +40,7 @@ export default function PolitiqueCookiesPage() {
               Les données collectées grâce au dépôt de cookies ne sont pas recoupées avec d'autres traitements de données dans la mesure où la Société ne réalise pas d'autre traitements. Les cookies sont conservés pour une durée maximale de 13 mois à compter de la première visite de l'Utilisateur sur le Site.
             </p>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-              Les personnes qui souhaitent s'opposer au dépôt de tels cookies peuvent le faire en modifiant les paramètres de leur navigateur internet. Le site internet SecuriTrust (ci-après le « Site ») est accessible à l'adresse suivante : <a href="https://www.securitrust.com" target="_blank" rel="noopener noreferrer" className="text-[#76a6d1] hover:underline">https://www.securitrust.com</a>
+              Les personnes qui souhaitent s'opposer au dépôt de tels cookies peuvent le faire en modifiant les paramètres de leur navigateur internet. Le site internet SecuriTrust (ci-après le « Site ») est accessible à l'adresse suivante : <a href="https://www.securitrust.fr" target="_blank" rel="noopener noreferrer" className="text-[#76a6d1] hover:underline">https://www.securitrust.fr</a>
             </p>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               L'accès et l'utilisation du Site sont soumis aux présentes "Mentions Légales" et aux suivantes « Conditions Générales », ainsi qu'aux lois et/ou règlements applicables. La connexion, l'utilisation et l'accès au Site impliquent l'acceptation intégrale et sans réserve de l'internaute de toutes les dispositions des présentes.

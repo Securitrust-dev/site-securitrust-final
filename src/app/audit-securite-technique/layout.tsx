@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Audit de Sécurité Technique — Infrastructure IT & Vulnérabilités | SecuriTrust',
+  title: 'Audit de Sécurité Technique — Infrastructure IT & Vulnérabilités',
   description: "Audit de sécurité technique complet de votre infrastructure IT : analyse des configurations, architecture, vulnérabilités système et procédures de sécurité. Experts certifiés OSCP.",
   keywords: ['audit sécurité technique', 'audit infrastructure IT', 'vulnérabilités système', 'audit réseau technique', 'analyse configuration sécurité'],
   alternates: {

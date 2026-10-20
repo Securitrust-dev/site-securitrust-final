@@ -4,7 +4,7 @@ import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
 
 export const metadata: Metadata = {
-  title: 'Politique de Confidentialité | SecuriTrust',
+  title: 'Politique de Confidentialité',
   alternates: { canonical: 'https://www.securitrust.fr/politique-de-confidentialite' },
 };
 

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Paiement Formation | SecuriTrust',
+  title: 'Paiement Formation',
   alternates: { canonical: 'https://www.securitrust.fr/formations-paiement' },
   robots: { index: false },
 };

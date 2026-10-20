@@ -8,6 +8,8 @@ import { join } from 'node:path';
 import { renderHeader, renderFooter, renderHeadTags, renderGtmNoscript } from '../src/site-chrome/chrome.mjs';
 
 const PUBLIC_DIR = new URL('../public/', import.meta.url).pathname;
+// Feuille commune intégrée dans chaque page : une requête bloquante de moins.
+const CHROME_CSS = readFileSync(join(PUBLIC_DIR, 'site-chrome.css'), 'utf8');
 const CSS_LINK = '<link rel="stylesheet" href="/site-chrome.css">';
 
 const block = (name, html) => `<!-- site-chrome:${name} -->\n${html}\n<!-- /site-chrome:${name} -->`;
@@ -29,7 +31,7 @@ for (const file of readdirSync(PUBLIC_DIR).filter((f) => f.endsWith('.html'))) {
     html = replaceBlock(html, 'header', renderHeader({ position: 'sticky' }), /<header>[\s\S]*?<\/header>/);
     html = replaceBlock(html, 'footer', renderFooter(), /<footer>[\s\S]*?<\/footer>/);
     // Premier passage : l'ancien <link> isolé laisse la place au bloc head complet.
-    html = replaceBlock(html, 'head', renderHeadTags(), new RegExp(`${CSS_LINK}(?=\n</head>)`));
+    html = replaceBlock(html, 'head', renderHeadTags({ css: CHROME_CSS }), new RegExp(`${CSS_LINK}(?=\n</head>)`));
     html = replaceBlock(html, 'gtm-noscript', renderGtmNoscript(), /(?<=<body[^>]*>\n)/);
   } catch (e) {
     throw new Error(`${file} : ${e.message}`);

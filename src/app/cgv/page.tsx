@@ -1,6 +1,13 @@
 import { Shield } from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Conditions Générales de Vente',
+  description: "Conditions générales de vente des prestations de conseil et d'audit en cybersécurité de SecuriTrust.",
+  alternates: { canonical: 'https://www.securitrust.fr/cgv' },
+};
 
 export default function CGVPage() {
   return (
@@ -48,7 +55,7 @@ export default function CGVPage() {
             </h2>
             <div className="space-y-3 text-slate-300 text-sm sm:text-base leading-relaxed">
               <p>
-                <strong className="text-white">"Éditeur"</strong> désigne la personne qui met à disposition du public le Site https://www.securitrust.com, en l'occurrence M. José JOURNEAU, "Site" désigne le site internet accessible à l'adresse suivante : https://www.securitrust.com. "Société" désigne la société SecuriTrust, société par actions simplifiée à associé unique. "Utilisateur" désigne toute personne qui visite, navigue, consulte ou se sert sur le Site.
+                <strong className="text-white">"Éditeur"</strong> désigne la personne qui met à disposition du public le Site https://www.securitrust.fr, en l'occurrence M. José JOURNEAU, "Site" désigne le site internet accessible à l'adresse suivante : https://www.securitrust.fr. "Société" désigne la société SecuriTrust, société par actions simplifiée à associé unique. "Utilisateur" désigne toute personne qui visite, navigue, consulte ou se sert sur le Site.
               </p>
             </div>
           </section>

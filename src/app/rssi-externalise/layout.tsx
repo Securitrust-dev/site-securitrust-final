@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { preload } from "react-dom";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 /* ============================================================================
@@ -34,6 +35,9 @@ export const metadata: Metadata = {
 };
 
 export default function RSSIExternaliseLayout({ children }: { children: React.ReactNode }) {
+  // Fond du hero = élément LCP, déclaré dans lp.css : sans preload, le navigateur ne le
+  // découvre qu'après avoir téléchargé et analysé la feuille de style.
+  preload("/rssi-lp/hero-bg.webp", { as: "image", fetchPriority: "high" });
   return (
     <>
       <ServiceSchema

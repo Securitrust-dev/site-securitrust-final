@@ -4,8 +4,9 @@ import { SECTEURS } from "@/lib/secteurs-data";
 const data = SECTEURS["sante"];
 
 export const metadata = {
-  title: `${data.label} — Cybersécurité & certification HDS | SecuriTrust`,
+  title: `${data.label} — Cybersécurité & certification HDS`,
   description: data.hero.sousTitre.slice(0, 155),
+  alternates: { canonical: 'https://www.securitrust.fr/secteurs/sante' },
 };
 
 export default function Page() {

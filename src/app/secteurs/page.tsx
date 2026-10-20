@@ -2,9 +2,10 @@ import Link from "next/link";
 import { SECTEURS, SECTEURS_ORDRE } from "@/lib/secteurs-data";
 
 export const metadata = {
-  title: "Nos secteurs d'expertise — SecuriTrust",
+  title: "Nos secteurs d'expertise",
   description:
     "Banque & Finance, Santé, Tech, Public, Retail, Industrie : un accompagnement cybersécurité et conformité adapté aux normes de chaque secteur.",
+  alternates: { canonical: 'https://www.securitrust.fr/secteurs' },
 };
 
 export default function SecteursIndex() {

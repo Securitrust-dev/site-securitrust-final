@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Gouvernance & Conformité Cybersécurité — RGPD, ISO 27001, NIS2, DORA | SecuriTrust',
+  title: 'Gouvernance & Conformité Cybersécurité — RGPD, ISO 27001, NIS2, DORA',
   description: "Structurez votre gouvernance cybersécurité et pilotez la conformité réglementaire : RGPD, ISO 27001, NIS2, DORA, HDS. Experts en gouvernance SSI à Paris.",
   keywords: ['gouvernance cybersécurité', 'conformité RGPD', 'ISO 27001', 'NIS2', 'DORA', 'HDS', 'gouvernance SSI', 'conformité réglementaire'],
   alternates: {

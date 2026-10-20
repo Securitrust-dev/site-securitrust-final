@@ -105,9 +105,11 @@ export const GTM_ID = 'GTM-P5D5S5WJ';
  * Balises de <head> des landing pages statiques : feuille commune, GTM et suivi
  * des leads (public/site-tracking.js). Les pages React chargent l'équivalent
  * dans src/app/layout.tsx.
+ * @param {{ css?: string }} [opts] css : contenu de public/site-chrome.css, intégré
+ *   en <style> pour éviter une requête bloquante (LCP mobile) ; à défaut, <link>.
  */
-export function renderHeadTags() {
-  return '<link rel="stylesheet" href="/site-chrome.css">\n'
+export function renderHeadTags({ css } = {}) {
+  return (css ? `<style id="site-chrome-css">\n${css.trim()}\n</style>\n` : '<link rel="stylesheet" href="/site-chrome.css">\n')
     + `<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});</script>\n`
     + `<script async src="https://www.googletagmanager.com/gtm.js?id=${GTM_ID}"></script>\n`
     + '<script defer src="/site-tracking.js"></script>';

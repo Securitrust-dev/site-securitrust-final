@@ -38,7 +38,7 @@ const nextConfig = {
     return [
       // non-www → www canonical redirect
       {
-        source: '/(.*)',
+        source: '/:path*',
         has: [{ type: 'host', value: 'securitrust.fr' }],
         destination: 'https://www.securitrust.fr/:path*',
         permanent: true,

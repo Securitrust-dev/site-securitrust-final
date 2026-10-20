@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Audit d\'Architecture SI — Évaluation Réseau, Cloud & Applicatif | SecuriTrust',
+  title: 'Audit d\'Architecture SI — Évaluation Réseau, Cloud & Applicatif',
   description: "Audit d'architecture système d'information : évaluation de la conception réseau, cloud et applicative pour identifier les failles structurelles. Rapport détaillé et plan de remédiation.",
   keywords: ['audit architecture SI', 'audit réseau', 'audit cloud', 'failles architecture', 'évaluation infrastructure', 'sécurité architecture'],
   alternates: {

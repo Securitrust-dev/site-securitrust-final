@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Audit de Code Source — Détection Vulnérabilités Applicatives | SecuriTrust',
+  title: 'Audit de Code Source — Détection Vulnérabilités Applicatives',
   description: "Audit de code source pour détecter les vulnérabilités de sécurité, failles logiques et erreurs de programmation. Analyse manuelle approfondie et outils spécialisés. Certifiés OSCP.",
   keywords: ['audit code source', 'revue code sécurité', 'vulnérabilités applicatives', 'sécurité code', 'analyse code source', 'SAST'],
   alternates: {

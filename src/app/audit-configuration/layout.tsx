@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Audit de Configuration — Serveurs, Réseau & Systèmes | SecuriTrust',
+  title: 'Audit de Configuration — Serveurs, Réseau & Systèmes',
   description: "Audit de configuration de vos équipements réseau, serveurs, systèmes d'exploitation et applications : identification des faiblesses de paramétrage, rapport détaillé et plan de remédiation.",
   keywords: ['audit configuration', 'audit serveurs', 'audit réseau', 'configuration sécurisée', 'hardening', 'faiblesses paramétrage'],
   alternates: {

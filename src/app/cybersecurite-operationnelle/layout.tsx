@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Cybersécurité Opérationnelle — Pentest Entreprise & Audit | SecuriTrust',
+  title: 'Cybersécurité Opérationnelle — Pentest Entreprise & Audit',
   description: 'Cabinet de cybersécurité opérationnelle à Paris. Pentest entreprise, audit cybersécurité PME et test d\'intrusion en France. Experts certifiés OSCP. Protégez votre activité dès maintenant.',
   keywords: ['cybersécurité opérationnelle', 'pentest entreprise', 'audit cybersécurité PME', 'test intrusion France', 'sécurité informatique entreprise', 'pentest paris'],
   openGraph: {

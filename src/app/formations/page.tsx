@@ -8,7 +8,7 @@ import { FormationsHero } from '@/components/sections/formations/FormationsHero'
 import { FormationsCatalog } from '@/components/sections/formations/FormationsCatalog';
 
 export const metadata: Metadata = {
-  title: 'Formations Cybersécurité E-Learning — Pentest, RGPD, ISO 27001 | SecuriTrust',
+  title: 'Formations Cybersécurité E-Learning — Pentest, RGPD, ISO 27001',
   description: 'Formations en ligne en cybersécurité : Pentest, OWASP, Hacking Éthique, Forensics, RGPD. Apprenez à votre rythme avec nos experts certifiés OSCP.',
   keywords: ['formation cybersécurité', 'e-learning pentest', 'formation OWASP', 'cours hacking éthique', 'formation RGPD', 'certification cybersécurité'],
   alternates: {
