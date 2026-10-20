@@ -8,7 +8,9 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, phone, company, subject, message, source } = await req.json();
+    const { name, email, phone, company, subject, message, source, website } = await req.json();
+    // Pot de miel des formulaires statiques : champ invisible, rempli par les seuls robots.
+    if (website) return NextResponse.json({ success: true });
     if (!name || !email) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }

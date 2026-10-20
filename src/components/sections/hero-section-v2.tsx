@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ArrowRight, Shield, CheckCircle2, Eye, Lock, FileText } from 'lucide-react';
 import Image from 'next/image';
+import { trackLead, trackLeadError } from '@/lib/analytics';
 
 const clientLogos = [
   { src: '/clients/abeille-assurance.jpg', alt: 'Abeille Assurance' },
@@ -109,8 +110,11 @@ const LeadForm = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ organisation: fields.url, email: fields.email }),
       });
+      if (res.ok) trackLead('hero_audit');
+      else trackLeadError('hero_audit', `http_${res.status}`);
       setStatus(res.ok ? 'done' : 'error');
     } catch {
+      trackLeadError('hero_audit', 'network');
       setStatus('error');
     }
   };

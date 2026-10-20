@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { toast } from 'sonner';
+import { trackLead, trackLeadError } from '@/lib/analytics';
 import { MapPin, Phone, Mail, Clock, Send, Linkedin } from 'lucide-react';
 import { StaticThemeShell } from '@/components/static-theme/StaticThemeShell';
 import { InternalLinks } from '@/components/InternalLinks';
@@ -18,10 +18,13 @@ export default function ContactPage() {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Retour affiché sous le bouton (aucun <Toaster> n'est monté : les toasts restaient invisibles).
+  const [status, setStatus] = useState<'idle' | 'ok' | 'err'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setStatus('idle');
 
     try {
       const res = await fetch('/api/contact', {
@@ -29,12 +32,14 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      if (!res.ok) throw new Error('request failed');
+      if (!res.ok) throw new Error(`http_${res.status}`);
 
-      toast.success('Message envoyé avec succès! Nous vous recontacterons dans les plus brefs délais.');
+      trackLead('contact', formData.subject || undefined);
+      setStatus('ok');
       setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' });
-    } catch {
-      toast.error("Une erreur est survenue. Réessayez ou écrivez-nous à expertise@securitrust.fr.");
+    } catch (err) {
+      trackLeadError('contact', err instanceof Error ? err.message : 'network');
+      setStatus('err');
     } finally {
       setIsSubmitting(false);
     }
@@ -129,7 +134,7 @@ export default function ContactPage() {
             <div className="form-card reveal">
               <h3>Envoyez-nous un message</h3>
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} data-lead-form="contact">
                 <div className="field">
                   <label htmlFor="name">Nom complet</label>
                   <input
@@ -211,6 +216,29 @@ export default function ContactPage() {
                     </>
                   )}
                 </button>
+                {status !== 'idle' && (
+                  <p
+                    role="status"
+                    style={{
+                      marginTop: 16,
+                      padding: '12px 14px',
+                      borderRadius: 9,
+                      fontSize: '0.92rem',
+                      lineHeight: 1.5,
+                      border: `1px solid ${status === 'ok' ? 'rgba(0,255,163,.35)' : 'rgba(237,125,49,.45)'}`,
+                      background: status === 'ok' ? 'rgba(0,255,163,.1)' : 'rgba(237,125,49,.12)',
+                      color: status === 'ok' ? '#b8ffe4' : '#ffd2b0',
+                    }}
+                  >
+                    {status === 'ok' ? (
+                      <><strong>Message bien reçu.</strong> Nous vous recontactons dans les plus brefs délais.</>
+                    ) : (
+                      <>L&apos;envoi n&apos;a pas abouti, votre saisie est conservée. Réessayez, ou contactez-nous au{' '}
+                        <a href="tel:+33186044431" style={{ color: 'inherit', textDecoration: 'underline' }}>01 86 04 44 31</a> /{' '}
+                        <a href="mailto:expertise@securitrust.fr" style={{ color: 'inherit', textDecoration: 'underline' }}>expertise@securitrust.fr</a>.</>
+                    )}
+                  </p>
+                )}
               </form>
             </div>
           </div>

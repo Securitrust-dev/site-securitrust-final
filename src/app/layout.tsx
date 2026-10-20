@@ -4,6 +4,7 @@ import { FloatingCTA } from '@/components/floating-cta';
 import { Metadata, Viewport } from 'next';
 import { OrganizationSchema, LocalBusinessSchema } from '@/components/StructuredData';
 import { AnalyticsTracker } from '@/components/AnalyticsTracker';
+import Script from 'next/script';
 
 const BASE_URL = 'https://www.securitrust.fr';
 
@@ -104,6 +105,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <OrganizationSchema />
         <LocalBusinessSchema />
         <AnalyticsTracker />
+        {/* Suivi des leads (Calendly, tel, mailto, début de saisie) — commun avec les pages statiques */}
+        <Script src="/site-tracking.js" strategy="afterInteractive" />
         {children}
         <FloatingCTA />
       </body>

@@ -146,3 +146,16 @@
 @media (max-width: 479px) {
   :is(#sc-header, #sc-footer):is(#sc-header, #sc-footer) .sc-fgrid { grid-template-columns: 1fr; gap: 28px; }
 }
+
+/* ---------------------------------------------------------------------------
+   Formulaires de rappel des landing pages statiques (public/site-tracking.js).
+   Hors header/footer : ces classes ne servent que dans public/*.html, où le
+   reset à forte spécificité des pages React ne s'applique pas.
+   --------------------------------------------------------------------------- */
+.lead-form button.btn { font-family: inherit; }
+.lead-form button.btn:disabled { opacity: .7; cursor: progress; transform: none; }
+.lead-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.lead-status { margin: 14px 0 0; padding: 12px 14px; border-radius: 9px; font-size: .9rem; line-height: 1.5; }
+.lead-status a { color: inherit; text-decoration: underline; }
+.lead-status--ok { background: rgba(0, 255, 163, .1); border: 1px solid rgba(0, 255, 163, .35); color: #b8ffe4; }
+.lead-status--err { background: rgba(237, 125, 49, .12); border: 1px solid rgba(237, 125, 49, .45); color: #ffd2b0; }

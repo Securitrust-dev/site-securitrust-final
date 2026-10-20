@@ -1,10 +1,11 @@
 // Injecte le header/footer communs (src/site-chrome/chrome.mjs) dans les landing
-// pages statiques public/*.html. Idempotent : au premier passage, remplace le
-// <header> et le <footer> d'origine ; ensuite, ce qui se trouve entre les
-// marqueurs site-chrome. Lancé par `npm run chrome:sync` et avant chaque build.
+// pages statiques public/*.html, ainsi que les balises de <head> (feuille commune,
+// GTM, suivi des leads) et le <noscript> GTM. Idempotent : au premier passage,
+// remplace le <header> et le <footer> d'origine ; ensuite, ce qui se trouve entre
+// les marqueurs site-chrome. Lancé par `npm run chrome:sync` et avant chaque build.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { renderHeader, renderFooter } from '../src/site-chrome/chrome.mjs';
+import { renderHeader, renderFooter, renderHeadTags, renderGtmNoscript } from '../src/site-chrome/chrome.mjs';
 
 const PUBLIC_DIR = new URL('../public/', import.meta.url).pathname;
 const CSS_LINK = '<link rel="stylesheet" href="/site-chrome.css">';
@@ -15,7 +16,8 @@ function replaceBlock(html, name, rendered, fallback) {
   const marked = new RegExp(`<!-- site-chrome:${name} -->[\\s\\S]*?<!-- /site-chrome:${name} -->`);
   if (marked.test(html)) return html.replace(marked, block(name, rendered));
   if (!fallback.test(html)) throw new Error(`<${name}> introuvable`);
-  return html.replace(fallback, block(name, rendered));
+  // Ancre de longueur nulle (insertion pure) : on garde le retour à la ligne.
+  return html.replace(fallback, (m) => block(name, rendered) + (m ? '' : '\n'));
 }
 
 let changed = 0;
@@ -26,10 +28,12 @@ for (const file of readdirSync(PUBLIC_DIR).filter((f) => f.endsWith('.html'))) {
   try {
     html = replaceBlock(html, 'header', renderHeader({ position: 'sticky' }), /<header>[\s\S]*?<\/header>/);
     html = replaceBlock(html, 'footer', renderFooter(), /<footer>[\s\S]*?<\/footer>/);
+    // Premier passage : l'ancien <link> isolé laisse la place au bloc head complet.
+    html = replaceBlock(html, 'head', renderHeadTags(), new RegExp(`${CSS_LINK}(?=\n</head>)`));
+    html = replaceBlock(html, 'gtm-noscript', renderGtmNoscript(), /(?<=<body[^>]*>\n)/);
   } catch (e) {
     throw new Error(`${file} : ${e.message}`);
   }
-  if (!html.includes(CSS_LINK)) html = html.replace('</head>', `${CSS_LINK}\n</head>`);
   if (html !== before) {
     writeFileSync(path, html);
     changed++;

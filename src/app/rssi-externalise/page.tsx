@@ -5,6 +5,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./lp.css";
 import "./lp-v2.css";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import { trackLead, trackLeadError } from "@/lib/analytics";
 
 /* ============================================================================
    BROUILLON — la page d'accueil securitrust.fr habillée du design de la LP.
@@ -68,9 +69,11 @@ const ICO = {
 
 export default function HomeDesignLPPage() {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = formRef.current;
     if (!form) return;
@@ -91,15 +94,20 @@ export default function HomeDesignLPPage() {
       return;
     }
 
-    // Capture du lead dans Notion (best-effort — ne bloque jamais l'affichage du succès).
+    // Capture du lead (email + Dolibarr + Notion via /api/contact). Le succès n'est
+    // affiché qu'une fois le lead enregistré ; sinon la saisie reste en place avec
+    // un message d'erreur (avant, l'envoi partait sans attendre la réponse).
     // ⚠️ /api/contact ne lit que name/email/phone/company/subject/message/source :
     // le besoin choisi part donc dans `subject` (→ colonne Notion « Sujet & message »
     // + email de notification), sinon il serait silencieusement perdu. Et `source`
     // est normalisé par l'API en « LP RSSI » ou « Contact » (la colonne Notion Source
     // est un select) — d'où le rappel de l'origine dans le sujet.
+    const fd = new FormData(form);
+    setSending(true);
+    setSendError(false);
+    let res: Response;
     try {
-      const fd = new FormData(form);
-      fetch("/api/contact", {
+      res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -109,11 +117,17 @@ export default function HomeDesignLPPage() {
           subject: `RSSI externalisé — besoin : ${fd.get("besoin") || "non précisé"}`,
           source: "LP RSSI",
         }),
-        keepalive: true,
-      }).catch(() => {});
+      });
     } catch {
-      /* noop */
+      res = new Response(null, { status: 599 });
     }
+    setSending(false);
+    if (!res.ok) {
+      trackLeadError("rssi_rappel", res.status === 599 ? "network" : `http_${res.status}`);
+      setSendError(true);
+      return;
+    }
+    trackLead("rssi_rappel", String(fd.get("besoin") || "") || undefined);
 
     setShowSuccess(true);
     requestAnimationFrame(() => {
@@ -164,7 +178,7 @@ export default function HomeDesignLPPage() {
             {/* COLONNE DROITE : FORMULAIRE (le design de la LP le place ici) */}
             <aside>
               <div className="formcard" id="form-anchor">
-                <form id="callback-form" noValidate ref={formRef} onSubmit={handleSubmit} style={showSuccess ? { display: "none" } : undefined}>
+                <form id="callback-form" data-lead-form="rssi_rappel" noValidate ref={formRef} onSubmit={handleSubmit} style={showSuccess ? { display: "none" } : undefined}>
                   <h2>Être rappelé sous 2h</h2>
                   <p className="form-sub">Dites-nous où vous en êtes, on s&apos;occupe du reste.</p>
 
@@ -196,7 +210,13 @@ export default function HomeDesignLPPage() {
                     <label htmlFor="f-consent">J&apos;accepte que SecuriTrust utilise ces informations pour me recontacter dans le cadre de ma demande. Aucun transfert à des tiers.</label>
                   </div>
 
-                  <button type="submit" className="btn btn-primary">Être rappelé sous 2h →</button>
+                  <button type="submit" className="btn btn-primary" disabled={sending}>{sending ? "Envoi en cours…" : "Être rappelé sous 2h →"}</button>
+                  {sendError && (
+                    <p className="micro" role="alert" style={{ color: "#ffd2b0" }}>
+                      L&apos;envoi n&apos;a pas abouti, votre saisie est conservée. Réessayez, ou appelez-nous au{" "}
+                      <a href="tel:+33186044431" style={{ color: "inherit", textDecoration: "underline" }}>01 86 04 44 31</a>.
+                    </p>
+                  )}
                   <p className="micro"><b>Réponse sous 2h</b> · <b>NDA dès le 1er échange</b></p>
 
                   <p className="rgpd-notice">Les données collectées via ce formulaire sont traitées par SecuriTrust en qualité de responsable de traitement, sur la base de votre consentement, aux fins exclusives de traiter votre demande de contact. Elles sont conservées 24 mois puis supprimées. Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification, d&apos;effacement, de limitation et d&apos;opposition sur vos données — exerçables à <a href="mailto:dpo@securitrust.fr">dpo@securitrust.fr</a>. En savoir plus : <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>

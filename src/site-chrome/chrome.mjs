@@ -98,6 +98,25 @@ export const FOOTER_COLUMNS = [
   },
 ];
 
+// Conteneur GTM (GA4, Google Ads et bandeau de consentement Axeptio y sont configurés).
+export const GTM_ID = 'GTM-P5D5S5WJ';
+
+/**
+ * Balises de <head> des landing pages statiques : feuille commune, GTM et suivi
+ * des leads (public/site-tracking.js). Les pages React chargent l'équivalent
+ * dans src/app/layout.tsx.
+ */
+export function renderHeadTags() {
+  return '<link rel="stylesheet" href="/site-chrome.css">\n'
+    + `<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});</script>\n`
+    + `<script async src="https://www.googletagmanager.com/gtm.js?id=${GTM_ID}"></script>\n`
+    + '<script defer src="/site-tracking.js"></script>';
+}
+
+export function renderGtmNoscript() {
+  return `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`;
+}
+
 const LOGO = '<img src="/assets/logo-securitrust.png" alt="SecuriTrust – Accueil" width="160" height="33" />';
 
 const esc = (s) =>

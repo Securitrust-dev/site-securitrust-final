@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Space_Grotesk } from "next/font/google";
 import "../../rssi-externalise/lp.css";
 import "../../rssi-externalise/lp-v2.css";
+import { trackLead, trackLeadError } from "@/lib/analytics";
 
 /* ============================================================================
    DRAFT — English version of the securitrust.fr home page, in the LP design.
@@ -65,9 +66,11 @@ const ICO = {
 
 export default function HomeDesignLPEnPage() {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = formRef.current;
     if (!form) return;
@@ -87,13 +90,17 @@ export default function HomeDesignLPEnPage() {
       return;
     }
 
-    // Lead capture in Notion (best-effort — never blocks the success state).
+    // Lead capture (email + Dolibarr + Notion via /api/contact). Success is only
+    // shown once the lead is stored; otherwise the input stays with an error.
     // /api/contact only reads name/email/phone/company/subject/message/source,
     // so the selected need travels in `subject`, and the language is flagged
     // there too so EN leads can be told apart in the CRM.
+    const fd = new FormData(form);
+    setSending(true);
+    setSendError(false);
+    let res: Response;
     try {
-      const fd = new FormData(form);
-      fetch("/api/contact", {
+      res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -103,11 +110,17 @@ export default function HomeDesignLPEnPage() {
           subject: `[EN] Home — need: ${fd.get("besoin") || "not specified"}`,
           source: "Contact",
         }),
-        keepalive: true,
-      }).catch(() => {});
+      });
     } catch {
-      /* noop */
+      res = new Response(null, { status: 599 });
     }
+    setSending(false);
+    if (!res.ok) {
+      trackLeadError("rssi_rappel_en", res.status === 599 ? "network" : `http_${res.status}`);
+      setSendError(true);
+      return;
+    }
+    trackLead("rssi_rappel_en", String(fd.get("besoin") || "") || undefined);
 
     setShowSuccess(true);
     requestAnimationFrame(() => {
@@ -155,7 +168,7 @@ export default function HomeDesignLPEnPage() {
 
             <aside>
               <div className="formcard" id="form-anchor">
-                <form id="callback-form" noValidate ref={formRef} onSubmit={handleSubmit} style={showSuccess ? { display: "none" } : undefined}>
+                <form id="callback-form" data-lead-form="rssi_rappel_en" noValidate ref={formRef} onSubmit={handleSubmit} style={showSuccess ? { display: "none" } : undefined}>
                   <h2>Get a call back within 2 hours</h2>
                   <p className="form-sub">Tell us where you stand, we&apos;ll take it from there.</p>
 
@@ -187,7 +200,13 @@ export default function HomeDesignLPEnPage() {
                     <label htmlFor="f-consent">I agree that SecuriTrust may use this information to contact me about my enquiry. Nothing is shared with third parties.</label>
                   </div>
 
-                  <button type="submit" className="btn btn-primary">Get a call back within 2 hours →</button>
+                  <button type="submit" className="btn btn-primary" disabled={sending}>{sending ? "Sending…" : "Get a call back within 2 hours →"}</button>
+                  {sendError && (
+                    <p className="micro" role="alert" style={{ color: "#ffd2b0" }}>
+                      Your request could not be sent — your details are still here. Please try again, or email{" "}
+                      <a href="mailto:expertise@securitrust.fr" style={{ color: "inherit", textDecoration: "underline" }}>expertise@securitrust.fr</a>.
+                    </p>
+                  )}
                   <p className="micro"><b>Response within 2 hours</b> · <b>NDA from the first conversation</b></p>
 
                   <p className="rgpd-notice">The data collected through this form is processed by SecuriTrust as data controller, on the basis of your consent, for the sole purpose of handling your enquiry. It is kept for 24 months and then deleted. Under the GDPR, you have the right to access, rectify, erase, restrict and object to the processing of your data — exercisable at <a href="mailto:dpo@securitrust.fr">dpo@securitrust.fr</a>. Find out more: <a href="/politique-de-confidentialite">privacy policy</a>.</p>

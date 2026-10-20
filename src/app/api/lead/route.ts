@@ -8,8 +8,12 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 
 export async function POST(req: NextRequest) {
   try {
-    const { organisation, email, telephone } = await req.json();
-    if (!organisation || !email) {
+    const body = await req.json();
+    const { email, telephone } = body;
+    // Le champ « URL de votre site » est facultatif dans le formulaire : à défaut,
+    // on retient le domaine de l'email plutôt que de rejeter le lead.
+    const organisation = body.organisation || String(email || '').split('@')[1] || '';
+    if (!email) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
 
