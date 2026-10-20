@@ -7,6 +7,8 @@ const nextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Cache navigateur/CDN des images optimisées (/_next/image) : 30 jours.
+    minimumCacheTTL: 2592000,
     qualities: [100, 75],
     remotePatterns: [
       {
@@ -117,14 +119,29 @@ const nextConfig = {
     // sans 'unsafe-eval' la CSP bloque l'hydratation de TOUTES les pages.
     // Autorisé en développement uniquement — la prod reste stricte (pas d'eval).
     const isDev = process.env.NODE_ENV !== 'production';
-    // GTM (gtm.js) + tagmanager.google.com requis pour le mode Preview de Tag Assistant.
-    // Domaines Google Ads (googleadservices / pagead2 / googleads.g.doubleclick) ajoutés
-    // car le conteneur GTM fait tourner un tag Google Ads (AW-704286147) — cf. doc CSP Google.
+    // Sources de scripts limitées au strict nécessaire : chaque domaine qui héberge du
+    // JS arbitraire (CDN publics, stockage Supabase…) permettrait de contourner la CSP.
+    //  - GTM (gtm.js) + tagmanager.google.com : mode Preview de Tag Assistant ;
+    //  - googleadservices / pagead2 / googleads.g.doubleclick : tag Google Ads
+    //    (AW-704286147) du conteneur GTM — cf. doc CSP Google ;
+    //  - static.axept.io : bandeau de consentement Axeptio, injecté par GTM ;
+    //  - assets.calendly.com : widget de prise de rendez-vous (/prise-de-rdv).
+    // 'unsafe-inline' reste nécessaire : Next.js et GTM injectent des scripts inline,
+    // et le retirer imposerait des nonces, donc un rendu dynamique de toutes les pages
+    // (plus de cache CDN). C'est ce qui plafonne la note securityheaders à A.
     const scriptSrc =
       "script-src 'self' 'unsafe-inline'" +
       (isDev ? " 'unsafe-eval'" : '') +
-      ' https://js.stripe.com https://vercel.live https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.iconify.design https://*.supabase.co https://*.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://www.google.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net';
+      ' https://*.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://www.google.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://static.axept.io https://assets.calendly.com';
+    // Fichiers de public/ : Vercel les sert par défaut en max-age=0 (revalidation à
+    // chaque visite). Leurs noms ne sont pas hashés, d'où un cache borné plutôt
+    // qu'immutable : 30 jours pour les médias, 1 h pour la feuille du header/footer
+    // commun, susceptible de changer plus souvent. /_next/static garde le cache
+    // immutable de Next.
+    const cache = (source, value) => ({ source, headers: [{ key: 'Cache-Control', value }] });
     return [
+      cache('/:all*(png|jpg|jpeg|webp|avif|gif|svg|ico|woff|woff2)', 'public, max-age=2592000, stale-while-revalidate=86400'),
+      cache('/site-chrome.css', 'public, max-age=3600, stale-while-revalidate=86400'),
       {
         source: '/(.*)',
         headers: [
@@ -154,13 +171,15 @@ const nextConfig = {
               "default-src 'self'",
               scriptSrc,
               // Domaines Google : liste officielle CSP pour GTM + GA4 + Google Ads (+ mode Preview Tag Assistant)
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://randomuser.me https://logo.clearbit.com https://blogger.googleusercontent.com https://*.google-analytics.com https://*.googletagmanager.com https://ssl.gstatic.com https://www.gstatic.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://google.com",
-              "connect-src 'self' https://*.supabase.co https://api.stripe.com https://vitals.vercel-insights.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://ad.doubleclick.net https://google.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com https://assets.calendly.com https://fonts.axept.io",
+              "font-src 'self' https://fonts.gstatic.com https://fonts.axept.io",
+              "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://randomuser.me https://logo.clearbit.com https://blogger.googleusercontent.com https://*.google-analytics.com https://*.googletagmanager.com https://ssl.gstatic.com https://www.gstatic.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://google.com https://*.axept.io https://axeptio.imgix.net",
+              "connect-src 'self' https://*.supabase.co https://*.axept.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://ad.doubleclick.net https://google.com",
               "media-src 'self' https://*.supabase.co",
-              "frame-src https://js.stripe.com https://hooks.stripe.com https://www.googletagmanager.com https://td.doubleclick.net",
+              "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://calendly.com https://www.youtube-nocookie.com https://www.youtube.com",
               "object-src 'none'",
+              // Équivalent moderne de X-Frame-Options (conservé pour les anciens navigateurs).
+              "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
               "upgrade-insecure-requests",

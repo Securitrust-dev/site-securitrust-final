@@ -65,7 +65,6 @@ export const SectorsSection = () => (
                 alt={title}
                 width={288}
                 height={288}
-                unoptimized
                 className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-300"
               />
             </div>
