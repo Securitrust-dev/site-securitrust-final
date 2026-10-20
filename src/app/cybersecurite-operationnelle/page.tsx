@@ -179,10 +179,10 @@ export default function CybersecuriteOperationnellePage() {
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
-                  href="/proposition-commerciale"
+                  href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-bold text-sm hover:border-white/40 hover:bg-white/5 transition-all duration-200"
                 >
-                  Voir une proposition type
+                  Demander un devis
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>

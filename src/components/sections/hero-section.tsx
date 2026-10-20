@@ -48,25 +48,25 @@ export const HeroSection = () => {
             <div className="space-y-3 sm:space-y-4">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-light tracking-tight leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
                 <span className="text-white font-normal uppercase drop-shadow-[0_2px_20px_rgba(6,182,212,0.8)]">
-                  Demandez votre pentest au résultat
+                  Testez la sécurité de votre SI
                 </span>
               </h1>
               
               <p className="text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed max-w-2xl font-light drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
-                Aucune vulnérabilité détectée, votre pentest est entièrement remboursé
+                Des experts certifiés identifient vos failles avant les attaquants
               </p>
             </div>
 
               {isVisible && (
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
                   <a
-                    href="/eligibilite"
+                    href="/contact"
                     onClick={() => hideCTA()}
                     className="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-cyan-500/10 border border-cyan-500/30 rounded-lg hover:bg-cyan-500/20 hover:border-cyan-400/50 transition-all group"
                   >
                     <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse flex-shrink-0"></span>
                       <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wide">
-                        Commencer mon pentest au résultat
+                        Demander un devis
                       </span>
                   </a>
                 </div>

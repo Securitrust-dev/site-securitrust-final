@@ -257,7 +257,7 @@ export default function GestionRisquesPage() {
             <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'Certification ISO 27001 et HDS : structurez votre gestion des risques selon les meilleurs référentiels.' },
+                { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'Certification ISO 27001 et HDS : structurez votre gestion des risques selon les meilleurs référentiels.' },
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre gestion des risques avec un RSSI à temps partagé, expert des référentiels ISO et NIS2.' },
                 { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Programme GRC complet : gouvernance, registre des risques, conformité et tableau de bord sécurité.' },
               ].map((s, i) => (

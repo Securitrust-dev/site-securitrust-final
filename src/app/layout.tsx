@@ -16,14 +16,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'SecuriTrust — Cabinet Cybersécurité & Pentest au Résultat | Paris',
+    default: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité | Paris',
     template: '%s | SecuriTrust',
   },
-  description: "Cabinet de cybersécurité à Paris. Pentest au résultat, audit de sécurité, RSSI externalisé, conformité RGPD, ISO 27001, NIS2 & DORA. +15 ans d'expertise. Auditeur officiel AFNOR.",
+  description: "Cabinet de cybersécurité à Paris. Pentest, audit de sécurité, RSSI externalisé, conformité RGPD, ISO 27001, NIS2 & DORA. +10 ans d'expertise. Auditeur officiel AFNOR.",
   keywords: [
     'pentest', "test d'intrusion", 'audit cybersécurité', 'cabinet cybersécurité Paris',
     'RSSI externalisé', 'DPO externalisé', 'conformité RGPD', 'ISO 27001',
-    'NIS2', 'DORA', 'pentest au résultat', 'audit sécurité informatique',
+    'NIS2', 'DORA', 'audit sécurité informatique',
     'gouvernance SSI', 'GRC cyber', "sécurité des systèmes d'information",
   ],
   authors: [{ name: 'SecuriTrust' }],
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
     locale: 'fr_FR',
     url: BASE_URL,
     siteName: 'SecuriTrust',
-    title: 'SecuriTrust — Cabinet Cybersécurité & Pentest au Résultat | Paris',
-    description: 'Cabinet de cybersécurité à Paris. Pentest au résultat garanti, audit de sécurité, RSSI externalisé, conformité RGPD & ISO 27001.',
+    title: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité | Paris',
+    description: 'Cabinet de cybersécurité à Paris. Pentest, audit de sécurité, RSSI externalisé, conformité RGPD & ISO 27001.',
     images: [
       {
         url: '/og-image.png',
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SecuriTrust — Cabinet Cybersécurité & Pentest au Résultat',
-    description: 'Pentest au résultat, audit cybersécurité, RSSI externalisé, RGPD, ISO 27001. Paris.',
+    title: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité',
+    description: 'Pentest, audit cybersécurité, RSSI externalisé, RGPD, ISO 27001. Paris.',
     images: ['/og-image.png'],
   },
   icons: {
@@ -100,6 +100,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+        <link rel="stylesheet" href="/site-chrome.css" precedence="default" />
         <OrganizationSchema />
         <LocalBusinessSchema />
         <AnalyticsTracker />

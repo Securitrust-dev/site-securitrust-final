@@ -11,9 +11,7 @@ const RATE_LIMITS = {
   '/api/upload': { limit: 5, window: 60000 }, // 5 req/min
   '/api/osint': { limit: 10, window: 60000 }, // 10 req/min
   '/api/hibp': { limit: 10, window: 60000 }, // 10 req/min
-  '/api/checkout': { limit: 5, window: 60000 }, // 5 req/min
   '/api/formations/checkout': { limit: 5, window: 60000 }, // 5 req/min
-  '/api/proposal': { limit: 10, window: 60000 }, // 10 req/min
   '/api/docusign': { limit: 5, window: 60000 }, // 5 req/min
   '/api/opensign': { limit: 5, window: 60000 }, // 5 req/min
   default: { limit: 30, window: 60000 }, // 30 req/min for all other APIs

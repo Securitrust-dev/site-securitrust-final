@@ -14,7 +14,7 @@ export const IntegrationsSection = () => {
     { 
       name: 'Conformité RGPD', 
       icon: FileCheck,
-      href: '/mise-en-conformite-rgpd',
+      href: '/rgpd',
       description: 'Accompagnement pour la mise en conformité'
     },
     { 

@@ -5,8 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/paiement/success', '/signer-proposition/success', '/api/'],
+      disallow: ['/api/', '/admin-stats'],
     },
-    sitemap: 'https://site-web-aura-3d-s-curitrust.vercel.app/sitemap.xml',
+    sitemap: 'https://www.securitrust.fr/sitemap.xml',
+    host: 'https://www.securitrust.fr',
   };
 }

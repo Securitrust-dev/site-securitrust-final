@@ -182,14 +182,14 @@ export const HeroSectionV2 = () => {
             {/* H1 */}
             <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.12] text-white text-left"
               style={{ fontFamily: "'Sora', sans-serif" }}>
-              Votre pentest gratuit,{' '}
+              Identifiez vos failles{' '}
               <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #76a6d1, #5a90be)' }}>
-                vous payez seulement si nous détectons des failles dans votre SI.
+                avant les attaquants.
               </span>
             </h1>
 
             <p className="text-slate-300 text-lg leading-relaxed max-w-xl">
-              Cabinet de cybersécurité certifié — nous sécurisons votre SI, assurons votre conformité NIS2 / RGPD / ISO 27001, et prenons le risque avec vous.
+              Cabinet de cybersécurité certifié — nous sécurisons votre SI, assurons votre conformité NIS2 / RGPD / ISO 27001.
             </p>
 
             {/* Trust signals */}
@@ -198,7 +198,7 @@ export const HeroSectionV2 = () => {
                 { label: 'Auditeur AFNOR officiel', color: 'cyan' },
                 { label: 'ISO 27001 Lead Auditor', color: 'cyan' },
                 { label: 'OSCP · CEH · PNPT', color: 'cyan' },
-                { label: '15 ans d\'expertise', color: 'slate' },
+                { label: '10 ans d\'expertise', color: 'slate' },
               ].map(({ label, color }) => (
                 <span key={label} className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium border
                   ${color === 'cyan'
@@ -216,8 +216,7 @@ export const HeroSectionV2 = () => {
             <div className="flex flex-wrap gap-8 pt-2">
               {[
                 { value: '+86', label: 'Pentests réalisés' },
-                { value: '97%', label: 'Vulnérabilités critiques détectées' },
-                { value: '+105', label: 'Conformités ISO 27001' },
+                { value: '+100', label: 'Conformités ISO 27001' },
               ].map(({ value, label }) => (
                 <div key={label}>
                   <p className="text-2xl font-bold" style={{ color: '#76a6d1', fontFamily: "'Sora', sans-serif" }}>{value}</p>
@@ -228,9 +227,9 @@ export const HeroSectionV2 = () => {
 
             {/* Secondary CTA */}
             <div className="flex items-center gap-4 flex-wrap pt-1">
-              <a href="/pentest-au-resultat"
+              <a href="/pentest"
                 className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-slate-200 border border-slate-700 hover:border-slate-500 px-4 py-2.5 rounded-xl transition-colors">
-                Découvrir notre garantie <ArrowRight className="w-3.5 h-3.5" />
+                Découvrir nos pentests <ArrowRight className="w-3.5 h-3.5" />
               </a>
               <div className="flex items-center gap-1.5 text-xs text-slate-500">
                 <span>+100 entreprises sécurisées</span>

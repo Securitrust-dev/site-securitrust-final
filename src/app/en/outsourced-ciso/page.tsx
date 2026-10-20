@@ -144,7 +144,7 @@ export default function HomeDesignLPEnPage() {
                 </div>
                 <div className="ht-item">
                   <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
-                  <span className="ht-txt"><b>15 years</b> of expertise</span>
+                  <span className="ht-txt"><b>10 years</b> of expertise</span>
                 </div>
                 <div className="ht-item">
                   <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
@@ -175,7 +175,7 @@ export default function HomeDesignLPEnPage() {
                     <label htmlFor="f-besoin">What you need</label>
                     <select id="f-besoin" name="besoin" defaultValue="" required>
                       <option value="" disabled>Select your need…</option>
-                      <option>Results-guaranteed pentest</option>
+                      <option>Pentest</option>
                       <option>Outsourced CISO</option>
                       <option>Compliance &amp; audit</option>
                       <option>Other / not sure yet</option>
@@ -213,12 +213,12 @@ export default function HomeDesignLPEnPage() {
 
             <div className="offer">
               <span className="offer-tag">Offensive security</span>
-              <h3>Results-guaranteed pentest</h3>
-              <p>No vulnerabilities found? <b>Your pentest is fully refunded.</b></p>
+              <h3>Pentest</h3>
+              <p>Certified experts attack your systems the way a real attacker would: <b>you see exactly where you are exposed.</b></p>
               <ul className="offer-list">
                 <li>{CHECK} Realistic penetration testing</li>
                 <li>{CHECK} Actionable reporting</li>
-                <li>{CHECK} Guaranteed results</li>
+                <li>{CHECK} Prioritised remediation plan</li>
               </ul>
               <a href="https://calendly.com/expert-securitrust" className="btn btn-secondary offer-cta" target="_blank" rel="noopener noreferrer">Get started →</a>
             </div>
@@ -260,15 +260,14 @@ export default function HomeDesignLPEnPage() {
         <div className="wrap">
           <p className="eyebrow">The proof in numbers</p>
           <h2>Field-proven expertise, not a promise.</h2>
-          <p className="lead" style={{ marginBottom: "26px" }}>For 15 years, from the first assessment through to continuous oversight, delivered by senior experts who stand behind their results.</p>
+          <p className="lead" style={{ marginBottom: "26px" }}>For 10 years, from the first assessment through to continuous oversight, delivered by senior experts who stand behind their results.</p>
 
           <div className="stats-wall">
-            <div className="stat-box"><div className="num">+86</div><div className="lbl">results-guaranteed pentests</div></div>
-            <div className="stat-box"><div className="num">97%</div><div className="lbl">of critical vulnerabilities detected</div></div>
-            <div className="stat-box"><div className="num">+105</div><div className="lbl">ISO 27001 certifications achieved</div></div>
+            <div className="stat-box"><div className="num">+86</div><div className="lbl">pentests delivered</div></div>
+            <div className="stat-box"><div className="num">+100</div><div className="lbl">ISO 27001 certifications achieved</div></div>
             <div className="stat-box"><div className="num">+100</div><div className="lbl">organisations secured</div></div>
             <div className="stat-box"><div className="num">+2,500</div><div className="lbl">consultant-days as outsourced CISO</div></div>
-            <div className="stat-box"><div className="num">15 years</div><div className="lbl">of expertise</div></div>
+            <div className="stat-box"><div className="num">10 years</div><div className="lbl">of expertise</div></div>
           </div>
 
           <div className="certs">
@@ -309,7 +308,7 @@ export default function HomeDesignLPEnPage() {
             <div className="feat-card">
               <div className="feat-ico">{ICO.pentest}</div>
               <h3>Audits &amp; pentests</h3>
-              <p>Realistic penetration testing with guaranteed results: we only charge for the vulnerabilities we can prove. An offensive view of your real exposure.</p>
+              <p>Realistic penetration testing by certified experts. An offensive view of your real exposure.</p>
             </div>
             <div className="feat-card">
               <div className="feat-ico">{ICO.conformite}</div>
@@ -324,7 +323,7 @@ export default function HomeDesignLPEnPage() {
             <div className="feat-card">
               <div className="feat-ico">{ICO.iso}</div>
               <h3>ISO 27001 &amp; 27701</h3>
-              <p>From preparation to certification, with rigorous methodology and deadlines met. +105 certifications achieved: certification turns into a commercial argument.</p>
+              <p>From preparation to certification, with rigorous methodology and deadlines met. +100 certifications achieved: certification turns into a commercial argument.</p>
             </div>
             <div className="feat-card">
               <div className="feat-ico">{ICO.formation}</div>
@@ -440,7 +439,7 @@ export default function HomeDesignLPEnPage() {
             <div className="finalcta-inner">
               <p className="eyebrow" style={{ justifyContent: "center" }}>Let&apos;s get started</p>
               <h2>Book a call with an expert.</h2>
-              <p>Whether you are after a results-guaranteed pentest or an outsourced CISO, a senior consultant will call you back within 2 hours to scope your needs. No commitment, fully confidential.</p>
+              <p>Whether you are after a pentest or an outsourced CISO, a senior consultant will call you back within 2 hours to scope your needs. No commitment, fully confidential.</p>
               <ul className="finalcta-points">
                 <li>{CHECK} Response within 2 business hours</li>
                 <li>{CHECK} NDA signed from the first conversation</li>

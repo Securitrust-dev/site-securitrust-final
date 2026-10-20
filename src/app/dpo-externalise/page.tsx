@@ -221,7 +221,7 @@ export default function DPOExternalisePage() {
             <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { title: 'Mise en conformité RGPD', href: '/mise-en-conformite-rgpd', desc: 'Audit RGPD complet, feuille de route personnalisée et accompagnement à la mise en conformité.' },
+                { title: 'Mise en conformité RGPD', href: '/rgpd', desc: 'Audit RGPD complet, feuille de route personnalisée et accompagnement à la mise en conformité.' },
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre cybersécurité et votre conformité avec un RSSI à temps partagé.' },
                 { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité réglementaire pour structurer votre sécurité.' },
               ].map((s, i) => (

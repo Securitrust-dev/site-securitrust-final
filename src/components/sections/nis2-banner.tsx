@@ -18,7 +18,7 @@ export const Nis2Banner = () => {
           </span>
           <span className="text-cyan-400/70 hidden sm:inline">·</span>
           <Link
-            href="/conformite-nis2"
+            href="/nis2"
             className="text-cyan-400 font-semibold underline underline-offset-2 hover:text-cyan-300 transition-colors whitespace-nowrap"
           >
             Vérifiez votre conformité →

@@ -270,7 +270,7 @@ export default function GRCCyberPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <SkyCTAButton href="https://calendly.com/expert-securitrust" text="Demander un diagnostic" />
-                <SkyCTAButton href="/proposition-commerciale" text="Voir nos offres" />
+                <SkyCTAButton href="/contact" text="Demander un devis" />
               </div>
             </div>
           </div>
@@ -308,8 +308,8 @@ export default function GRCCyberPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI à temps partagé pour piloter votre stratégie de sécurité et votre conformité.' },
-                { title: 'ISO 27001 & HDS', href: '/iso27001-hds', desc: 'Accompagnement à la certification ISO 27001 et HDS par un auditeur officiel AFNOR.' },
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée. Offre unique en France.' },
+                { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'Accompagnement à la certification ISO 27001 et HDS par un auditeur officiel AFNOR.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
                   <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>

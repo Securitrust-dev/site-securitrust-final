@@ -233,7 +233,7 @@ export default function AuditFlashPage() {
             <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Après l\'audit flash, allez plus loin : test d\'intrusion complet remboursé si aucune faille trouvée.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
                 { title: 'Pentest Externe', href: '/pentest-externe', desc: 'Tests d\'intrusion approfondis sur vos assets exposés après identification des vulnérabilités en audit flash.' },
                 { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Audit complet et méthodique de votre posture de sécurité pour un bilan exhaustif.' },
               ].map((s, i) => (

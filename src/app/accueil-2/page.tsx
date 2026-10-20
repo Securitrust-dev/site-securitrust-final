@@ -11,7 +11,7 @@ import { FAQSchema, OrganizationSchema } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
   title: "Cabinet d'expertise en Cybersécurité - Pentest - RSSI à Paris | SecuriTrust",
-  description: "Cabinet de cybersécurité à Paris. Pentest au résultat : remboursé si aucune faille trouvée. Audit de sécurité, RSSI externalisé, RGPD, ISO 27001. Auditeur AFNOR.",
+  description: "Cabinet de cybersécurité à Paris. Pentest, audit de sécurité, RSSI externalisé, RGPD, ISO 27001. Auditeur AFNOR.",
   robots: 'noindex',
 };
 
@@ -21,12 +21,8 @@ const homeFaqs = [
     answer: "Un test d'intrusion est une simulation d'attaque réaliste sur votre système d'information, réalisée par des experts certifiés, pour identifier les vulnérabilités exploitables avant qu'un attaquant ne le fasse.",
   },
   {
-    question: "Qu'est-ce que le pentest au résultat proposé par SecuriTrust ?",
-    answer: "C'est une offre unique en France : si notre équipe ne détecte aucune vulnérabilité lors du test d'intrusion, vous êtes intégralement remboursé. C'est notre garantie de qualité et de rigueur.",
-  },
-  {
     question: "Combien coûte un pentest ?",
-    answer: "Le coût dépend du périmètre et de la complexité. Avec notre offre au résultat, vous ne payez que si des vulnérabilités sont trouvées. Contactez-nous pour un devis personnalisé et gratuit.",
+    answer: "Le coût dépend du périmètre et de la complexité. Contactez-nous pour un devis personnalisé et gratuit.",
   },
   {
     question: "Quelle différence entre un RSSI interne et un RSSI externalisé ?",

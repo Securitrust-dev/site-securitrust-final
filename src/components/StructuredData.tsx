@@ -7,7 +7,7 @@ export function OrganizationSchema() {
     name: 'SecuriTrust',
     url: BASE_URL,
     logo: `${BASE_URL}/og-image.png`,
-    description: "Cabinet de conseil en cybersécurité spécialisé en pentest au résultat, audit de sécurité, conformité RGPD et ISO 27001.",
+    description: "Cabinet de conseil en cybersécurité spécialisé en pentest, audit de sécurité, conformité RGPD et ISO 27001.",
     foundingDate: '2016',
     founder: {
       '@type': 'Person',
@@ -22,8 +22,8 @@ export function OrganizationSchema() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+33-6-08-94-87-97',
-      email: 'contact@securitrust.fr',
+      telephone: '+33-1-86-04-44-31',
+      email: 'expertise@securitrust.fr',
       contactType: 'customer service',
       availableLanguage: ['French', 'English'],
       areaServed: 'FR',
@@ -57,8 +57,8 @@ export function LocalBusinessSchema() {
     name: 'SecuriTrust',
     image: `${BASE_URL}/og-image.png`,
     url: BASE_URL,
-    telephone: '+33-6-08-94-87-97',
-    email: 'contact@securitrust.fr',
+    telephone: '+33-1-86-04-44-31',
+    email: 'expertise@securitrust.fr',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '11 Rue Saint-Didier',

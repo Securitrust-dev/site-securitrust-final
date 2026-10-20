@@ -265,10 +265,10 @@ export default function ISO27001HDSPage() {
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 <a
-                  href="/proposition-commerciale"
+                  href="/contact"
                   className="inline-flex items-center gap-2 glass-panel border border-cyan-500/30 text-white px-8 py-4 rounded font-medium tracking-widest uppercase hover:border-cyan-500 transition-all"
                 >
-                  Voir nos offres
+                  Demander un devis
                 </a>
               </div>
             </div>

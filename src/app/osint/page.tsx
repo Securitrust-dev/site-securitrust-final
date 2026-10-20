@@ -98,7 +98,7 @@ export default function OSINTPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { title: 'Pentest Externe', href: '/pentest-externe', desc: 'Tests d\'intrusion sur vos assets exposés — complémentaire à l\'OSINT pour évaluer vos risques réels.' },
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée. Offre unique en France.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
                 { title: 'Cyber Vigilance Humaine', href: '/cyber-vigilance-humaine', desc: 'Formation et sensibilisation des équipes aux techniques d\'ingénierie sociale et phishing.' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">

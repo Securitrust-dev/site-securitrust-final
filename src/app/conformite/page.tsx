@@ -47,7 +47,7 @@ const FAQ_ITEMS = [
 
 const SERVICES = [
   {
-    href: '/conformite-nis2',
+    href: '/nis2',
     title: 'Conformité NIS2',
     badge: 'Obligation légale',
     badgeColor: 'red',
@@ -55,7 +55,7 @@ const SERVICES = [
     tags: ['NIS2', 'Entités essentielles', 'Secteurs critiques'],
   },
   {
-    href: '/mise-en-conformite-rgpd',
+    href: '/rgpd',
     title: 'Mise en Conformité RGPD',
     badge: null,
     badgeColor: '',
@@ -79,7 +79,7 @@ const SERVICES = [
     tags: ['DORA', 'Finance', 'Résilience ICT'],
   },
   {
-    href: '/iso27001-hds',
+    href: '/iso27001',
     title: 'ISO 27001 & HDS',
     badge: 'Certification AFNOR',
     badgeColor: 'cyan',
@@ -87,7 +87,7 @@ const SERVICES = [
     tags: ['ISO 27001', 'HDS', 'SMSI'],
   },
   {
-    href: '/hds-certification',
+    href: '/hds',
     title: 'Certification HDS',
     badge: null,
     badgeColor: '',
@@ -95,7 +95,7 @@ const SERVICES = [
     tags: ['HDS', 'Données de santé', 'Certification'],
   },
   {
-    href: '/tisax-security',
+    href: '/tisax',
     title: 'Certification TISAX',
     badge: null,
     badgeColor: '',
@@ -370,7 +370,7 @@ export default function ConformitePage() {
               {[
                 { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Complétez votre démarche conformité par un audit technique complet de votre infrastructure.' },
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre conformité dans la durée avec un RSSI externalisé expert en réglementations.' },
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'NIS2 et DORA imposent des tests réguliers. Validez votre résistance technique avec notre offre garantie.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
                   <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>

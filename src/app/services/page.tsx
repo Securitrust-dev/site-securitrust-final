@@ -160,9 +160,9 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl font-bold">L'accompagnement SecuriTrust</h2>
-            <a href="#" className="text-cyan-400 text-sm hover:underline flex items-center gap-2">
+            <span className="text-cyan-400 text-sm flex items-center gap-2">
               01 / DEMARCHE
-            </a>
+            </span>
           </div>
 
           <p className="text-muted-foreground mb-8 max-w-3xl">
@@ -198,9 +198,9 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl font-bold">Les outils de la Gouvernance Cybersécurité</h2>
-            <a href="#" className="text-cyan-400 text-sm hover:underline flex items-center gap-2">
+            <span className="text-cyan-400 text-sm flex items-center gap-2">
               02 / OUTILS
-            </a>
+            </span>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -225,9 +225,9 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl font-bold">Gestion des risques cyber</h2>
-            <a href="#" className="text-cyan-400 text-sm hover:underline flex items-center gap-2">
+            <span className="text-cyan-400 text-sm flex items-center gap-2">
               03 / RISQUES
-            </a>
+            </span>
           </div>
 
           <p className="text-muted-foreground mb-8 max-w-3xl">
@@ -263,9 +263,9 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl font-bold">Conformité en Cybersécurité</h2>
-            <a href="#" className="text-cyan-400 text-sm hover:underline flex items-center gap-2">
+            <span className="text-cyan-400 text-sm flex items-center gap-2">
               04 / CONFORMITE
-            </a>
+            </span>
           </div>
 
           <p className="text-muted-foreground mb-8 max-w-3xl">

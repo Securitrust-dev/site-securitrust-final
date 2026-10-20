@@ -294,8 +294,8 @@ export default function AuditPage() {
             <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Aller plus loin après l&apos;audit</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Validez vos corrections par un test d\'intrusion réel. Remboursé si aucune faille n\'est trouvée.' },
-                { title: 'Conformité NIS2', href: '/conformite-nis2', desc: 'L\'audit de conformité identifie vos écarts NIS2. On vous accompagne ensuite pour les combler.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
+                { title: 'Conformité NIS2', href: '/nis2', desc: 'L\'audit de conformité identifie vos écarts NIS2. On vous accompagne ensuite pour les combler.' },
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Confiez le pilotage de vos audits récurrents à un RSSI externalisé expert.' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">

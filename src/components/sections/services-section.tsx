@@ -32,7 +32,7 @@ export const ServicesSection = () => {
       title: 'Conformité RGPD',
       description:
         'Accompagnement global pour structurer votre conformité et sécuriser vos traitements avec la prise en charge par un DPO externalisé.',
-      href: '/mise-en-conformite-rgpd',
+      href: '/rgpd',
     },
     {
       icon: Building2,
@@ -46,7 +46,7 @@ export const ServicesSection = () => {
       title: 'ISO 27001 & 27701',
       description:
         'Préparation complète à la conformité et à la certification de vos systèmes de management de la sécurité et de la confidentialité.',
-      href: '/iso27001-hds',
+      href: '/iso27001',
     },
     {
       icon: GraduationCap,
@@ -101,12 +101,12 @@ export const ServicesSection = () => {
                 </h2>
                 <p className="text-slate-200 text-lg leading-relaxed">
                   Un accompagnement complet pour structurer, renforcer et superviser
-                  la sécurité de votre système d&apos;information. Plus de 15 ans
+                  la sécurité de votre système d&apos;information. Plus de 10 ans
                   d&apos;expérience au service des organisations.
                 </p>
               </div>
               <a
-                href="#contact"
+                href="/contact"
                 className="hidden md:flex items-center gap-3 px-10 py-5 text-lg font-bold text-white bg-[#0ea5e9] hover:bg-[#38bdf8] rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(56,189,248,0.5)] uppercase tracking-widest mt-4 md:mt-0 group"
               >
                 Demander un devis

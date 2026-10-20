@@ -47,14 +47,14 @@ export default function MentionsLegalesPage() {
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-[#76a6d1] flex-shrink-0 mt-0.5" />
                 <p className="text-slate-300 text-sm sm:text-base">
-                  <strong className="text-white">Siège social:</strong> 11, rue Saint Didier, 75116 PARIS
+                  <strong className="text-white">Siège social:</strong> 11 rue Saint-Didier, 75116 Paris
                 </p>
               </div>
 
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-[#76a6d1] flex-shrink-0 mt-0.5" />
                 <p className="text-slate-300 text-sm sm:text-base">
-                  <strong className="text-white">Téléphone:</strong> +33 6 08 94 87 97
+                  <strong className="text-white">Téléphone:</strong> 01 86 04 44 31
                 </p>
               </div>
 
@@ -117,7 +117,7 @@ export default function MentionsLegalesPage() {
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-[#76a6d1] flex-shrink-0 mt-0.5" />
                 <p className="text-slate-300 text-sm sm:text-base">
-                  <strong className="text-white">Téléphone:</strong> +33 6 08 94 87 97
+                  <strong className="text-white">Téléphone:</strong> 01 86 04 44 31
                 </p>
               </div>
             </div>

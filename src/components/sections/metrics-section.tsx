@@ -1,21 +1,15 @@
-import { Search, Users, ShieldCheck, Award } from 'lucide-react';
+import { Search, Users, Award } from 'lucide-react';
 
 const metrics = [
   {
     icon: Search,
     value: '+86',
     label: 'Pentests réalisés',
-    sub: 'au résultat garanti',
-  },
-  {
-    icon: ShieldCheck,
-    value: '97%',
-    label: 'Vulnérabilités critiques',
-    sub: 'détectées et rapportées',
+    sub: 'par des experts certifiés',
   },
   {
     icon: Award,
-    value: '+105',
+    value: '+100',
     label: 'Conformités ISO 27001',
     sub: 'obtenues ou maintenues',
   },
@@ -23,7 +17,7 @@ const metrics = [
     icon: Users,
     value: '+100',
     label: 'Entreprises sécurisées',
-    sub: 'depuis 15 ans d\'activité',
+    sub: 'depuis 10 ans d\'activité',
   },
 ];
 
@@ -34,7 +28,7 @@ export const MetricsSection = () => (
       style={{ fontFamily: "'Sora', sans-serif" }}>01</div>
 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10">
         {metrics.map(({ icon: Icon, value, label, sub }) => (
           <div key={label} className="flex flex-col items-center text-center group">
             <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-4 group-hover:bg-cyan-500/15 transition-colors">

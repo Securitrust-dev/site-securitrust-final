@@ -178,7 +178,7 @@ export default function DORAPage() {
               {[
                 { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité pour structurer votre programme sécurité face à DORA.' },
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre conformité TIC et votre résilience numérique avec un RSSI à temps partagé.' },
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Tests TLPT conformes DORA. Remboursé si aucune vulnérabilité détectée. Offre unique en France.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
                   <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>

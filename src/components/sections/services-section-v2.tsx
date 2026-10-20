@@ -22,7 +22,7 @@ const services = [
     icon: FileLock,
     title: 'Conformité RGPD',
     desc: 'Accompagnement global pour structurer votre conformité et sécuriser vos traitements avec la prise en charge par un DPO externalisé.',
-    href: '/mise-en-conformite-rgpd',
+    href: '/rgpd',
   },
   {
     icon: Building2,
@@ -34,7 +34,7 @@ const services = [
     icon: Award,
     title: 'ISO 27001 & 27701',
     desc: 'Préparation complète à la conformité et à la certification de vos systèmes de management de la sécurité et de la confidentialité.',
-    href: '/iso27001-hds',
+    href: '/iso27001',
   },
   {
     icon: GraduationCap,

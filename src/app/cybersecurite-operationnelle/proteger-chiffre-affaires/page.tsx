@@ -40,7 +40,7 @@ const services = [
     tags: ['Injection', 'Auth', 'Logique Métier', 'API'],
     description: 'Audit approfondi des applications métier accessibles aux utilisateurs, clients ou partenaires. Injection, authentification, logique métier, API.',
     enjeu: 'Une faille applicative peut exposer les données clients et déclencher des obligations RGPD.',
-    href: '/pentest-web-mobile',
+    href: '/pentest-web',
   },
   {
     name: 'Test de Résistance Ransomware',
@@ -206,7 +206,7 @@ export default function ProtegerChiffreAffairesPage() {
             <div className="space-y-4">
               <div className="glass-panel p-6 rounded-xl border border-white/10">
                 <h3 className="text-lg font-semibold text-white mb-3">Quel est le prix d&apos;un pentest entreprise en France ?</h3>
-                <p className="text-white/80 text-sm leading-relaxed">Le prix d&apos;un pentest entreprise en France dépend du périmètre : un pentest externe démarre généralement à partir de 3 500 €, un pentest interne entre 5 000 € et 15 000 €, et un pentest web/mobile entre 2 500 € et 8 000 €. SecuriTrust propose des offres à résultat garanti adaptées aux budgets PME et ETI, avec un rapport livré en 5 à 10 jours ouvrés.</p>
+                <p className="text-white/80 text-sm leading-relaxed">Le prix d&apos;un pentest entreprise en France dépend du périmètre : un pentest externe démarre généralement à partir de 3 500 €, un pentest interne entre 5 000 € et 15 000 €, et un pentest web/mobile entre 2 500 € et 8 000 €. SecuriTrust propose des offres adaptées aux budgets PME et ETI, avec un rapport livré en 5 à 10 jours ouvrés.</p>
               </div>
               <div className="glass-panel p-6 rounded-xl border border-white/10">
                 <h3 className="text-lg font-semibold text-white mb-3">Qu&apos;est-ce qu&apos;un test d&apos;intrusion entreprise ?</h3>

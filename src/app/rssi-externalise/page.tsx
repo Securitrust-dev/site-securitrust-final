@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Space_Grotesk } from "next/font/google";
 import "./lp.css";
 import "./lp-v2.css";
+import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 
 /* ============================================================================
    BROUILLON — la page d'accueil securitrust.fr habillée du design de la LP.
@@ -124,6 +125,8 @@ export default function HomeDesignLPPage() {
   };
 
   return (
+    <>
+    <SiteHeader position="sticky" />
     <div id="lp-root" className={spaceGrotesk.variable}>
       {/* ======================= HERO ======================= */}
       <header className="hero">
@@ -133,9 +136,6 @@ export default function HomeDesignLPPage() {
 
             {/* COLONNE GAUCHE */}
             <div className="hero-left">
-              <div className="brandbar">
-                <img className="brand-logo" src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=400&resize=contain" alt="SecuriTrust" width={180} height={37} />
-              </div>
 
               <p className="eyebrow">Cabinet de conseil en cybersécurité · Paris</p>
 
@@ -152,7 +152,7 @@ export default function HomeDesignLPPage() {
                 </div>
                 <div className="ht-item">
                   <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
-                  <span className="ht-txt"><b>15 ans</b> d&apos;expertise</span>
+                  <span className="ht-txt"><b>10 ans</b> d&apos;expertise</span>
                 </div>
                 <div className="ht-item">
                   <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
@@ -184,7 +184,7 @@ export default function HomeDesignLPPage() {
                     <label htmlFor="f-besoin">Votre besoin</label>
                     <select id="f-besoin" name="besoin" defaultValue="" required>
                       <option value="" disabled>Sélectionnez votre besoin…</option>
-                      <option>Pentest au résultat</option>
+                      <option>Pentest</option>
                       <option>RSSI externalisé</option>
                       <option>Conformité &amp; audit</option>
                       <option>Autre / je ne sais pas encore</option>
@@ -222,12 +222,12 @@ export default function HomeDesignLPPage() {
 
             <div className="offer">
               <span className="offer-tag">Sécurité offensive</span>
-              <h3>Pentest au résultat</h3>
-              <p>Aucune vulnérabilité détectée&nbsp;? <b>Votre pentest est entièrement remboursé.</b></p>
+              <h3>Pentest</h3>
+              <p>Des experts certifiés attaquent vos systèmes comme un vrai attaquant&nbsp;: <b>vous savez où vous êtes exposé.</b></p>
               <ul className="offer-list">
                 <li>{CHECK} Tests d&apos;intrusion réalistes</li>
                 <li>{CHECK} Rapport exploitable</li>
-                <li>{CHECK} Garantie de résultat</li>
+                <li>{CHECK} Plan de remédiation priorisé</li>
               </ul>
               <a href="https://calendly.com/expert-securitrust" className="btn btn-secondary offer-cta" target="_blank" rel="noopener noreferrer">Commencer →</a>
             </div>
@@ -269,15 +269,14 @@ export default function HomeDesignLPPage() {
         <div className="wrap">
           <p className="eyebrow">La preuve par les chiffres</p>
           <h2>Une expertise de terrain, pas une promesse.</h2>
-          <p className="lead" style={{ marginBottom: "26px" }}>Depuis 15 ans, du premier diagnostic au pilotage continu, portés par des experts seniors qui engagent leur résultat.</p>
+          <p className="lead" style={{ marginBottom: "26px" }}>Depuis 10 ans, du premier diagnostic au pilotage continu, portés par des experts seniors qui engagent leur résultat.</p>
 
           <div className="stats-wall">
-            <div className="stat-box"><div className="num">+86</div><div className="lbl">pentests au résultat garanti</div></div>
-            <div className="stat-box"><div className="num">97%</div><div className="lbl">des vulnérabilités critiques détectées</div></div>
-            <div className="stat-box"><div className="num">+105</div><div className="lbl">conformités ISO 27001 obtenues</div></div>
+            <div className="stat-box"><div className="num">+86</div><div className="lbl">pentests réalisés</div></div>
+            <div className="stat-box"><div className="num">+100</div><div className="lbl">conformités ISO 27001 obtenues</div></div>
             <div className="stat-box"><div className="num">+100</div><div className="lbl">entreprises sécurisées</div></div>
             <div className="stat-box"><div className="num">+2 500</div><div className="lbl">jours-homme de RSSI externalisé</div></div>
-            <div className="stat-box"><div className="num">15 ans</div><div className="lbl">d&apos;expertise</div></div>
+            <div className="stat-box"><div className="num">10 ans</div><div className="lbl">d&apos;expertise</div></div>
           </div>
 
           <div className="certs">
@@ -318,7 +317,7 @@ export default function HomeDesignLPPage() {
             <div className="feat-card">
               <div className="feat-ico">{ICO.pentest}</div>
               <h3>Audits &amp; Pentests</h3>
-              <p>Tests d&apos;intrusion réalistes au résultat garanti&nbsp;: nous ne facturons que les vulnérabilités que nous prouvons. Vision offensive de votre exposition réelle.</p>
+              <p>Tests d&apos;intrusion réalistes menés par des experts certifiés. Vision offensive de votre exposition réelle.</p>
             </div>
             <div className="feat-card">
               <div className="feat-ico">{ICO.conformite}</div>
@@ -333,7 +332,7 @@ export default function HomeDesignLPPage() {
             <div className="feat-card">
               <div className="feat-ico">{ICO.iso}</div>
               <h3>ISO 27001 &amp; 27701</h3>
-              <p>De la préparation à la certification, méthodologie rigoureuse et délais tenus. +105 conformités obtenues&nbsp;: certification devient argument commercial.</p>
+              <p>De la préparation à la certification, méthodologie rigoureuse et délais tenus. +100 conformités obtenues&nbsp;: certification devient argument commercial.</p>
             </div>
             <div className="feat-card">
               <div className="feat-ico">{ICO.formation}</div>
@@ -450,7 +449,7 @@ export default function HomeDesignLPPage() {
             <div className="finalcta-inner">
               <p className="eyebrow" style={{ justifyContent: "center" }}>Passons à l&apos;action</p>
               <h2>Prenez rendez-vous avec un expert.</h2>
-              <p>Que vous visiez un pentest au résultat ou un RSSI externalisé, un senior vous rappelle sous 2h pour cadrer votre besoin. Sans engagement, 100% confidentiel.</p>
+              <p>Que vous visiez un pentest ou un RSSI externalisé, un senior vous rappelle sous 2h pour cadrer votre besoin. Sans engagement, 100% confidentiel.</p>
               <ul className="finalcta-points">
                 <li>{CHECK} Réponse sous 2h ouvrées</li>
                 <li>{CHECK} NDA signé dès le 1er échange</li>
@@ -472,50 +471,13 @@ export default function HomeDesignLPPage() {
       </section>
 
       {/* ======================= FOOTER ======================= */}
-      <footer>
-        <div className="wrap">
-          <div className="footer-grid">
-            <div>
-              <div className="brandbar" style={{ marginBottom: "10px" }}>
-                <img className="brand-logo" src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/b678629c-2039-47c7-900d-278085219d70/image-1769766433152.png?width=400&resize=contain" alt="SecuriTrust" width={180} height={37} />
-              </div>
-              <p>Cabinet de conseil en cybersécurité à Paris. Nous pilotons la sécurité des organisations à forts enjeux depuis 2016.</p>
-            </div>
-
-            <div className="footer-cols">
-              <div className="footer-col">
-                <h4>Expertise</h4>
-                <a href="#rssi-externalise">RSSI externalisé</a>
-                <a href="#rssi-externalise">Audits &amp; Pentests</a>
-                <a href="#rssi-externalise">Conformité NIS2 / DORA</a>
-                <a href="#rssi-externalise">ISO 27001 &amp; 27701</a>
-              </div>
-              <div className="footer-col">
-                <h4>Cabinet</h4>
-                <a href="#preuves">Nos preuves</a>
-                <a href="#mission">La mission</a>
-                <a href="#contact">Contact</a>
-              </div>
-              <div className="footer-col">
-                <h4>Contact</h4>
-                <span>11 Rue Saint-Didier</span>
-                <span>75116 Paris</span>
-                <a className="fc-strong" href="tel:+33186044431">01 86 04 44 31</a>
-                <span>Lun–Ven · 09:00–18:30</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="footer-legal">
-            © 2016–2026 SecuriTrust. Tous droits réservés. <a href="/mentions-legales" style={{ color: "var(--sky)" }}>Mentions légales</a> · <a href="/politique-de-confidentialite" style={{ color: "var(--sky)" }}>Confidentialité</a>
-          </div>
-        </div>
-      </footer>
 
       {/* ======================= STICKY MOBILE CTA ======================= */}
       <div className="sticky-cta">
         <a href="https://calendly.com/expert-securitrust" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Parler à un expert →</a>
       </div>
     </div>
+    <SiteFooter />
+    </>
   );
 }

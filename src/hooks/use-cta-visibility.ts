@@ -4,13 +4,6 @@ import { usePathname } from 'next/navigation';
 import { useCallback } from 'react';
 
 const FLOW_PAGES = [
-  '/eligibilite',
-  '/non-eligible-offre-15',
-  '/proposition',
-  '/proposition-commerciale',
-  '/signer-proposition',
-  '/paiement',
-  '/paiement/success',
   '/evaluation-maturite'
 ];
 

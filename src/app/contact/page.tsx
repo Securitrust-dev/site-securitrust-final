@@ -34,7 +34,7 @@ export default function ContactPage() {
       toast.success('Message envoyé avec succès! Nous vous recontacterons dans les plus brefs délais.');
       setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' });
     } catch {
-      toast.error("Une erreur est survenue. Réessayez ou écrivez-nous à contact@securitrust.fr.");
+      toast.error("Une erreur est survenue. Réessayez ou écrivez-nous à expertise@securitrust.fr.");
     } finally {
       setIsSubmitting(false);
     }

@@ -183,10 +183,10 @@ export default function RansomwarePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <SkyCTAButton href="/contact" text="Contactez-Nous" />
                 <a
-                  href="/proposition-commerciale"
+                  href="/contact"
                   className="inline-flex items-center justify-center gap-2 glass-panel border border-cyan-500/30 text-white px-8 py-4 rounded-full font-medium uppercase hover:border-cyan-500 transition-all"
                 >
-                  Voir nos offres
+                  Demander un devis
                 </a>
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function RansomwarePage() {
             <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Détectez les failles exploitables avant qu\'un ransomware ne s\'y engouffre. Remboursé si aucune vulnérabilité.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
                 { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Évaluation complète de votre posture sécurité pour identifier vos expositions aux ransomwares.' },
                 { title: 'Sensibilisation & Formation', href: '/sensibilisation-formation', desc: 'Formation des équipes aux vecteurs d\'entrée ransomware : phishing, ingénierie sociale, mots de passe.' },
               ].map((s, i) => (

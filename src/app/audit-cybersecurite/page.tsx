@@ -239,10 +239,10 @@ export default function AuditCybersecuritePage() {
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 <a
-                  href="/proposition-commerciale"
+                  href="/contact"
                   className="inline-flex items-center gap-2 glass-panel border border-cyan-500/30 text-white px-8 py-4 rounded font-medium tracking-widest uppercase hover:border-cyan-500 transition-all"
                 >
-                  Voir nos offres
+                  Demander un devis
                 </a>
               </div>
             </div>
@@ -257,7 +257,7 @@ export default function AuditCybersecuritePage() {
             <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { title: 'Pentest au Résultat', href: '/pentest-au-resultat', desc: 'Après l\'audit, passez à l\'action : test d\'intrusion remboursé si aucune vulnérabilité n\'est détectée.' },
+                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
                 { title: 'Audit Flash', href: '/audit-flash', desc: 'Évaluation rapide de votre posture sécurité en 48h avec un rapport priorisé et actionnables.' },
                 { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Transformez les recommandations d\'audit en programme GRC structuré et pérenne.' },
               ].map((s, i) => (

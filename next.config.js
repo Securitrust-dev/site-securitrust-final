@@ -43,8 +43,17 @@ const nextConfig = {
       },
       { source: '/test-intrusion', destination: '/pentest-externe', permanent: true },
       { source: '/audit', destination: '/services', permanent: true },
-      { source: '/conformite', destination: '/mise-en-conformite-rgpd', permanent: true },
+      { source: '/conformite', destination: '/rgpd', permanent: true },
       { source: '/rssi', destination: '/rssi-externalise', permanent: true },
+      // Doublons (cannibalisation) : l'ancienne page React renvoie vers la landing page
+      // exposée dans le menu, qui devient l'unique URL de référence du sujet.
+      { source: '/conformite-nis2', destination: '/nis2', permanent: true },
+      { source: '/conformite-dora', destination: '/dora', permanent: true },
+      { source: '/iso27001-hds', destination: '/iso27001', permanent: true },
+      { source: '/hds-certification', destination: '/hds', permanent: true },
+      { source: '/tisax-security', destination: '/tisax', permanent: true },
+      { source: '/mise-en-conformite-rgpd', destination: '/rgpd', permanent: true },
+      { source: '/pentest-web-mobile', destination: '/pentest-web', permanent: true },
       { source: '/services-cybersecurite', destination: '/services', permanent: true },
       { source: '/audit-securite', destination: '/audit-cybersecurite', permanent: true },
       { source: '/dpo-data-protection-officer', destination: '/dpo-externalise', permanent: true },
@@ -63,6 +72,19 @@ const nextConfig = {
       // Article de blog qui cannibalisait la LP « RSSI externalisé » : on redirige
       // vers la LP canonique pour consolider le référencement sur une seule URL.
       { source: '/articles/rssi-externalise-prix-missions-et-roi-pour-les-pme', destination: '/rssi-externalise', permanent: true },
+      // Offre « pentest au résultat » retirée : la page et tout son parcours commercial
+      // (éligibilité, proposition, signature, paiement) renvoient vers la page Pentest.
+      { source: '/pentest-au-resultat', destination: '/pentest', permanent: true },
+      { source: '/eligibilite', destination: '/pentest', permanent: true },
+      { source: '/non-eligible-offre-15', destination: '/pentest', permanent: true },
+      { source: '/proposition', destination: '/pentest', permanent: true },
+      { source: '/proposition-commerciale', destination: '/pentest', permanent: true },
+      { source: '/informations-prestation', destination: '/pentest', permanent: true },
+      { source: '/signer-proposition/:path*', destination: '/pentest', permanent: true },
+      { source: '/signer-signwell', destination: '/pentest', permanent: true },
+      { source: '/signature-complete', destination: '/pentest', permanent: true },
+      { source: '/paiement/:path*', destination: '/pentest', permanent: true },
+      { source: '/articles/pentest-au-resultat-evaluer-l-impact-reel-des-tests-d-intrusion-sur-votre-si', destination: '/pentest', permanent: true },
     ];
   },
   async rewrites() {

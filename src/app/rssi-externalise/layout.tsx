@@ -19,7 +19,7 @@ const BASE_URL = "https://www.securitrust.fr";
 export const metadata: Metadata = {
   title: "RSSI externalisé — reprenez le contrôle de votre sécurité",
   description:
-    "Cabinet de conseil en cybersécurité à Paris. RSSI externalisé à temps partagé, pentests au résultat garanti, mise en conformité ISO 27001, NIS2, DORA. Un pilotage stratégique de votre sécurité, sans le coût d'un plein temps.",
+    "Cabinet de conseil en cybersécurité à Paris. RSSI externalisé à temps partagé, tests d'intrusion, mise en conformité ISO 27001, NIS2, DORA. Un pilotage stratégique de votre sécurité, sans le coût d'un plein temps.",
   alternates: {
     canonical: `${BASE_URL}/rssi-externalise`,
   },

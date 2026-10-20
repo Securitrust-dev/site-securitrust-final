@@ -10,7 +10,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'SecuriTrust | Expert en Pentest & Audit Cybersécurité',
-  description: 'Cabinet de conseil en cybersécurité spécialisé en pentest au résultat, audit de sécurité et conformité GRC. Sécurisez votre entreprise avec nos experts.',
+  description: 'Cabinet de conseil en cybersécurité spécialisé en pentest, audit de sécurité et conformité GRC. Sécurisez votre entreprise avec nos experts.',
   alternates: {
     canonical: '/',
   },

@@ -20,7 +20,7 @@ const BASE_URL = "https://www.securitrust.fr";
 export const metadata: Metadata = {
   title: "Outsourced CISO — take back control of your security",
   description:
-    "Cybersecurity consultancy. Outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2 and DORA compliance. Strategic security leadership without the cost of a full-time hire.",
+    "Cybersecurity consultancy. Outsourced CISO on a fractional basis, penetration testing, ISO 27001, NIS2 and DORA compliance. Strategic security leadership without the cost of a full-time hire.",
   robots: { index: false, follow: false },
   alternates: {
     canonical: `${BASE_URL}/en/outsourced-ciso`,
@@ -34,12 +34,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SecuriTrust — Outsourced CISO, steering your security",
     description:
-      "Outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2 and DORA compliance.",
+      "Outsourced CISO on a fractional basis, penetration testing, ISO 27001, NIS2 and DORA compliance.",
   },
   openGraph: {
     title: "SecuriTrust — Outsourced CISO, steering your security",
     description:
-      "Cybersecurity consultancy. Outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2 and DORA compliance.",
+      "Cybersecurity consultancy. Outsourced CISO on a fractional basis, penetration testing, ISO 27001, NIS2 and DORA compliance.",
     type: "website",
     locale: "en_GB",
     url: `${BASE_URL}/en/outsourced-ciso`,
@@ -51,7 +51,7 @@ export default function EnHomeLayout({ children }: { children: React.ReactNode }
     <>
       <ServiceSchema
         name="Cybersecurity consultancy"
-        description="Cybersecurity consultancy since 2016: outsourced CISO on a fractional basis, results-guaranteed penetration testing, ISO 27001, NIS2, DORA and GDPR compliance. Accredited AFNOR auditor."
+        description="Cybersecurity consultancy since 2016: outsourced CISO on a fractional basis, penetration testing, ISO 27001, NIS2, DORA and GDPR compliance. Accredited AFNOR auditor."
         url={`${BASE_URL}/en/outsourced-ciso`}
       />
       {children}
