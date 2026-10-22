@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "node ./node_modules/next/dist/bin/next dev --webpack",
         "chrome:sync": "node scripts/sync-site-chrome.mjs",
+        "blog:export": "node scripts/export-blog-articles.mjs",
         "prebuild": "node scripts/sync-site-chrome.mjs",
         "build": "next build",
         "start": "next start",

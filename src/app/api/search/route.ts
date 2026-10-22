@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { db } from '@/db';
-import { articles } from '@/db/schema';
-import { eq, or, like } from 'drizzle-orm';
+import { listDbArticles } from '@/lib/blog';
 
 interface PageData {
   title: string;
@@ -35,24 +33,11 @@ export async function GET(request: NextRequest) {
     return titleMatch || excerptMatch || keywordsMatch;
   });
 
-  // 2. Search in articles DB
-  const articleResults = await db
-    .select()
-    .from(articles)
-    .where(
-      or(
-        like(articles.titleFr, `%${query}%`),
-        like(articles.excerptFr, `%${query}%`),
-        like(articles.category, `%${query}%`),
-        like(articles.tags, `%${query}%`)
-      )
-    )
-    .limit(10);
-
-  const formattedArticleResults = articleResults.map(article => ({
-    title: article.titleFr || article.title,
-    url: `/articles/${article.slugFr || article.slug}`,
-    excerpt: article.excerptFr || article.excerpt,
+  // 2. Articles du blog (copie du dépôt + base si elle répond)
+  const formattedArticleResults = (await listDbArticles({ q: query, limit: 10 })).map((article) => ({
+    title: article.title,
+    url: `/articles/${article.slug}`,
+    excerpt: article.excerpt,
     category: `Article - ${article.category}`,
   }));
 

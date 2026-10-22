@@ -5,7 +5,7 @@ import ThreeBackground from '@/components/three-background';
 import MatrixRain from '@/components/matrix-rain';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft } from 'lucide-react';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { BreadcrumbSchema, JsonLd } from '@/components/StructuredData';
 import { LOGO_URL, ORG_ID, SITE_URL } from '@/site-chrome/schema.mjs';
 import sanitizeHtml from 'sanitize-html';
@@ -19,6 +19,7 @@ import { classifyArticle } from '@/lib/articles';
 import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage, RSS_STOP_WORDS } from '@/lib/rss-utils';
 import ArticleInfographic from '@/components/ArticleInfographic';
 import { BLOG_URL, categoryUrl, cleanAuthor, formatFrDate, toIsoDate } from '@/lib/blog';
+import { DUPLICATE_SLUGS, HIDDEN_SLUGS, STORED_ARTICLES, findStoredArticle, isHidden } from '@/lib/blog-store';
 
 // Rendu serveur mis en cache 1 h : évite de relancer la synthèse à chaque visite
 // (robots compris) tout en gardant les nouveaux articles de veille accessibles.
@@ -53,112 +54,80 @@ type ArticleRow = typeof articles.$inferSelect & {
   sourceType?: string;
 };
 
-/** Synthesize an RSS item via Claude and store in DB */
+/**
+ * Synthétise un élément RSS avec Claude et l'enregistre en base. Si la base est
+ * injoignable, l'article synthétisé est quand même affiché (mis en cache par l'ISR).
+ */
 async function synthesizeAndInsertArticle(item: any, slug: string): Promise<ArticleRow | null> {
+  const sourceUrl = item.link || item.guid;
+  if (!sourceUrl) return null;
+
+  // Déjà synthétisé (requête concurrente ou visite précédente) ?
   try {
-    const sourceUrl = item.link || item.guid;
-    if (!sourceUrl) return null;
+    const existing = await db.select().from(articles).where(eq(articles.sourceUrl, sourceUrl)).limit(1);
+    if (existing.length && !isHidden(existing[0])) return existing[0];
+  } catch {
+    // Base injoignable : on synthétise sans pouvoir réutiliser.
+  }
 
-    // Check if already in DB (from another concurrent request)
-    const existing = await db
-      .select({ id: articles.id })
-      .from(articles)
-      .where(eq(articles.sourceUrl, sourceUrl))
-      .limit(1);
-    if (existing.length > 0) {
-      const result = await db.select().from(articles).where(eq(articles.id, existing[0].id)).limit(1);
-      if (result.length) return result[0];
-    }
-
-    const synthesized = await synthesizeArticle({
+  let synthesized: Awaited<ReturnType<typeof synthesizeArticle>>;
+  try {
+    synthesized = await synthesizeArticle({
       title: item.title || '',
       content: item.content || item.description || '',
       excerpt: item.contentSnippet?.slice(0, 300) || '',
       sourceUrl,
     });
-
-    if (!synthesized) return null;
-
-    // Extract image
-    const imageUrl = extractImage(item);
-    // Slug d'URL demandé : l'article est enregistré sous cette adresse. (`s` et
-    // `updatedAt` étaient utilisés sans être déclarés : l'enregistrement levait une
-    // ReferenceError avalée par le catch, et rien n'était jamais stocké.)
-    const s = slug;
-    const updatedAt = new Date().toISOString();
-
-    // Check if the generated slug already exists in DB (avoid UNIQUE constraint violation)
-    const slugCheck = await db
-      .select({ id: articles.id, sourceUrl: articles.sourceUrl })
-      .from(articles)
-      .where(eq(articles.slug, s))
-      .limit(1);
-
-    // If slug exists, update instead of insert
-    if (slugCheck.length > 0) {
-      await client.execute({
-        sql: `UPDATE articles SET title = ?, title_fr = ?, excerpt = ?, excerpt_fr = ?, content = ?, content_fr = ?, image = ?, category = ?, tags = ?, source_url = ?, updated_at = ? WHERE id = ?`,
-        args: [
-          item.title || '', synthesized.titleFr,
-          item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
-          sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
-          imageUrl, synthesized.category,
-          JSON.stringify(synthesized.tags),
-          sourceUrl,
-          updatedAt,
-          slugCheck[0].id,
-        ],
-      });
-      const result = await db.select().from(articles).where(eq(articles.id, slugCheck[0].id)).limit(1);
-      if (result.length) return result[0];
-      return null;
-    }
-
-    // Store in DB
-    const publishedDate = item.pubDate || item.isoDate || new Date().toISOString();
-    const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
-
-    // Try full INSERT (with impacts + remediation), fall back to minimal if schema lacks these columns
-    try {
-      await client.execute({
-        sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, impacts, remediation, created_at, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        args: [
-          item.title || '', synthesized.titleFr,
-          item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
-          sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
-          imageUrl, 'SecuriTrust', synthesized.category,
-          JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
-          s, s, 1,
-          impactsJson,
-          synthesized.action || null,
-          publishedDate, updatedAt,
-        ],
-      });
-    } catch {
-      // Fallback for DB schema without impacts/remediation columns
-      await client.execute({
-        sql: `INSERT INTO articles (title, title_fr, excerpt, excerpt_fr, content, content_fr, image, author, category, tags, lang, source, source_url, slug, slug_fr, published, created_at, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        args: [
-          item.title || '', synthesized.titleFr,
-          item.contentSnippet?.slice(0, 200) || '', synthesized.excerptFr,
-          sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS), sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
-          imageUrl, 'SecuriTrust', synthesized.category,
-          JSON.stringify(synthesized.tags), 'fr', 'rss', sourceUrl,
-          s, s, 1,
-          publishedDate, updatedAt,
-        ],
-      });
-    }
-
-    // Return the newly created article
-    const result = await db.select().from(articles).where(eq(articles.slug, s)).limit(1);
-    if (result.length) return result[0];
-    return null;
   } catch {
     return null;
   }
+  if (!synthesized) return null;
+
+  const now = new Date().toISOString();
+  const row: ArticleRow = {
+    id: -1,
+    title: item.title || '',
+    titleFr: synthesized.titleFr,
+    excerpt: item.contentSnippet?.slice(0, 200) || '',
+    excerptFr: synthesized.excerptFr,
+    content: sanitizeHtml(item.content || item.description || '', SANITIZE_OPTIONS),
+    contentFr: sanitizeHtml(synthesized.contentFr, SANITIZE_OPTIONS),
+    image: extractImage(item),
+    author: 'SecuriTrust',
+    category: synthesized.category,
+    tags: JSON.stringify(synthesized.tags),
+    lang: 'fr',
+    source: 'rss',
+    sourceUrl,
+    // Slug d'URL demandé : l'article est enregistré sous cette adresse.
+    slug,
+    slugFr: slug,
+    published: true,
+    impacts: synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null,
+    action: synthesized.action || null,
+    createdAt: toIsoDate(item.isoDate || item.pubDate),
+    updatedAt: now,
+  };
+
+  try {
+    const { id: _id, ...values } = row;
+    await db
+      .insert(articles)
+      .values(values)
+      .onConflictDoUpdate({
+        target: articles.slug,
+        set: {
+          title: values.title, titleFr: values.titleFr, excerpt: values.excerpt, excerptFr: values.excerptFr,
+          content: values.content, contentFr: values.contentFr, image: values.image, category: values.category,
+          tags: values.tags, sourceUrl, impacts: values.impacts, action: values.action, updatedAt: now,
+        },
+      });
+    const saved = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1);
+    if (saved.length) return saved[0];
+  } catch (error) {
+    console.error('[blog] enregistrement de l\'article synthétisé impossible', error);
+  }
+  return row;
 }
 
 /** On-demand Claude synthesis for RSS articles not yet in DB */
@@ -369,13 +338,18 @@ async function getRssArticleDirect(slug: string): Promise<ArticleRow | null> {
 }
 
 async function getArticle(slug: string): Promise<ArticleRow | null> {
+  // 0. Copie versionnée dans le dépôt : ne dépend pas de la base.
+  if (HIDDEN_SLUGS.has(slug)) return null;
+  const stored = findStoredArticle(DUPLICATE_SLUGS.get(slug) ?? slug);
+  if (stored) return stored;
+
   // 1. Try DB (Claude-synthesized or internal articles)
   try {
     let result = await db.select().from(articles).where(eq(articles.slugFr, slug)).limit(1);
     if (!result.length) {
       result = await db.select().from(articles).where(eq(articles.slug, slug)).limit(1);
     }
-    if (result.length) {
+    if (result.length && !isHidden(result[0])) {
       // If the article has a source URL but no French content, synthesize it now
       if (!result[0].contentFr && result[0].sourceUrl) {
         const updated = await synthesizeMissingRssArticle(result[0]);
@@ -395,19 +369,9 @@ async function getArticle(slug: string): Promise<ArticleRow | null> {
   return getRssArticleDirect(slug);
 }
 
+// Articles du dépôt générés au build ; les autres (veille récente) à la demande.
 export async function generateStaticParams() {
-  try {
-    const dbArticles = await db
-      .select({ slug: articles.slug, slugFr: articles.slugFr })
-      .from(articles)
-      .where(eq(articles.published, true));
-
-    return dbArticles.map(a => ({
-      slug: a.slugFr || a.slug,
-    }));
-  } catch {
-    return [];
-  }
+  return STORED_ARTICLES.map((a) => ({ slug: a.slugFr || a.slug }));
 }
 
 export async function generateMetadata({ params }: ArticlePageProps) {
@@ -465,6 +429,9 @@ export async function generateMetadata({ params }: ArticlePageProps) {
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
+  // Doublon d'une actualité déjà synthétisée : 301 vers la version de référence.
+  const primarySlug = DUPLICATE_SLUGS.get(slug);
+  if (primarySlug) permanentRedirect(`/articles/${primarySlug}`);
   const article = await getArticle(slug);
   
   if (!article || !article.published) {

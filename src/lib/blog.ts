@@ -8,6 +8,7 @@ import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { CYBER_CATEGORIES, classifyArticle } from '@/lib/articles';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
+import { DUPLICATE_SLUGS, STORED_ARTICLES, isHidden, type StoredArticle } from '@/lib/blog-store';
 import { RSS_FEED_URL, generateSlug } from '@/lib/rss-utils';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 
@@ -68,43 +69,68 @@ const listColumns = {
   updatedAt: articles.updatedAt,
 };
 
-async function listDbArticles(opts: { category?: string; q?: string; limit: number; editorialOnly?: boolean }): Promise<BlogListItem[]> {
+type ListRow = Pick<
+  StoredArticle,
+  'id' | 'title' | 'titleFr' | 'excerpt' | 'excerptFr' | 'image' | 'author' | 'category' | 'slug' | 'slugFr' | 'source' | 'sourceUrl' | 'createdAt' | 'updatedAt'
+>;
+
+const toListItem = (r: ListRow): BlogListItem => ({
+  key: `db-${r.slugFr || r.slug}`,
+  title: r.titleFr || r.title,
+  excerpt: r.excerptFr || r.excerpt,
+  image: r.image,
+  author: r.author,
+  category: r.category,
+  slug: r.slugFr || r.slug,
+  publishedAt: toIsoDate(r.createdAt),
+  updatedAt: toIsoDate(r.updatedAt || r.createdAt),
+  sourceType: 'db',
+  editorial: r.source !== 'rss',
+  sourceUrl: r.sourceUrl,
+});
+
+/**
+ * Articles enregistrés : copie du dépôt (toujours disponible), complétée par la base
+ * pour la veille synthétisée depuis la dernière copie. Base injoignable = copie seule.
+ */
+export async function listDbArticles(opts: { category?: string; q?: string; limit: number; editorialOnly?: boolean }): Promise<BlogListItem[]> {
+  const q = opts.q?.toLowerCase();
+  const stored = STORED_ARTICLES.filter(
+    (a) =>
+      (!opts.editorialOnly || a.source !== 'rss') &&
+      (!opts.category || a.category === opts.category) &&
+      (!q || [a.titleFr, a.excerptFr, a.category, a.tags].some((v) => v?.toLowerCase().includes(q))),
+  );
+
+  let fromDb: ListRow[] = [];
   const conditions = [eq(articles.published, true)];
   if (opts.editorialOnly) conditions.push(ne(articles.source, 'rss'));
   if (opts.category) conditions.push(eq(articles.category, opts.category));
-  if (opts.q) {
-    const q = `%${opts.q}%`;
-    conditions.push(or(like(articles.titleFr, q), like(articles.excerptFr, q), like(articles.category, q), like(articles.tags, q))!);
+  if (q) {
+    const like_ = `%${q}%`;
+    conditions.push(or(like(articles.titleFr, like_), like(articles.excerptFr, like_), like(articles.category, like_), like(articles.tags, like_))!);
   }
   try {
-    const rows = await db
-      .select(listColumns)
-      .from(articles)
-      .where(and(...conditions))
-      .orderBy(desc(articles.createdAt))
-      .limit(opts.limit);
-    // Une même source peut avoir été synthétisée plusieurs fois : on garde la plus récente.
-    const seen = new Set<string>();
-    return rows
-      .filter((r) => !r.sourceUrl || (!seen.has(r.sourceUrl) && seen.add(r.sourceUrl)))
-      .map((r) => ({
-        key: `db-${r.id}`,
-        title: r.titleFr || r.title,
-        excerpt: r.excerptFr || r.excerpt,
-        image: r.image,
-        author: r.author,
-        category: r.category,
-        slug: r.slugFr || r.slug,
-        publishedAt: toIsoDate(r.createdAt),
-        updatedAt: toIsoDate(r.updatedAt || r.createdAt),
-        sourceType: 'db' as const,
-        editorial: r.source !== 'rss',
-        sourceUrl: r.sourceUrl,
-      }));
+    fromDb = await db.select(listColumns).from(articles).where(and(...conditions)).orderBy(desc(articles.createdAt)).limit(opts.limit);
   } catch (error) {
-    console.error('[blog] lecture des articles en base échouée', error);
-    return [];
+    console.error('[blog] base injoignable, copie du dépôt seule', error);
   }
+
+  // Une même source peut avoir été synthétisée plusieurs fois : la copie du dépôt
+  // (versions de référence) passe en premier, les doublons de la base sont écartés.
+  const seenSlugs = new Set<string>();
+  const seenSources = new Set<string>();
+  return [...stored, ...fromDb]
+    .filter((r) => {
+      const slug = r.slugFr || r.slug;
+      if (isHidden(r) || DUPLICATE_SLUGS.has(slug) || seenSlugs.has(slug) || (r.sourceUrl && seenSources.has(r.sourceUrl))) return false;
+      seenSlugs.add(slug);
+      if (r.sourceUrl) seenSources.add(r.sourceUrl);
+      return true;
+    })
+    .map(toListItem)
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, opts.limit);
 }
 
 /** Flux de veille, traduit et classé (cache mémoire d'une heure, partagé avec l'API). */
@@ -177,12 +203,32 @@ export async function listBlogArticles(opts: { category?: string; q?: string; li
 /** Articles rédigés par SecuriTrust, mis en avant au-dessus du flux de veille. */
 export const listEditorialArticles = (limit = 6) => listDbArticles({ limit, editorialOnly: true });
 
-/** Catégories ayant au moins un article en base (pour le sitemap). */
+/** Catégories ayant au moins un article enregistré (pour le sitemap). */
 export async function dbCategoriesWithArticles(): Promise<string[]> {
+  return [...new Set((await listStoredArticleUrls()).map((a) => a.category))].filter((c) => categoryFromSlug(categorySlug(c)));
+}
+
+/** Articles enregistrés (dépôt + base) pour les sitemaps. */
+export async function listStoredArticleUrls(): Promise<{ slug: string; category: string; updatedAt: string }[]> {
+  const rows: Pick<StoredArticle, 'slug' | 'slugFr' | 'category' | 'sourceUrl' | 'updatedAt' | 'createdAt'>[] = [...STORED_ARTICLES];
   try {
-    const rows = await db.selectDistinct({ category: articles.category }).from(articles).where(eq(articles.published, true));
-    return rows.map((r) => r.category).filter((c) => categoryFromSlug(categorySlug(c)));
-  } catch {
-    return [];
+    rows.push(
+      ...(await db
+        .select({ slug: articles.slug, slugFr: articles.slugFr, category: articles.category, sourceUrl: articles.sourceUrl, updatedAt: articles.updatedAt, createdAt: articles.createdAt })
+        .from(articles)
+        .where(eq(articles.published, true))),
+    );
+  } catch (error) {
+    console.error('[blog] base injoignable, sitemap depuis la copie du dépôt', error);
   }
+  // Une seule adresse par actualité : la copie du dépôt (versions de référence) passe en premier.
+  const seen = new Set<string>();
+  return rows
+    .filter((r) => {
+      const keys = [r.slugFr || r.slug, r.sourceUrl].filter((k): k is string => !!k);
+      if (isHidden(r) || DUPLICATE_SLUGS.has(r.slugFr || r.slug) || keys.some((k) => seen.has(k))) return false;
+      keys.forEach((k) => seen.add(k));
+      return true;
+    })
+    .map((r) => ({ slug: r.slugFr || r.slug, category: r.category, updatedAt: toIsoDate(r.updatedAt || r.createdAt) }));
 }

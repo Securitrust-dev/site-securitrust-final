@@ -5,6 +5,7 @@ import { eq, or } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
+import { HIDDEN_SLUGS, findStoredArticle } from '@/lib/blog-store';
 
 export async function GET(
   request: NextRequest,
@@ -17,12 +18,19 @@ export async function GET(
       return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
     }
 
-    // 1. Check in DB first (Internal expertise)
-    const dbArticle = await db
-      .select()
-      .from(articles)
-      .where(or(eq(articles.slug, slug), eq(articles.slugFr, slug)))
-      .limit(1);
+    // 1. Articles enregistrés : copie du dépôt, puis base si elle répond.
+    let dbArticle = HIDDEN_SLUGS.has(slug) ? [] : [findStoredArticle(slug)].filter((a) => a !== null);
+    if (!dbArticle.length && !HIDDEN_SLUGS.has(slug)) {
+      try {
+        dbArticle = await db
+          .select()
+          .from(articles)
+          .where(or(eq(articles.slug, slug), eq(articles.slugFr, slug)))
+          .limit(1);
+      } catch (error) {
+        console.error('[api/articles/slug] base injoignable', error);
+      }
+    }
 
     if (dbArticle.length > 0) {
       const article = dbArticle[0];

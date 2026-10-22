@@ -1,8 +1,5 @@
 import { MetadataRoute } from 'next';
-import { db } from '@/db';
-import { articles } from '@/db/schema';
-import { eq } from 'drizzle-orm';
-import { categoryUrl, dbCategoriesWithArticles } from '@/lib/blog';
+import { categoryUrl, dbCategoriesWithArticles, listStoredArticleUrls } from '@/lib/blog';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.securitrust.fr';
@@ -93,33 +90,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  try {
-    // Fetch only internal indexable articles (DB)
-    const dbArticles = await db
-      .select({ slug: articles.slugFr, updatedAt: articles.updatedAt })
-      .from(articles)
-      .where(eq(articles.published, true));
+  // Articles et catégories : copie du dépôt, complétée par la base si elle répond.
+  const stored = await listStoredArticleUrls();
+  const articleEntries: MetadataRoute.Sitemap = stored.map((article) => ({
+    url: `${baseUrl}/articles/${article.slug}`,
+    lastModified: new Date(article.updatedAt),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
 
-    const articleEntries: MetadataRoute.Sitemap = dbArticles
-      .filter((article) => article.slug != null)
-      .map((article) => ({
-        url: `${baseUrl}/articles/${article.slug}`,
-        lastModified: article.updatedAt ? new Date(article.updatedAt) : new Date(),
-        changeFrequency: 'monthly',
-        priority: 0.6,
-      }));
+  // Pages catégories du blog ayant au moins un article (les vides sont en noindex).
+  const categoryEntries: MetadataRoute.Sitemap = (await dbCategoriesWithArticles()).map((category) => ({
+    url: `${baseUrl}${categoryUrl(category)}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.5,
+  }));
 
-    // Pages catégories du blog ayant au moins un article en base (les vides sont en noindex).
-    const categoryEntries: MetadataRoute.Sitemap = (await dbCategoriesWithArticles()).map((category) => ({
-      url: `${baseUrl}${categoryUrl(category)}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.5,
-    }));
-
-    return [...sitemapEntries, ...categoryEntries, ...articleEntries];
-  } catch (error) {
-    console.error('Error generating article sitemap entries:', error);
-    return sitemapEntries;
-  }
+  return [...sitemapEntries, ...categoryEntries, ...articleEntries];
 }
