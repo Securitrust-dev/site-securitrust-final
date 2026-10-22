@@ -6,7 +6,8 @@ import MatrixRain from '@/components/matrix-rain';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { BreadcrumbSchema } from '@/components/StructuredData';
+import { BreadcrumbSchema, JsonLd } from '@/components/StructuredData';
+import { LOGO_URL, ORG_ID, SITE_URL } from '@/site-chrome/schema.mjs';
 import sanitizeHtml from 'sanitize-html';
 import { db, client } from '@/db';
 import { articles } from '@/db/schema';
@@ -17,6 +18,30 @@ import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { classifyArticle } from '@/lib/articles';
 import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage, RSS_STOP_WORDS } from '@/lib/rss-utils';
 import ArticleInfographic from '@/components/ArticleInfographic';
+import { BLOG_URL, categoryUrl, cleanAuthor, formatFrDate, toIsoDate } from '@/lib/blog';
+
+// Rendu serveur mis en cache 1 h : évite de relancer la synthèse à chaque visite
+// (robots compris) tout en gardant les nouveaux articles de veille accessibles.
+export const revalidate = 3600;
+
+/** Repli « direct RSS » : texte anglais d'origine, seul le titre est traduit (id 0). */
+const isRawFeedCopy = (a: ArticleRow) => a.id === 0;
+const articleUrl = (a: ArticleRow) => `${BLOG_URL}/${a.slugFr || a.slug}`;
+
+/** Ajoute des ancres aux intertitres h2/h3 du contenu et en extrait le sommaire. */
+function withHeadingIds(html: string) {
+  const toc: { id: string; text: string; level: 2 | 3 }[] = [];
+  const used = new Set<string>();
+  const out = html.replace(/<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi, (_m, lvl, attrs, inner) => {
+    const text = inner.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+    let id = generateSlug(text).slice(0, 60) || 'section';
+    while (used.has(id)) id += '-2';
+    used.add(id);
+    toc.push({ id, text, level: Number(lvl) as 2 | 3 });
+    return `<h${lvl}${String(attrs).replace(/\sid="[^"]*"/i, '')} id="${id}">${inner}</h${lvl}>`;
+  });
+  return { html: out, toc };
+}
 
 const SANITIZE_OPTIONS = RSS_SANITIZE_OPTIONS;
 
@@ -56,6 +81,11 @@ async function synthesizeAndInsertArticle(item: any, slug: string): Promise<Arti
 
     // Extract image
     const imageUrl = extractImage(item);
+    // Slug d'URL demandé : l'article est enregistré sous cette adresse. (`s` et
+    // `updatedAt` étaient utilisés sans être déclarés : l'enregistrement levait une
+    // ReferenceError avalée par le catch, et rien n'était jamais stocké.)
+    const s = slug;
+    const updatedAt = new Date().toISOString();
 
     // Check if the generated slug already exists in DB (avoid UNIQUE constraint violation)
     const slugCheck = await db
@@ -86,7 +116,6 @@ async function synthesizeAndInsertArticle(item: any, slug: string): Promise<Arti
 
     // Store in DB
     const publishedDate = item.pubDate || item.isoDate || new Date().toISOString();
-    const updatedAt = new Date().toISOString();
     const impactsJson = synthesized.impacts?.length ? JSON.stringify(synthesized.impacts) : null;
 
     // Try full INSERT (with impacts + remediation), fall back to minimal if schema lacks these columns
@@ -320,7 +349,7 @@ async function getRssArticleDirect(slug: string): Promise<ArticleRow | null> {
       content: sanitizeHtml(bestItem.content || bestItem.description || '', SANITIZE_OPTIONS),
       contentFr: null,
       image: imageUrl,
-      author: bestItem.creator || 'The Hacker News',
+      author: cleanAuthor(bestItem.creator),
       category: classification.category,
       tags: JSON.stringify(classification.tags),
       lang: 'fr',
@@ -391,27 +420,30 @@ export async function generateMetadata({ params }: ArticlePageProps) {
     };
   }
 
-  const baseUrl = 'https://www.securitrust.fr';
-  const isRss = article.sourceType === 'rss';
   const metaTitle = article.titleFr || article.title;
   const metaDescription = article.excerptFr || article.excerpt;
 
+  // Tout article synthétisé est indexable ; seul le repli brut (texte anglais de la
+  // source) reste en noindex avec un canonical vers l'original.
+  const rawCopy = isRawFeedCopy(article);
   return {
-    title: `${metaTitle} | SecuriTrust`,
+    title: { absolute: `${metaTitle} | SecuriTrust` },
     description: metaDescription,
     robots: {
-      index: !isRss,
+      index: !rawCopy,
       follow: true,
     },
     alternates: {
-      canonical: isRss ? article.sourceUrl : `${baseUrl}/articles/${article.slug}`,
+      canonical: rawCopy && article.sourceUrl ? article.sourceUrl : articleUrl(article),
     },
     openGraph: {
       title: metaTitle,
       description: metaDescription,
-      url: `${baseUrl}/articles/${article.slug}`,
+      url: articleUrl(article),
       type: 'article',
-      publishedTime: article.createdAt,
+      publishedTime: toIsoDate(article.createdAt),
+      modifiedTime: toIsoDate(article.updatedAt || article.createdAt),
+      section: article.category,
       authors: [article.author],
       images: [
         {
@@ -441,15 +473,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const displayTitle = article.titleFr || article.title;
   const displayExcerpt = article.excerptFr || article.excerpt;
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-  };
 
   // Extract CVE number from title or tags
   const cveMatch = displayTitle.match(/(CVE-\d{4}-\d{4,})/i) ||
@@ -577,7 +600,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   // Build infographic props with stored or fallback impacts
   const finalImpacts = dbImpacts.length > 0 ? dbImpacts : fallback.impacts;
-  const finalAction = article.remediation || fallback.action;
+  const finalAction = article.action || fallback.action;
   const infographicProps = {
     cve: cveNumber,
     title: displayTitle.toUpperCase(),
@@ -587,42 +610,45 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     source: article.source === 'rss' ? 'The Hacker News' : 'SecuriTrust',
   };
 
+  const url = articleUrl(article);
+  const publishedIso = toIsoDate(article.createdAt);
+  const updatedIso = toIsoDate(article.updatedAt || article.createdAt);
+  const fromFeed = article.source === 'rss';
+  const rawCopy = isRawFeedCopy(article);
+  // Contenu affiché : texte français en base ; le repli brut n'affiche que l'extrait
+  // (on ne republie pas l'article anglais de la source).
+  const body = rawCopy ? null : withHeadingIds(sanitizeHtml(article.contentFr || article.content || '', SANITIZE_OPTIONS));
+  const toc = [
+    { id: 'synthese', text: 'Synthèse et impacts', level: 2 as const },
+    ...(body?.html.trim() ? [{ id: 'analyse', text: 'Analyse', level: 2 as const }, ...body.toc] : []),
+    ...(fromFeed && article.sourceUrl ? [{ id: 'source', text: 'Source', level: 2 as const }] : []),
+  ];
+
   const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': article.sourceType === 'rss' ? 'NewsArticle' : 'Article',
+    '@type': fromFeed ? 'NewsArticle' : 'BlogPosting',
     headline: displayTitle,
     description: displayExcerpt,
     image: article.image,
-    datePublished: article.createdAt,
-    dateModified: article.updatedAt || article.createdAt,
-    author: {
-      '@type': 'Person',
-      name: article.author,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'SecuriTrust',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/Logo-SecuriTrust-bleu-blanc-768x158-1764257964299.png',
-      },
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://www.securitrust.fr/articles/${article.slug}`,
-    },
+    datePublished: publishedIso,
+    dateModified: updatedIso,
+    articleSection: article.category,
+    inLanguage: 'fr-FR',
+    author: article.author === 'SecuriTrust'
+      ? { '@type': 'Organization', '@id': ORG_ID, name: 'SecuriTrust', url: SITE_URL }
+      : { '@type': 'Person', name: article.author },
+    publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'SecuriTrust', logo: { '@type': 'ImageObject', url: LOGO_URL } },
+    ...(fromFeed && article.sourceUrl ? { isBasedOn: article.sourceUrl } : {}),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <BreadcrumbSchema items={[
         { name: 'Accueil', url: 'https://www.securitrust.fr' },
-        { name: 'Articles', url: 'https://www.securitrust.fr/articles' },
-        { name: displayTitle, url: `https://www.securitrust.fr/articles/${article.slug}` },
+        { name: 'Articles', url: BLOG_URL },
+        { name: articleCategory, url: `https://www.securitrust.fr${categoryUrl(articleCategory)}` },
+        { name: displayTitle, url },
       ]} />
       <PromoBanner />
       <div className="relative min-h-screen bg-[#030303]">
@@ -651,11 +677,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               </Link>
 
               {/* Category Badge */}
-              <div className="px-4 py-2 bg-cyan-500/90 backdrop-blur-sm rounded">
+              <Link href={categoryUrl(articleCategory)} className="px-4 py-2 bg-cyan-500/90 backdrop-blur-sm rounded hover:bg-cyan-400">
                 <span className="text-xs font-semibold text-black uppercase tracking-wider">
-                  {article.category}
+                  {articleCategory}
                 </span>
-              </div>
+              </Link>
             </div>
 
             {/* Title */}
@@ -664,14 +690,17 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </h1>
 
             {/* Meta Info */}
-            <div className="flex items-center gap-6 text-sm text-slate-400 mb-10 pb-10 border-b border-white/10">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-400 mb-10 pb-10 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
-                <span>{formatDate(article.createdAt)}</span>
+                <span>Publié le <time dateTime={publishedIso}>{formatFrDate(publishedIso)}</time></span>
               </div>
+              {updatedIso.slice(0, 10) !== publishedIso.slice(0, 10) && (
+                <span>Mis à jour le <time dateTime={updatedIso}>{formatFrDate(updatedIso)}</time></span>
+              )}
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
-                <span>{article.author}</span>
+                <span>Par <span rel="author">{article.author}</span></span>
               </div>
             </div>
           </div>
@@ -680,10 +709,45 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         {/* Article Content */}
         <div className="relative z-10 pb-32">
           <div className="max-w-4xl mx-auto px-6">
-            <div className="glass-panel rounded-2xl p-8 md:p-12 lg:p-16">
+            {toc.length > 1 && (
+              <nav aria-labelledby="sommaire-titre" className="mb-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <h2 id="sommaire-titre" className="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-400">Sommaire</h2>
+                <ol className="space-y-2 text-sm text-slate-300">
+                  {toc.map((t) => (
+                    <li key={t.id} className={t.level === 3 ? 'pl-5' : ''}>
+                      <a href={`#${t.id}`} className="hover:text-cyan-300">{t.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+
+            <section id="synthese" aria-label="Synthèse et impacts" className="glass-panel rounded-2xl p-8 md:p-12 lg:p-16 scroll-mt-28">
               {/* Infographic component - impacts + action for all articles */}
               <ArticleInfographic {...infographicProps} />
-            </div>
+            </section>
+
+            {body?.html.trim() && (
+              <section id="analyse" className="mt-12 scroll-mt-28">
+                <h2 className="mb-6 text-2xl font-light text-white">Analyse</h2>
+                <div
+                  className="text-base leading-relaxed text-slate-300 [&_p]:mb-4 [&_a]:text-cyan-400 [&_a]:underline [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:text-white [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:text-white [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1 [&_[id]]:scroll-mt-28"
+                  dangerouslySetInnerHTML={{ __html: body.html }}
+                />
+              </section>
+            )}
+
+            {fromFeed && article.sourceUrl && (
+              <section id="source" className="mt-12 scroll-mt-28 border-t border-white/10 pt-8 text-sm text-slate-400">
+                <h2 className="mb-2 text-base font-medium text-white">Source</h2>
+                <p>
+                  {rawCopy ? 'Article original' : 'Synthèse SecuriTrust de l\'article'} publié par The Hacker News :{' '}
+                  <a href={article.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-cyan-400 underline">
+                    {article.title}
+                  </a>
+                </p>
+              </section>
+            )}
 
             {/* Back to Articles CTA */}
             <div className="text-center mt-16">

@@ -3,7 +3,7 @@ import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
-import { BreadcrumbSchema, ServiceSchema, FAQSchema } from '@/components/StructuredData';
+import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Search, ClipboardList, BarChart3, ListChecks, CheckCircle, ArrowRight, Map } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -52,12 +52,6 @@ const METHODOLOGIE = [
 export default function GapAnalysisPage() {
   return (
     <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
-      <BreadcrumbSchema items={[
-        { name: 'Accueil', url: '/' },
-        { name: 'Gouvernance & Conformité', url: '/gouvernance-conformite' },
-        { name: 'Audits', url: '/gouvernance-conformite/audits' },
-        { name: 'Gap Analysis', url: '/gap-analysis' },
-      ]} />
       <ServiceSchema
         name="Audit d'écart (Gap Analysis)"
         description="Comparaison de l'état actuel de votre organisation aux exigences d'un référentiel cible (ISO 27001, TISAX, DORA, HDS...) avec plan d'action priorisé et chiffré."

@@ -3,7 +3,7 @@ import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
-import { BreadcrumbSchema, ServiceSchema, FAQSchema } from '@/components/StructuredData';
+import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Compass, Users, BarChart3, BadgeCheck, CheckCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -52,12 +52,6 @@ const PILIERS = [
 export default function PilotageSmsiPage() {
   return (
     <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
-      <BreadcrumbSchema items={[
-        { name: 'Accueil', url: '/' },
-        { name: 'Gouvernance & Conformité', url: '/gouvernance-conformite' },
-        { name: 'Services Externalisés', url: '/gouvernance-conformite/services-externalises' },
-        { name: 'Pilotage SMSI', url: '/pilotage-smsi' },
-      ]} />
       <ServiceSchema
         name="Pilotage SMSI"
         description="Pilotage externalisé du Système de Management de la Sécurité de l'Information : gouvernance, animation du COSEC, gestion des risques, indicateurs et maintien en condition opérationnelle."

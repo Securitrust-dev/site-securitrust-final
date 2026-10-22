@@ -2,7 +2,8 @@ import './globals.css';
 import { ReactNode } from 'react';
 import { FloatingCTA } from '@/components/floating-cta';
 import { Metadata, Viewport } from 'next';
-import { OrganizationSchema, LocalBusinessSchema } from '@/components/StructuredData';
+import { OrganizationSchema } from '@/components/StructuredData';
+import { RouteBreadcrumbSchema } from '@/components/RouteBreadcrumbSchema';
 import { AnalyticsTracker } from '@/components/AnalyticsTracker';
 import Script from 'next/script';
 
@@ -103,7 +104,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </noscript>
         <link rel="stylesheet" href="/site-chrome.css" precedence="default" />
         <OrganizationSchema />
-        <LocalBusinessSchema />
+        <RouteBreadcrumbSchema />
         <AnalyticsTracker />
         {/* Suivi des leads (Calendly, tel, mailto, début de saisie) — commun avec les pages statiques */}
         <Script src="/site-tracking.js" strategy="afterInteractive" />

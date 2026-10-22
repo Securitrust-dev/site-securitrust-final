@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { categoryUrl, dbCategoriesWithArticles } from '@/lib/blog';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.securitrust.fr';
@@ -108,7 +109,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
       }));
 
-    return [...sitemapEntries, ...articleEntries];
+    // Pages catégories du blog ayant au moins un article en base (les vides sont en noindex).
+    const categoryEntries: MetadataRoute.Sitemap = (await dbCategoriesWithArticles()).map((category) => ({
+      url: `${baseUrl}${categoryUrl(category)}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.5,
+    }));
+
+    return [...sitemapEntries, ...categoryEntries, ...articleEntries];
   } catch (error) {
     console.error('Error generating article sitemap entries:', error);
     return sitemapEntries;

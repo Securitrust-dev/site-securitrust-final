@@ -4,6 +4,23 @@ import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react';
+import { FAQSchema } from '@/components/StructuredData';
+
+// Questions affichées dans la section FAQ et balisées en FAQPage (même source).
+const FAQS = [
+  {
+    question: "Quel est le prix d'un pentest entreprise en France ?",
+    answer: "Le prix d'un pentest entreprise en France dépend du périmètre : un pentest externe démarre généralement à partir de 3 500 €, un pentest interne entre 5 000 € et 15 000 €, et un pentest web/mobile entre 2 500 € et 8 000 €. SecuriTrust propose des offres adaptées aux budgets PME et ETI, avec un rapport livré en 5 à 10 jours ouvrés.",
+  },
+  {
+    question: "Qu'est-ce qu'un test d'intrusion entreprise ?",
+    answer: "Un test d'intrusion (ou pentest) est une simulation d'attaque informatique autorisée, réalisée par des experts certifiés OSCP, pour identifier les vulnérabilités exploitables dans votre système d'information. En France, il est recommandé par l'ANSSI et exigé par certains référentiels (ISO 27001, NIS2, DORA, HDS).",
+  },
+  {
+    question: "Pourquoi faire un test d'intrusion en France pour une PME ?",
+    answer: "Les PME françaises représentent 60 % des victimes de cyberattaques. Un test d'intrusion permet d'identifier les failles avant un ransomware ou une exfiltration de données, d'obtenir des livrables pour les assureurs cyber, et de démontrer sa conformité aux partenaires et clients.",
+  },
+];
 
 const services = [
   {
@@ -203,19 +220,14 @@ export default function ProtegerChiffreAffairesPage() {
         <section className="py-24 relative z-10">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl font-light text-white mb-10 tracking-tight">Questions fréquentes — Pentest Entreprise &amp; Test d&apos;Intrusion en France</h2>
+            <FAQSchema faqs={FAQS} />
             <div className="space-y-4">
-              <div className="glass-panel p-6 rounded-xl border border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Quel est le prix d&apos;un pentest entreprise en France ?</h3>
-                <p className="text-white/80 text-sm leading-relaxed">Le prix d&apos;un pentest entreprise en France dépend du périmètre : un pentest externe démarre généralement à partir de 3 500 €, un pentest interne entre 5 000 € et 15 000 €, et un pentest web/mobile entre 2 500 € et 8 000 €. SecuriTrust propose des offres adaptées aux budgets PME et ETI, avec un rapport livré en 5 à 10 jours ouvrés.</p>
-              </div>
-              <div className="glass-panel p-6 rounded-xl border border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Qu&apos;est-ce qu&apos;un test d&apos;intrusion entreprise ?</h3>
-                <p className="text-white/80 text-sm leading-relaxed">Un test d&apos;intrusion (ou pentest) est une simulation d&apos;attaque informatique autorisée, réalisée par des experts certifiés OSCP, pour identifier les vulnérabilités exploitables dans votre système d&apos;information. En France, il est recommandé par l&apos;ANSSI et exigé par certains référentiels (ISO 27001, NIS2, DORA, HDS).</p>
-              </div>
-              <div className="glass-panel p-6 rounded-xl border border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Pourquoi faire un test d&apos;intrusion en France pour une PME ?</h3>
-                <p className="text-white/80 text-sm leading-relaxed">Les PME françaises représentent 60 % des victimes de cyberattaques. Un test d&apos;intrusion permet d&apos;identifier les failles avant un ransomware ou une exfiltration de données, d&apos;obtenir des livrables pour les assureurs cyber, et de démontrer sa conformité aux partenaires et clients.</p>
-              </div>
+              {FAQS.map((item) => (
+                <div key={item.question} className="glass-panel p-6 rounded-xl border border-white/10">
+                  <h3 className="text-lg font-semibold text-white mb-3">{item.question}</h3>
+                  <p className="text-white/80 text-sm leading-relaxed">{item.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

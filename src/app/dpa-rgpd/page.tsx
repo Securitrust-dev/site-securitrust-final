@@ -3,7 +3,7 @@ import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
-import { BreadcrumbSchema, ServiceSchema, FAQSchema } from '@/components/StructuredData';
+import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { FileText, FileSignature, AlertTriangle, UserCheck, CheckCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -52,12 +52,6 @@ const PILIERS = [
 export default function DpaRgpdPage() {
   return (
     <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
-      <BreadcrumbSchema items={[
-        { name: 'Accueil', url: '/' },
-        { name: 'Gouvernance & Conformité', url: '/gouvernance-conformite' },
-        { name: 'Services Externalisés', url: '/gouvernance-conformite/services-externalises' },
-        { name: 'DPA & RGPD', url: '/dpa-rgpd' },
-      ]} />
       <ServiceSchema
         name="DPA & Sous-Traitance RGPD"
         description="Rédaction et négociation des accords de traitement (DPA), tenue du registre des traitements, DPIA et gestion des violations de données personnelles."

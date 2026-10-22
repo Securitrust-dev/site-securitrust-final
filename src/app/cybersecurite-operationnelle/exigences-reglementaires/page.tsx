@@ -4,6 +4,23 @@ import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react';
+import { FAQSchema } from '@/components/StructuredData';
+
+// Questions affichées dans la section FAQ et balisées en FAQPage (même source).
+const FAQS = [
+  {
+    question: "Qu'est-ce qu'un audit cybersécurité pour une PME ?",
+    answer: "Un audit cybersécurité PME est une évaluation complète de la posture de sécurité d'une entreprise : configurations, architectures réseau, applications et pratiques organisationnelles. Il identifie les écarts par rapport aux référentiels (ISO 27001, NIS2, CIS) et produit un plan de remédiation priorisé pour la direction.",
+  },
+  {
+    question: "Quel est le prix d'un audit cybersécurité PME en France ?",
+    answer: "Le coût d'un audit cybersécurité pour une PME française varie entre 3 000 € et 20 000 € selon le périmètre. Un audit flash (48–72h) commence à partir de 1 500 €. SecuriTrust propose des livrables certifiables et COMEX-ready adaptés aux contraintes budgétaires des PME et ETI.",
+  },
+  {
+    question: "Quels référentiels de conformité s'appliquent aux PME françaises ?",
+    answer: "Les PME françaises sont principalement concernées par le RGPD (données personnelles), NIS2 (secteurs essentiels), ISO 27001 (certification volontaire), et DORA (secteur financier). L'ANSSI recommande également le référentiel EBIOS RM pour l'analyse des risques. Un audit de configuration couvre l'ensemble de ces exigences.",
+  },
+];
 
 const services = [
   {
@@ -223,19 +240,14 @@ export default function ExigencesReglementairesPage() {
         <section className="py-24 relative z-10">
           <div className="max-w-4xl mx-auto px-6">
             <h2 className="text-3xl font-light text-white mb-10 tracking-tight">Questions fréquentes — Audit Cybersécurité PME &amp; Conformité</h2>
+            <FAQSchema faqs={FAQS} />
             <div className="space-y-4">
-              <div className="glass-panel p-6 rounded-xl border border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Qu&apos;est-ce qu&apos;un audit cybersécurité pour une PME ?</h3>
-                <p className="text-white/80 text-sm leading-relaxed">Un audit cybersécurité PME est une évaluation complète de la posture de sécurité d&apos;une entreprise : configurations, architectures réseau, applications et pratiques organisationnelles. Il identifie les écarts par rapport aux référentiels (ISO 27001, NIS2, CIS) et produit un plan de remédiation priorisé pour la direction.</p>
-              </div>
-              <div className="glass-panel p-6 rounded-xl border border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Quel est le prix d&apos;un audit cybersécurité PME en France ?</h3>
-                <p className="text-white/80 text-sm leading-relaxed">Le coût d&apos;un audit cybersécurité pour une PME française varie entre 3 000 € et 20 000 € selon le périmètre. Un audit flash (48–72h) commence à partir de 1 500 €. SecuriTrust propose des livrables certifiables et COMEX-ready adaptés aux contraintes budgétaires des PME et ETI.</p>
-              </div>
-              <div className="glass-panel p-6 rounded-xl border border-white/10">
-                <h3 className="text-lg font-semibold text-white mb-3">Quels référentiels de conformité s&apos;appliquent aux PME françaises ?</h3>
-                <p className="text-white/80 text-sm leading-relaxed">Les PME françaises sont principalement concernées par le RGPD (données personnelles), NIS2 (secteurs essentiels), ISO 27001 (certification volontaire), et DORA (secteur financier). L&apos;ANSSI recommande également le référentiel EBIOS RM pour l&apos;analyse des risques. Un audit de configuration couvre l&apos;ensemble de ces exigences.</p>
-              </div>
+              {FAQS.map((item) => (
+                <div key={item.question} className="glass-panel p-6 rounded-xl border border-white/10">
+                  <h3 className="text-lg font-semibold text-white mb-3">{item.question}</h3>
+                  <p className="text-white/80 text-sm leading-relaxed">{item.answer}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

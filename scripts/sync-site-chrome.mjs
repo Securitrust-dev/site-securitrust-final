@@ -1,11 +1,13 @@
 // Injecte le header/footer communs (src/site-chrome/chrome.mjs) dans les landing
 // pages statiques public/*.html, ainsi que les balises de <head> (feuille commune,
-// GTM, suivi des leads) et le <noscript> GTM. Idempotent : au premier passage,
+// GTM, suivi des leads), la fiche JSON-LD du cabinet (src/site-chrome/schema.mjs)
+// et le <noscript> GTM. Idempotent : au premier passage,
 // remplace le <header> et le <footer> d'origine ; ensuite, ce qui se trouve entre
 // les marqueurs site-chrome. Lancé par `npm run chrome:sync` et avant chaque build.
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { renderHeader, renderFooter, renderHeadTags, renderGtmNoscript } from '../src/site-chrome/chrome.mjs';
+import { organizationNode, renderJsonLdScript, websiteNode } from '../src/site-chrome/schema.mjs';
 
 const PUBLIC_DIR = new URL('../public/', import.meta.url).pathname;
 // Feuille commune intégrée dans chaque page : une requête bloquante de moins.
@@ -32,6 +34,8 @@ for (const file of readdirSync(PUBLIC_DIR).filter((f) => f.endsWith('.html'))) {
     html = replaceBlock(html, 'footer', renderFooter(), /<footer>[\s\S]*?<\/footer>/);
     // Premier passage : l'ancien <link> isolé laisse la place au bloc head complet.
     html = replaceBlock(html, 'head', renderHeadTags({ css: CHROME_CSS }), new RegExp(`${CSS_LINK}(?=\n</head>)`));
+    // Fiche du cabinet, référencée par @id depuis les blocs Service de chaque page.
+    html = replaceBlock(html, 'schema', renderJsonLdScript([organizationNode(), websiteNode()]), /(?=<!-- site-chrome:head -->)/);
     html = replaceBlock(html, 'gtm-noscript', renderGtmNoscript(), /(?<=<body[^>]*>\n)/);
   } catch (e) {
     throw new Error(`${file} : ${e.message}`);

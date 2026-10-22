@@ -3,6 +3,7 @@ import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { eq, desc, or, like, and } from 'drizzle-orm';
 import Parser from 'rss-parser';
+import sanitizeHtml from 'sanitize-html';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
 import { classifyArticle, CYBER_CATEGORIES } from '@/lib/articles';

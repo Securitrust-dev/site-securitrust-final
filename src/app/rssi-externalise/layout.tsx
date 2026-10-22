@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { preload } from "react-dom";
-import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { ServiceSchema } from "@/components/StructuredData";
 
 /* ============================================================================
    /rssi-externalise — page canonique, refondue le 2026-09-04.
@@ -44,12 +44,6 @@ export default function RSSIExternaliseLayout({ children }: { children: React.Re
         name="RSSI externalisé certifié à temps partagé"
         description="RSSI externalisé à temps partagé pour PME et ETI. Pilotage stratégique et opérationnel de votre sécurité SI, de l'audit à la conformité, du monitoring continu à la gestion de crise. +2 500 jours-homme de RSSI externalisé. Auditeur officiel AFNOR, certifié ISO 27001."
         url={`${BASE_URL}/rssi-externalise`}
-      />
-      <BreadcrumbSchema
-        items={[
-          { name: "Accueil", url: BASE_URL },
-          { name: "RSSI externalisé", url: `${BASE_URL}/rssi-externalise` },
-        ]}
       />
       {children}
     </>
