@@ -18,7 +18,11 @@ export const HIDDEN_SLUGS = new Set([
 export const isHidden = (a: { slug: string; slugFr?: string | null }) =>
   HIDDEN_SLUGS.has(a.slug) || (!!a.slugFr && HIDDEN_SLUGS.has(a.slugFr));
 
-const visible = (storedArticles as StoredArticle[]).filter((a) => !isHidden(a));
+// Les brouillons versionnés dans le dépôt (published === false) restent invisibles
+// partout — listes, recherche, sitemaps et page article (404) — jusqu'à ce qu'un
+// expert les relise et passe `published` à true. Les articles existants sont tous
+// publiés : ce filtre ne change donc rien à l'affichage actuel.
+const visible = (storedArticles as StoredArticle[]).filter((a) => !isHidden(a) && a.published !== false);
 const urlSlug = (a: StoredArticle) => a.slugFr || a.slug;
 
 // Une même actualité a parfois été synthétisée plusieurs fois, sous des adresses
