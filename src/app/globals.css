@@ -332,3 +332,28 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+/* ---- Simulateur de pentest (PentestEstimator, page /pentest) ---- */
+.est { color: #e7edf6; }
+.est-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 22px; }
+.est-ico { width: 32px; height: 32px; color: #22d3ee; flex-shrink: 0; }
+.est-title { margin: 0 0 4px; font-size: 1.4rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+.est-sub { margin: 0; font-size: 0.9rem; color: #94a3b8; max-width: 640px; }
+.est-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.est-field { border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 16px; margin: 0; background: rgba(255,255,255,0.02); }
+.est-field legend { padding: 0 6px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #22d3ee; }
+.est-opt { display: block; padding: 10px 12px; border: 1px solid rgba(255,255,255,0.08); border-radius: 9px; margin-top: 8px; cursor: pointer; transition: border-color .15s, background .15s; }
+.est-opt:hover { border-color: rgba(34,211,238,0.4); }
+.est-opt--on { border-color: #22d3ee; background: rgba(34,211,238,0.08); }
+.est-opt input { margin-right: 8px; accent-color: #22d3ee; }
+.est-opt-label { font-size: 0.9rem; color: #e7edf6; }
+.est-opt-aide { display: block; margin: 4px 0 0 24px; font-size: 0.78rem; color: #8b98ac; }
+.est-result { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; margin-top: 20px; padding: 22px 24px; border: 1px solid rgba(34,211,238,0.3); border-radius: 16px; background: rgba(34,211,238,0.06); }
+.est-result-kick { margin: 0 0 4px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: #22d3ee; }
+.est-result-main { margin: 0 0 6px; font-size: 1.25rem; color: #fff; }
+.est-result-note { margin: 0; font-size: 0.82rem; color: #94a3b8; max-width: 440px; }
+.est-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 9px; background: #22d3ee; color: #030303; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background .15s; }
+.est-cta:hover { background: #67e8f9; }
+.est-foot { margin: 14px 0 0; font-size: 0.82rem; color: #94a3b8; }
+.est-foot a { color: #22d3ee; }
+@media (max-width: 760px) { .est-grid { grid-template-columns: 1fr; } }

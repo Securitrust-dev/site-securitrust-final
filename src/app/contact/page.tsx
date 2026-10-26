@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { trackLead, trackLeadError } from '@/lib/analytics';
 import { MapPin, Phone, Mail, Clock, Send, Linkedin } from 'lucide-react';
@@ -9,13 +10,23 @@ import { InternalLinks } from '@/components/InternalLinks';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 
 export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageInner />
+    </Suspense>
+  );
+}
+
+function ContactPageInner() {
+  // Pré-remplissage depuis le simulateur de pentest (/pentest) : ?sujet=…&message=…
+  const params = useSearchParams();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     company: '',
-    subject: '',
-    message: ''
+    subject: params.get('sujet') || '',
+    message: params.get('message') || ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   // Retour affiché sous le bouton (aucun <Toaster> n'est monté : les toasts restaient invisibles).
