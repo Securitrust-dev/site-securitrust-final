@@ -88,7 +88,9 @@
           name: fd.get('name'),
           email: fd.get('email'),
           phone: fd.get('phone'),
+          company: fd.get('company') || undefined,
           subject: form.getAttribute('data-subject'),
+          message: form.getAttribute('data-message') || undefined,
           source: form.getAttribute('data-source'),
         }),
       })
@@ -97,11 +99,29 @@
           track('generate_lead', { form_id: formId, lead_service: form.getAttribute('data-service') });
           // La saisie n'est vidée qu'une fois le lead enregistré.
           form.reset();
-          show(
-            'ok',
-            '<strong>Demande bien reçue.</strong> Un expert vous rappelle sous 2h ouvrées. ' +
-              'Vous préférez fixer l’horaire ? <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener noreferrer">Réservez un créneau</a>.'
-          );
+          var download = form.getAttribute('data-download');
+          if (download) {
+            // Lead magnet : on déclenche le téléchargement du PDF et on invite à le relancer.
+            track('file_download', { form_id: formId, file_name: download });
+            var a = document.createElement('a');
+            a.href = download;
+            a.setAttribute('download', '');
+            a.rel = 'noopener';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            show(
+              'ok',
+              '<strong>Merci, votre document arrive.</strong> Le téléchargement a démarré. ' +
+                'S’il ne se lance pas, <a href="' + download + '" download>cliquez ici</a>.'
+            );
+          } else {
+            show(
+              'ok',
+              '<strong>Demande bien reçue.</strong> Un expert vous rappelle sous 2h ouvrées. ' +
+                'Vous préférez fixer l’horaire ? <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener noreferrer">Réservez un créneau</a>.'
+            );
+          }
         })
         .catch(function (err) {
           track('lead_form_error', { form_id: formId, error_type: String(err && err.message || 'network') });
