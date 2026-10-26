@@ -18,6 +18,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/audit-securite-technique',
     '/cgv',
     '/contact',
+    '/equipe',
+    '/certifications',
     '/cyber-vigilance-humaine',
     '/cybersecurite-operationnelle',
     '/cybersecurite-operationnelle/exigences-reglementaires',

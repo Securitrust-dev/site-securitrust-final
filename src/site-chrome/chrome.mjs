@@ -80,6 +80,8 @@ export const FOOTER_COLUMNS = [
   {
     title: 'Cabinet',
     links: [
+      { label: 'Équipe', href: '/equipe' },
+      { label: 'Certifications', href: '/certifications' },
       { label: 'Références', href: '/portfolio' },
       { label: 'Secteurs', href: '/secteurs' },
       { label: 'Articles', href: '/articles' },

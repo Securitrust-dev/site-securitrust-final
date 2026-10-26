@@ -143,6 +143,8 @@ export const renderJsonLdScript = (nodes) => `<script type="application/ld+json"
 const PAGES = {
   '/articles': ['Articles', '/'],
   '/contact': ['Contact', '/'],
+  '/equipe': ['Équipe', '/'],
+  '/certifications': ['Certifications', '/'],
   '/prise-de-rdv': ['Prise de rendez-vous', '/'],
   '/portfolio': ['Références', '/'],
   '/services': ['Services', '/'],
