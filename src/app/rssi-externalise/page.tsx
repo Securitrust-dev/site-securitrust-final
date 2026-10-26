@@ -5,6 +5,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./lp.css";
 import "./lp-v2.css";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import { PillarGuide } from "@/components/PillarGuide";
 import { trackLead, trackLeadError } from "@/lib/analytics";
 
 /* ============================================================================
@@ -460,6 +461,9 @@ export default function HomeDesignLPPage() {
           </div>
         </div>
       </section>
+
+      {/* ======================= GUIDE PILIER (J2.3/J3.5) ======================= */}
+      <PillarGuide slug="rssi-externalise" />
 
       {/* ======================= CTA FINAL ======================= */}
       <section className="section" id="contact">
