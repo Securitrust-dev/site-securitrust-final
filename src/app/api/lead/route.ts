@@ -21,8 +21,8 @@ export async function POST(req: NextRequest) {
     if (resend) {
       try {
         await resend.emails.send({
-          from: 'SecuriTrust <onboarding@resend.dev>',
-          to: ['contact@securitrust.fr'],
+          from: 'SecuriTrust <noreply@securitrust.fr>',
+          to: ['expertise@securitrust.fr'],
           subject: `🎯 Nouveau lead — ${organisation}`,
           html: `
             <h2>Nouveau lead depuis le site (formulaire hero)</h2>
