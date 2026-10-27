@@ -2,10 +2,11 @@ import { Cookie } from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
 import type { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Politique de Cookies',
-  description: "Cookies déposés sur le site SecuriTrust, finalités et gestion de votre consentement.",
+  description: metaDescription('/politique-de-cookies'),
   alternates: { canonical: 'https://www.securitrust.fr/politique-de-cookies' },
 };
 

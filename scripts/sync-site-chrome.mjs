@@ -4,6 +4,7 @@
 // et le <noscript> GTM. Idempotent : au premier passage,
 // remplace le <header> et le <footer> d'origine ; ensuite, ce qui se trouve entre
 // les marqueurs site-chrome. Lancé par `npm run chrome:sync` et avant chaque build.
+import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { renderHeader, renderFooter, renderHeadTags, renderGtmNoscript } from '../src/site-chrome/chrome.mjs';
@@ -11,6 +12,11 @@ import { organizationNode, renderJsonLdScript, websiteNode } from '../src/site-c
 import { PILLARS, STATIC_PILLARS } from '../src/site-chrome/pillars/index.mjs';
 import { renderPillar, renderPillarSchema, pillarSchemaNodes } from '../src/site-chrome/pillar-render.mjs';
 import { resolvePillarArticles } from '../src/site-chrome/pillar-articles.mjs';
+import { checkMetaDescriptions, metaDescription } from '../src/site-chrome/meta-descriptions.mjs';
+
+// Meta descriptions : 160 caractères au plus, une par page. Le build échoue sinon.
+const metaProblems = checkMetaDescriptions();
+if (metaProblems.length) throw new Error(`Meta descriptions invalides :\n${metaProblems.join('\n')}`);
 
 const PUBLIC_DIR = new URL('../public/', import.meta.url).pathname;
 // Articles du blog versionnés dans le dépôt : utilisés pour le bloc « Articles du blog »
@@ -25,6 +31,34 @@ const PILLAR_BY_FILE = new Map(STATIC_PILLARS.map((p) => [p.file, p]));
 // Feuille commune intégrée dans chaque page : une requête bloquante de moins.
 const CHROME_CSS = readFileSync(join(PUBLIC_DIR, 'site-chrome.css'), 'utf8');
 const CSS_LINK = '<link rel="stylesheet" href="/site-chrome.css">';
+
+const escAttr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
+// Remplace la meta description par celle de meta-descriptions.mjs ; les balises Open Graph
+// et Twitter qui la recopiaient mot pour mot suivent.
+function replaceDescription(html, pagePath) {
+  const current = html.match(/<meta name="description" content="([^"]*)" \/>/);
+  if (!current) throw new Error('<meta name="description"> introuvable');
+  const next = escAttr(metaDescription(pagePath));
+  return html.replaceAll(`content="${current[1]}"`, `content="${next}"`);
+}
+
+// Police Google chargée sans bloquer le rendu. L'ancien attribut onload="…" serait bloqué
+// par la CSP (pas d'empreinte possible pour un attribut) : un script inline fait la bascule.
+const FONT_ONLOAD = / onload="this\.onload=null;this\.rel='stylesheet'">/;
+const FONT_SWAP = `<script>document.getElementById('font-css').rel='stylesheet'</script>`;
+
+// Empreintes SHA-256 des scripts inline exécutables (hors JSON-LD, qui n'est pas exécuté)
+// de chaque page statique, pour sa CSP (src/site-chrome/csp.mjs, next.config.js).
+function inlineScriptHashes(html) {
+  const hashes = new Set();
+  for (const [, attrs, code] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+    if (/\bsrc=/.test(attrs) || /application\/ld\+json/.test(attrs)) continue;
+    hashes.add(`sha256-${createHash('sha256').update(code, 'utf8').digest('base64')}`);
+  }
+  return [...hashes].sort();
+}
+const STATIC_CSP = {};
 
 const block = (name, html) => `<!-- site-chrome:${name} -->\n${html}\n<!-- /site-chrome:${name} -->`;
 
@@ -42,6 +76,8 @@ for (const file of readdirSync(PUBLIC_DIR).filter((f) => f.endsWith('.html'))) {
   const before = readFileSync(path, 'utf8');
   let html = before;
   try {
+    html = html.replace(FONT_ONLOAD, ` id="font-css">\n${FONT_SWAP}`);
+    html = replaceDescription(html, file === 'index.html' ? '/' : `/${file.replace(/\.html$/, '')}`);
     html = replaceBlock(html, 'header', renderHeader({ position: 'sticky' }), /<header>[\s\S]*?<\/header>/);
     html = replaceBlock(html, 'footer', renderFooter(), /<footer>[\s\S]*?<\/footer>/);
     // Premier passage : l'ancien <link> isolé laisse la place au bloc head complet.
@@ -64,6 +100,7 @@ for (const file of readdirSync(PUBLIC_DIR).filter((f) => f.endsWith('.html'))) {
     writeFileSync(path, html);
     changed++;
   }
+  STATIC_CSP[file] = inlineScriptHashes(html);
 }
 console.log(`site-chrome : ${changed} page(s) statique(s) mise(s) à jour`);
 
@@ -84,3 +121,12 @@ for (const pillar of PILLARS.filter((p) => !p.file)) {
   if (prev !== module) { writeFileSync(out, module); generated++; }
 }
 if (generated) console.log(`site-chrome : ${generated} guide(s) pilier React généré(s)`);
+
+// CSP des pages statiques : empreintes de leurs scripts inline, lues par next.config.js.
+const cspOut = join(GEN_DIR, 'static-csp.json');
+const cspJson = JSON.stringify(STATIC_CSP, null, 2) + '\n';
+const cspPrev = (() => { try { return readFileSync(cspOut, 'utf8'); } catch { return null; } })();
+if (cspPrev !== cspJson) {
+  writeFileSync(cspOut, cspJson);
+  console.log('site-chrome : empreintes CSP des pages statiques mises à jour');
+}

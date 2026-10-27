@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Protection Anti-Ransomware | Prévention et Réponse aux Cyberattaques',
-  description: 'Protégez votre entreprise contre les ransomwares avec SecuriTrust. Stratégie de défense, détection précoce, sauvegardes sécurisées, réponse à incident et plan de reprise d\'activité.',
+  description: metaDescription('/protection-ransomware'),
   alternates: {
     canonical: 'https://www.securitrust.fr/protection-ransomware',
   },

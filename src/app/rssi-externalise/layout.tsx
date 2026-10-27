@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { preload } from "react-dom";
 import { ServiceSchema } from "@/components/StructuredData";
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 /* ============================================================================
    /rssi-externalise — page canonique, refondue le 2026-09-04.
@@ -19,8 +20,7 @@ const BASE_URL = "https://www.securitrust.fr";
 
 export const metadata: Metadata = {
   title: "RSSI externalisé — reprenez le contrôle de votre sécurité",
-  description:
-    "Cabinet de conseil en cybersécurité à Paris. RSSI externalisé à temps partagé, tests d'intrusion, mise en conformité ISO 27001, NIS2, DORA. Un pilotage stratégique de votre sécurité, sans le coût d'un plein temps.",
+  description: metaDescription('/rssi-externalise'),
   alternates: {
     canonical: `${BASE_URL}/rssi-externalise`,
   },

@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audits Cybersécurité & Conformité — Livrables Actionnables | SecuriTrust',
-  description: "Audits cybersécurité et conformité avec livrables actionnables : audit RGPD, ISO 27001, NIS2, DORA, audit organisationnel, audit technique. SecuriTrust, experts certifiés.",
-  keywords: ['audit cybersécurité', 'audit conformité', 'audit RGPD', 'audit ISO 27001', 'audit NIS2', 'audit technique sécurité', 'rapport audit'],
+  description: metaDescription('/gouvernance-conformite/audits'),
   alternates: {
     canonical: 'https://www.securitrust.fr/gouvernance-conformite/audits',
   },

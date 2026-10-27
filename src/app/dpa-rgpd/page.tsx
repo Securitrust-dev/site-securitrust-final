@@ -5,10 +5,11 @@ import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { FileText, FileSignature, AlertTriangle, UserCheck, CheckCircle, ArrowRight } from 'lucide-react';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'DPA & Sous-Traitance RGPD — Accords de Traitement des Données',
-  description: 'Rédaction et négociation de vos DPA (Data Processing Agreements), registre des traitements, DPIA et gestion des violations de données. Accompagnement RGPD par SecuriTrust.',
+  description: metaDescription('/dpa-rgpd'),
   alternates: {
     canonical: 'https://www.securitrust.fr/dpa-rgpd',
   },

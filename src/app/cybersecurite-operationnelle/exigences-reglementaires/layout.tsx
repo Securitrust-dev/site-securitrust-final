@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit de Conformité & Cybersécurité Réglementaire | SecuriTrust',
-  description: 'Audit de conformité cybersécurité pour PME françaises : NIS2, ISO 27001, DORA, RGPD. Configuration, architecture, code source, audit flash 48–72h. Livrables COMEX-ready.',
-  keywords: ['audit conformité cybersécurité', 'cybersécurité réglementaire', 'audit ISO 27001 PME', 'audit NIS2', 'conformité DORA', 'audit RGPD entreprise'],
+  description: metaDescription('/cybersecurite-operationnelle/exigences-reglementaires'),
   openGraph: {
     title: 'Audit de Conformité & Cybersécurité Réglementaire | SecuriTrust',
     description: 'Services d\'audit cybersécurité et de conformité pour PME et ETI françaises. Configuration, architecture, code source, flash, COMEX. Experts certifiés.',

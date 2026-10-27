@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Cyber-Vigilance Humaine & Sensibilisation Cybersécurité',
-  description: "Programmes de cyber-vigilance humaine pour réduire le risque lié aux comportements en entreprise : phishing simulé, sensibilisation, coaching SSI. Experts certifiés à Paris.",
-  keywords: ['cyber-vigilance humaine', 'sensibilisation cybersécurité', 'phishing simulation', 'formation cybersécurité', 'risque humain sécurité', 'OSINT formation'],
+  description: metaDescription('/cyber-vigilance-humaine'),
   alternates: {
     canonical: 'https://www.securitrust.fr/cyber-vigilance-humaine',
   },

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { ServiceSchema } from "@/components/StructuredData";
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 /* ============================================================================
    DRAFT — English home page, served at /en/outsourced-ciso.
@@ -19,17 +20,11 @@ const BASE_URL = "https://www.securitrust.fr";
 
 export const metadata: Metadata = {
   title: "Outsourced CISO — take back control of your security",
-  description:
-    "Cybersecurity consultancy. Outsourced CISO on a fractional basis, penetration testing, ISO 27001, NIS2 and DORA compliance. Strategic security leadership without the cost of a full-time hire.",
+  description: metaDescription('/en/outsourced-ciso'),
   robots: { index: false, follow: false },
   alternates: {
     canonical: `${BASE_URL}/en/outsourced-ciso`,
   },
-  keywords: [
-    "outsourced CISO", "fractional CISO", "vCISO", "cybersecurity consultancy",
-    "penetration testing", "pentest", "ISO 27001", "NIS2", "DORA", "GDPR compliance",
-    "security governance", "cyber risk management",
-  ],
   twitter: {
     card: "summary_large_image",
     title: "SecuriTrust — Outsourced CISO, steering your security",

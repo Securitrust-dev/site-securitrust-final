@@ -5,10 +5,11 @@ import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Target, Users, Radar, Crosshair, ShieldCheck, CheckCircle, ArrowRight } from 'lucide-react';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Analyse de Risques EBIOS RM — Méthode ANSSI',
-  description: 'Analyse de risques cyber selon la méthode EBIOS Risk Manager (ANSSI) : cartographie des scénarios de risque, homologation RGS, conformité NIS2 et ISO 27001. SecuriTrust.',
+  description: metaDescription('/ebios-rm'),
   alternates: {
     canonical: 'https://www.securitrust.fr/ebios-rm',
   },

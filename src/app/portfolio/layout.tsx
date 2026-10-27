@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Portfolio & Références — Réalisations Cybersécurité',
-  description: "Découvrez les réalisations de SecuriTrust : missions de pentest, audits de sécurité, certifications ISO 27001 et HDS, accompagnement RGPD pour nos clients.",
-  keywords: ['portfolio cybersécurité', 'références securitrust', 'réalisations pentest', 'cas clients cybersécurité', 'missions audit sécurité'],
+  description: metaDescription('/portfolio'),
   alternates: {
     canonical: 'https://www.securitrust.fr/portfolio',
   },

@@ -2,9 +2,11 @@ import { Metadata } from 'next';
 import { Shield } from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Politique de Confidentialité',
+  description: metaDescription('/politique-de-confidentialite'),
   alternates: { canonical: 'https://www.securitrust.fr/politique-de-confidentialite' },
 };
 

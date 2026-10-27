@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Domaines d\'Expertise Cybersécurité — Secteurs & Réglementations | SecuriTrust',
-  description: "Cartographie de vos obligations réglementaires par secteur : santé (HDS), finance (DORA), industrie (TISAX), collectivités (NIS2). RGPD, ISO 27001, experts SecuriTrust.",
-  keywords: ['domaines expertise cybersécurité', 'réglementation secteur', 'HDS santé', 'DORA finance', 'TISAX automobile', 'NIS2 collectivités', 'conformité sectorielle'],
+  description: metaDescription('/gouvernance-conformite/domaines-expertise'),
   alternates: {
     canonical: 'https://www.securitrust.fr/gouvernance-conformite/domaines-expertise',
   },

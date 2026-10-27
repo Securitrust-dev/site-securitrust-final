@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Services Cybersécurité : Pentest, Audit, RGPD, RSSI',
-  description: "Découvrez nos services : tests d'intrusion, audits de sécurité, conformité RGPD, RSSI externalisé, ISO 27001, NIS2, DORA. Experts certifiés.",
+  description: metaDescription('/services'),
   alternates: {
     canonical: 'https://www.securitrust.fr/services',
   },

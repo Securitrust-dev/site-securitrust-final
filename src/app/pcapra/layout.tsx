@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'PCA/PRA — Plan de Continuité et Reprise d\'Activité',
-  description: "Élaborez votre Plan de Continuité d'Activité (PCA) et Plan de Reprise d'Activité (PRA) avec SecuriTrust. Garantissez la résilience de votre organisation face aux sinistres et incidents critiques.",
-  keywords: ['PCA', 'PRA', 'plan continuité activité', 'plan reprise activité', 'continuité business', 'résilience cyber', 'gestion crise'],
+  description: metaDescription('/pcapra'),
   alternates: {
     canonical: 'https://www.securitrust.fr/pcapra',
   },

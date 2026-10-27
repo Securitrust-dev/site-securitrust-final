@@ -18,6 +18,13 @@ export const HIDDEN_SLUGS = new Set([
 export const isHidden = (a: { slug: string; slugFr?: string | null }) =>
   HIDDEN_SLUGS.has(a.slug) || (!!a.slugFr && HIDDEN_SLUGS.has(a.slugFr));
 
+/**
+ * Article de veille : synthèse d'une actualité externe (flux RSS, source citée ou auteur
+ * externe). Les autres sont les articles d'expertise rédigés par SecuriTrust.
+ */
+export const isVeille = (a: { source?: string | null; sourceUrl?: string | null; author?: string | null }) =>
+  a.source === 'rss' || !!a.sourceUrl || (!!a.author && a.author !== 'SecuriTrust');
+
 // Les brouillons versionnés dans le dépôt (published === false) restent invisibles
 // partout — listes, recherche, sitemaps et page article (404) — jusqu'à ce qu'un
 // expert les relise et passe `published` à true. Les articles existants sont tous

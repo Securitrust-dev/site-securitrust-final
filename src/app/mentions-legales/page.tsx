@@ -2,9 +2,11 @@ import { Metadata } from 'next';
 import { Shield, Check } from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales',
+  description: metaDescription('/mentions-legales'),
   alternates: { canonical: 'https://www.securitrust.fr/mentions-legales' },
 };
 

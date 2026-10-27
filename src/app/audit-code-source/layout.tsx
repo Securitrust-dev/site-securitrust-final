@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit de Code Source — Détection Vulnérabilités Applicatives',
-  description: "Audit de code source pour détecter les vulnérabilités de sécurité, failles logiques et erreurs de programmation. Analyse manuelle approfondie et outils spécialisés. Certifiés OSCP.",
-  keywords: ['audit code source', 'revue code sécurité', 'vulnérabilités applicatives', 'sécurité code', 'analyse code source', 'SAST'],
+  description: metaDescription('/audit-code-source'),
   alternates: {
     canonical: 'https://www.securitrust.fr/audit-code-source',
   },

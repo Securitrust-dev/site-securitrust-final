@@ -3,12 +3,13 @@
 // Partagé par les pages /articles (rendu serveur, indexable) et par /api/articles.
 
 import Parser from 'rss-parser';
-import { and, desc, eq, like, ne, or } from 'drizzle-orm';
+import { unstable_cache } from 'next/cache';
+import { and, desc, eq, like, or } from 'drizzle-orm';
 import { db } from '@/db';
 import { articles } from '@/db/schema';
 import { CYBER_CATEGORIES, classifyArticle } from '@/lib/articles';
 import { rssCache, CACHE_TTL } from '@/lib/rss-cache';
-import { DUPLICATE_SLUGS, STORED_ARTICLES, isHidden, type StoredArticle } from '@/lib/blog-store';
+import { DUPLICATE_SLUGS, STORED_ARTICLES, isHidden, isVeille, type StoredArticle } from '@/lib/blog-store';
 import { RSS_FEED_URL, generateSlug } from '@/lib/rss-utils';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 
@@ -26,7 +27,7 @@ export interface BlogListItem {
   publishedAt: string;
   updatedAt: string;
   sourceType: 'db' | 'rss';
-  /** Article rédigé par SecuriTrust (et non issu de la veille RSS). */
+  /** Article d'expertise rédigé par SecuriTrust (et non article de veille). */
   editorial: boolean;
   sourceUrl: string | null;
 }
@@ -37,6 +38,12 @@ export const categoryFromSlug = (slug: string) =>
   CYBER_CATEGORIES.find((c) => categorySlug(c) === slug);
 
 export const categoryUrl = (category: string) => `/articles/categorie/${categorySlug(category)}`;
+
+/** Rubrique « Veille » : synthèses d'actualités, séparées des articles d'expertise. */
+export const VEILLE_PATH = '/articles/veille';
+
+/** editorial : articles d'expertise seuls ; veille : veille seule ; absent : tout. */
+export type BlogKind = 'editorial' | 'veille';
 
 export function toIsoDate(value: string | null | undefined): string {
   const d = value ? new Date(value) : new Date(NaN);
@@ -85,7 +92,7 @@ const toListItem = (r: ListRow): BlogListItem => ({
   publishedAt: toIsoDate(r.createdAt),
   updatedAt: toIsoDate(r.updatedAt || r.createdAt),
   sourceType: 'db',
-  editorial: r.source !== 'rss',
+  editorial: !isVeille(r),
   sourceUrl: r.sourceUrl,
 });
 
@@ -93,25 +100,26 @@ const toListItem = (r: ListRow): BlogListItem => ({
  * Articles enregistrés : copie du dépôt (toujours disponible), complétée par la base
  * pour la veille synthétisée depuis la dernière copie. Base injoignable = copie seule.
  */
-export async function listDbArticles(opts: { category?: string; q?: string; limit: number; editorialOnly?: boolean }): Promise<BlogListItem[]> {
+async function loadDbArticles(opts: { category?: string; q?: string; limit: number; kind?: BlogKind }): Promise<BlogListItem[]> {
   const q = opts.q?.toLowerCase();
+  const ofKind = (a: Pick<StoredArticle, 'source' | 'sourceUrl' | 'author'>) =>
+    !opts.kind || (opts.kind === 'veille') === isVeille(a);
   const stored = STORED_ARTICLES.filter(
     (a) =>
-      (!opts.editorialOnly || a.source !== 'rss') &&
+      ofKind(a) &&
       (!opts.category || a.category === opts.category) &&
       (!q || [a.titleFr, a.excerptFr, a.category, a.tags].some((v) => v?.toLowerCase().includes(q))),
   );
 
   let fromDb: ListRow[] = [];
   const conditions = [eq(articles.published, true)];
-  if (opts.editorialOnly) conditions.push(ne(articles.source, 'rss'));
   if (opts.category) conditions.push(eq(articles.category, opts.category));
   if (q) {
     const like_ = `%${q}%`;
     conditions.push(or(like(articles.titleFr, like_), like(articles.excerptFr, like_), like(articles.category, like_), like(articles.tags, like_))!);
   }
   try {
-    fromDb = await db.select(listColumns).from(articles).where(and(...conditions)).orderBy(desc(articles.createdAt)).limit(opts.limit);
+    fromDb = (await db.select(listColumns).from(articles).where(and(...conditions)).orderBy(desc(articles.createdAt)).limit(opts.limit)).filter(ofKind);
   } catch (error) {
     console.error('[blog] base injoignable, copie du dépôt seule', error);
   }
@@ -134,7 +142,7 @@ export async function listDbArticles(opts: { category?: string; q?: string; limi
 }
 
 /** Flux de veille, traduit et classé (cache mémoire d'une heure, partagé avec l'API). */
-export async function listRssArticles(limit: number): Promise<BlogListItem[]> {
+async function loadRssArticles(limit: number): Promise<BlogListItem[]> {
   try {
     const feed = await new Parser().parseURL(RSS_FEED_URL);
     return await Promise.all(
@@ -177,16 +185,21 @@ export async function listRssArticles(limit: number): Promise<BlogListItem[]> {
   }
 }
 
+// Les pages du blog sont rendues à chaque requête (nonce CSP, voir middleware.ts) : la
+// base et le flux de veille sont mis en cache 30 min, comme l'était le rendu (ISR).
+export const listDbArticles = unstable_cache(loadDbArticles, ['blog-db-articles'], { revalidate: 1800 });
+export const listRssArticles = unstable_cache(loadRssArticles, ['blog-rss-articles'], { revalidate: 1800 });
+
 /**
  * Articles du blog, du plus récent au plus ancien. Les articles en base priment :
  * un élément RSS déjà synthétisé (même source ou même slug) n'est pas répété.
  */
-export async function listBlogArticles(opts: { category?: string; q?: string; limit?: number } = {}): Promise<BlogListItem[]> {
+export async function listBlogArticles(opts: { category?: string; q?: string; limit?: number; kind?: BlogKind } = {}): Promise<BlogListItem[]> {
   const limit = opts.limit ?? 24;
   const q = opts.q?.trim().toLowerCase();
   const [dbItems, rssItems] = await Promise.all([
-    listDbArticles({ category: opts.category, q, limit }),
-    listRssArticles(limit * 2),
+    listDbArticles({ category: opts.category, q, limit, kind: opts.kind }),
+    opts.kind === 'editorial' ? Promise.resolve([]) : listRssArticles(limit * 2),
   ]);
   const dbSources = new Set(dbItems.map((a) => a.sourceUrl).filter(Boolean));
   const dbSlugs = new Set(dbItems.map((a) => a.slug));
@@ -200,8 +213,8 @@ export async function listBlogArticles(opts: { category?: string; q?: string; li
   return [...dbItems, ...rss].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)).slice(0, limit);
 }
 
-/** Articles rédigés par SecuriTrust, mis en avant au-dessus du flux de veille. */
-export const listEditorialArticles = (limit = 6) => listDbArticles({ limit, editorialOnly: true });
+/** Articles d'expertise rédigés par SecuriTrust, en tête de /articles. */
+export const listEditorialArticles = (limit = 24) => listDbArticles({ limit, kind: 'editorial' });
 
 /** Catégories ayant au moins un article enregistré (pour le sitemap). */
 export async function dbCategoriesWithArticles(): Promise<string[]> {

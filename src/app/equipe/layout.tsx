@@ -2,11 +2,11 @@ import { Metadata } from 'next';
 import { JsonLd } from '@/components/StructuredData';
 import { ORG_ID, SITE_URL } from '@/site-chrome/schema.mjs';
 import { EXPERTS } from '@/content/equipe';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Notre équipe — Experts cybersécurité',
-  description:
-    "Rencontrez les experts de SecuriTrust : direction, gouvernance et conformité (NIS2, DORA, ISO 27001), pentest et RSSI externalisé. Cabinet de cybersécurité à Paris.",
+  description: metaDescription('/equipe'),
   alternates: { canonical: `${SITE_URL}/equipe` },
 };
 

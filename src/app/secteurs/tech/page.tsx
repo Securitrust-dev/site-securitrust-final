@@ -1,11 +1,12 @@
 import LandingSecteur from "@/components/secteurs/LandingSecteur";
 import { SECTEURS } from "@/lib/secteurs-data";
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 const data = SECTEURS["tech"];
 
 export const metadata = {
   title: `${data.label} — Cybersécurité & conformité ISO 27001`,
-  description: data.hero.sousTitre.slice(0, 155),
+  description: metaDescription('/secteurs/tech'),
   alternates: { canonical: 'https://www.securitrust.fr/secteurs/tech' },
 };
 

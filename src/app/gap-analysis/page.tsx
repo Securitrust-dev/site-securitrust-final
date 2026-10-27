@@ -5,10 +5,11 @@ import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Search, ClipboardList, BarChart3, ListChecks, CheckCircle, ArrowRight, Map } from 'lucide-react';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit d\'Écart (Gap Analysis) — Cartographie de vos Non-Conformités',
-  description: 'Gap Analysis / audit d\'écart face à un référentiel cible (ISO 27001, TISAX, DORA, HDS, NIS2...) : rapport structuré, plan d\'action priorisé et chiffré. SecuriTrust.',
+  description: metaDescription('/gap-analysis'),
   alternates: {
     canonical: 'https://www.securitrust.fr/gap-analysis',
   },

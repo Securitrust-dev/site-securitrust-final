@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'DPO Externalisé | Délégué à la Protection des Données RGPD',
-  description: 'Externalisez votre DPO avec SecuriTrust. Délégué à la Protection des Données certifié, désignation CNIL, registre des traitements, conformité RGPD et gestion des violations.',
+  description: metaDescription('/dpo-externalise'),
   alternates: {
     canonical: 'https://www.securitrust.fr/dpo-externalise',
   },

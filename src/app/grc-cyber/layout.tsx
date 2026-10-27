@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { FAQSchema, ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'GRC Cybersécurité — Gouvernance, Risques & Conformité',
-  description: "Accompagnement GRC cybersécurité : ISO 27001, NIS2, DORA, HDS, TISAX. Analyse de risques EBIOS & ISO 27005. SecuriTrust, auditeur officiel AFNOR.",
+  description: metaDescription('/grc-cyber'),
   alternates: {
     canonical: 'https://www.securitrust.fr/grc-cyber',
   },

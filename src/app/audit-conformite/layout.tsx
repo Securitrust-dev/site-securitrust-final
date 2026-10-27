@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit de Conformité — RGPD, NIS2, DORA, ISO 27001, HDS',
-  description: "Audit de conformité réglementaire en cybersécurité : RGPD, NIS2, DORA, ISO 27001, HDS. Évaluation de vos obligations légales, rapport d'écarts et plan de remédiation priorisé.",
-  keywords: ['audit conformité', 'audit RGPD', 'audit NIS2', 'audit DORA', 'audit ISO 27001', 'audit HDS', 'conformité réglementaire'],
+  description: metaDescription('/audit-conformite'),
   alternates: {
     canonical: 'https://www.securitrust.fr/audit-conformite',
   },

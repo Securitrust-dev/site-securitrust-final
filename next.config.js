@@ -1,3 +1,10 @@
+import { readFileSync } from 'node:fs';
+import { buildCsp, STATIC_PAGES } from './src/site-chrome/csp.mjs';
+
+// Empreintes des scripts inline des pages statiques (écrites par `npm run chrome:sync`,
+// lancé en prebuild).
+const STATIC_CSP_HASHES = JSON.parse(readFileSync(new URL('./src/site-chrome/generated/static-csp.json', import.meta.url), 'utf8'));
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compress: true,
@@ -115,24 +122,14 @@ const nextConfig = {
     };
   },
   async headers() {
-    // En dev, Next (webpack/HMR + react-refresh) exécute du code via eval() :
-    // sans 'unsafe-eval' la CSP bloque l'hydratation de TOUTES les pages.
-    // Autorisé en développement uniquement — la prod reste stricte (pas d'eval).
     const isDev = process.env.NODE_ENV !== 'production';
-    // Sources de scripts limitées au strict nécessaire : chaque domaine qui héberge du
-    // JS arbitraire (CDN publics, stockage Supabase…) permettrait de contourner la CSP.
-    //  - GTM (gtm.js) + tagmanager.google.com : mode Preview de Tag Assistant ;
-    //  - googleadservices / pagead2 / googleads.g.doubleclick : tag Google Ads
-    //    (AW-704286147) du conteneur GTM — cf. doc CSP Google ;
-    //  - static.axept.io : bandeau de consentement Axeptio, injecté par GTM ;
-    //  - assets.calendly.com : widget de prise de rendez-vous (/prise-de-rdv).
-    // 'unsafe-inline' reste nécessaire : Next.js et GTM injectent des scripts inline,
-    // et le retirer imposerait des nonces, donc un rendu dynamique de toutes les pages
-    // (plus de cache CDN). C'est ce qui plafonne la note securityheaders à A.
-    const scriptSrc =
-      "script-src 'self' 'unsafe-inline'" +
-      (isDev ? " 'unsafe-eval'" : '') +
-      ' https://*.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://www.google.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://static.axept.io https://assets.calendly.com';
+    // CSP (src/site-chrome/csp.mjs) : les pages React reçoivent la leur, avec un nonce
+    // par requête, de middleware.ts ; les landing pages statiques reçoivent ici une CSP
+    // fondée sur les empreintes de leurs scripts inline (générées par chrome:sync).
+    const staticCsp = (source, file) => ({
+      source,
+      headers: [{ key: 'Content-Security-Policy', value: buildCsp({ hashes: STATIC_CSP_HASHES[file] || [], dev: isDev }) }],
+    });
     // Fichiers de public/ : Vercel les sert par défaut en max-age=0 (revalidation à
     // chaque visite). Leurs noms ne sont pas hashés, d'où un cache borné plutôt
     // qu'immutable : 30 jours pour les médias, 1 h pour la feuille du header/footer
@@ -165,28 +162,9 @@ const nextConfig = {
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
           },
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              scriptSrc,
-              // Domaines Google : liste officielle CSP pour GTM + GA4 + Google Ads (+ mode Preview Tag Assistant)
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com https://assets.calendly.com https://fonts.axept.io",
-              "font-src 'self' https://fonts.gstatic.com https://fonts.axept.io",
-              "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://randomuser.me https://logo.clearbit.com https://blogger.googleusercontent.com https://thehackernews.com https://*.google-analytics.com https://*.googletagmanager.com https://ssl.gstatic.com https://www.gstatic.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://google.com https://*.axept.io https://axeptio.imgix.net",
-              "connect-src 'self' https://*.supabase.co https://*.axept.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://www.google.fr https://*.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com https://ad.doubleclick.net https://google.com",
-              "media-src 'self' https://*.supabase.co",
-              "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://calendly.com https://www.youtube-nocookie.com https://www.youtube.com",
-              "object-src 'none'",
-              // Équivalent moderne de X-Frame-Options (conservé pour les anciens navigateurs).
-              "frame-ancestors 'none'",
-              "base-uri 'self'",
-              "form-action 'self'",
-              "upgrade-insecure-requests",
-            ].join('; '),
-          },
         ],
       },
+      ...Object.entries(STATIC_PAGES).flatMap(([route, file]) => [staticCsp(route, file), staticCsp(`/${file}`, file)]),
     ];
   },
 };

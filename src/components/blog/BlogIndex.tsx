@@ -5,18 +5,18 @@ import Link from 'next/link';
 import { Calendar, User, ArrowRight, Search } from 'lucide-react';
 import { CYBER_CATEGORIES } from '@/lib/articles';
 import { ORG_ID } from '@/site-chrome/schema.mjs';
-import { type BlogListItem, BLOG_URL, categoryUrl, formatFrDate } from '@/lib/blog';
+import { type BlogListItem, BLOG_URL, VEILLE_PATH, categoryUrl, formatFrDate } from '@/lib/blog';
 
 // Domaines autorisés par images.remotePatterns (next.config.js) : les autres images
 // du flux sont affichées telles quelles plutôt que de faire échouer le rendu.
 const OPTIMIZABLE = /^(\/|https:\/\/([a-z0-9-]+\.)*(supabase\.co|images\.unsplash\.com|blogger\.googleusercontent\.com)\/)/;
 
-function Thumb({ src, priority }: { src: string; priority?: boolean }) {
+function Thumb({ src, alt, priority }: { src: string; alt: string; priority?: boolean }) {
   if (OPTIMIZABLE.test(src)) {
-    return <Image src={src} alt="" fill sizes="(max-width: 620px) 100vw, (max-width: 920px) 50vw, 380px" style={{ objectFit: 'cover' }} priority={priority} />;
+    return <Image src={src} alt={alt} fill sizes="(max-width: 620px) 100vw, (max-width: 920px) 50vw, 380px" style={{ objectFit: 'cover' }} priority={priority} />;
   }
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt="" loading={priority ? 'eager' : 'lazy'} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />;
+  return <img src={src} alt={alt} loading={priority ? 'eager' : 'lazy'} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />;
 }
 
 export function ArticleCard({ article, priority }: { article: BlogListItem; priority?: boolean }) {
@@ -25,9 +25,11 @@ export function ArticleCard({ article, priority }: { article: BlogListItem; prio
     <article className="article-card">
       <div className="thumb">
         <Link href={href} tabIndex={-1} aria-hidden="true">
-          <Thumb src={article.image} priority={priority} />
+          <Thumb src={article.image} alt={`Illustration de l’article : ${article.title}`} priority={priority} />
         </Link>
-        <Link href={categoryUrl(article.category)} className="cat">{article.category}</Link>
+        <Link href={article.editorial ? categoryUrl(article.category) : VEILLE_PATH} className="cat">
+          {article.editorial ? article.category : 'Veille'}
+        </Link>
       </div>
       <div className="body">
         <div className="meta">
@@ -42,6 +44,7 @@ export function ArticleCard({ article, priority }: { article: BlogListItem; prio
   );
 }
 
+/** current : catégorie active, ou 'veille' pour la rubrique Veille. */
 export function BlogNav({ current, query }: { current?: string; query?: string }) {
   const pill = (active: boolean): React.CSSProperties => ({
     padding: '8px 18px', borderRadius: 999, fontSize: 12, fontWeight: 500, letterSpacing: '.06em', textTransform: 'uppercase', whiteSpace: 'nowrap',
@@ -61,6 +64,7 @@ export function BlogNav({ current, query }: { current?: string; query?: string }
       <nav aria-label="Catégories du blog" style={{ marginTop: 28, overflowX: 'auto', paddingBottom: 6 }}>
         <ul style={{ display: 'flex', gap: 10, listStyle: 'none', margin: 0, padding: 0 }}>
           <li><Link href="/articles" style={pill(!current)} aria-current={!current ? 'page' : undefined}>Tous</Link></li>
+          <li><Link href={VEILLE_PATH} style={pill(current === 'veille')} aria-current={current === 'veille' ? 'page' : undefined}>Veille</Link></li>
           {CYBER_CATEGORIES.map((c) => (
             <li key={c}><Link href={categoryUrl(c)} style={pill(current === c)} aria-current={current === c ? 'page' : undefined}>{c}</Link></li>
           ))}

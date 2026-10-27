@@ -18,12 +18,11 @@ import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { classifyArticle } from '@/lib/articles';
 import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage, RSS_STOP_WORDS } from '@/lib/rss-utils';
 import ArticleInfographic from '@/components/ArticleInfographic';
-import { BLOG_URL, categoryUrl, cleanAuthor, formatFrDate, toIsoDate } from '@/lib/blog';
-import { DUPLICATE_SLUGS, HIDDEN_SLUGS, STORED_ARTICLES, findStoredArticle, isHidden } from '@/lib/blog-store';
+import { BLOG_URL, VEILLE_PATH, categoryUrl, cleanAuthor, formatFrDate, toIsoDate } from '@/lib/blog';
+import { DUPLICATE_SLUGS, HIDDEN_SLUGS, STORED_ARTICLES, findStoredArticle, isHidden, isVeille } from '@/lib/blog-store';
+import { clampDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { unstable_cache } from 'next/cache';
 
-// Rendu serveur mis en cache 1 h : évite de relancer la synthèse à chaque visite
-// (robots compris) tout en gardant les nouveaux articles de veille accessibles.
-export const revalidate = 3600;
 
 /** Repli « direct RSS » : texte anglais d'origine, seul le titre est traduit (id 0). */
 const isRawFeedCopy = (a: ArticleRow) => a.id === 0;
@@ -337,7 +336,7 @@ async function getRssArticleDirect(slug: string): Promise<ArticleRow | null> {
   }
 }
 
-async function getArticle(slug: string): Promise<ArticleRow | null> {
+async function loadArticle(slug: string): Promise<ArticleRow | null> {
   // 0. Copie versionnée dans le dépôt : ne dépend pas de la base.
   if (HIDDEN_SLUGS.has(slug)) return null;
   const stored = findStoredArticle(DUPLICATE_SLUGS.get(slug) ?? slug);
@@ -369,6 +368,11 @@ async function getArticle(slug: string): Promise<ArticleRow | null> {
   return getRssArticleDirect(slug);
 }
 
+// La page est rendue à chaque requête (nonce CSP, voir middleware.ts) : l'article est
+// mis en cache une heure, comme l'était le rendu (ISR). Sans ce cache, chaque visite d'une
+// veille récente relancerait la lecture du flux, voire une synthèse par Claude.
+const getArticle = unstable_cache(loadArticle, ['blog-article'], { revalidate: 3600 });
+
 // Articles du dépôt générés au build ; les autres (veille récente) à la demande.
 export async function generateStaticParams() {
   return STORED_ARTICLES.map((a) => ({ slug: a.slugFr || a.slug }));
@@ -385,7 +389,7 @@ export async function generateMetadata({ params }: ArticlePageProps) {
   }
 
   const metaTitle = article.titleFr || article.title;
-  const metaDescription = article.excerptFr || article.excerpt;
+  const metaDescription = clampDescription(article.excerptFr || article.excerpt);
 
   // Tout article synthétisé est indexable ; seul le repli brut (texte anglais de la
   // source) reste en noindex avec un canonical vers l'original.
@@ -581,6 +585,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const publishedIso = toIsoDate(article.createdAt);
   const updatedIso = toIsoDate(article.updatedAt || article.createdAt);
   const fromFeed = article.source === 'rss';
+  // Rubrique de l'article : veille (synthèse d'actualité) ou expertise (rédigé par le cabinet).
+  const veille = isVeille(article);
+  const backHref = veille ? VEILLE_PATH : '/articles';
   const rawCopy = isRawFeedCopy(article);
   // Contenu affiché : texte français en base ; le repli brut n'affiche que l'extrait
   // (on ne republie pas l'article anglais de la source).
@@ -592,7 +599,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   ];
 
   const jsonLd = {
-    '@type': fromFeed ? 'NewsArticle' : 'BlogPosting',
+    '@type': veille ? 'NewsArticle' : 'BlogPosting',
     headline: displayTitle,
     description: displayExcerpt,
     image: article.image,
@@ -614,7 +621,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <BreadcrumbSchema items={[
         { name: 'Accueil', url: 'https://www.securitrust.fr' },
         { name: 'Articles', url: BLOG_URL },
-        { name: articleCategory, url: `https://www.securitrust.fr${categoryUrl(articleCategory)}` },
+        veille
+          ? { name: 'Veille', url: `https://www.securitrust.fr${VEILLE_PATH}` }
+          : { name: articleCategory, url: `https://www.securitrust.fr${categoryUrl(articleCategory)}` },
         { name: displayTitle, url },
       ]} />
       <PromoBanner />
@@ -636,19 +645,26 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="flex flex-col items-start gap-4 mb-8">
               {/* Back Button */}
               <Link
-                href="/articles"
+                href={backHref}
                 className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 group"
               >
                 <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                <span className="text-sm uppercase tracking-wider font-medium">Retour aux articles</span>
+                <span className="text-sm uppercase tracking-wider font-medium">{veille ? 'Retour à la veille' : 'Retour aux articles'}</span>
               </Link>
 
-              {/* Category Badge */}
+              {/* Rubrique et catégorie */}
+              <div className="flex flex-wrap items-center gap-2">
+              {veille && (
+                <Link href={VEILLE_PATH} className="px-4 py-2 border border-cyan-400/60 rounded hover:bg-cyan-400/10">
+                  <span className="text-xs font-semibold text-cyan-300 uppercase tracking-wider">Veille</span>
+                </Link>
+              )}
               <Link href={categoryUrl(articleCategory)} className="px-4 py-2 bg-cyan-500/90 backdrop-blur-sm rounded hover:bg-cyan-400">
                 <span className="text-xs font-semibold text-black uppercase tracking-wider">
                   {articleCategory}
                 </span>
               </Link>
+              </div>
             </div>
 
             {/* Title */}
@@ -719,11 +735,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             {/* Back to Articles CTA */}
             <div className="text-center mt-16">
               <Link 
-                href="/articles"
+                href={backHref}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] rounded group"
               >
                 <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
-                <span>Tous les articles</span>
+                <span>{veille ? 'Toute la veille' : 'Tous les articles'}</span>
               </Link>
             </div>
           </div>

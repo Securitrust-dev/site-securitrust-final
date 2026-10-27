@@ -2,10 +2,11 @@ import { Shield } from 'lucide-react';
 import { Navbar } from '@/components/sections/navbar';
 import { Footer } from '@/components/sections/footer';
 import type { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Conditions Générales de Vente',
-  description: "Conditions générales de vente des prestations de conseil et d'audit en cybersécurité de SecuriTrust.",
+  description: metaDescription('/cgv'),
   alternates: { canonical: 'https://www.securitrust.fr/cgv' },
 };
 

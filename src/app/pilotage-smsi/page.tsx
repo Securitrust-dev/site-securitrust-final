@@ -5,10 +5,11 @@ import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Compass, Users, BarChart3, BadgeCheck, CheckCircle, ArrowRight } from 'lucide-react';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Pilotage SMSI — Système de Management de la Sécurité de l\'Information',
-  description: 'Pilotage externalisé de votre SMSI : politique de sécurité, animation du Comité Sécurité (COSEC), gestion des risques, indicateurs et maintien en condition ISO 27001. SecuriTrust.',
+  description: metaDescription('/pilotage-smsi'),
   alternates: {
     canonical: 'https://www.securitrust.fr/pilotage-smsi',
   },

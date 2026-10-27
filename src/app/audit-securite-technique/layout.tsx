@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit de Sécurité Technique — Infrastructure IT & Vulnérabilités',
-  description: "Audit de sécurité technique complet de votre infrastructure IT : analyse des configurations, architecture, vulnérabilités système et procédures de sécurité. Experts certifiés OSCP.",
-  keywords: ['audit sécurité technique', 'audit infrastructure IT', 'vulnérabilités système', 'audit réseau technique', 'analyse configuration sécurité'],
+  description: metaDescription('/audit-securite-technique'),
   alternates: {
     canonical: 'https://www.securitrust.fr/audit-securite-technique',
   },

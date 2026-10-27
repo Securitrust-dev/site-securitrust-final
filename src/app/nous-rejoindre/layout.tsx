@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Rejoindre SecuriTrust — Carrières en Cybersécurité à Paris',
-  description: "Rejoignez l'équipe SecuriTrust : offres d'emploi en cybersécurité, pentest, audit SSI, conformité RGPD/ISO 27001. Cabinet expert basé à Paris 75116. Devenez expert certifié.",
-  keywords: ['emploi cybersécurité', 'recrutement pentest', 'carrière sécurité informatique', 'offre emploi audit SSI', 'rejoindre cabinet cybersécurité Paris'],
+  description: metaDescription('/nous-rejoindre'),
   alternates: {
     canonical: 'https://www.securitrust.fr/nous-rejoindre',
   },

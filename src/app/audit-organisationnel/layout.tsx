@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit Organisationnel Cybersécurité — Gouvernance & Processus',
-  description: "Audit organisationnel de cybersécurité : évaluation des aspects humains et processuels, gouvernance SSI, définition des rôles et responsabilités, politique de sécurité.",
-  keywords: ['audit organisationnel', 'gouvernance SSI', 'processus sécurité', 'organisation cybersécurité', 'politique sécurité', 'rôles responsabilités SSI'],
+  description: metaDescription('/audit-organisationnel'),
   alternates: {
     canonical: 'https://www.securitrust.fr/audit-organisationnel',
   },

@@ -7,8 +7,6 @@ import { ArticleGrid, BlogNav, blogListJsonLd } from '@/components/blog/BlogInde
 import { CYBER_CATEGORIES } from '@/lib/articles';
 import { BLOG_URL, categoryFromSlug, categorySlug, listBlogArticles } from '@/lib/blog';
 
-export const revalidate = 1800;
-
 type Props = { params: Promise<{ categorie: string }> };
 
 export function generateStaticParams() {

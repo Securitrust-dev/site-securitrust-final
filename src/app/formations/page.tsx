@@ -6,11 +6,11 @@ import { InternalLinks } from '@/components/InternalLinks';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { FormationsHero } from '@/components/sections/formations/FormationsHero';
 import { FormationsCatalog } from '@/components/sections/formations/FormationsCatalog';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Formations Cybersécurité E-Learning — Pentest, RGPD, ISO 27001',
-  description: 'Formations en ligne en cybersécurité : Pentest, OWASP, Hacking Éthique, Forensics, RGPD. Apprenez à votre rythme avec nos experts certifiés OSCP.',
-  keywords: ['formation cybersécurité', 'e-learning pentest', 'formation OWASP', 'cours hacking éthique', 'formation RGPD', 'certification cybersécurité'],
+  description: metaDescription('/formations'),
   alternates: {
     canonical: 'https://www.securitrust.fr/formations',
   },

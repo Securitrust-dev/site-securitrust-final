@@ -6,6 +6,8 @@ import { OrganizationSchema } from '@/components/StructuredData';
 import { RouteBreadcrumbSchema } from '@/components/RouteBreadcrumbSchema';
 import { AnalyticsTracker } from '@/components/AnalyticsTracker';
 import Script from 'next/script';
+import { headers } from 'next/headers';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 const BASE_URL = 'https://www.securitrust.fr';
 
@@ -21,13 +23,8 @@ export const metadata: Metadata = {
     default: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité | Paris',
     template: '%s | SecuriTrust',
   },
-  description: "Cabinet de cybersécurité à Paris. Pentest, audit de sécurité, RSSI externalisé, conformité RGPD, ISO 27001, NIS2 & DORA. +10 ans d'expertise. Auditeur officiel AFNOR.",
-  keywords: [
-    'pentest', "test d'intrusion", 'audit cybersécurité', 'cabinet cybersécurité Paris',
-    'RSSI externalisé', 'DPO externalisé', 'conformité RGPD', 'ISO 27001',
-    'NIS2', 'DORA', 'audit sécurité informatique',
-    'gouvernance SSI', 'GRC cyber', "sécurité des systèmes d'information",
-  ],
+  // Description par défaut ; chaque page indexable définit la sienne (meta-descriptions.mjs).
+  description: metaDescription('/'),
   authors: [{ name: 'SecuriTrust' }],
   creator: 'SecuriTrust',
   publisher: 'SecuriTrust',
@@ -80,19 +77,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  // Nonce CSP de la requête (middleware.ts). Le lire rend chaque page dynamique : une
+  // page mise en cache garderait un nonce périmé et ses scripts seraient bloqués.
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
     <html lang="fr">
       <body>
         {/* Google Tag Manager — init du dataLayer (inline, tout en haut du body) */}
         <script
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html:
               "window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});",
           }}
         />
         {/* GTM loader — <script async> hoisté dans le <head> par React 19 (détectable par Tag Assistant) */}
-        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-P5D5S5WJ" />
+        <script async nonce={nonce} src="https://www.googletagmanager.com/gtm.js?id=GTM-P5D5S5WJ" />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
@@ -107,7 +108,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <RouteBreadcrumbSchema />
         <AnalyticsTracker />
         {/* Suivi des leads (Calendly, tel, mailto, début de saisie) — commun avec les pages statiques */}
-        <Script src="/site-tracking.js" strategy="afterInteractive" />
+        <Script src="/site-tracking.js" strategy="afterInteractive" nonce={nonce} />
         {children}
         <FloatingCTA />
       </body>

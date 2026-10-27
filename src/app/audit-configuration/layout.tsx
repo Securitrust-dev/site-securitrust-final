@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit de Configuration — Serveurs, Réseau & Systèmes',
-  description: "Audit de configuration de vos équipements réseau, serveurs, systèmes d'exploitation et applications : identification des faiblesses de paramétrage, rapport détaillé et plan de remédiation.",
-  keywords: ['audit configuration', 'audit serveurs', 'audit réseau', 'configuration sécurisée', 'hardening', 'faiblesses paramétrage'],
+  description: metaDescription('/audit-configuration'),
   alternates: {
     canonical: 'https://www.securitrust.fr/audit-configuration',
   },

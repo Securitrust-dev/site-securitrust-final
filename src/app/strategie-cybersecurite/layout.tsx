@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Stratégie de Cybersécurité | Conseil & Accompagnement SSI',
-  description: 'Définissez une stratégie de cybersécurité alignée sur vos enjeux métier. Conseil expert pour structurer votre sécurité et protéger votre développement.',
+  description: metaDescription('/strategie-cybersecurite'),
   alternates: {
     canonical: '/strategie-cybersecurite',
   },

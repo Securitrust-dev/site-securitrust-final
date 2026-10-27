@@ -4,7 +4,6 @@ import { ServiceSchema } from '@/components/StructuredData';
 export const metadata: Metadata = {
   title: 'Certification TISAX — Conformité Automobile & Sécurité Information | SecuriTrust',
   description: "Accompagnement TISAX pour fournisseurs et sous-traitants du secteur automobile. Diagnostic, mise en conformité et préparation à l'audit TISAX final. Experts certifiés SecuriTrust.",
-  keywords: ['TISAX', 'certification TISAX', 'conformité automobile', 'sécurité information automobile', 'audit TISAX', 'fournisseurs automobile'],
   alternates: {
     canonical: 'https://www.securitrust.fr/tisax-security',
   },

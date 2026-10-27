@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { SITE_URL } from '@/site-chrome/schema.mjs';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Certifications & accréditations',
-  description:
-    "Les certifications et accréditations de SecuriTrust et de ses consultants : ISO 27001, HDS et RGPD (AFAQ / AFNOR), ISO 27001 Lead Auditor & Lead Implementer, EBIOS Risk Manager, OSCP, CEH, PNPT, CRTP, CRTE.",
+  description: metaDescription('/certifications'),
   alternates: { canonical: `${SITE_URL}/certifications` },
 };
 

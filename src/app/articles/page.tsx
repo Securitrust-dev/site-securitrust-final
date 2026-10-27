@@ -4,21 +4,18 @@ import { InternalLinks } from '@/components/InternalLinks';
 import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
 import { ArticleGrid, BlogNav, blogListJsonLd } from '@/components/blog/BlogIndex';
 import { JsonLd } from '@/components/StructuredData';
-import { BLOG_URL, listBlogArticles, listEditorialArticles } from '@/lib/blog';
+import { BLOG_URL, VEILLE_PATH, listBlogArticles, listEditorialArticles } from '@/lib/blog';
 
-// Rendu serveur mis en cache (ISR) : la liste est dans le HTML, régénérée toutes les 30 min.
-export const revalidate = 1800;
+// Rendu serveur à chaque requête (nonce CSP) ; les données sont en cache 30 min (lib/blog).
 
 export default async function ArticlesPage() {
-  // Les analyses maison sont mises en avant : triées par date avec la veille (une
-  // dizaine d'articles par jour), elles quitteraient la page en quelques jours.
-  const [editorial, latest] = await Promise.all([listEditorialArticles(6), listBlogArticles({ limit: 24 })]);
-  const editorialKeys = new Set(editorial.map((a) => a.key));
-  const items = latest.filter((a) => !editorialKeys.has(a.key));
-  const jsonLd = blogListJsonLd([...editorial, ...items], {
+  // Articles d'expertise en tête ; la veille (une dizaine de synthèses par jour) a sa
+  // propre rubrique, /articles/veille, dont on ne montre ici que les dernières.
+  const [editorial, veille] = await Promise.all([listEditorialArticles(), listBlogArticles({ limit: 6, kind: 'veille' })]);
+  const jsonLd = blogListJsonLd(editorial, {
     name: 'Blog Cybersécurité SecuriTrust',
     url: BLOG_URL,
-    description: 'Analyses et actualités en cybersécurité par les experts SecuriTrust',
+    description: 'Analyses et guides en cybersécurité par les experts SecuriTrust',
   });
 
   return (
@@ -33,21 +30,24 @@ export default async function ArticlesPage() {
               <span className="now">Articles</span>
             </p>
             <h1>Articles</h1>
-            <p className="hero-sub">Découvrez nos dernières analyses et actualités en cybersécurité</p>
+            <p className="hero-sub">Analyses et guides de nos experts, et veille sur l&apos;actualité de la cybersécurité</p>
           </div>
         </section>
 
         <section className="sec" style={{ paddingTop: 0 }}>
           <div className="wrap">
             <BlogNav />
-            {editorial.length > 0 && (
+            <h2 style={{ marginTop: 48 }}>Analyses et guides SecuriTrust</h2>
+            <ArticleGrid items={editorial} empty="Aucun article pour le moment." />
+            {veille.length > 0 && (
               <>
-                <h2 style={{ marginTop: 48 }}>Analyses SecuriTrust</h2>
-                <ArticleGrid items={editorial} empty="" />
+                <h2 style={{ marginTop: 56 }}>Dernières veilles cybersécurité</h2>
+                <ArticleGrid items={veille} empty="" />
+                <p style={{ marginTop: 32, textAlign: 'center' }}>
+                  <Link href={VEILLE_PATH} className="btn-primary">Toute la veille cybersécurité →</Link>
+                </p>
               </>
             )}
-            <h2 style={{ marginTop: 56 }}>Veille cybersécurité</h2>
-            <ArticleGrid items={items} empty="Aucun article pour le moment." />
           </div>
         </section>
 

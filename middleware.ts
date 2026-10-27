@@ -1,5 +1,25 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { buildCsp, STATIC_PAGES } from './src/site-chrome/csp.mjs';
+
+const isDev = process.env.NODE_ENV !== 'production';
+
+/**
+ * Pages React : CSP avec un nonce propre à la réponse. Next.js lit le nonce dans l'en-tête
+ * Content-Security-Policy de la requête et l'applique à ses scripts ; le layout racine le
+ * reçoit via x-nonce pour le snippet GTM. Les landing pages statiques ont leur CSP par
+ * empreintes (next.config.js) et ne passent pas par ici.
+ */
+function withNonceCsp(request: NextRequest) {
+  const nonce = btoa(crypto.randomUUID());
+  const csp = buildCsp({ nonce, dev: isDev });
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-nonce', nonce);
+  requestHeaders.set('Content-Security-Policy', csp);
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  response.headers.set('Content-Security-Policy', csp);
+  return response;
+}
 
 // Simple in-memory rate limiting (for production, use Redis/Upstash)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -91,6 +111,11 @@ export function middleware(request: NextRequest) {
     }
   }
 
+  // Pages (hors API) : CSP à nonce, sauf landing pages statiques.
+  if (!pathname.startsWith('/api')) {
+    return pathname in STATIC_PAGES ? NextResponse.next() : withNonceCsp(request);
+  }
+
   // Only apply to API routes
   if (pathname.startsWith('/api')) {
     // Get client IP
@@ -175,5 +200,16 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/:path*', '/formations/apprendre/:path*'],
+  matcher: [
+    '/api/:path*',
+    // Toutes les pages, sauf ressources statiques (_next, fichiers avec extension) et
+    // préchargements de liens (pas de HTML rendu, donc pas de nonce utile).
+    {
+      source: '/((?!_next/static|_next/image|favicon.ico|.*\\.[a-z0-9]+$).*)',
+      missing: [
+        { type: 'header', key: 'next-router-prefetch' },
+        { type: 'header', key: 'purpose', value: 'prefetch' },
+      ],
+    },
+  ],
 };

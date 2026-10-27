@@ -5,6 +5,7 @@ import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { getFormationBySlug, getPublishedFormations, formatPrice } from '@/lib/formations-data';
 import { Clock, BookOpen, BarChart3, User, CheckCircle, ArrowRight, Play } from 'lucide-react';
+import { META_DESCRIPTIONS } from '@/site-chrome/meta-descriptions.mjs';
 
 export async function generateStaticParams() {
   return getPublishedFormations().map((f) => ({ slug: f.slug }));
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!formation) return { title: 'Formation introuvable' };
   return {
     title: formation.title,
-    description: formation.shortDescription,
+    description: META_DESCRIPTIONS[`/formations/${slug}`] ?? formation.shortDescription,
     alternates: { canonical: `https://www.securitrust.fr/formations/${slug}` },
   };
 }

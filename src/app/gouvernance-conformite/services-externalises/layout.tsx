@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'RSSI & DPO Externalisés — Services de Gouvernance SSI | SecuriTrust',
-  description: "RSSI externalisé et DPO externalisé : accédez à l'expertise d'un directeur cybersécurité ou délégué à la protection des données à temps partagé. Économique et immédiatement opérationnel.",
-  keywords: ['RSSI externalisé', 'DPO externalisé', 'CISO externe', 'délégué protection données', 'gouvernance SSI', 'sécurité externalisée'],
+  description: metaDescription('/gouvernance-conformite/services-externalises'),
   alternates: {
     canonical: 'https://www.securitrust.fr/gouvernance-conformite/services-externalises',
   },

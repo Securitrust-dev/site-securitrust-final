@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit OSINT | Renseignements en Sources Ouvertes',
-  description: 'Identifiez les informations sensibles de votre entreprise exposées publiquement sur Internet. Audit OSINT complet pour prévenir l\'espionnage et les cyberattaques.',
+  description: metaDescription('/osint'),
   alternates: {
     canonical: '/osint',
   },

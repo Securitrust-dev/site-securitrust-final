@@ -2,7 +2,7 @@
   {
     "id": 43,
     "title": "Cisco Unified CM Flaw Exploited After PoC Reveals File-Write Path to Root",
-    "titleFr": "CVE-2026-20230 : la faille critique Cisco Unified CM activement exploitée après publication d'un PoC",
+    "titleFr": "CVE-2026-20230 : la faille de Cisco Unified CM exploitée après la publication d'une preuve de concept",
     "excerpt": "Threat actors have begun to exploit a recently disclosed critical security flaw impacting Cisco Unified Communications Manager (Unified CM) and Unified Communications Manager Session Management Editio",
     "excerptFr": "Une vulnérabilité critique identifiée sous la référence CVE-2026-20230 affecte Cisco Unified Communications Manager et sa variante Session Management Edition. Notée 8.6 sur l'échelle CVSS, cette faille repose sur une validation insuffisante des entrées HTTP, permettant à un attaquant non authentifié d'exploiter un chemin d'écriture de fichiers jusqu'à obtenir des privilèges root. Depuis la publication d'un code de preuve de concept, des acteurs malveillants ont commencé à l'exploiter activement. Les équipes de sécurité doivent appliquer les correctifs Cisco sans délai, ces plateformes de communications unifiées étant déployées dans de nombreuses entreprises et administrations.",
     "content": "Threat actors have begun to exploit a recently disclosed critical security flaw impacting Cisco Unified Communications Manager (Unified CM) and Unified Communications Manager Session Management Edition (Unified CM SME).\n\nThe vulnerability, tracked as CVE-2026-20230 (CVSS score: 8.6), is a case of improper input validation for specific HTTP requests that could allow an unauthenticated, remote",
@@ -48,7 +48,7 @@
   {
     "id": 75,
     "title": "SEO-Poisoned Software Sites Abuse ScreenConnect to Deploy AsyncRAT",
-    "titleFr": "Campagne SEO frauduleuse exploite ScreenConnect pour déployer AsyncRAT sur les entreprises",
+    "titleFr": "Empoisonnement SEO : de faux sites de logiciels détournent ScreenConnect pour installer AsyncRAT",
     "excerpt": "Unknown threat actors are leveraging the ScreenConnect remote access tool as a way to deploy and execute AsyncRAT.\n\nKaspersky said the activity is part of a \"massive, multi-domain, multi-language\" cam",
     "excerptFr": "Des acteurs malveillants inconnus utilisent l'outil d'accès distant ScreenConnect pour déployer le malware AsyncRAT dans le cadre d'une campagne massive et multilingue. Selon Kaspersky, des sites web usurpant l'identité de logiciels populaires comme OBS Studio ou Bandicam servent à distribuer des archives d'installation piégées. Cette opération repose sur l'empoisonnement SEO pour attirer les victimes vers ces faux sites.",
     "content": "Unknown threat actors are leveraging the ScreenConnect remote access tool as a way to deploy and execute AsyncRAT.\n\nKaspersky said the activity is part of a \"massive, multi-domain, multi-language\" campaign that distributes malicious installer archives hosted on spoofed websites.\n\nThese installers masquerade as popular software like OBS Studio, DNS Jumper, DS4Windows, and Bandicam, among others.",
@@ -94,7 +94,7 @@
   {
     "id": 77,
     "title": "Ousaban Banking Trojan Targets Iberian Bank Users with Fake PDF Lures",
-    "titleFr": "Ousaban : le cheval de Troie bancaire brésilien vise les utilisateurs espagnols et portugais",
+    "titleFr": "Ousaban : le cheval de Troie bancaire cible les clients de banques ibériques avec de faux PDF",
     "excerpt": "A Brazilian banking trojan called Ousaban is going after Windows users who bank in Spain and Portugal. Fortinet's FortiGuard Labs identified the campaign in May 2026.\n\nIt opens with a phishing PDF dis",
     "excerptFr": "Le trojan bancaire Ousaban, d'origine brésilienne, cible les utilisateurs Windows des banques espagnoles et portugaises dans une campagne identifiée par FortiGuard Labs en mai 2026. L'attaque débute par un PDF de phishing se faisant passer pour un fichier corrompu, avec une vérification géographique de la victime. La charge malveillante est dissimulée à l'intérieur d'une image, une technique de stéganographie visant à contourner les défenses. L'objectif final est le vol de identifiants bancaires.",
     "content": "A Brazilian banking trojan called Ousaban is going after Windows users who bank in Spain and Portugal. Fortinet's FortiGuard Labs identified the campaign in May 2026.\n\nIt opens with a phishing PDF disguised as a corrupted file, checks that the visitor is really in Spain or Portugal, and hides its real payload inside an image.\n\nThe goal is the usual one: steal banking logins and take",
@@ -117,7 +117,7 @@
   {
     "id": 78,
     "title": "Adobe Patches 7 CVSS 10.0 Flaws in ColdFusion and Campaign Classic",
-    "titleFr": "Adobe corrige sept failles CVSS 10.0 critiques dans ColdFusion et Campaign Classic",
+    "titleFr": "Adobe corrige sept failles notées 10,0 (CVSS) dans ColdFusion et Campaign Classic",
     "excerpt": "Adobe has released patches for multiple maximum-severity security flaws impacting Adobe ColdFusion and Adobe Campaign Classic.\n\nThe ColdFusion updates \"resolves critical and important vulnerabilities ",
     "excerptFr": "Adobe a publié des correctifs d'urgence pour plusieurs vulnérabilités de sévérité maximale affectant ColdFusion et Campaign Classic. Ces failles, notées 10.0 au score CVSS, exposent les systèmes à des risques d'exécution de code arbitraire, d'élévation de privilèges, de lecture non autorisée du système de fichiers et de contournement des mécanismes de sécurité. La mise à jour immédiate de ces produits est fortement conseillée pour toute organisation les utilisant en production.",
     "content": "Adobe has released patches for multiple maximum-severity security flaws impacting Adobe ColdFusion and Adobe Campaign Classic.\n\nThe ColdFusion updates \"resolves critical and important vulnerabilities that could lead to arbitrary code execution, privilege escalation, arbitrary file system read, and security feature bypass,\" Adobe said in an alert released Tuesday.\n\nThe vulnerabilities are listed",
@@ -140,7 +140,7 @@
   {
     "id": 79,
     "title": "Critical Cursor Flaws Could Let Prompt Injection Escape Sandbox and Run Commands",
-    "titleFr": "Failles critiques dans Cursor : l'injection de prompt s'échappe du sandbox pour exécuter des commandes",
+    "titleFr": "Cursor : des failles critiques permettent à une injection de prompt de sortir du bac à sable et d'exécuter des commandes",
     "excerpt": "Two flaws in Cursor, an AI code editor, could let a single, ordinary-looking prompt break out of the editor's safety sandbox and run any command on a developer's computer. There is no click to fall fo",
     "excerptFr": "Deux vulnérabilités critiques découvertes dans l'éditeur de code IA Cursor permettent à une simple injection de prompt de contourner le sandbox de sécurité et d'exécuter des commandes arbitraires sur la machine d'un développeur. Baptisées DuneSlide par Cato AI Labs et référencées CVE-2026-50548 et CVE-2026-50549, ces failles sont toutes deux notées 9.8 sur 10. L'attaque ne nécessite aucune interaction supplémentaire de la part de l'utilisateur, ce qui la rend particulièrement redoutable dans des environnements de développement.",
     "content": "Two flaws in Cursor, an AI code editor, could let a single, ordinary-looking prompt break out of the editor's safety sandbox and run any command on a developer's computer. There is no click to fall for and no approval box to ignore.\n\nCato AI Labs found the pair and named them DuneSlide. They are tracked as CVE-2026-50548 and CVE-2026-50549, both rated 9.8 out of 10 (or 9.3",
@@ -163,7 +163,7 @@
   {
     "id": 80,
     "title": "Progress Kemp LoadMaster Pre-Auth RCE Flaw Faces Active Exploitation Attempts",
-    "titleFr": "Exploitation active de la faille RCE critique dans Progress Kemp LoadMaster",
+    "titleFr": "Progress Kemp LoadMaster : tentatives d'exploitation active d'une faille d'exécution de code sans authentification",
     "excerpt": "A recently disclosed critical security flaw impacting Progress Kemp LoadMaster is seeing active exploitation attempts, according to an advisory from eSentire's Threat Response Unit (TRU).\n\nThe Canadia",
     "excerptFr": "Une vulnérabilité critique de type injection de commandes OS affectant Progress Kemp LoadMaster fait l'objet de tentatives d'exploitation actives dans la nature. Référencée CVE-2026-8037 et notée 9.6 sur l'échelle CVSS, cette faille permet une exécution de code à distance sans authentification préalable. L'unité de réponse aux menaces d'eSentire a confirmé avoir détecté des tentatives d'exploitation ciblant des équipements exposés, ce qui en fait une priorité absolue de correction pour les équipes sécurité.",
     "content": "A recently disclosed critical security flaw impacting Progress Kemp LoadMaster is seeing active exploitation attempts, according to an advisory from eSentire's Threat Response Unit (TRU).\n\nThe Canadian cybersecurity company said it identified exploitation attempts targeting CVE-2026-8037 (CVSS score: 9.6), an operating system (OS) command injection flaw that could be exploited to achieve",
@@ -186,7 +186,7 @@
   {
     "id": 61,
     "title": "Anthropic Restores Claude Fable 5 After U.S. Lifts Jailbreak-Linked Export Controls",
-    "titleFr": "Anthropic rétablit Claude Fable 5 après la levée des contrôles à l'exportation américains",
+    "titleFr": "Anthropic rétablit Claude Fable 5 après la levée par les États-Unis de contrôles à l'exportation liés à un jailbreak",
     "excerpt": "Anthropic is putting Claude Fable 5 back online worldwide. On June 30, the U.S. Commerce Department lifted the export controls it had imposed on Fable and its more tightly controlled sibling Mythos 5 ",
     "excerptFr": "Le département américain du Commerce a levé le 30 juin 2025 les contrôles à l'exportation imposés sur les modèles d'IA Claude Fable 5 et Mythos 5 d'Anthropic, en vigueur depuis environ deux semaines et demi. Ces restrictions avaient été mises en place dans un contexte lié à des préoccupations de jailbreak. Dès le 1er juillet, Claude Fable 5 est de nouveau accessible mondialement via Claude.ai, la Claude Platform, Claude Code et Claude Cowork. Cet épisode illustre les tensions croissantes entre innovation en IA et impératifs réglementaires de sécurité nationale.",
     "content": "Anthropic is putting Claude Fable 5 back online worldwide. On June 30, the U.S. Commerce Department lifted the export controls it had imposed on Fable and its more tightly controlled sibling Mythos 5 about two and a half weeks earlier.\n\nFable 5 returns to users on Wednesday, July 1, across Claude.ai, the Claude Platform, Claude Code, and Claude Cowork.\n\nExport controls restrict who can",
@@ -209,7 +209,7 @@
   {
     "id": 62,
     "title": "Azure CLI Password Spray Hits at Least 78 Microsoft Accounts in 81M+ Attempts",
-    "titleFr": "Attaque massive par password spray sur Azure CLI : 78 comptes Microsoft compromis",
+    "titleFr": "Password spray via Azure CLI : au moins 78 comptes Microsoft touchés sur plus de 81 millions de tentatives",
     "excerpt": "Cybersecurity researchers have warned of a \"massive, ongoing, automated password spray attack\" aimed at Microsoft's Azure command-line interface (CLI), compromising dozens of accounts in the process.\n",
     "excerptFr": "Des chercheurs en cybersécurité ont identifié une campagne automatisée de password spray ciblant l'interface en ligne de commande Azure (Azure CLI) de Microsoft. Entre le 12 et le 26 juin, plus de 81 millions de tentatives d'authentification ont été détectées, aboutissant à la compromission d'au moins 78 comptes. L'attaque provient d'une plage d'adresses IPv6 attribuée au fournisseur d'infrastructure LSHIY LLC, ce qui complique sa détection et son blocage par les mécanismes de protection traditionnels.",
     "content": "Cybersecurity researchers have warned of a \"massive, ongoing, automated password spray attack\" aimed at Microsoft's Azure command-line interface (CLI), compromising dozens of accounts in the process.\n\nThe activity, per Huntress, originates from an IPv6 address range (2a0a:d683::/32) controlled by internet infrastructure provider LSHIY LLC (AS32167).\n\n\"Between June 12 and June 26, the threat",
@@ -232,7 +232,7 @@
   {
     "id": 63,
     "title": "Researcher Analyzes 3,000 Live ClickFix Payloads, Exposing API-Driven Malware Delivery",
-    "titleFr": "ClickFix industrialisé : des serveurs API livrent des malwares polymorphes à la demande",
+    "titleFr": "ClickFix : l'analyse de 3 000 charges actives révèle une diffusion de malwares pilotée par API",
     "excerpt": "ClickFix, the trick that fools people into running malware by hand, has quietly grown a back office.\n\nNew research shows the malicious commands behind its fake \"prove you're human\" pages are now hande",
     "excerptFr": "Une analyse portant sur 3 000 charges malveillantes actives révèle que la technique ClickFix, qui pousse les utilisateurs à exécuter eux-mêmes des scripts malveillants via de fausses pages de vérification humaine, repose désormais sur une infrastructure API sophistiquée. Ces serveurs génèrent des variantes uniques du même malware pour chaque visiteur, rendant la détection par signature quasi inefficace. Les chercheurs ont également identifié une nouvelle méthode de livraison conçue pour contourner l'analyse des scripts Windows.",
     "content": "ClickFix, the trick that fools people into running malware by hand, has quietly grown a back office.\n\nNew research shows the malicious commands behind its fake \"prove you're human\" pages are now handed out by API-driven servers that give each visitor the same malware in a different disguise. The same research also turned up a new delivery method built to slip past Windows' script scanning.",
@@ -255,7 +255,7 @@
   {
     "id": 64,
     "title": "Citrix Patches Six NetScaler Flaws Allowing File Read and Denial-of-Service",
-    "titleFr": "Citrix corrige six failles NetScaler permettant lecture de fichiers et déni de service",
+    "titleFr": "Citrix corrige six failles NetScaler permettant la lecture de fichiers et le déni de service",
     "excerpt": "Citrix on Tuesday released security updates to address multiple flaws in NetScaler ADC (formerly Citrix ADC) and NetScaler Gateway (formerly Citrix Gateway) that could be exploited by an attacker to f",
     "excerptFr": "Citrix a publié des mises à jour de sécurité pour ses produits NetScaler ADC et NetScaler Gateway afin de corriger six vulnérabilités identifiées. Ces failles pourraient permettre à un attaquant d'effectuer des lectures arbitraires de fichiers ou de provoquer des conditions de déni de service. Parmi elles, la CVE-2026-8451, notée 8.8 sur l'échelle CVSS, est liée à une validation insuffisante des entrées utilisateur. Ces équipements étant largement déployés en entreprise pour l'accès distant et la gestion des applications, leur compromission représente un risque significatif pour la sécurité des infrastructures réseau.",
     "content": "Citrix on Tuesday released security updates to address multiple flaws in NetScaler ADC (formerly Citrix ADC) and NetScaler Gateway (formerly Citrix Gateway) that could be exploited by an attacker to facilitate arbitrary file reads or trigger a denial-of-service (DoS) condition.\n\nThe vulnerabilities are listed below -\n\n\n  CVE-2026-8451 (CVSS score: 8.8) - An insufficient input validation",
@@ -278,7 +278,7 @@
   {
     "id": 65,
     "title": "Microsoft Warns Poisoned MCP Tool Descriptions Can Make AI Agents Leak Data",
-    "titleFr": "Microsoft alerte sur des descriptions MCP piégées qui exposent les données d'entreprise via les agents IA",
+    "titleFr": "Microsoft alerte : des descriptions d'outils MCP piégées peuvent pousser les agents IA à divulguer des données",
     "excerpt": "New Microsoft research shows how attackers can hijack AI agents that act on a user's behalf, using nothing more than a poisoned tool description to make the agent quietly hand over company data to an ",
     "excerptFr": "Des chercheurs de Microsoft Incident Response ont mis en évidence une technique d'attaque ciblant les agents IA autonomes via le protocole MCP (Model Context Protocol). En empoisonnant la description d'un outil exposé à l'agent, un attaquant peut le manipuler pour qu'il exfiltre discrètement des données sensibles vers un tiers. La particularité de cette menace réside dans sa furtivité : chaque action effectuée par l'agent paraît légitime, ce qui rend sa détection particulièrement difficile dans une configuration par défaut. Ce vecteur d'attaque soulève des questions importantes sur la sécurité des architectures agentiques en entreprise.",
     "content": "New Microsoft research shows how attackers can hijack AI agents that act on a user's behalf, using nothing more than a poisoned tool description to make the agent quietly hand over company data to an outsider.\n\nThe trick is that the agent never breaks a rule. Every step looks routine, so in a default setup no alarm may fire.\n\nThe work comes from Microsoft Incident Response and its",
@@ -301,7 +301,7 @@
   {
     "id": 66,
     "title": "RustDuck Botnet Rebuilds in Rust to Hijack Routers and Servers for DDoS",
-    "titleFr": "RustDuck : un botnet en Rust cible routeurs et serveurs pour des attaques DDoS",
+    "titleFr": "RustDuck : le botnet réécrit en Rust détourne routeurs et serveurs pour des attaques DDoS",
     "excerpt": "A new two-stage malware family called RustDuck is hijacking home routers, IP cameras, Android boxes, and poorly secured servers, then stitching them into a network built to knock websites and online s",
     "excerptFr": "Un nouveau malware baptisé RustDuck compromet des routeurs domestiques, caméras IP, boîtiers Android et serveurs mal sécurisés pour constituer un botnet orienté DDoS. Suivi depuis février 2026 par les chercheurs de XLab (QiAnXin), ce logiciel malveillant se distingue par sa rapidité d'évolution plutôt que par sa taille actuelle. Développé en Rust, il opère en deux étapes et cible des équipements souvent négligés en matière de sécurité.",
     "content": "A new two-stage malware family called RustDuck is hijacking home routers, IP cameras, Android boxes, and poorly secured servers, then stitching them into a network built to knock websites and online services offline.\n\nResearchers at QiAnXin's XLab have tracked it since February 2026, and say the real story is not how big it is today, but how fast it is changing.\n\nThe end goal is a",
@@ -324,7 +324,7 @@
   {
     "id": 67,
     "title": "Langflow RCE Exploited to Deploy Monero Miner on Exposed AI App Endpoints",
-    "titleFr": "CVE-2026-33017 : l'exécution de code à distance Langflow exploitée pour miner du Monero",
+    "titleFr": "Langflow : la faille d'exécution de code CVE-2026-33017 exploitée pour miner du Monero sur des applications IA exposées",
     "excerpt": "Threat actors are continuing to exploit a critical Langflow vulnerability as part of fresh attacks designed to deliver a Monero cryptocurrency miner.\n\nThe activity has been found to weaponize CVE-2026",
     "excerptFr": "Une vulnérabilité critique affectant Langflow, plateforme de développement d'applications d'intelligence artificielle, est activement exploitée par des acteurs malveillants. Référencée CVE-2026-33017 avec un score CVSS de 9.3, cette faille d'exécution de code à distance non authentifiée permet de compromettre des instances exposées publiquement afin d'y déployer un mineur de cryptomonnaie Monero. Les attaquants ciblent délibérément les endpoints d'applications IA accessibles sur internet, soulignant les risques croissants liés à l'exposition non sécurisée d'infrastructures d'IA.",
     "content": "Threat actors are continuing to exploit a critical Langflow vulnerability as part of fresh attacks designed to deliver a Monero cryptocurrency miner.\n\nThe activity has been found to weaponize CVE-2026-33017 (CVSS score: 9.3), an unauthenticated remote code execution (RCE) vulnerability in Langflow, indicating threat actors are scanning and targeting exposed artificial intelligence (AI)",
@@ -393,7 +393,7 @@
   {
     "id": 70,
     "title": "282 iOS AI Apps Leak API Keys and Open AI Proxy Access in Network Traffic Study",
-    "titleFr": "282 applications iOS exposent des clés API d'IA en clair dans leur trafic réseau",
+    "titleFr": "282 applications iOS d'IA exposent des clés API et l'accès à leurs proxys IA dans leur trafic réseau",
     "excerpt": "Researchers tested 444 AI chatbot apps for iPhone and found that 282 of them, nearly two-thirds, exposed paid AI access through their network traffic.\n\nIn many cases, the path in was visible just by w",
     "excerptFr": "Une étude portant sur 444 applications de chatbot IA pour iPhone révèle que 282 d'entre elles, soit près des deux tiers, exposent des accès payants à des modèles d'IA via leur trafic réseau. Dans de nombreux cas, une simple analyse du trafic suffit à récupérer une clé API en clair, un token réutilisable, voire un serveur backend acceptant des requêtes sans authentification. Tout individu interceptant ces données peut ainsi exploiter les comptes développeurs concernés pour envoyer des requêtes aux modèles de langage à leurs frais.",
     "content": "Researchers tested 444 AI chatbot apps for iPhone and found that 282 of them, nearly two-thirds, exposed paid AI access through their network traffic.\n\nIn many cases, the path in was visible just by watching what the app sent: a plaintext API key, a reusable token, or a backend server that accepted requests with no key at all.\n\nWhoever grabs it can send model requests on the developer's account,",
@@ -416,7 +416,7 @@
   {
     "id": 52,
     "title": "What the Numbers Say About FIFA 2026 Cyber Risk",
-    "titleFr": "Coupe du Monde FIFA 2026 : une infrastructure de fraude cyber déployée avant le coup d'envoi",
+    "titleFr": "Coupe du monde FIFA 2026 : ce que disent les chiffres sur le risque cyber",
     "excerpt": "The FIFA World Cup 2026 opened on June 11. By that date, according to Check Point Research, the fraud infrastructure targeting it had already been built, staged, and partially deployed. Threat actor a",
     "excerptFr": "Selon Check Point Research, l'infrastructure frauduleuse ciblant la Coupe du Monde FIFA 2026 était déjà construite et partiellement opérationnelle avant même l'ouverture du tournoi le 11 juin. Les acteurs malveillants avaient planifié leurs opérations plusieurs mois à l'avance, couvrant trois secteurs distincts et au moins dix langues. Ce niveau de préparation illustre la professionnalisation croissante des cybercriminels qui exploitent les grands événements sportifs mondiaux comme vecteurs d'attaque et de fraude à grande échelle.",
     "content": "The FIFA World Cup 2026 opened on June 11. By that date, according to Check Point Research, the fraud infrastructure targeting it had already been built, staged, and partially deployed. Threat actor activity was pre-planned, months out, across three sectors and at least ten languages.\n\nCheck Point Exposure Management published the FIFA World Cup 2026 Cyber Threat Report this month, covering",
@@ -462,7 +462,7 @@
   {
     "id": 47,
     "title": "Attackers Exploit SimpleHelp CVE-2026-48558 to Deploy TaskWeaver and Djinn Stealer",
-    "titleFr": "CVE-2026-48558 dans SimpleHelp exploitée pour déployer deux nouveaux malwares",
+    "titleFr": "CVE-2026-48558 : la faille SimpleHelp exploitée pour déployer TaskWeaver et Djinn Stealer",
     "excerpt": "An unknown threat actor has been observed exploiting a recently disclosed maximum-severity security flaw in SimpleHelp to deliver two previously unreported malware families, TaskWeaver and Djinn Steal",
     "excerptFr": "Un acteur malveillant inconnu exploite activement une vulnérabilité critique de score CVSS 10.0 affectant SimpleHelp, un outil de support à distance largement utilisé. La faille CVE-2026-48558 permet de contourner l'authentification via le flux OpenID Connect sans aucune interaction préalable. Cette exploitation conduit au déploiement de deux familles de malwares jusqu'alors inconnues : TaskWeaver et Djinn Stealer. La nature maximale de la sévérité de cette vulnérabilité, combinée à l'apparition de nouvelles souches malveillantes, représente une menace sérieuse pour les organisations utilisant SimpleHelp dans leurs environnements de support technique.",
     "content": "An unknown threat actor has been observed exploiting a recently disclosed maximum-severity security flaw in SimpleHelp to deliver two previously unreported malware families, TaskWeaver and Djinn Stealer.\n\nThe intrusion involves the exploitation of CVE-2026-48558 (CVSS score: 10.0), a critical authentication bypass vulnerability impacting the OpenID Connect (OIDC) flow that an unauthenticated",
@@ -531,7 +531,7 @@
   {
     "id": 45,
     "title": "AirDrop and Quick Share Flaws Let Nearby Attackers Trigger Crashes and Bypass Checks",
-    "titleFr": "AirDrop et Quick Share : six failles permettent des attaques sans connexion préalable",
+    "titleFr": "AirDrop et Quick Share : des failles permettent à un attaquant à proximité de provoquer des plantages et de contourner des contrôles",
     "excerpt": "Two researchers have found six security flaws in AirDrop and Quick Share, the wireless features that beam files between nearby devices with no cables or shared network.\n\nAn attacker within wireless ra",
     "excerptFr": "Des chercheurs ont identifié six vulnérabilités affectant AirDrop d'Apple et Quick Share de Google, deux fonctionnalités de partage de fichiers sans fil. Un attaquant situé à portée sans fil, disposant uniquement d'un ordinateur portable, peut provoquer le plantage du service de partage sur un Mac ou un iPhone configuré pour recevoir des fichiers de n'importe qui, sans aucune interaction de la part de la victime. Des failles similaires ont également été découvertes dans Quick Share. Ces vulnérabilités sont particulièrement préoccupantes dans les environnements publics tels que les aéroports, les gares ou les espaces de coworking, où les appareils sont souvent configurés en mode ouvert.",
     "content": "Two researchers have found six security flaws in AirDrop and Quick Share, the wireless features that beam files between nearby devices with no cables or shared network.\n\nAn attacker within wireless range, with just a laptop and no prior connection, can crash the sharing service on a Mac or iPhone set to receive from anyone, with no tap or prompt.\n\nThe same research found Quick Share flaws that",
@@ -623,7 +623,7 @@
   {
     "id": 41,
     "title": "New BioShocking Attack Tricks AI Browsers Into Leaking User Credentials",
-    "titleFr": "BioShocking : une attaque trompe les navigateurs IA pour voler vos identifiants",
+    "titleFr": "BioShocking : une nouvelle attaque pousse les navigateurs IA à divulguer les identifiants des utilisateurs",
     "excerpt": "Convince an AI browser that it is playing a game, and it can hand over your login details. That is the finding behind BioShocking, a technique from security firm LayerX that tricked six AI browsers an",
     "excerptFr": "Des chercheurs de la société LayerX ont mis au point une technique baptisée BioShocking, capable de piéger six navigateurs et assistants basés sur l'intelligence artificielle pour leur faire divulguer les identifiants de connexion d'un utilisateur. Le principe repose sur une manipulation contextuelle : convaincre le navigateur IA qu'il participe à un jeu, ce qui l'amène à copier et transmettre les credentials à un attaquant. Parmi les cibles identifiées figurent ChatGPT Atlas d'OpenAI, Comet de Perplexity et l'extension de navigateur Claude d'Anthropic. Cette découverte soulève des questions sérieuses quant à la sécurité des outils IA intégrés aux environnements de navigation, notamment dans un contexte professionnel où ces assistants accèdent à des ressources sensibles.",
     "content": "Convince an AI browser that it is playing a game, and it can hand over your login details. That is the finding behind BioShocking, a technique from security firm LayerX that tricked six AI browsers and assistants into copying a user's credentials and sending them to an attacker.\n\nThe targets included OpenAI's ChatGPT Atlas, Perplexity's Comet, and Anthropic's Claude browser extension.\n\nAn",
@@ -646,7 +646,7 @@
   {
     "id": 42,
     "title": "Progress Kemp LoadMaster Flaw Could Let Attackers Run Root Commands Pre-Auth",
-    "titleFr": "Faille critique CVE-2026-8037 dans Progress Kemp LoadMaster : exécution root sans authentification",
+    "titleFr": "Progress Kemp LoadMaster : la faille CVE-2026-8037 permet d'exécuter des commandes root sans authentification",
     "excerpt": "A critical vulnerability in Progress Kemp LoadMaster can let an unauthenticated attacker execute arbitrary commands as root on the appliance by sending a crafted request to its API.\n\nThe flaw, tracked",
     "excerptFr": "Une vulnérabilité critique a été découverte dans Progress Kemp LoadMaster, un équipement d'équilibrage de charge largement déployé en entreprise. Référencée sous l'identifiant CVE-2026-8037 et notée 9.8 sur l'échelle CVSS, cette faille permet à un attaquant non authentifié d'exécuter des commandes arbitraires avec les privilèges root en envoyant une requête spécialement conçue vers l'API de l'appliance. Aucune interaction utilisateur n'est requise, ce qui classe ce vecteur d'attaque parmi les plus dangereux. Un correctif a été publié par Progress et son application est fortement recommandée, en particulier pour toutes les installations exposant l'API en réseau.",
     "content": "A critical vulnerability in Progress Kemp LoadMaster can let an unauthenticated attacker execute arbitrary commands as root on the appliance by sending a crafted request to its API.\n\nThe flaw, tracked as CVE-2026-8037, carries a CVSS score of 9.8 according to ZDI. A patch is available. If you run LoadMaster with the API enabled, update now.\n\nProgress published its advisory on June",
@@ -669,7 +669,7 @@
   {
     "id": 37,
     "title": "Apple Patches 30+ iOS, macOS, Safari Flaws, Including AI-Discovered WebKit Bugs",
-    "titleFr": "Apple corrige plus de 30 failles iOS, macOS et Safari dont des bugs WebKit détectés par IA",
+    "titleFr": "Apple corrige plus de 30 failles dans iOS, macOS et Safari, dont des failles WebKit découvertes par l'IA",
     "excerpt": "Apple on Monday released security updates for iOS, macOS, and the Safari web browser to address over three dozen flaws, including four vulnerabilities in WebKit that were discovered using artificial i",
     "excerptFr": "Apple a publié des mises à jour de sécurité pour iOS, macOS et Safari afin de corriger plus d'une trentaine de vulnérabilités. Parmi elles, quatre failles affectant le moteur WebKit ont été découvertes grâce à des outils d'intelligence artificielle, notamment Anthropic Claude et OpenAI Codex Security. L'une d'elles, référencée CVE-2026-43707, correspond à une corruption mémoire susceptible d'entraîner des conséquences graves. Cette mise à jour illustre l'adoption croissante de l'IA dans les processus de recherche de vulnérabilités, ce qui accélère à la fois la découverte et potentiellement l'exploitation de nouvelles failles.",
     "content": "Apple on Monday released security updates for iOS, macOS, and the Safari web browser to address over three dozen flaws, including four vulnerabilities in WebKit that were discovered using artificial intelligence (AI) tools like Anthropic Claude and OpenAI Codex Security.\n\nThe WebKit vulnerabilities are listed below -\n\n\n  CVE-2026-43707 - A memory corruption issue that could result in an",
@@ -715,7 +715,7 @@
   {
     "id": 29,
     "title": "Malicious Perplexity Chrome Extension Intercepted Searches and Address Bar Input",
-    "titleFr": "Une fausse extension Chrome Perplexity interceptait les recherches et frappes clavier des utilisateurs",
+    "titleFr": "Une extension Chrome Perplexity malveillante interceptait les recherches et la saisie dans la barre d'adresse",
     "excerpt": "Microsoft has found a malicious Chrome extension that posed as the AI search engine Perplexity and quietly logged what people searched for. It routed every query and every character typed into the add",
     "excerptFr": "Microsoft a découvert une extension Chrome malveillante se faisant passer pour le moteur de recherche IA Perplexity. Discrètement installée, elle enregistrait l'ensemble des requêtes saisies par les utilisateurs, y compris chaque caractère tapé dans la barre d'adresse, avant de les transmettre à un serveur contrôlé par des attaquants. Les résultats étaient ensuite affichés normalement, rendant la compromission invisible pour les victimes. Microsoft a procédé à une divulgation responsable auprès de Google, qui a depuis retiré l'extension du Chrome Web Store. Cet incident illustre les risques croissants liés aux extensions de navigateur malveillantes exploitant la popularité des outils d'IA.",
     "content": "Microsoft has found a malicious Chrome extension that posed as the AI search engine Perplexity and quietly logged what people searched for. It routed every query and every character typed into the address bar through an attacker-controlled server before redirecting users to real results.\n\nMicrosoft says Google removed it from the store after responsible disclosure. The extension was called \"",
@@ -738,7 +738,7 @@
   {
     "id": 71,
     "title": "New ChocoPoC RAT Targets Vulnerability Researchers via Fake PoC Exploit Repos",
-    "titleFr": "ChocoPoC RAT cible les chercheurs en sécurité via de faux dépôts GitHub",
+    "titleFr": "ChocoPoC : un nouveau RAT cible les chercheurs en vulnérabilités via de faux dépôts d'exploits",
     "excerpt": "Attackers are hiding a data-stealing trojan inside fake exploit code aimed at the people who hunt bugs for a living. The malware, called ChocoPoC, travels in Python proof-of-concept (PoC) repositories",
     "excerptFr": "Un nouveau cheval de Troie baptisé ChocoPoC cible spécifiquement les chercheurs en vulnérabilités en se dissimulant dans de faux dépôts GitHub. Présenté comme du code d'exploitation de CVE récents, ce malware vole mots de passe, cookies de navigateur et fichiers, tout en ouvrant un accès shell distant à la machine compromise. Une campagne particulièrement insidieuse qui retourne les outils du métier contre ceux-là mêmes qui chassent les failles.",
     "content": "Attackers are hiding a data-stealing trojan inside fake exploit code aimed at the people who hunt bugs for a living. The malware, called ChocoPoC, travels in Python proof-of-concept (PoC) repositories on GitHub that claim to exploit hot new CVEs.\n\nRun one, and it quietly lifts your saved passwords, browser cookies, and files, then hands the attacker a shell on your machine. YesWeHack and",
@@ -761,7 +761,7 @@
   {
     "id": 72,
     "title": "SharePoint RCE CVE-2026-45659 Added to CISA KEV After Active Exploitation",
-    "titleFr": "CVE-2026-45659 SharePoint : exécution de code à distance activement exploitée selon la CISA",
+    "titleFr": "CVE-2026-45659 : la faille SharePoint ajoutée au catalogue KEV de la CISA après une exploitation active",
     "excerpt": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Wednesday added a high-severity flaw impacting Microsoft SharePoint Server to its Known Exploited Vulnerabilities (KEV) catalog, cit",
     "excerptFr": "La CISA a inscrit la vulnérabilité CVE-2026-45659 affectant Microsoft SharePoint Server dans son catalogue des vulnérabilités exploitées connues (KEV). Notée 8,8 sur l'échelle CVSS, cette faille critique permet une exécution de code à distance via la désérialisation de données non fiables. Des preuves d'exploitation active dans la nature ont été confirmées, ce qui en fait une menace immédiate pour toutes les organisations utilisant SharePoint Server.",
     "content": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Wednesday added a high-severity flaw impacting Microsoft SharePoint Server to its Known Exploited Vulnerabilities (KEV) catalog, citing evidence of active exploitation.\n\nThe vulnerability, tracked as CVE-2026-45659 (CVSS score: 8.8), is a case of remote code execution arising from the deserialization of untrusted data. The issue",
@@ -784,7 +784,7 @@
   {
     "id": 73,
     "title": "Unpatched Argo CD Repo-Server Flaw Could Let Attackers Take Over Kubernetes Clusters",
-    "titleFr": "Faille critique non corrigée dans Argo CD expose les clusters Kubernetes à une prise de contrôle totale",
+    "titleFr": "Argo CD : une faille non corrigée du repo-server permettrait de prendre le contrôle de clusters Kubernetes",
     "excerpt": "Argo CD, a widely used tool for deploying software to Kubernetes, has an unpatched flaw in its repo-server component that lets an unauthenticated attacker run code, provided they can reach the compone",
     "excerptFr": "Une vulnérabilité non corrigée dans le composant repo-server d'Argo CD, outil largement utilisé pour le déploiement applicatif sur Kubernetes, permet à un attaquant non authentifié d'exécuter du code arbitraire. Découverte par le cabinet français Synacktiv, cette faille peut mener à une compromission complète du cluster Kubernetes ciblé. Aucun correctif ni identifiant CVE n'ont encore été publiés, ce qui expose durablement les environnements concernés.",
     "content": "Argo CD, a widely used tool for deploying software to Kubernetes, has an unpatched flaw in its repo-server component that lets an unauthenticated attacker run code, provided they can reach the component's internal network port.\n\nSynacktiv, which found the bug, says it can lead to a full cluster takeover. There is no fix and no CVE. The firm says it reported the flaw to Argo CD's maintainers in",
@@ -830,7 +830,7 @@
   {
     "id": 56,
     "title": "OpenAI Previews GPT-5.6 Sol With Restricted Access and Stronger Cyber Safeguards",
-    "titleFr": "OpenAI dévoile GPT-5.6 Sol avec accès restreint et protections cybersécurité renforcées",
+    "titleFr": "OpenAI présente GPT-5.6 Sol, en accès restreint et avec des garde-fous cyber renforcés",
     "excerpt": "OpenAI on Friday released three versions of GPT-5.6, called Sol, Terra, and Luna, as a limited preview to a small number of companies as part of an ongoing engagement with the U.S. government.\n\nWhile ",
     "excerptFr": "OpenAI a lancé vendredi trois variantes de GPT-5.6, nommées Sol, Terra et Luna, dans le cadre d'un accès préliminaire limité à un nombre restreint d'entreprises, en lien avec le gouvernement américain. Sol constitue le modèle phare le plus puissant, tandis que Terra vise un équilibre entre performance et efficacité, et Luna est optimisée pour la rapidité et l'accessibilité. Ce déploiement contrôlé s'accompagne de mesures de sécurité renforcées, soulignant la volonté d'OpenAI de mieux encadrer les risques associés à ses modèles les plus avancés.",
     "content": "OpenAI on Friday released three versions of GPT-5.6, called Sol, Terra, and Luna, as a limited preview to a small number of companies as part of an ongoing engagement with the U.S. government.\n\nWhile Sol is the latest flagship model and the most powerful, Terra strikes a balance between efficiency and power, and Luna is fine-tuned for speed and affordability.\n\n\"GPT‑5.6 Sol launches with our most",
@@ -899,7 +899,7 @@
   {
     "id": 55,
     "title": "FBI Warns Russian Intelligence Hackers Target Signal Backup Recovery Keys",
-    "titleFr": "Le FBI alerte sur le vol de clés de récupération Signal par des hackers russes",
+    "titleFr": "Le FBI alerte : des pirates du renseignement russe ciblent les clés de récupération des sauvegardes Signal",
     "excerpt": "The FBI and CISA have updated their March warning about Russian intelligence phishing Signal accounts, and the operators have added a step: they now coax targets into handing over their Signal Backup ",
     "excerptFr": "Le FBI et la CISA ont mis à jour leur avertissement de mars concernant des campagnes de phishing ciblant les utilisateurs de Signal, attribuées aux services de renseignement russes. Les attaquants ont affiné leur méthode en incitant désormais leurs cibles à divulguer leur clé de récupération de sauvegarde Signal. Une fois obtenue, cette clé permet de restaurer l'intégralité des sauvegardes du compte, d'accéder aux historiques de messages privés et de groupe, et de prendre le contrôle durable du compte. La menace est d'autant plus sérieuse que la clé reste valide après la compromission initiale.",
     "content": "The FBI and CISA have updated their March warning about Russian intelligence phishing Signal accounts, and the operators have added a step: they now coax targets into handing over their Signal Backup Recovery Key.\n\nHand it over once, and the attacker can restore the account's backup, read the private and group message history, and take over the account. Worse, the key keeps working.",
@@ -922,7 +922,7 @@
   {
     "id": 30,
     "title": "WhatsApp is Finally Getting Usernames to Help Keep Phone Numbers Private",
-    "titleFr": "WhatsApp lance les noms d'utilisateur pour protéger la confidentialité des numéros de téléphone",
+    "titleFr": "WhatsApp introduit enfin les noms d'utilisateur pour préserver la confidentialité des numéros de téléphone",
     "excerpt": "WhatsApp on Monday officially announced the start of global reservations of usernames with an aim to protect the privacy of more than three billion users on the messaging platform.\n\nThe optional featu",
     "excerptFr": "WhatsApp a officiellement annoncé le déploiement mondial des réservations de noms d'utilisateur, une fonctionnalité optionnelle qui permet aux utilisateurs de se connecter entre eux sans avoir à partager leur numéro de téléphone. Cette évolution concerne plus de trois milliards d'utilisateurs de la plateforme de messagerie. L'objectif affiché est de renforcer la confidentialité des données personnelles, en réduisant l'exposition des numéros de téléphone lors des échanges. Le déploiement a débuté progressivement à l'échelle mondiale.",
     "content": "WhatsApp on Monday officially announced the start of global reservations of usernames with an aim to protect the privacy of more than three billion users on the messaging platform.\n\nThe optional feature is designed to help users connect with someone on the service through usernames, as opposed to directly sharing their phone numbers. Username reservations will start rolling out starting today,",
@@ -945,7 +945,7 @@
   {
     "id": 31,
     "title": "Mustang Panda Uses Zoho WorkDrive as Command Channel in Indian Government Attacks",
-    "titleFr": "Mustang Panda cible le gouvernement indien via Zoho WorkDrive comme canal de commande",
+    "titleFr": "Mustang Panda utilise Zoho WorkDrive comme canal de commande contre le gouvernement indien",
     "excerpt": "The China-aligned espionage group Mustang Panda is running two campaigns against the Indian government and hydropower targets, deploying new malware and turning a legitimate cloud service into its com",
     "excerptFr": "Le groupe d'espionnage Mustang Panda, aligné sur les intérêts chinois, mène deux campagnes actives contre des entités gouvernementales indiennes et des infrastructures hydroélectriques. Selon les chercheurs d'Acronis Threat Research Unit, des compromissions ont été détectées au sein de réseaux gouvernementaux indiens, y compris sur des postes utilisés par des cadres administratifs supérieurs. L'une des particularités de ces opérations réside dans l'utilisation détournée de Zoho WorkDrive, un service cloud légitime, comme canal de commande et de contrôle. Le groupe déploie également de nouveaux malwares spécifiquement développés pour ces campagnes. Cette approche permet aux attaquants de dissimuler leurs communications malveillantes dans un trafic réseau en apparence légitime, compliquant considérablement la détection par les équipes de sécurité.",
     "content": "The China-aligned espionage group Mustang Panda is running two campaigns against the Indian government and hydropower targets, deploying new malware and turning a legitimate cloud service into its command channel.\n\nAcronis Threat Research Unit found active compromises inside Indian government networks, including machines used by senior administrative staff, and worked with ",
@@ -968,7 +968,7 @@
   {
     "id": 32,
     "title": "⚡ Weekly Recap: Linux Kernel Flaws, AI Malware Tricks, Turla Backdoor, Infostealers and More",
-    "titleFr": "Récapitulatif hebdomadaire : failles Linux, malwares IA et backdoor Turla",
+    "titleFr": "Récapitulatif hebdomadaire : failles du noyau Linux, malwares IA, backdoor Turla et infostealers",
     "excerpt": "This week was a reminder that attackers do not always need big tricks. One small mistake, one old access path, one missed patch, and suddenly the door is open.\n\nThe noise is not all noise, either. For",
     "excerptFr": "La semaine écoulée illustre une réalité constante en cybersécurité : les attaquants n'ont pas besoin de techniques sophistiquées pour compromettre des systèmes. Une vulnérabilité non corrigée, un ancien vecteur d'accès oublié ou une simple erreur de configuration suffisent à ouvrir une brèche. Parmi les éléments marquants de cette période, on retient la découverte d'une faille dans le noyau Linux baptisée DirtyClone, permettant une élévation de privilèges en local, ainsi que des techniques d'obfuscation de malwares exploitant l'intelligence artificielle. Le groupe APT Turla refait surface avec une backdoor renouvelée, tandis que les infostealers continuent de proliférer sur les forums clandestins. Les équipes de défense font face à un volume croissant d'alertes et de correctifs à appliquer en urgence.",
     "content": "This week was a reminder that attackers do not always need big tricks. One small mistake, one old access path, one missed patch, and suddenly the door is open.\n\nThe noise is not all noise, either. Forums are talking, researchers are finding easy cracks, and defenders have more cleanup waiting.\n\nHere’s the full Monday recap.\n\n⚡ Threat of the Week\n\nNew DirtyClone Linux Kernel Flaw Lets Local",
@@ -991,7 +991,7 @@
   {
     "id": 33,
     "title": "236,000 DCloud Uni-App Sites Used in Crypto Scams, Phishing, and Wallet Drainers",
-    "titleFr": "Plus de 236 000 sites frauduleux exploitent le framework DCloud Uni-App pour arnaques crypto",
+    "titleFr": "236 000 sites DCloud Uni-App détournés pour des arnaques crypto, du phishing et le vol de portefeuilles",
     "excerpt": "New findings unearthed by Infoblox show that more than 236,000 websites are using investment scam templates built using a legitimate Chinese open-source, cross-platform application development framewo",
     "excerptFr": "Des chercheurs d'Infoblox ont identifié plus de 236 000 sites web utilisant des modèles d'escroquerie construits à partir de DCloud Uni-App, un framework open source chinois légitime de développement d'applications multiplateformes. Ces templates servent à alimenter de fausses plateformes d'échange de cryptomonnaies, des opérations de pig-butchering multilingues, des réseaux de phishing via WhatsApp, des sites de jeux en ligne frauduleux ainsi que des campagnes d'usurpation de marques. L'ampleur de cette infrastructure malveillante souligne la tendance croissante des cybercriminels à détourner des outils de développement légitimes pour industrialiser leurs arnaques financières et vider les portefeuilles numériques des victimes.",
     "content": "New findings unearthed by Infoblox show that more than 236,000 websites are using investment scam templates built using a legitimate Chinese open-source, cross-platform application development framework called DCloud Uni-App.\n\nThe templates power bogus cryptocurrency exchanges, multi-language pig-butchering operations, WhatsApp phishing networks, fake gambling platforms, brand-impersonation",
@@ -1014,7 +1014,7 @@
   {
     "id": 34,
     "title": "Why Post-Quantum Cryptography Starts With Credentials",
-    "titleFr": "Cryptographie post-quantique : pourquoi la protection des identifiants doit évoluer dès maintenant",
+    "titleFr": "Cryptographie post-quantique : pourquoi tout commence par les identifiants",
     "excerpt": "Today’s encrypted data, such as credentials, may no longer remain confidential in the future because the public-key cryptography protecting it will soon be broken by quantum computers. Although no mac",
     "excerptFr": "Les ordinateurs quantiques ne sont pas encore capables de casser les algorithmes de chiffrement actuels comme RSA ou la cryptographie à courbe elliptique, mais leur progression rapide pose une menace concrète pour les données chiffrées aujourd'hui. Des acteurs malveillants pratiquent déjà la stratégie dite « harvest now, decrypt later » : ils collectent des données chiffrées dans l'intention de les déchiffrer lorsque la puissance quantique sera suffisante. Les identifiants constituent une cible prioritaire dans cette logique, car ils conservent souvent une valeur stratégique sur le long terme. La transition vers la cryptographie post-quantique ne peut donc pas attendre la maturité des machines quantiques et doit commencer par sécuriser les mécanismes d'authentification.",
     "content": "Today’s encrypted data, such as credentials, may no longer remain confidential in the future because the public-key cryptography protecting it will soon be broken by quantum computers. Although no machine today can break elliptic curve cryptography or RSA, quantum hardware is advancing rapidly and will inevitably change how organizations protect their data. Ciphertext and credentials captured by",
@@ -1037,7 +1037,7 @@
   {
     "id": 35,
     "title": "Gamaredon Expands Ukraine Attacks with New Malware and Cloud Service Abuse",
-    "titleFr": "Gamaredon intensifie ses cyberattaques contre l'Ukraine avec de nouveaux malwares et services cloud",
+    "titleFr": "Gamaredon étend ses attaques contre l'Ukraine avec de nouveaux malwares et l'abus de services cloud",
     "excerpt": "A Russian advanced persistent threat (APT) group has continued to evolve and expand its malware arsenal as part of its ongoing cyber onslaught against Ukraine throughout 2025.\n\nSlovakian cybersecurity",
     "excerptFr": "Le groupe APT russe Gamaredon a considérablement élargi son arsenal offensif tout au long de l'année 2025, selon une analyse publiée par la société slovaque ESET. Les chercheurs ont recensé 35 campagnes de spear-phishing distinctes, menées principalement au second semestre, ciblant de nouvelles organisations ukrainiennes. Le groupe, connu pour son soutien au Kremlin, exploite désormais des services cloud légitimes pour contourner les défenses traditionnelles, tout en déployant des familles de malwares inédites. Cette évolution traduit une montée en sophistication d'un acteur qui figure parmi les plus actifs dans le contexte du conflit russo-ukrainien.",
     "content": "A Russian advanced persistent threat (APT) group has continued to evolve and expand its malware arsenal as part of its ongoing cyber onslaught against Ukraine throughout 2025.\n\nSlovakian cybersecurity company ESET said it observed 35 distinct spear-phishing campaigns mounted by Gamaredon against new targets, with most of them taking place in the second half of the year. Primary targets of these",
@@ -1060,7 +1060,7 @@
   {
     "id": 36,
     "title": "Microsoft Removes 119 Edge Extensions That Hid Malware in Images and Fonts",
-    "titleFr": "Microsoft supprime 119 extensions Edge malveillantes dissimulant des charges via stéganographie",
+    "titleFr": "Microsoft supprime 119 extensions Edge qui cachaient des malwares dans des images et des polices",
     "excerpt": "Microsoft has shut down a long-running malicious extension operation on the Edge Add-ons store that hid its payloads inside ordinary image and font files, then woke up days after install to steal cred",
     "excerptFr": "Microsoft a démantelé une opération malveillante de grande envergure sur son store Edge Add-ons, baptisée StegoAd. Actif depuis au moins 2021, un acteur unique est à l'origine de 119 extensions frauduleuses qui dissimulaient leurs charges malveillantes à l'intérieur de fichiers images et de polices de caractères ordinaires, une technique connue sous le nom de stéganographie. Ces extensions restaient dormantes plusieurs jours après leur installation avant de s'activer pour voler des identifiants et conduire des fraudes publicitaires. Cette campagne illustre une évolution notable des méthodes d'évasion utilisées par les cybercriminels pour contourner les contrôles des stores officiels.",
     "content": "Microsoft has shut down a long-running malicious extension operation on the Edge Add-ons store that hid its payloads inside ordinary image and font files, then woke up days after install to steal credentials and run ad fraud.\n\nThe company calls it StegoAd, a mash-up of steganography and adware, and ties 119 extensions to a single threat actor it says has been active since at least 2021.",
@@ -1083,7 +1083,7 @@
   {
     "id": 54,
     "title": "Hijacked npm and Go Packages Use VS Code Tasks to Deploy Python Infostealer",
-    "titleFr": "Packages npm et Go détournés pour déployer un infostealer Python via VS Code",
+    "titleFr": "Des paquets npm et Go détournés utilisent les tâches VS Code pour déployer un infostealer Python",
     "excerpt": "Cybersecurity researchers have uncovered two hijacked npm packages and a cluster of Go packages that are designed to deploy a Python-based information stealer on compromised Windows, Linux, and macOS ",
     "excerptFr": "Des chercheurs en cybersécurité ont mis au jour deux packages npm compromis ainsi qu'un ensemble de packages Go conçus pour déployer un voleur d'informations basé sur Python. La menace cible les systèmes Windows, Linux et macOS. Particulièrement sophistiquée, cette attaque contourne les mécanismes de sécurité introduits dans npm v12 en évitant les chemins d'exécution habituels via les lifecycle scripts, ce qui la rend plus difficile à détecter par les outils de protection classiques.",
     "content": "Cybersecurity researchers have uncovered two hijacked npm packages and a cluster of Go packages that are designed to deploy a Python-based information stealer on compromised Windows, Linux, and macOS hosts.\n\n\"This attack avoids the most common npm execution paths through lifecycle scripts, perhaps in an attempt to remain 'compatible' with npm v12's security hardenings,\" JFrog said in a",
@@ -1106,7 +1106,7 @@
   {
     "id": 60,
     "title": "GuardFall Exposes Open-Source AI Coding Agents to Decades-Old Shell Injection Risks",
-    "titleFr": "GuardFall expose les agents de codage d'IA open source à des risques d'injection de shell vieux de plusieurs décennies",
+    "titleFr": "GuardFall : des agents de codage IA open source exposés à des injections shell connues depuis des décennies",
     "excerpt": "GuardFall is a newly discovered attack technique that exploits decades-old shell injection vulnerabilities in open-source AI coding agents. Security researchers warn that multiple popular AI coding assistants are affected.",
     "excerptFr": "GuardFall est une technique d'attaque récemment découverte qui exploite des vulnérabilités d'injection de shell vieilles de plusieurs décennies dans les agents de codage d'IA open source. Les chercheurs en sécurité préviennent que plusieurs assistants de codage d’IA populaires sont concernés.",
     "content": "<p>GuardFall is a newly discovered attack technique that exploits decades-old shell injection vulnerabilities in open-source AI coding agents.</p><p>Security researchers have identified GuardFall, a novel attack vector targeting open-source AI coding agents. The technique exploits longstanding shell injection vulnerabilities that have persisted for decades.</p>",

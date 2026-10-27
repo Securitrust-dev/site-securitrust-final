@@ -5,10 +5,11 @@ import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Brain, Scale, FileCheck, Users, CheckCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Conformité IA Act — Règlement Européen sur l\'Intelligence Artificielle',
-  description: 'Mise en conformité IA Act (Règlement UE 2024/1689) : classification des systèmes IA, gestion des risques, gouvernance des données, obligations GPAI. SecuriTrust Paris.',
+  description: metaDescription('/ia-act'),
   alternates: {
     canonical: 'https://www.securitrust.fr/ia-act',
   },

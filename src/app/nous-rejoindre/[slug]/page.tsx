@@ -8,6 +8,7 @@ import ThreeBackground from '@/components/three-background';
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   return {
+    description: META_DESCRIPTIONS[`/nous-rejoindre/${slug}`],
     alternates: { canonical: `https://www.securitrust.fr/nous-rejoindre/${slug}` },
   };
 }
@@ -15,6 +16,7 @@ import MatrixRain from '@/components/matrix-rain';
 import { BrainCircuit, Hammer, Rocket, MapPin, Calendar, Briefcase, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { META_DESCRIPTIONS } from '@/site-chrome/meta-descriptions.mjs';
 
 interface JobSection {
   title: string;

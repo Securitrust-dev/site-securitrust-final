@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Formation & Sensibilisation Cybersécurité en Entreprise',
-  description: "Formations cybersécurité et campagnes de sensibilisation au phishing pour vos équipes. Exercices pratiques et simulations d'attaques. SecuriTrust Paris.",
+  description: metaDescription('/sensibilisation-formation'),
   alternates: {
     canonical: 'https://www.securitrust.fr/sensibilisation-formation',
   },

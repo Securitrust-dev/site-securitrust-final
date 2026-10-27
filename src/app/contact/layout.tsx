@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Contact — Demandez votre Devis Cybersécurité',
-  description: 'Contactez SecuriTrust pour un devis pentest, audit cybersécurité, RSSI externalisé ou mise en conformité. Cabinet basé à Paris 16e. Réponse sous 24h.',
+  description: metaDescription('/contact'),
   alternates: {
     canonical: 'https://www.securitrust.fr/contact',
   },

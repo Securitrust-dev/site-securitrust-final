@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Évaluation de Maturité Cybersécurité — Diagnostic SSI Entreprise',
-  description: "Évaluez le niveau de maturité cybersécurité de votre organisation selon des référentiels reconnus (ISO 27001, NIST, CMMI). Diagnostic complet, rapport détaillé et plan de remédiation.",
-  keywords: ['évaluation maturité cybersécurité', 'diagnostic SSI', 'maturité sécurité', 'audit maturité cyber', 'référentiel ISO 27001', 'NIST CSF'],
+  description: metaDescription('/evaluation-maturite'),
   alternates: {
     canonical: 'https://www.securitrust.fr/evaluation-maturite',
   },

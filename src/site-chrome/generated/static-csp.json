@@ -1,0 +1,46 @@
+{
+  "audit-o365.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "dora.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "hds.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "index.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "iso27001.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "nis2.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "pentest-ad.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "pentest-mobile.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "pentest-web.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "rgpd.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ],
+  "tisax.html": [
+    "sha256-XOzt6sTmb/mi6l0HeHNGb8cIRz6ivMa4DXPDUySYCUw=",
+    "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
+  ]
+}

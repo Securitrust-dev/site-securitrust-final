@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
+import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 
 export const metadata: Metadata = {
   title: 'Accompagnement Conformité Cybersécurité — ISO 27001, RGPD, NIS2 | SecuriTrust',
-  description: "Accompagnement sur-mesure dans votre démarche de conformité cybersécurité : ISO 27001, RGPD, NIS2, DORA, HDS. Méthodologie éprouvée adaptée à votre secteur et vos objectifs.",
-  keywords: ['accompagnement conformité', 'accompagnement ISO 27001', 'accompagnement RGPD', 'conseil cybersécurité', 'certification sécurité', 'conformité NIS2'],
+  description: metaDescription('/gouvernance-conformite/accompagnement'),
   alternates: {
     canonical: 'https://www.securitrust.fr/gouvernance-conformite/accompagnement',
   },
