@@ -41,6 +41,22 @@ function renderResource(res, pillar) {
     + '</form></aside>';
 }
 
+// Liens vers un article du blog dans le corps d'une section : <a data-article="slug">…</a>.
+// Lien réel si l'article est publié (présent dans `articles`), simple texte sinon (brouillon) :
+// le guide ne pointe jamais vers une page 404.
+function linkArticles(html, articles) {
+  return html.replace(/<a data-article="([^"]+)">([\s\S]*?)<\/a>/g, (_, slug, label) => {
+    const a = articles.find((x) => x.slug === slug);
+    return a ? `<a href="${esc(a.url)}">${label}</a>` : label;
+  });
+}
+
+function renderByline(pillar) {
+  const a = pillar.author;
+  if (!a) return 'Équipe SecuriTrust';
+  return `Par <a href="${esc(a.url)}" rel="author">${esc(a.name)}</a>, ${esc(a.role)}`;
+}
+
 /**
  * @param {object} pillar  données d'un pilier (src/site-chrome/pillars/*.mjs)
  * @param {{ articles?: { title: string, url: string, excerpt?: string }[] }} [opts]
@@ -56,7 +72,7 @@ export function renderPillar(pillar, { articles = [] } = {}) {
   ];
 
   const sections = pillar.sections
-    .map((s) => `<section class="pl-sec" id="${s.id}"><h2>${esc(s.title)}</h2>${s.html}</section>`)
+    .map((s) => `<section class="pl-sec" id="${s.id}"><h2>${esc(s.title)}</h2>${linkArticles(s.html, articles)}</section>`)
     .join('');
 
   const faq = `<section class="pl-sec" id="faq"><h2>Questions fréquentes</h2>`
@@ -80,7 +96,7 @@ export function renderPillar(pillar, { articles = [] } = {}) {
   return `<section id="pl" class="pl" aria-labelledby="pl-title"><div class="pl-wrap">`
     + `<div class="pl-head"><p class="pl-kicker">Guide complet</p>`
     + `<p class="pl-title" id="pl-title">${esc(pillar.guideTitle)}</p>`
-    + `<p class="pl-meta">Mis à jour le <time datetime="${pillar.updated}">${frDate(pillar.updated)}</time> · Équipe SecuriTrust · ${minutes} min de lecture</p>`
+    + `<p class="pl-meta">${renderByline(pillar)} · Mis à jour le <time datetime="${pillar.updated}">${frDate(pillar.updated)}</time> · ${minutes} min de lecture</p>`
     + `<p class="pl-intro">${pillar.intro}</p></div>`
     + `<div class="pl-grid"><nav class="pl-toc" aria-label="Sommaire du guide"><p>Sommaire</p><ol>${tocItems
       .map((t) => `<li><a href="#${t.id}">${esc(t.title)}</a></li>`)

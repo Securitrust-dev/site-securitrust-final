@@ -15,7 +15,7 @@ const urlSlug = (a) => a.slugFr || a.slug;
 /**
  * @param {string[]} slugs      slugs (slugFr de préférence) listés par le pilier
  * @param {object[]} allArticles contenu de blog-articles.json
- * @returns {{ title: string, url: string }[]}
+ * @returns {{ slug: string, title: string, url: string }[]}
  */
 export function resolvePillarArticles(slugs, allArticles) {
   if (!slugs?.length) return [];
@@ -31,7 +31,7 @@ export function resolvePillarArticles(slugs, allArticles) {
     const a = bySlug.get(slug);
     if (!a || seen.has(urlSlug(a))) continue;
     seen.add(urlSlug(a));
-    out.push({ title: a.titleFr || a.title, url: `/articles/${urlSlug(a)}` });
+    out.push({ slug, title: a.titleFr || a.title, url: `/articles/${urlSlug(a)}` });
   }
   return out;
 }
