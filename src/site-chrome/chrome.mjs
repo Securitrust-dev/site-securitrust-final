@@ -47,6 +47,13 @@ export const NAV = [
       { label: 'DORA', href: '/dora' },
     ],
   },
+  {
+    label: 'Formations',
+    href: '/formations',
+    children: [
+      { label: 'Construire un SMSI ISO 27001', href: '/formations/construire-smsi-iso-27001' },
+    ],
+  },
   { label: 'RSSI externalisé', href: '/rssi-externalise' },
   { label: 'Articles', href: '/articles' },
   { label: 'Nous rejoindre', href: '/nous-rejoindre' },

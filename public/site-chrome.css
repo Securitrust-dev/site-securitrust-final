@@ -79,7 +79,7 @@
 :is(#sc-header, #sc-footer):is(#sc-header, #sc-footer) .sc-menu-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
 :is(#sc-header, #sc-footer):is(#sc-header, #sc-footer) .sc-burger { display: none; }
 
-@media (max-width: 1099px) {
+@media (max-width: 1199px) {
   :is(#sc-header, #sc-footer):is(#sc-header, #sc-footer) .sc-burger {
     display: inline-flex; align-items: center; justify-content: center;
     width: 44px; height: 44px; border-radius: 10px; cursor: pointer;
