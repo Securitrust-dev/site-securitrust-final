@@ -203,6 +203,43 @@
 #static-theme-root#static-theme-root.static-theme .article-card .more svg{width:14px;height:14px;transition:transform .25s var(--ease)}
 #static-theme-root#static-theme-root.static-theme .article-card:hover .more svg{transform:translateX(3px)}
 
+/* ---------- pages contenu : tableaux, listes, indicateurs (formation SMSI) ---------- */
+#static-theme-root#static-theme-root.static-theme .h2-sm{font-size:clamp(26px,3.2vw,36px);margin-bottom:22px}
+#static-theme-root#static-theme-root.static-theme .prose p{color:var(--muted);font-size:16px;line-height:1.75;margin-bottom:16px}
+#static-theme-root#static-theme-root.static-theme .prose b{color:var(--ink);font-weight:600}
+#static-theme-root#static-theme-root.static-theme .grid-2--top{align-items:start;gap:clamp(28px,5vw,60px)}
+#static-theme-root#static-theme-root.static-theme .fact-row{list-style:none;padding:0;margin:28px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+#static-theme-root#static-theme-root.static-theme .fact-row li{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink);background:var(--glass);border:1px solid var(--line);border-radius:100px;padding:8px 14px}
+#static-theme-root#static-theme-root.static-theme .fact-row svg{color:var(--cyan);flex:0 0 auto}
+#static-theme-root#static-theme-root.static-theme .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+#static-theme-root#static-theme-root.static-theme .table-card{background:var(--glass);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+#static-theme-root#static-theme-root.static-theme .table-title{font-size:19px;padding:24px 22px 14px;margin:0}
+#static-theme-root#static-theme-root.static-theme .data-table{width:100%;border-collapse:collapse;font-size:14.5px}
+#static-theme-root#static-theme-root.static-theme .data-table th,#static-theme-root#static-theme-root.static-theme .data-table td{padding:13px 22px;border-top:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.55}
+#static-theme-root#static-theme-root.static-theme .data-table th{width:38%;color:var(--muted);font-weight:500;font-size:13.5px}
+#static-theme-root#static-theme-root.static-theme .data-table td{color:var(--ink)}
+@media(max-width:620px){#static-theme-root#static-theme-root.static-theme .data-table th,#static-theme-root#static-theme-root.static-theme .data-table td{display:block;width:auto}#static-theme-root#static-theme-root.static-theme .data-table th{padding-bottom:2px}#static-theme-root#static-theme-root.static-theme .data-table td{border-top:none;padding-top:0}}
+#static-theme-root#static-theme-root.static-theme .check-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+#static-theme-root#static-theme-root.static-theme .check-list li{position:relative;padding-left:26px;color:var(--muted);font-size:15.5px;line-height:1.6}
+#static-theme-root#static-theme-root.static-theme .check-list li::before{content:"";position:absolute;left:2px;top:.5em;width:10px;height:6px;border-left:2px solid var(--cyan);border-bottom:2px solid var(--cyan);transform:rotate(-45deg)}
+#static-theme-root#static-theme-root.static-theme .check-list b{color:var(--ink);font-weight:600}
+#static-theme-root#static-theme-root.static-theme .check-list--sm li{font-size:14px}
+#static-theme-root#static-theme-root.static-theme .check-list--cols{grid-template-columns:1fr 1fr;column-gap:40px;row-gap:16px}
+@media(max-width:820px){#static-theme-root#static-theme-root.static-theme .check-list--cols{grid-template-columns:1fr}}
+#static-theme-root#static-theme-root.static-theme .pilier .practice{margin-top:18px;padding:12px 14px;border-left:2px solid var(--mint);background:rgba(0,255,163,.04);border-radius:0 10px 10px 0;color:var(--ink);font-size:13.5px;flex-grow:0}
+#static-theme-root#static-theme-root.static-theme .pilier .practice b{color:var(--mint);font-weight:600}
+#static-theme-root#static-theme-root.static-theme .pilier .p-static{flex-grow:0}
+#static-theme-root#static-theme-root.static-theme .pilier .p-static b{color:var(--ink);font-weight:600}
+#static-theme-root#static-theme-root.static-theme .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+@media(max-width:920px){#static-theme-root#static-theme-root.static-theme .kpi-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){#static-theme-root#static-theme-root.static-theme .kpi-grid{grid-template-columns:1fr 1fr}}
+#static-theme-root#static-theme-root.static-theme .kpi{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;gap:8px}
+#static-theme-root#static-theme-root.static-theme .kpi .val{font-family:var(--sfont-space-grotesk),'Space Grotesk',sans-serif;font-size:clamp(28px,3vw,38px);font-weight:600;color:var(--cyan);line-height:1}
+#static-theme-root#static-theme-root.static-theme .kpi .lbl{font-size:13px;color:var(--muted);line-height:1.45}
+#static-theme-root#static-theme-root.static-theme .notes{margin-top:22px;max-width:820px}
+#static-theme-root#static-theme-root.static-theme .notes p,#static-theme-root#static-theme-root.static-theme p.notes{font-size:13px;color:var(--muted-2);line-height:1.6;margin-bottom:8px}
+#static-theme-root#static-theme-root.static-theme a.link{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
+
 /* ============================================================
    NAV (identique aux pages statiques)
    ============================================================ */

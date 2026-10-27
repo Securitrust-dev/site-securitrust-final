@@ -200,6 +200,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez le plan d\'action de votre Gap Analysis dans un pilotage GRC global.' },
   ],
   'pilotage-smsi': [
+    { title: 'Formation SMSI ISO 27001', href: '/formations/construire-smsi-iso-27001', desc: 'Formez vos équipes à la construction et au pilotage d\'un SMSI : 3 jours en présentiel.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Le pilotage SMSI est l\'un des piliers de notre offre de RSSI à temps partagé.' },
     { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'Préparez votre certification ISO 27001 grâce à un SMSI activement piloté.' },
     { title: 'EBIOS RM', href: '/ebios-rm', desc: 'La gestion des risques de votre SMSI s\'appuie sur la méthode EBIOS RM.' },
@@ -305,6 +306,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Formations', href: '/formations', desc: 'Formations certifiantes en cybersécurité pour vos équipes.' },
   ],
   formations: [
+    { title: 'Formation SMSI ISO 27001', href: '/formations/construire-smsi-iso-27001', desc: 'Construire un SMSI ISO 27001 : 3 jours en présentiel à Paris, du cadrage à la certification.' },
     { title: 'Sensibilisation Formation', href: '/sensibilisation-formation', desc: 'Formations de sensibilisation intra-entreprise pour tous vos collaborateurs.' },
     { title: 'Cyber Vigilance Humaine', href: '/cyber-vigilance-humaine', desc: 'Programme de vigilance continue au-delà des sessions de formation.' },
     { title: 'Contact', href: '/contact', desc: 'Discutez avec nous de votre programme de formation sur mesure.' },

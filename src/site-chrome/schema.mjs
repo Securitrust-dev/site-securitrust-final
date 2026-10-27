@@ -204,6 +204,7 @@ const PAGES = {
   '/formations/reponse-incidents-forensics': ['Réponse aux incidents & forensics', '/formations'],
   '/formations/rgpd-conformite-pratique': ['RGPD & conformité en pratique', '/formations'],
   '/formations/securite-reseaux-entreprise': ['Sécurité des réseaux d’entreprise', '/formations'],
+  '/formations/construire-smsi-iso-27001': ['Construire un SMSI ISO 27001', '/formations'],
 
   '/secteurs': ['Secteurs', '/'],
   '/secteurs/banque-finance': ['Banque & finance', '/secteurs'],

@@ -32,6 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/ebios-rm',
     '/evaluation-maturite',
     '/formations',
+    '/formations/construire-smsi-iso-27001',
     '/formations/hacking-ethique-fondamentaux',
     '/formations/pentest-web-owasp',
     '/formations/reponse-incidents-forensics',

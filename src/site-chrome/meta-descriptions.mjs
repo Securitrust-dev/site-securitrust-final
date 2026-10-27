@@ -85,6 +85,7 @@ export const META_DESCRIPTIONS = {
   '/formations/reponse-incidents-forensics': 'Formation en ligne à la réponse aux incidents et au forensic : détecter, analyser et contenir une attaque, puis préserver et exploiter les preuves.',
   '/formations/rgpd-conformite-pratique': 'Formation en ligne pratique au RGPD : registre des traitements, bases légales, droits des personnes, sous-traitants et violations de données.',
   '/formations/securite-reseaux-entreprise': 'Formation en ligne à la sécurité des réseaux d’entreprise : segmentation, pare-feu, VPN, Wi-Fi et supervision pour contrer les cybermenaces.',
+  '/formations/construire-smsi-iso-27001': 'Formation de 3 jours en présentiel à Paris pour construire un SMSI ISO/IEC 27001:2022 : périmètre, analyse de risques, déclaration d’applicabilité, audit.',
 
   // Parcours « cybersécurité opérationnelle »
   '/cybersecurite-operationnelle': 'Cybersécurité opérationnelle pour PME et ETI : tests d’intrusion, audits et protection de la réputation, choisis selon ce que vous devez protéger en priorité.',
