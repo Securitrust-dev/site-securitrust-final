@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description: metaDescription(PATH),
   alternates: { canonical: `${SITE_URL}${PATH}` },
   openGraph: {
+    images: [{ url: '/og/formation-smsi-iso-27001.jpg', width: 1200, height: 630, alt: 'Formation Construire un SMSI ISO 27001 — 3 jours en présentiel à Paris' }],
     title: TITLE,
     description: metaDescription(PATH),
     url: `${SITE_URL}${PATH}`,

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit d\'Architecture SI — Évaluation Réseau, Cloud & Applicatif',
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/audit-architecture',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Audit d\'Architecture SI — Évaluation Réseau, Cloud & Applicatif',
     description: "Audit d'architecture SI : identification des failles structurelles réseau, cloud et applicatives. Rapport et plan de remédiation. SecuriTrust.",
     url: 'https://www.securitrust.fr/audit-architecture',
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
     locale: 'fr_FR',
   },
   twitter: {
+    images: [DEFAULT_OG_IMAGE.url],
     card: 'summary_large_image',
     title: 'Audit d\'Architecture SI',
     description: "Évaluation de l'architecture réseau, cloud et applicative. Failles structurelles et plan de remédiation.",

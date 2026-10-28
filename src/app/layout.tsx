@@ -8,6 +8,7 @@ import { AnalyticsTracker } from '@/components/AnalyticsTracker';
 import Script from 'next/script';
 import { headers } from 'next/headers';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 const BASE_URL = 'https://www.securitrust.fr';
 
@@ -40,20 +41,13 @@ export const metadata: Metadata = {
     siteName: 'SecuriTrust',
     title: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité | Paris',
     description: 'Cabinet de cybersécurité à Paris. Pentest, audit de sécurité, RSSI externalisé, conformité RGPD & ISO 27001.',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'SecuriTrust - Cabinet de cybersécurité à Paris',
-      },
-    ],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité',
     description: 'Pentest, audit cybersécurité, RSSI externalisé, RGPD, ISO 27001. Paris.',
-    images: ['/og-image.png'],
+    images: [DEFAULT_OG_IMAGE.url],
   },
   icons: {
     icon: [

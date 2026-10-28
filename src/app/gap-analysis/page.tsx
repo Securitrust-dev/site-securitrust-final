@@ -6,6 +6,7 @@ import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Search, ClipboardList, BarChart3, ListChecks, CheckCircle, ArrowRight, Map } from 'lucide-react';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit d\'Écart (Gap Analysis) — Cartographie de vos Non-Conformités',
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/gap-analysis',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Audit d\'Écart (Gap Analysis) — Cartographie de vos Non-Conformités | SecuriTrust',
     description: 'Comparez votre état actuel aux exigences d\'un référentiel cible et obtenez un plan d\'action priorisé et chiffré.',
     url: 'https://www.securitrust.fr/gap-analysis',

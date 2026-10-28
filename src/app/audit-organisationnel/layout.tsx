@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit Organisationnel Cybersécurité — Gouvernance & Processus',
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/audit-organisationnel',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Audit Organisationnel Cybersécurité — Gouvernance & Processus',
     description: "Audit organisationnel SSI : gouvernance, processus, rôles et responsabilités en cybersécurité. SecuriTrust.",
     url: 'https://www.securitrust.fr/audit-organisationnel',
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
     locale: 'fr_FR',
   },
   twitter: {
+    images: [DEFAULT_OG_IMAGE.url],
     card: 'summary_large_image',
     title: 'Audit Organisationnel Cybersécurité',
     description: "Évaluation des aspects humains et processuels de votre cybersécurité.",

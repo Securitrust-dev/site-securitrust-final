@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { ServiceSchema } from "@/components/StructuredData";
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 /* ============================================================================
    DRAFT — English home page, served at /en/outsourced-ciso.
@@ -26,12 +27,14 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/en/outsourced-ciso`,
   },
   twitter: {
+    images: [DEFAULT_OG_IMAGE.url],
     card: "summary_large_image",
     title: "SecuriTrust — Outsourced CISO, steering your security",
     description:
       "Outsourced CISO on a fractional basis, penetration testing, ISO 27001, NIS2 and DORA compliance.",
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "SecuriTrust — Outsourced CISO, steering your security",
     description:
       "Cybersecurity consultancy. Outsourced CISO on a fractional basis, penetration testing, ISO 27001, NIS2 and DORA compliance.",

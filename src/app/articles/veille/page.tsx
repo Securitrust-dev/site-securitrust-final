@@ -5,6 +5,7 @@ import { JsonLd } from '@/components/StructuredData';
 import { ArticleGrid, BlogNav, blogListJsonLd } from '@/components/blog/BlogIndex';
 import { BLOG_URL, listBlogArticles } from '@/lib/blog';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 // Rubrique « Veille » : synthèses d'actualités (vulnérabilités, campagnes, réglementation),
 // séparées des articles d'expertise. Rendu serveur, données en cache 30 min (lib/blog).
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   title: { absolute: 'Veille cybersécurité — Vulnérabilités, menaces et actualités | SecuriTrust' },
   description: DESCRIPTION,
   alternates: { canonical: URL },
-  openGraph: { title: 'Veille cybersécurité — SecuriTrust', description: DESCRIPTION, url: URL, type: 'website' },
+  openGraph: { title: 'Veille cybersécurité — SecuriTrust', description: DESCRIPTION, url: URL, type: 'website', images: [DEFAULT_OG_IMAGE] },
 };
 
 export default async function VeillePage() {

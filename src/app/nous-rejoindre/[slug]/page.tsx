@@ -4,12 +4,27 @@ import { Footer } from '@/components/sections/footer';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { SkyCTAButton } from '@/components/ui/sky-cta-button';
 import ThreeBackground from '@/components/three-background';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+  const job = jobData[slug];
+  const url = `https://www.securitrust.fr/nous-rejoindre/${slug}`;
+  // Un title par offre (les 3 offres reprenaient celui de /nous-rejoindre) et un og:url propre.
+  const title = job ? `${job.title} — ${job.contractType} à Paris` : undefined;
   return {
+    ...(title ? { title } : {}),
     description: META_DESCRIPTIONS[`/nous-rejoindre/${slug}`],
-    alternates: { canonical: `https://www.securitrust.fr/nous-rejoindre/${slug}` },
+    alternates: { canonical: url },
+    openGraph: {
+      ...(title ? { title: `${title} | SecuriTrust` } : {}),
+      description: META_DESCRIPTIONS[`/nous-rejoindre/${slug}`],
+      url,
+      type: 'website',
+      siteName: 'SecuriTrust',
+      locale: 'fr_FR',
+      images: [DEFAULT_OG_IMAGE],
+    },
   };
 }
 import MatrixRain from '@/components/matrix-rain';
@@ -261,6 +276,27 @@ export default async function JobPostingPage({ params }: { params: Promise<{ slu
                   </Link>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Autres offres : maillage entre les offres, qui n'étaient liées que depuis /nous-rejoindre. */}
+        <section className="relative z-10 pb-24 px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-xl font-semibold text-white mb-6">Nos autres offres</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {Object.entries(jobData)
+                .filter(([otherSlug]) => otherSlug !== slug)
+                .map(([otherSlug, other]) => (
+                  <Link
+                    key={otherSlug}
+                    href={`/nous-rejoindre/${otherSlug}`}
+                    className="block rounded-xl border border-white/10 bg-white/[0.03] p-5 hover:border-cyan-500/40 transition-colors"
+                  >
+                    <span className="block text-white font-medium">{other.title}</span>
+                    <span className="block text-sm text-slate-400 mt-1">{other.contractType} · {other.location}</span>
+                  </Link>
+                ))}
             </div>
           </div>
         </section>

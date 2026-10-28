@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { preload } from "react-dom";
 import { ServiceSchema } from "@/components/StructuredData";
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 /* ============================================================================
    /rssi-externalise — page canonique, refondue le 2026-09-04.
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
     canonical: `${BASE_URL}/rssi-externalise`,
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: "RSSI externalisé, pilote de votre sécurité | SecuriTrust",
     description:
       "Un cabinet multi-certifié qui pilote la cybersécurité des organisations à forts enjeux depuis 2016. +2 500 jours-homme de RSSI externalisé, auditeur officiel AFNOR.",

@@ -56,6 +56,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Pentest Interne', href: '/pentest-interne', desc: 'Simulation d\'un attaquant interne sur votre réseau local et Active Directory.' },
     { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Complétez les tests d\'intrusion par un audit organisationnel complet.' },
     { title: 'Red Team', href: '/red-team', desc: 'Simulation APT avancée pour les entreprises souhaitant tester leur résilience maximale.' },
+    { title: 'Pentest physique', href: '/pentest-physique', desc: 'Tester l\'accès physique à vos locaux et à vos équipements.' },
   ],
 
   // ─── AUDIT ──────────────────────────────────────────────────
@@ -82,6 +83,8 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Audit Configuration', href: '/audit-configuration', desc: 'Analysez vos configurations selon les CIS Benchmarks et bonnes pratiques.' },
     { title: 'Pentest Interne', href: '/pentest-interne', desc: 'Testez en conditions réelles les vulnérabilités détectées lors de l\'audit technique.' },
     { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Élargissez l\'audit technique aux dimensions organisationnelles pour une vue 360°.' },
+    { title: 'Audit organisationnel', href: '/audit-organisationnel', desc: 'Gouvernance, processus et organisation de la sécurité : le pendant organisationnel de l\'audit technique.' },
+    { title: 'Audit de code source', href: '/audit-code-source', desc: 'Détecter les vulnérabilités applicatives directement dans le code.' },
   ],
   'audit-architecture': [
     { title: 'Audit Sécurité Technique', href: '/audit-securite-technique', desc: 'Analyse opérationnelle de votre infrastructure en complément de l\'audit d\'architecture.' },
@@ -89,18 +92,21 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Stratégie Cybersécurité', href: '/strategie-cybersecurite', desc: 'Définissez une feuille de route pour corriger les failles architecturales identifiées.' },
     { title: 'Pentest Externe', href: '/pentest-externe', desc: 'Validez que votre architecture réseau résiste à une attaque depuis Internet.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour piloter la refonte architecturale recommandée.' },
+    { title: 'Protection anti-ransomware', href: '/protection-ransomware', desc: 'Prévenir et contenir une attaque par rançongiciel.' },
   ],
   'audit-configuration': [
     { title: 'Audit Sécurité Technique', href: '/audit-securite-technique', desc: 'Complétez l\'audit de configuration par une analyse complète de l\'infrastructure.' },
     { title: 'Audit Architecture SI', href: '/audit-architecture', desc: 'Évaluez la conception globale de votre SI en plus de la configuration des équipements.' },
     { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'Le hardening est un prérequis clé pour les certifications ISO 27001 et HDS.' },
     { title: 'Pentest Interne', href: '/pentest-interne', desc: 'Testez si les mauvaises configurations peuvent être exploitées depuis le réseau interne.' },
+    { title: 'Audit de code source', href: '/audit-code-source', desc: 'Détecter les vulnérabilités applicatives directement dans le code.' },
   ],
   'audit-code-source': [
     { title: 'Pentest Web & Mobile', href: '/pentest-web', desc: 'Complétez l\'analyse statique de code par des tests d\'intrusion sur vos applications.' },
     { title: 'Audit Sécurité Technique', href: '/audit-securite-technique', desc: 'Étendez l\'audit à toute l\'infrastructure hébergeant vos applications.' },
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Vérifiez que votre code est conforme aux exigences RGPD et NIS2.' },
     { title: 'Stratégie Cybersécurité', href: '/strategie-cybersecurite', desc: 'Intégrez la sécurité du code dans une démarche DevSecOps globale.' },
+    { title: 'Secteur tech & SaaS', href: '/secteurs/tech', desc: 'Sécuriser le développement et l\'infrastructure sans freiner les équipes.' },
   ],
   'audit-organisationnel': [
     { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Complétez l\'audit organisationnel par une évaluation technique complète.' },
@@ -108,6 +114,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour structurer l\'organisation sécurité après l\'audit.' },
     { title: 'Sensibilisation Formation', href: '/sensibilisation-formation', desc: 'Formez vos équipes sur les lacunes humaines identifiées lors de l\'audit.' },
     { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Mesurez formellement votre niveau de maturité cybersécurité organisationnelle.' },
+    { title: 'Protéger le chiffre d\'affaires', href: '/cybersecurite-operationnelle/proteger-chiffre-affaires', desc: 'Sécuriser les systèmes critiques dont dépend votre activité.' },
   ],
   'audit-conformite': [
     { title: 'Gap Analysis', href: '/gap-analysis', desc: 'Notre méthodologie dédiée d\'audit d\'écart face à un référentiel cible précis.' },
@@ -178,6 +185,8 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Gestion des Risques', href: '/gestion-risques', desc: 'Méthodologie structurée de qualification et traitement des risques cyber.' },
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Complétez l\'analyse PCAPR A par un audit de conformité réglementaire.' },
     { title: 'Stratégie Cybersécurité', href: '/strategie-cybersecurite', desc: 'Construisez votre feuille de route cyber sur la base des analyses de risques PCAPR A.' },
+    { title: 'Exigences réglementaires', href: '/cybersecurite-operationnelle/exigences-reglementaires', desc: 'Audit de conformité face aux obligations cyber de votre secteur.' },
+    { title: 'Secteur public', href: '/secteurs/public', desc: 'Cybersécurité et continuité du service public.' },
   ],
   'ia-act': [
     { title: 'Gouvernance & Conformité', href: '/gouvernance-conformite', desc: 'Retrouvez l\'ensemble de nos prestations de gouvernance et de mise en conformité.' },
@@ -185,6 +194,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Mise en Conformité RGPD', href: '/rgpd', desc: 'Un système d\'IA traitant des données personnelles reste soumis au RGPD en parallèle de l\'IA Act.' },
     { title: 'EBIOS RM', href: '/ebios-rm', desc: 'Analysez les risques spécifiques de vos systèmes d\'IA avec la méthode EBIOS RM.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez la conformité IA Act dans un pilotage global de la gouvernance et des risques.' },
+    { title: 'DPA & sous-traitance RGPD', href: '/dpa-rgpd', desc: 'Encadrer contractuellement les traitements confiés à vos prestataires.' },
   ],
   'ebios-rm': [
     { title: 'Gestion des Risques', href: '/gestion-risques', desc: 'EBIOS RM est la méthode structurante de notre service de gestion des risques cyber.' },
@@ -192,12 +202,14 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Conformité NIS2', href: '/nis2', desc: 'NIS2 exige une gestion des risques formalisée — EBIOS RM y répond directement.' },
     { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'EBIOS RM couvre l\'exigence d\'analyse de risques de l\'Annexe A d\'ISO 27001.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour piloter la gestion des risques dans la durée.' },
+    { title: 'IA Act', href: '/ia-act', desc: 'Se conformer au règlement européen sur l\'intelligence artificielle.' },
   ],
   'gap-analysis': [
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Élargissez la Gap Analysis à un audit de conformité réglementaire complet.' },
     { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Complétez l\'audit d\'écart par une évaluation formelle de votre maturité sécurité.' },
     { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'La Gap Analysis est la première étape avant un projet de certification ISO 27001.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez le plan d\'action de votre Gap Analysis dans un pilotage GRC global.' },
+    { title: 'Audit organisationnel', href: '/audit-organisationnel', desc: 'Gouvernance, processus et organisation de la sécurité : le pendant organisationnel de l\'audit technique.' },
   ],
   'pilotage-smsi': [
     { title: 'Formation SMSI ISO 27001', href: '/formations/construire-smsi-iso-27001', desc: 'Formez vos équipes à la construction et au pilotage d\'un SMSI : 3 jours en présentiel.' },
@@ -205,12 +217,15 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'Préparez votre certification ISO 27001 grâce à un SMSI activement piloté.' },
     { title: 'EBIOS RM', href: '/ebios-rm', desc: 'La gestion des risques de votre SMSI s\'appuie sur la méthode EBIOS RM.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez le pilotage SMSI dans une gouvernance cybersécurité globale.' },
+    { title: 'RSSI & DPO externalisés', href: '/gouvernance-conformite/services-externalises', desc: 'Les fonctions de gouvernance SSI assurées à temps partagé.' },
   ],
   'dpa-rgpd': [
     { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'Le suivi de vos DPA s\'inscrit naturellement dans une mission de DPO externalisé.' },
     { title: 'Mise en Conformité RGPD', href: '/rgpd', desc: 'Élargissez la sécurisation de vos DPA à un accompagnement RGPD complet.' },
     { title: 'Audit Conformité', href: '/audit-conformite', desc: 'Vérifiez l\'ensemble de vos écarts de conformité RGPD au-delà des seuls DPA.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Intégrez la gouvernance des données dans un pilotage GRC global.' },
+    { title: 'IA Act', href: '/ia-act', desc: 'Se conformer au règlement européen sur l\'intelligence artificielle.' },
+    { title: 'Secteur santé', href: '/secteurs/sante', desc: 'Données de santé, HDS et RGPD : protéger les patients.' },
   ],
 
   // ─── GRC & SERVICES MANAGÉS ─────────────────────────────────
@@ -255,12 +270,15 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Complétez l\'évaluation de maturité par un audit technique approfondi.' },
     { title: 'Stratégie Cybersécurité', href: '/strategie-cybersecurite', desc: 'Construisez votre feuille de route en partant de votre niveau de maturité actuel.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour piloter l\'amélioration de votre maturité.' },
+    { title: 'Audit organisationnel', href: '/audit-organisationnel', desc: 'Gouvernance, processus et organisation de la sécurité : le pendant organisationnel de l\'audit technique.' },
   ],
   'cyber-vigilance-humaine': [
     { title: 'Sensibilisation Formation', href: '/sensibilisation-formation', desc: 'Formations cybersécurité pour renforcer la vigilance de tous vos collaborateurs.' },
     { title: 'Pentest Physique', href: '/pentest-physique', desc: 'Testez concrètement la résistance de vos équipes et de vos locaux aux intrusions.' },
     { title: 'Red Team', href: '/red-team', desc: 'Simulation APT intégrant social engineering et phishing ciblé.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour structurer et piloter votre programme de vigilance humaine.' },
+    { title: 'Préserver l\'image et la confiance', href: '/cybersecurite-operationnelle/preserver-image-confiance', desc: 'Gérer les risques cyber qui menacent votre réputation.' },
+    { title: 'Retail & e-commerce', href: '/secteurs/retail', desc: 'Protéger les données clients, les ventes et l\'image en ligne.' },
   ],
   'sensibilisation-formation': [
     { title: 'Cyber Vigilance Humaine', href: '/cyber-vigilance-humaine', desc: 'Programme de vigilance continue pour maintenir le niveau de sensibilisation acquis.' },
@@ -289,6 +307,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Protection Ransomware', href: '/protection-ransomware', desc: 'Protégez votre continuité opérationnelle contre la menace ransomware.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour piloter votre cybersécurité opérationnelle.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Gouvernance et conformité pour structurer votre sécurité opérationnelle.' },
+    { title: 'PCA / PRA', href: '/pcapra', desc: 'Plans de continuité et de reprise d\'activité.' },
   ],
   'gouvernance-conformite': [
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Service GRC complet pour piloter votre gouvernance et conformité au quotidien.' },
@@ -304,6 +323,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Conformité', href: '/gouvernance-conformite', desc: 'NIS2, RGPD, DORA, ISO 27001 — accompagnement sur toutes les réglementations.' },
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Gouvernance, risques et conformité dans un cadre de pilotage unifié.' },
     { title: 'Formations', href: '/formations', desc: 'Formations certifiantes en cybersécurité pour vos équipes.' },
+    { title: 'Prendre rendez-vous', href: '/prise-de-rdv', desc: '30 minutes avec un expert pour cadrer votre projet, sans engagement.' },
   ],
   formations: [
     { title: 'Formation SMSI ISO 27001', href: '/formations/construire-smsi-iso-27001', desc: 'Construire un SMSI ISO 27001 : 3 jours en présentiel à Paris, du cadrage à la certification.' },
@@ -324,12 +344,15 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Audit Flash', href: '/audit-flash', desc: 'Diagnostic cybersécurité express en 48h.' },
     { title: 'Formations', href: '/formations', desc: 'Formations certifiantes pour vos équipes.' },
     { title: 'Prendre rendez-vous', href: 'https://calendly.com/expert-securitrust', desc: 'Choisissez directement un créneau avec nos experts.' },
+    { title: 'Pentest à Paris', href: '/pentest-paris', desc: 'Tests d\'intrusion menés sur place par nos experts parisiens.' },
   ],
   portfolio: [
     { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion — découvrez nos cas clients en cybersécurité offensive.' },
     { title: 'Services', href: '/services', desc: 'L\'ensemble de nos offres cybersécurité pour entreprises.' },
     { title: 'Nous Rejoindre', href: '/nous-rejoindre', desc: 'Rejoignez l\'équipe SecuriTrust — postes ouverts en cybersécurité.' },
     { title: 'Contact', href: '/contact', desc: 'Discutez de votre projet avec nos experts.' },
+    { title: 'Prendre rendez-vous', href: '/prise-de-rdv', desc: '30 minutes avec un expert pour cadrer votre projet, sans engagement.' },
+    { title: 'Domaines d\'expertise', href: '/gouvernance-conformite/domaines-expertise', desc: 'Secteurs et réglementations que nous couvrons.' },
   ],
   'nous-rejoindre': [
     { title: 'Services', href: '/services', desc: 'Découvrez les missions sur lesquelles vous travaillerez.' },

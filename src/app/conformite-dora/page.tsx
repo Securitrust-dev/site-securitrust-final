@@ -5,6 +5,7 @@ import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
 import { BreadcrumbSchema, ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Shield, CheckCircle, ArrowRight, Building2, FileCheck, BarChart3 } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Conformité DORA — Résilience Numérique Secteur Financier',
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/conformite-dora',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Conformité DORA — Résilience Numérique Secteur Financier | SecuriTrust',
     description: 'Mise en conformité DORA pour banques, assurances et services financiers. Tests TLPT, gouvernance TIC, gestion des risques tiers.',
     url: 'https://www.securitrust.fr/conformite-dora',

@@ -6,6 +6,7 @@ import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Compass, Users, BarChart3, BadgeCheck, CheckCircle, ArrowRight } from 'lucide-react';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Pilotage SMSI — Système de Management de la Sécurité de l\'Information',
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/pilotage-smsi',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Pilotage SMSI — Système de Management de la Sécurité de l\'Information | SecuriTrust',
     description: 'Confiez le pilotage de votre SMSI à un expert : gouvernance, COSEC, gestion des risques, indicateurs et maintien en condition opérationnelle.',
     url: 'https://www.securitrust.fr/pilotage-smsi',

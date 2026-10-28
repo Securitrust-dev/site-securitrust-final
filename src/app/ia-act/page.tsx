@@ -6,6 +6,7 @@ import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Brain, Scale, FileCheck, Users, CheckCircle, ArrowRight, ShieldCheck } from 'lucide-react';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Conformité IA Act — Règlement Européen sur l\'Intelligence Artificielle',
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/ia-act',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Conformité IA Act — Règlement Européen sur l\'Intelligence Artificielle | SecuriTrust',
     description: 'Mise en conformité IA Act pour les fournisseurs et déployeurs de systèmes d\'IA. Classification des risques, documentation technique, gouvernance des données.',
     url: 'https://www.securitrust.fr/ia-act',

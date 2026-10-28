@@ -166,6 +166,37 @@ export default async function FormationDetailPage({ params }: { params: Promise<
           </div>
         </section>
 
+        {/* Autres formations : maillage entre fiches, liées jusqu'ici depuis /formations seulement. */}
+        <section className="py-16 px-6 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-end justify-between mb-8 border-b border-white/10 pb-4">
+              <h3 className="text-2xl font-light text-white tracking-tight">Autres formations</h3>
+              <span className="text-cyan-500 font-mono text-xs">04 // CATALOGUE</span>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <a
+                href="/formations/construire-smsi-iso-27001"
+                className="glass-panel block rounded-lg p-5 border border-white/5 hover:border-cyan-500/20 transition-all"
+              >
+                <span className="text-xs text-cyan-500 font-mono">Présentiel · Paris</span>
+                <span className="block text-white font-medium mt-1">Construire un SMSI ISO 27001</span>
+              </a>
+              {getPublishedFormations()
+                .filter((other) => other.slug !== formation.slug)
+                .map((other) => (
+                  <a
+                    key={other.slug}
+                    href={`/formations/${other.slug}`}
+                    className="glass-panel block rounded-lg p-5 border border-white/5 hover:border-cyan-500/20 transition-all"
+                  >
+                    <span className="text-xs text-cyan-500 font-mono">E-learning · {other.level}</span>
+                    <span className="block text-white font-medium mt-1">{other.title}</span>
+                  </a>
+                ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-32 relative z-10">
           <div className="max-w-4xl mx-auto px-6 text-center">

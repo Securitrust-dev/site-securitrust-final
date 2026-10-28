@@ -1,5 +1,16 @@
 import { MetadataRoute } from 'next';
 import { categoryUrl, dbCategoriesWithArticles, listStoredArticleUrls } from '@/lib/blog';
+import LASTMOD from '@/site-chrome/generated/lastmod.json';
+
+// Date du dernier commit touchant la page (scripts/sitemap-lastmod.mjs, lancé avant le
+// build). Route dynamique (/formations/xxx) : date de son gabarit [slug]. Sans date
+// connue, pas de <lastmod> plutôt qu'une date fausse.
+const lastmodOf = (route: string): Date | undefined => {
+  const dates = LASTMOD as Record<string, string>;
+  const key = route === '' ? '/' : route;
+  const date = dates[key] ?? dates[key.replace(/\/[^/]+$/, '/[slug]')];
+  return date ? new Date(date) : undefined;
+};
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.securitrust.fr';
@@ -89,7 +100,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const sitemapEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
+    lastModified: lastmodOf(route),
     changeFrequency: 'weekly',
     priority: route === '' ? 1 : 0.8,
   }));
@@ -104,9 +115,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Pages catégories du blog ayant au moins un article (les vides sont en noindex).
+  // Catégorie : date de son article le plus récent.
+  const latestIn = (category: string) => {
+    const dates = stored.filter((a) => a.category === category).map((a) => a.updatedAt).sort();
+    return dates.length ? new Date(dates[dates.length - 1]) : undefined;
+  };
   const categoryEntries: MetadataRoute.Sitemap = (await dbCategoriesWithArticles()).map((category) => ({
     url: `${baseUrl}${categoryUrl(category)}`,
-    lastModified: new Date(),
+    lastModified: latestIn(category),
     changeFrequency: 'daily',
     priority: 0.5,
   }));

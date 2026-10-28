@@ -4,6 +4,7 @@ import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { BreadcrumbSchema, ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Search, ArrowRight, CheckCircle, FileText, Layers, Clock } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Audit Cybersécurité à Paris — Technique, Organisationnel & Conformité | SecuriTrust',
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/audit',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Audit Cybersécurité — Technique, Organisationnel & Conformité | SecuriTrust',
     description: 'Audit cybersécurité complet à Paris : technique, architecture, configuration, code source, organisationnel et conformité. Auditeur AFNOR certifié.',
     url: 'https://www.securitrust.fr/audit',

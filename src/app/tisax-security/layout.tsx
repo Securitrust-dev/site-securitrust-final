@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Certification TISAX — Conformité Automobile & Sécurité Information | SecuriTrust',
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/tisax-security',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Certification TISAX — Conformité Automobile & Sécurité Information',
     description: "Accompagnement TISAX de A à Z pour fournisseurs et sous-traitants automobiles : diagnostic, mise en conformité, audit final. SecuriTrust.",
     url: 'https://www.securitrust.fr/tisax-security',
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
     locale: 'fr_FR',
   },
   twitter: {
+    images: [DEFAULT_OG_IMAGE.url],
     card: 'summary_large_image',
     title: 'Certification TISAX — Conformité Automobile',
     description: "Accompagnement TISAX pour fournisseurs et sous-traitants du secteur automobile.",

@@ -6,6 +6,7 @@ import { InternalLinks } from '@/components/InternalLinks';
 import { ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { FileText, FileSignature, AlertTriangle, UserCheck, CheckCircle, ArrowRight } from 'lucide-react';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'DPA & Sous-Traitance RGPD — Accords de Traitement des Données',
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/dpa-rgpd',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'DPA & Sous-Traitance RGPD — Accords de Traitement des Données | SecuriTrust',
     description: 'Sécurisez vos relations avec vos sous-traitants et responsables de traitement : DPA article 28, registre, DPIA et gestion des violations.',
     url: 'https://www.securitrust.fr/dpa-rgpd',

@@ -5,7 +5,8 @@ import { StaticThemeShell } from '@/components/static-theme/StaticThemeShell';
 import { BreadcrumbSchema, JsonLd } from '@/components/StructuredData';
 import { ArticleGrid, BlogNav, blogListJsonLd } from '@/components/blog/BlogIndex';
 import { CYBER_CATEGORIES } from '@/lib/articles';
-import { BLOG_URL, categoryFromSlug, categorySlug, listBlogArticles } from '@/lib/blog';
+import { BLOG_URL, categoryFromSlug, categorySlug, dbCategoriesWithArticles, listBlogArticles } from '@/lib/blog';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 type Props = { params: Promise<{ categorie: string }> };
 
@@ -16,16 +17,18 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = categoryFromSlug((await params).categorie);
   if (!category) return {};
-  const items = await listBlogArticles({ category, limit: 24 });
+  // Indexable seulement si la catégorie contient au moins un article indexable : les
+  // actualités de veille reprises de sources anglaises sont en noindex et ne comptent pas.
+  // Même règle que le sitemap (dbCategoriesWithArticles), pour que les deux concordent.
+  const indexable = (await dbCategoriesWithArticles()).includes(category);
   const url = `${BLOG_URL}/categorie/${categorySlug(category)}`;
   const description = `Articles et veille cybersécurité « ${category} » : analyses, alertes et recommandations des experts SecuriTrust.`;
   return {
     title: { absolute: `${category} — Blog cybersécurité | SecuriTrust` },
     description,
     alternates: { canonical: url },
-    // Catégorie vide = page pauvre : on ne la propose pas à l'indexation.
-    robots: { index: items.length > 0, follow: true },
-    openGraph: { title: `${category} — Blog cybersécurité SecuriTrust`, description, url, type: 'website' },
+    robots: { index: indexable, follow: true },
+    openGraph: { title: `${category} — Blog cybersécurité SecuriTrust`, description, url, type: 'website', images: [DEFAULT_OG_IMAGE] },
   };
 }
 

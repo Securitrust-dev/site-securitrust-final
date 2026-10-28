@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { ServiceSchema } from '@/components/StructuredData';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Cybersécurité Opérationnelle — Pentest Entreprise & Audit',
   description: metaDescription('/cybersecurite-operationnelle'),
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Cybersécurité Opérationnelle — Pentest & Audit Cybersécurité | SecuriTrust',
     description: 'Pentest entreprise, audit cybersécurité PME, test d\'intrusion en France. 3 piliers : protection financière, réputation, conformité. Experts certifiés à Paris.',
     url: 'https://www.securitrust.fr/cybersecurite-operationnelle',

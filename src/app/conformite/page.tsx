@@ -4,6 +4,7 @@ import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { BreadcrumbSchema, ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Shield, ArrowRight, CheckCircle, FileText, Award, Users } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Conformité Cybersécurité à Paris — NIS2, RGPD, DORA, ISO 27001 | SecuriTrust',
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/conformite',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Conformité Cybersécurité — NIS2, RGPD, DORA, ISO 27001 | SecuriTrust',
     description: 'Accompagnement conformité cybersécurité : NIS2, RGPD, DORA, ISO 27001, HDS, TISAX. Auditeur officiel AFNOR. Paris.',
     url: 'https://www.securitrust.fr/conformite',

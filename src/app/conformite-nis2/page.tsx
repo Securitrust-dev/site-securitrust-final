@@ -5,6 +5,7 @@ import { Footer } from '@/components/sections/footer';
 import { InternalLinks } from '@/components/InternalLinks';
 import { BreadcrumbSchema, ServiceSchema, FAQSchema } from '@/components/StructuredData';
 import { Shield, CheckCircle, ArrowRight, AlertTriangle, FileCheck, Clock } from 'lucide-react';
+import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
   title: 'Conformité NIS2 — Accompagnement & Audit',
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.securitrust.fr/conformite-nis2',
   },
   openGraph: {
+    images: [DEFAULT_OG_IMAGE],
     title: 'Conformité NIS2 — Accompagnement & Audit | SecuriTrust',
     description: "La directive NIS2 s'applique à votre organisation ? SecuriTrust vous accompagne dans votre mise en conformité : analyse d'écart, plan d'action, audit.",
     url: 'https://www.securitrust.fr/conformite-nis2',

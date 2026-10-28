@@ -141,6 +141,7 @@ export default {
     { label: 'Gouvernance & conformité', href: '/gouvernance-conformite', description: 'Tous nos accompagnements : NIS2, DORA, HDS, TISAX, RGPD.' },
     { label: 'Certification HDS', href: '/hds', description: 'La certification des hébergeurs de données de santé, adossée à ISO 27001.' },
     { label: 'Pilotage du SMSI', href: '/pilotage-smsi', description: 'Faire vivre votre système de management après la certification.' },
+    { label: 'Formation : construire un SMSI', href: '/formations/construire-smsi-iso-27001', description: 'Trois jours en présentiel à Paris pour former vos équipes, du cadrage à la certification.' },
     { label: 'Analyse de risques EBIOS RM', href: '/ebios-rm', description: 'Une méthode d’appréciation des risques reconnue pour fonder votre DdA.' },
     { label: 'Directive NIS2', href: '/nis2', description: 'Ce que votre SMSI couvre déjà, et ce qu’il faut compléter.' },
   ],
