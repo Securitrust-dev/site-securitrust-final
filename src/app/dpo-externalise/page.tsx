@@ -1,242 +1,240 @@
-'use client';
+import Link from 'next/link';
+import { ArrowRight, Scale, FileText, ShieldAlert, Users, BookOpen, Handshake, Award, Clock, UserCheck } from 'lucide-react';
+import { StaticThemeShell } from '@/components/static-theme/StaticThemeShell';
+import { LeadForm } from '@/components/brand/LeadForm';
+import { CasCard } from '@/components/cas-clients/CasCard';
+import { FAQSchema } from '@/components/StructuredData';
+import { CAS_CLIENTS } from '@/content/cas-clients';
 
-import { Navbar } from '@/components/sections/navbar';
-import { PromoBanner } from '@/components/sections/promo-banner';
-import { Footer } from '@/components/sections/footer';
-import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
-import { Package, Cpu, FileCheck, Shield, Lock, Scale, Users, CheckCircle } from 'lucide-react';
+// Page refondue le 29/10/2026 (gabarit RSSI), ciblée « DPO externalisé ». URL conservée.
+
+const FAQS = [
+  {
+    question: 'Mon organisme doit-il désigner un DPO ?',
+    answer:
+      'La désignation est obligatoire pour les autorités et organismes publics, et pour les organismes dont l’activité principale implique un suivi régulier et systématique des personnes à grande échelle, ou le traitement à grande échelle de données sensibles (santé, par exemple). Dans les autres cas, elle reste recommandée par la CNIL : le DPO pilote alors la conformité de façon structurée.',
+  },
+  {
+    question: 'DPO interne ou externalisé : que choisir ?',
+    answer:
+      'Un DPO interne doit disposer du temps, des compétences et de l’indépendance nécessaires, ce qui est difficile à réunir dans une PME ou une ETI. Le DPO externalisé apporte une expertise immédiate, une vraie indépendance vis-à-vis des équipes et une continuité de service, pour un coût ajusté au temps réellement nécessaire.',
+  },
+  {
+    question: 'Comment se passe la désignation auprès de la CNIL ?',
+    answer:
+      'La désignation se fait en ligne sur le site de la CNIL. Nous vous accompagnons dans la démarche : le DPO externalisé est désigné nommément, et ses coordonnées de contact sont publiées pour les personnes concernées.',
+  },
+  {
+    question: 'Le DPO est-il responsable en cas de manquement ?',
+    answer:
+      'Non. Le responsable de traitement, c’est-à-dire votre organisation, reste responsable de la conformité. Le DPO informe, conseille, contrôle et alerte ; il vous aide à démontrer votre conformité, sans s’y substituer.',
+  },
+  {
+    question: 'Quelle différence entre un DPO et un RSSI ?',
+    answer:
+      'Le DPO veille à la protection des données personnelles et au respect du RGPD. Le RSSI pilote la sécurité de l’ensemble du système d’information. Les deux fonctions travaillent ensemble, notamment en cas de violation de données : SecuriTrust peut assurer l’une ou l’autre, ou les deux de façon coordonnée.',
+  },
+  {
+    question: 'Combien de temps le DPO consacre-t-il à mon organisation ?',
+    answer:
+      'Le temps est défini avec vous selon le nombre de traitements, la sensibilité des données et votre niveau de conformité de départ. Il est plus important pendant la mise en conformité, puis se stabilise en pilotage continu avec un reporting régulier.',
+  },
+];
+
+const MISSIONS = [
+  { icon: BookOpen, titre: 'Informer et conseiller', texte: 'Votre direction et vos équipes sur leurs obligations, et sur chaque nouveau projet qui traite des données personnelles.' },
+  { icon: FileText, titre: 'Tenir la conformité', texte: 'Registre des traitements, analyses d’impact (AIPD), mentions d’information, durées de conservation.' },
+  { icon: Users, titre: 'Répondre aux personnes', texte: 'Demandes d’accès, de rectification, d’effacement ou d’opposition, dans les délais légaux.' },
+  { icon: ShieldAlert, titre: 'Gérer les violations', texte: 'Qualification de l’incident, notification à la CNIL sous 72 heures si nécessaire, information des personnes.' },
+  { icon: Handshake, titre: 'Encadrer les sous-traitants', texte: 'Clauses contractuelles et accords de traitement (DPA) avec vos prestataires et vos clients.' },
+  { icon: Scale, titre: 'Dialoguer avec la CNIL', texte: 'Point de contact de l’autorité, y compris en cas de plainte ou de contrôle.' },
+];
+
+const POURQUOI = [
+  { titre: 'Indépendance', texte: 'Le RGPD exige un DPO sans conflit d’intérêts. Un DPO externe n’est ni juge ni partie de vos décisions internes.' },
+  { titre: 'Expertise immédiate', texte: 'Juridique et cybersécurité réunies : pas de période de montée en compétence.' },
+  { titre: 'Coût maîtrisé', texte: 'Vous payez le temps réellement nécessaire, sans recrutement ni charges fixes.' },
+  { titre: 'Continuité', texte: 'Pas de rupture en cas de départ ou d’absence : la fonction est assurée par une équipe.' },
+];
+
+const ETAPES = [
+  { titre: 'Diagnostic RGPD', texte: 'État des lieux de vos traitements, de vos documents et de vos pratiques.' },
+  { titre: 'Désignation', texte: 'Désignation du DPO auprès de la CNIL et information des personnes concernées.' },
+  { titre: 'Mise en conformité', texte: 'Registre, AIPD, mentions, contrats, procédures : un plan d’action priorisé et suivi.' },
+  { titre: 'Pilotage continu', texte: 'Conseil au fil de l’eau, veille réglementaire, sensibilisation et reporting régulier à la direction.' },
+];
+
+const LIENS = [
+  { titre: 'Mise en conformité RGPD', href: '/rgpd', texte: 'Audit RGPD et feuille de route de mise en conformité.' },
+  { titre: 'DPA et sous-traitance', href: '/dpa-rgpd', texte: 'Vos accords de traitement avec clients et prestataires.' },
+  { titre: 'RSSI externalisé', href: '/rssi-externalise', texte: 'La sécurité du système d’information, pilotée à temps partagé.' },
+  { titre: 'AI Act', href: '/ia-act', texte: 'Encadrer vos usages de l’intelligence artificielle.' },
+];
 
 export default function DPOExternalisePage() {
+  const cas = CAS_CLIENTS.filter((c) => c.offres.includes('rgpd')).slice(0, 6);
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
-      {/* Scanline Overlay */}
-      <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
+    <StaticThemeShell>
+      <FAQSchema faqs={FAQS} />
 
-      {/* Background Particles */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-full h-full bg-void opacity-60"></div>
-        <div className="stars opacity-20"></div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute top-1/4 left-10 opacity-20 animate-float hidden md:block" style={{ animationDelay: '0s' }}>
-        <Package className="w-24 h-24 text-cyan-500" />
-      </div>
-      <div className="absolute bottom-1/3 right-20 opacity-20 animate-float hidden md:block" style={{ animationDelay: '2s' }}>
-        <Cpu className="w-16 h-16 text-cyan-500" />
-      </div>
-
-      <div className="relative z-10">
-        <PromoBanner />
-        <Navbar />
-        
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
-                Protection des Données
-              </h2>
-              <h1 className="brand-h1">
-                DPO externalisé
+      <section className="hero-simple">
+        <div className="wrap">
+          <p className="crumb">
+            <Link href="/">Accueil</Link>
+            <span className="sep">›</span>
+            <Link href="/gouvernance-conformite">Gouvernance &amp; conformité</Link>
+            <span className="sep">›</span>
+            <span className="now">DPO externalisé</span>
+          </p>
+          <div className="hero-split">
+            <div>
+              <span className="eyebrow">DPO externalisé · Paris</span>
+              <h1>
+                DPO externalisé&nbsp;: <span className="hl">votre délégué à la protection des données</span>, sans recrutement
               </h1>
-              <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
-                Externaliser la fonction de <strong>DPO externalisé</strong> (<strong>Délégué à la Protection des Données</strong>) est une solution idéale pour les entreprises souhaitant garantir leur <strong>conformité RGPD</strong> sans recourir à un recrutement interne. Chez <strong>SecuriTrust</strong>, nous mettons à votre disposition un <strong>service DPO externalisé</strong> alliant expertise, réactivité et indépendance, pour une gestion optimale de vos obligations en matière de protection des données.
+              <p className="hero-sub">
+                SecuriTrust assure la fonction de <b>délégué à la protection des données (DPO)</b> pour votre organisation :
+                désignation auprès de la CNIL, registre des traitements, demandes des personnes, violations de données. Vous
+                êtes conforme au <b>RGPD</b> et vous le démontrez.
               </p>
+              <ul className="fact-row">
+                <li><UserCheck size={16} /> DPO désigné auprès de la CNIL</li>
+                <li><Award size={16} /> Cabinet certifié ISO 27001</li>
+                <li><Clock size={16} /> Notification CNIL sous 72 h</li>
+              </ul>
+            </div>
+            <div id="devis" style={{ scrollMarginTop: 110 }}>
+              <LeadForm
+                formId="dpo_externalise"
+                source="DPO externalisé"
+                title="Parler à un DPO"
+                subtitle="Décrivez votre organisation : nous vous rappelons pour évaluer votre besoin."
+                messageLabel="Votre contexte (facultatif)"
+                messagePlaceholder="Ex. : 80 salariés, données de santé, DPO à désigner…"
+              />
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
-            <span className="text-[0.6rem] uppercase tracking-[0.3em]">Scroll</span>
-            <div className="w-4 h-4 text-cyan-400">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
+      <section className="sec">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Les missions</span>
+            <h2>Ce que fait votre DPO externalisé</h2>
+            <p>
+              Le RGPD confie au délégué à la protection des données un rôle d’information, de conseil et de contrôle.
+              Concrètement, voici ce que nous prenons en charge.
+            </p>
+          </div>
+          <div className="grid-3">
+            {MISSIONS.map(({ icon: Icon, titre, texte }) => (
+              <article key={titre} className="pilier">
+                <span className="pilier-icon"><Icon size={22} /></span>
+                <h3>{titre}</h3>
+                <p>{texte}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec sec--dark">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Pourquoi externaliser</span>
+            <h2>Les avantages d’un DPO externe</h2>
+            <p>Une alternative au recrutement, adaptée aux PME, aux ETI et aux organismes publics.</p>
+          </div>
+          <div className="grid-4">
+            {POURQUOI.map((p) => (
+              <article key={p.titre} className="pilier">
+                <h3>{p.titre}</h3>
+                <p>{p.texte}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">La démarche</span>
+            <h2>De la désignation au pilotage continu</h2>
+          </div>
+          <div className="grid-4">
+            {ETAPES.map((e, i) => (
+              <article key={e.titre} className="pilier">
+                <span className="step-num">ÉTAPE {String(i + 1).padStart(2, '0')}</span>
+                <h3>{e.titre}</h3>
+                <p>{e.texte}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec sec--dark">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Cas clients</span>
+            <h2>Ils nous ont confié leur conformité RGPD</h2>
+            <p>Réassurance, petite enfance, éditeurs SaaS, conseil : des organisations de toutes tailles.</p>
+          </div>
+          <div className="case-grid">
+            {cas.map((c) => <CasCard key={c.slug} cas={c} />)}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Questions fréquentes</span>
+            <h2>DPO externalisé : vos questions</h2>
+          </div>
+          <div className="faq-list">
+            {FAQS.map((f) => (
+              <details key={f.question}>
+                <summary>{f.question}</summary>
+                <p>{f.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec sec--dark">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Aller plus loin</span>
+            <h2>Protection des données et sécurité</h2>
+          </div>
+          <div className="case-grid">
+            {LIENS.map((l) => (
+              <Link key={l.href} href={l.href} className="case-card">
+                <span className="case-client" style={{ fontSize: 19 }}>{l.titre}</span>
+                <span className="case-mission">{l.texte}</span>
+                <span className="case-more">Découvrir <ArrowRight size={14} /></span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="cta-box">
+            <h2>Besoin d’un DPO dès maintenant ?</h2>
+            <p>Un échange de 30 minutes pour évaluer votre situation et vous proposer un accompagnement adapté.</p>
+            <div className="hero-actions" style={{ justifyContent: 'center' }}>
+              <a href="#devis" className="btn-primary">Parler à un DPO <ArrowRight size={16} /></a>
+              <Link href="/cas-clients" className="btn-ghost">Voir nos cas clients <ArrowRight size={16} /></Link>
             </div>
           </div>
-        </section>
-
-        {/* Tech Stack Banner */}
-        <section className="relative z-10 border-y border-white/5 bg-black/40">
-          <div className="max-w-7xl mx-auto px-6 py-6 flex items-center gap-10 overflow-hidden">
-            <div className="flex items-center gap-3 shrink-0">
-              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-cyan-400">
-                Avantages
-              </span>
-              <div className="h-px w-12 bg-gradient-to-r from-cyan-500/60 to-transparent"></div>
-            </div>
-            <div className="relative w-full overflow-hidden">
-              <div className="flex gap-10 items-center whitespace-nowrap animate-marquee text-slate-300/80 text-sm md:text-base">
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <FileCheck className="w-5 h-5 text-cyan-400" />
-                  <span>Veille Continue</span>
-                </div>
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Shield className="w-5 h-5 text-cyan-400" />
-                  <span>Gestion Risques</span>
-                </div>
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Lock className="w-5 h-5 text-cyan-400" />
-                  <span>Coûts Maîtrisés</span>
-                </div>
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Scale className="w-5 h-5 text-cyan-400" />
-                  <span>Indépendance</span>
-                </div>
-                {/* Duplicate for seamless loop */}
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <FileCheck className="w-5 h-5 text-cyan-400" />
-                  <span>Veille Continue</span>
-                </div>
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Shield className="w-5 h-5 text-cyan-400" />
-                  <span>Gestion Risques</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Pourquoi faire appel à un DPO externalisé */}
-        <section className="py-32 relative z-10">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-4">
-              <h3 className="text-4xl font-light text-white tracking-tight">
-                Pourquoi faire appel à un DPO externalisé ?
-              </h3>
-              <span className="text-cyan-500 font-mono text-xs">01 // CONTEXTE</span>
-            </div>
-
-            <div className="glass-panel p-8 rounded-xl border border-white/5 mb-8">
-              <p className="text-slate-300 mb-4">
-                Le <strong>Règlement Général sur la Protection des Données (RGPD)</strong> impose à de nombreuses organisations de désigner un DPO. Lorsque les ressources internes sont limitées, le recours à un <strong>DPO externalisé</strong> permet de répondre à cette exigence légale tout en bénéficiant d&apos;un accompagnement d&apos;experts.
-              </p>
-              <p className="text-slate-300">
-                L&apos;externalisation du DPO garantit :
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-              {/* Connecting Line */}
-              <div className="hidden lg:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent -translate-y-1/2 z-0"></div>
-
-              <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden">
-                  <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/10 bg-black/50 text-cyan-400 group-hover:scale-110 transition-transform duration-300">
-                    <FileCheck className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-medium text-white mb-2">Veille réglementaire</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">Continue sur les évolutions du RGPD</p>
-                </div>
-              </div>
-
-              <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden">
-                  <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/10 bg-black/50 text-cyan-400 group-hover:scale-110 transition-transform duration-300">
-                    <Users className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-medium text-white mb-2">Gestion proactive</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">Des risques liés à la protection des données</p>
-                </div>
-              </div>
-
-              <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
-                  <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.4)] group-hover:scale-110 transition-transform duration-300">
-                    <Shield className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-medium text-white mb-2">Réduction des coûts</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">Par rapport à un recrutement interne</p>
-                </div>
-              </div>
-
-              <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden">
-                  <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/10 bg-black/50 text-cyan-400 group-hover:scale-110 transition-transform duration-300">
-                    <Scale className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-lg font-medium text-white mb-2">Indépendance totale</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">Dans l&apos;analyse et la prise de décision</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Réactivité, indépendance et transparence */}
-        <section className="py-32 relative z-10">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-4">
-              <h3 className="text-4xl font-light text-white tracking-tight">
-                Réactivité, indépendance et transparence
-              </h3>
-              <span className="text-cyan-500 font-mono text-xs">02 // PRINCIPES</span>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="glass-panel p-8 rounded-xl border border-white/5">
-                <h4 className="text-2xl font-bold text-cyan-400 mb-6">Indépendance du DPO</h4>
-                <p className="text-slate-300 mb-4">
-                  Le DPO doit agir en toute <strong>indépendance</strong> par rapport à l&apos;organisation qu&apos;il conseille. Son rôle est d&apos;accompagner et de guider, non de prendre des décisions à la place de la direction.
-                </p>
-                <p className="text-slate-300">
-                  Leur position externe offre une <strong>objectivité précieuse</strong>, essentielle à une gouvernance saine de la donnée.
-                </p>
-              </div>
-
-              <div className="glass-panel p-8 rounded-xl border border-white/5">
-                <h4 className="text-2xl font-bold text-cyan-400 mb-6">Un service flexible</h4>
-                <p className="text-slate-300 mb-4">
-                  Nos <strong>services de DPO externalisé</strong> s&apos;adaptent à votre taille, votre secteur d&apos;activité et vos besoins :
-                </p>
-                <ul className="space-y-3">
-                  {[
-                    'Missions ponctuelles ou longue durée',
-                    'Accompagnement personnalisé et évolutif',
-                    'Reporting régulier pour traçabilité'
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-slate-300 text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16 px-6 text-center relative z-10">
-          <ExpertCTAButton />
-        </section>
-
-        {/* Services liés */}
-        <section className="py-16 px-6 relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { title: 'Mise en conformité RGPD', href: '/rgpd', desc: 'Audit RGPD complet, feuille de route personnalisée et accompagnement à la mise en conformité.' },
-                { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre cybersécurité et votre conformité avec un RSSI à temps partagé.' },
-                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité réglementaire pour structurer votre sécurité.' },
-              ].map((s, i) => (
-                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
-                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
-                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <Footer />
-      </div>
-    </div>
+        </div>
+      </section>
+    </StaticThemeShell>
   );
 }

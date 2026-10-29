@@ -4,14 +4,14 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'DPO Externalisé | Délégué à la Protection des Données RGPD',
+  title: 'DPO externalisé : délégué à la protection des données RGPD',
   description: metaDescription('/dpo-externalise'),
   alternates: {
     canonical: 'https://www.securitrust.fr/dpo-externalise',
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: 'DPO Externalisé — SecuriTrust',
+    title: 'DPO externalisé : délégué à la protection des données | SecuriTrust',
     description: 'DPO externalisé certifié : désignation CNIL, conformité RGPD, registre des traitements, gestion des violations et formation des équipes.',
     url: 'https://www.securitrust.fr/dpo-externalise',
   },

@@ -36,7 +36,7 @@ export const META_DESCRIPTIONS = {
   '/gap-analysis': 'Audit d’écart (gap analysis) face à ISO 27001, NIS2, DORA, HDS ou TISAX : mesure de votre niveau actuel et plan d’action priorisé et chiffré.',
   '/evaluation-maturite': 'Évaluation de la maturité cybersécurité de votre organisation selon ISO 27001 et le NIST CSF : notation par domaine, comparaison et plan de progression.',
   '/pcapra': 'Plan de continuité (PCA) et plan de reprise d’activité (PRA) : analyse d’impact, stratégies de secours, procédures de crise et tests de reprise.',
-  '/dpo-externalise': 'DPO externalisé : délégué à la protection des données désigné auprès de la CNIL, registre des traitements, AIPD, gestion des demandes et des violations.',
+  '/dpo-externalise': 'DPO externalisé : SecuriTrust assure votre fonction de délégué à la protection des données, désignée auprès de la CNIL. Registre, AIPD, demandes, violations.',
   '/dpa-rgpd': 'Rédaction et négociation de vos accords de sous-traitance RGPD (DPA, article 28) : clauses, mesures de sécurité, transferts hors UE, audit des sous-traitants.',
   '/ia-act': 'Mise en conformité avec l’AI Act (règlement UE 2024/1689) : inventaire et classification de vos systèmes d’IA, gestion des risques et gouvernance des données.',
 
