@@ -399,14 +399,14 @@
     color: var(--muted-2);
   }
 
-  /* Deux rangées équilibrées de 5 logos sur grand écran ; retour à la ligne libre sur mobile. */
+  /* Rangées équilibrées : 6 colonnes sur grand écran, 4 sur tablette, 3 sur mobile. */
   .trust-logos {
     display: grid;
-    grid-template-columns: repeat(5, auto);
+    grid-template-columns: repeat(6, auto);
     align-items: center;
     justify-content: center;
     justify-items: center;
-    gap: 30px 64px;
+    gap: 30px 56px;
     padding-bottom: 40px;
   }
 
@@ -424,8 +424,12 @@
   .trust-logos img:hover { opacity: 1; }
 
   @media (max-width: 900px) {
-    .trust-logos { display: flex; flex-wrap: wrap; gap: 22px 30px; }
+    .trust-logos { grid-template-columns: repeat(4, auto); gap: 24px 36px; }
     .trust-logos img { height: calc(var(--h, 28px) * 0.75); }
+  }
+
+  @media (max-width: 560px) {
+    .trust-logos { grid-template-columns: repeat(3, auto); gap: 22px 26px; }
   }
 
   .btn-row {
@@ -1133,6 +1137,8 @@
       <img style="--h:26px" src="/clients/white/natixis.png" alt="Natixis" loading="lazy" />
       <img style="--h:26px" src="/clients/white/munich-re.png" alt="Munich Re" loading="lazy" />
       <img style="--h:24px" src="/clients/white/backupta.png" alt="BackupTa" loading="lazy" />
+      <img style="--h:44px" src="/clients/white/kallista-energy.png" alt="Kallista Energy" loading="lazy" />
+      <img style="--h:50px" src="/clients/white/aramisauto.png" alt="Aramisauto" loading="lazy" />
     </div>
   </div>
 
