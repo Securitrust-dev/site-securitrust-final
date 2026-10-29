@@ -405,15 +405,15 @@
     align-items: center;
     justify-content: center;
     justify-items: center;
-    gap: 30px 56px;
-    padding-bottom: 40px;
+    gap: 40px 56px;
+    padding-bottom: 44px;
   }
 
   /* Hauteur propre à chaque logo (--h, posée sur l'image) : calculée pour une aire
      visuelle constante, afin qu'un logo carré (AXA) pèse autant qu'un logo très
      large (Backupta). */
   .trust-logos img {
-    height: var(--h, 28px);
+    height: calc(var(--h, 28px) * 1.4);
     width: auto;
     opacity: 0.9;
     filter: grayscale(1) brightness(1.8);
@@ -424,12 +424,29 @@
 
   @media (max-width: 900px) {
     .trust-logos { grid-template-columns: repeat(4, auto); gap: 24px 36px; }
-    .trust-logos img { height: calc(var(--h, 28px) * 0.75); }
+    .trust-logos img { height: calc(var(--h, 28px) * 1.05); }
   }
 
   @media (max-width: 560px) {
-    .trust-logos { grid-template-columns: repeat(3, auto); gap: 22px 26px; }
+    .trust-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 16px; padding: 0 16px 36px; }
+    .trust-logos img { height: calc(var(--h, 28px) * 0.85); max-width: 100%; object-fit: contain; }
   }
+
+  /* avis clients sous les logos. Avec 3 avis ou plus, ajouter la classe reviews--scroll
+     et dupliquer les cartes dans la piste : le bandeau défile alors en continu. */
+  .reviews { max-width: 1180px; margin: 0 auto; padding: 0 24px 56px; overflow: hidden; }
+  .reviews-track { display: flex; gap: 20px; justify-content: center; }
+  .reviews--scroll .reviews-track { justify-content: flex-start; width: max-content; animation: reviews-scroll 60s linear infinite; }
+  .reviews--scroll:hover .reviews-track { animation-play-state: paused; }
+  @keyframes reviews-scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .reviews--scroll .reviews-track { animation: none; } }
+  .review { flex: 0 0 auto; width: min(560px, 100%); margin: 0; padding: 24px 26px; border-radius: 18px; background: #0d1729; border: 1px solid rgba(255,255,255,.14); }
+  .review-stars { color: #fbbf24; letter-spacing: 3px; font-size: 1rem; margin-bottom: 10px; }
+  .review blockquote { margin: 0 0 16px; color: #e8f0fb; font-size: 1.02rem; line-height: 1.6; }
+  .review figcaption { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; font-size: .9rem; color: #cbd5e1; }
+  .review figcaption strong { color: #fff; }
+  .review .review-src { color: #7dd3fc; font-size: .82rem; }
+  @media (max-width: 560px) { .reviews { padding: 0 16px 44px; } .review { padding: 20px; } }
 
   .btn-row {
     display: flex;
@@ -1173,6 +1190,16 @@
       <img style="--h:50px" src="/clients/white/aramisauto.png" alt="Aramisauto" loading="lazy" />
     </div>
   </div>
+
+  <section class="reviews" aria-label="Avis clients">
+    <div class="reviews-track">
+      <figure class="review">
+        <div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote>«&nbsp;Nous sommes extrêmement satisfaits de l&rsquo;accompagnement de SecuriTrust. Leur expertise en cybersécurité a été un véritable atout, notamment pour l&rsquo;obtention de notre certification SOC 2 Type II&nbsp;: méthodologie rigoureuse, délais respectés et conseils pertinents.&nbsp;»</blockquote>
+        <figcaption><strong>Saida</strong> CEO, Élite Aéroport <span class="review-src">Avis vérifié sur Google</span></figcaption>
+      </figure>
+    </div>
+  </section>
 
   <section id="expertises">
     <div class="container">
