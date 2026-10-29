@@ -450,6 +450,8 @@
   .reviews-track:only-child, .reviews-track.is-static { justify-content: center; }
   .review { flex: 0 0 min(440px, 86%); scroll-snap-align: start; margin: 0; padding: 24px 26px; border-radius: 18px;
     background: #0d1729; border: 1px solid rgba(255,255,255,.14); display: flex; flex-direction: column; }
+  .reviews-score { margin: 4px 0 0; font-size: .9rem; color: #cbd5e1; }
+  .reviews-score span { color: #fbbf24; letter-spacing: 2px; margin-right: 4px; }
   .review-stars { color: #fbbf24; letter-spacing: 3px; font-size: 1rem; margin-bottom: 10px; }
   .review blockquote { margin: 0 0 16px; color: #e8f0fb; font-size: 1rem; line-height: 1.6; flex: 1; }
   .review figcaption { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; font-size: .9rem; color: #cbd5e1; }
@@ -1206,7 +1208,10 @@
 
   <section class="reviews" aria-roledescription="carrousel" aria-labelledby="reviews-title" data-reviews>
     <div class="reviews-head">
-      <h2 id="reviews-title">Avis de nos clients</h2>
+      <div>
+        <h2 id="reviews-title">Avis de nos clients</h2>
+        <p class="reviews-score"><span aria-hidden="true">★★★★★</span> 5/5 sur Google · 5 avis</p>
+      </div>
       <div class="reviews-nav" hidden>
         <button type="button" class="reviews-btn" data-dir="-1" aria-label="Avis précédent">&#8592;</button>
         <button type="button" class="reviews-btn" data-dir="1" aria-label="Avis suivant">&#8594;</button>
@@ -1216,7 +1221,12 @@
       <figure class="review">
         <div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div>
         <blockquote>«&nbsp;Nous sommes extrêmement satisfaits de l&rsquo;accompagnement de SecuriTrust. Leur expertise en cybersécurité a été un véritable atout, notamment pour l&rsquo;obtention de notre certification SOC 2 Type II&nbsp;: méthodologie rigoureuse, délais respectés et conseils pertinents.&nbsp;»</blockquote>
-        <figcaption><strong>Saida</strong> CEO, Élite Aéroport <span class="review-src">Avis vérifié sur Google</span></figcaption>
+        <figcaption><strong>Saida</strong> CEO, Élite Aéroport <span class="review-src">Avis Google</span></figcaption>
+      </figure>
+      <figure class="review">
+        <div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+        <blockquote>«&nbsp;SecuriTrust nous accompagne avec succès depuis 9 ans. Leur expertise en tant que RSSI externalisé et aussi sur les tests d&rsquo;intrusion. Nous recommandons vivement leurs services.&nbsp;»</blockquote>
+        <figcaption><strong>Noella I.</strong> <span class="review-src">Avis Google</span></figcaption>
       </figure>
     </div>
     <div class="reviews-dots" hidden></div>
