@@ -132,7 +132,7 @@ export default function HomeDesignLPEnPage() {
   };
 
   return (
-    <div id="lp-root" lang="en" className={spaceGrotesk.variable}>
+    <div id="lp-root" lang="en" className={`lp-root ${spaceGrotesk.variable}`}>
       {/* ======================= HERO ======================= */}
       <header className="hero">
         <div className="hero-bg" aria-hidden="true"></div>

@@ -54,7 +54,7 @@ const METHODOLOGIE = [
 
 export default function GapAnalysisPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300">
       <ServiceSchema
         name="Audit d'écart (Gap Analysis)"
         description="Comparaison de l'état actuel de votre organisation aux exigences d'un référentiel cible (ISO 27001, TISAX, DORA, HDS...) avec plan d'action priorisé et chiffré."
@@ -86,7 +86,7 @@ export default function GapAnalysisPage() {
                 ISO 27001 · TISAX · DORA · HDS
               </span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-semibold text-white tracking-tighter leading-tight mb-6">
+            <h1 className="brand-h1">
               Audit d&apos;Écart{' '}
               <span className="text-cyan-400">(Gap Analysis)</span>
             </h1>
@@ -96,13 +96,13 @@ export default function GapAnalysisPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact?service=audit"
-                className="px-8 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Demander ma Gap Analysis
               </a>
               <a
                 href="/gouvernance-conformite/audits"
-                className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-all rounded text-sm flex items-center justify-center gap-2"
+                className="btn-brand-ghost"
               >
                 Nos autres audits <ArrowRight className="w-4 h-4" />
               </a>
@@ -168,7 +168,7 @@ export default function GapAnalysisPage() {
                 </p>
                 <a
                   href="/contact?service=audit"
-                  className="inline-block px-6 py-3 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-xs"
+                  className="btn-brand"
                 >
                   Nous contacter
                 </a>
@@ -210,7 +210,7 @@ export default function GapAnalysisPage() {
               </p>
               <a
                 href="/contact?service=audit"
-                className="inline-block px-10 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Demander ma Gap Analysis
               </a>

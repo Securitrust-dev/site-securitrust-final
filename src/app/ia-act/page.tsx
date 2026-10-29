@@ -74,7 +74,7 @@ const PILIERS = [
 
 export default function IaActPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300">
       <ServiceSchema
         name="Conformité IA Act"
         description="Accompagnement à la mise en conformité avec le règlement européen sur l'intelligence artificielle (IA Act) : classification des risques, documentation technique, gouvernance des données."
@@ -106,7 +106,7 @@ export default function IaActPage() {
                 Intelligence Artificielle
               </span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-semibold text-white tracking-tighter leading-tight mb-6">
+            <h1 className="brand-h1">
               Conformité{' '}
               <span className="text-cyan-400">IA Act</span>
             </h1>
@@ -116,13 +116,13 @@ export default function IaActPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact"
-                className="px-8 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Évaluation IA Act gratuite
               </a>
               <a
                 href="/gouvernance-conformite/accompagnement"
-                className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-all rounded text-sm flex items-center justify-center gap-2"
+                className="btn-brand-ghost"
               >
                 Notre offre Gouvernance <ArrowRight className="w-4 h-4" />
               </a>
@@ -188,7 +188,7 @@ export default function IaActPage() {
                 </p>
                 <a
                   href="/contact"
-                  className="inline-block px-6 py-3 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-xs"
+                  className="btn-brand"
                 >
                   Nous contacter
                 </a>
@@ -230,7 +230,7 @@ export default function IaActPage() {
               </p>
               <a
                 href="/contact"
-                className="inline-block px-10 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Évaluer ma conformité IA Act
               </a>

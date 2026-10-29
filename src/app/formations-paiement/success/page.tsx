@@ -35,7 +35,7 @@ function FormationsSuccessContent() {
   }, [sessionId]);
 
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60"></div>
@@ -60,7 +60,7 @@ function FormationsSuccessContent() {
                 <div className="w-20 h-20 rounded-full border-2 border-cyan-500 bg-cyan-500/10 flex items-center justify-center mx-auto mb-6">
                   <CheckCircle className="w-10 h-10 text-cyan-400" />
                 </div>
-                <h1 className="text-3xl md:text-4xl font-semibold text-white mb-4">
+                <h1 className="brand-h1">
                   Paiement confirme !
                 </h1>
                 <p className="text-lg text-slate-400 mb-2">
@@ -71,7 +71,7 @@ function FormationsSuccessContent() {
                 </p>
                 <a
                   href={`/formations/apprendre/${formationSlug}`}
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
+                  className="btn-brand"
                 >
                   Commencer la formation
                   <ArrowRight className="w-5 h-5" />
@@ -81,7 +81,7 @@ function FormationsSuccessContent() {
 
             {status === 'error' && (
               <div className="glass-panel rounded-2xl p-12 border border-red-500/20">
-                <h1 className="text-3xl font-semibold text-white mb-4">
+                <h1 className="brand-h1">
                   Erreur de validation
                 </h1>
                 <p className="text-lg text-slate-400 mb-8">
@@ -89,7 +89,7 @@ function FormationsSuccessContent() {
                 </p>
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all"
+                  className="btn-brand"
                 >
                   Contacter le support
                   <ArrowRight className="w-5 h-5" />

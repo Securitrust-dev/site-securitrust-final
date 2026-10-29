@@ -9,7 +9,7 @@ import { Code, CheckCircle, Bug, Shield, FileCode, ArrowRight, Box, Cpu, FileTex
 
 export default function AuditCodeSourcePage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -34,8 +34,8 @@ export default function AuditCodeSourcePage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Cybersécurité Opérationnelle
               </h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                AUDIT DE CODE SOURCE
+              <h1 className="brand-h1">
+                Audit de code source
               </h1>
               <p className="text-lg md:text-xl text-slate-300 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left mb-6">
                 L&apos;<strong>audit de code source</strong> consiste à analyser en profondeur le code de vos applications pour détecter les <strong>vulnérabilités de sécurité</strong>, les failles logiques et les erreurs de programmation qui pourraient être exploitées par des attaquants. Notre équipe d&apos;experts certifiés utilise des méthodologies éprouvées combinant analyse manuelle approfondie et outils spécialisés pour garantir une couverture exhaustive.

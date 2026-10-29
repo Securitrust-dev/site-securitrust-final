@@ -56,7 +56,7 @@ function FormationsPaiementContent() {
   }
 
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60"></div>
@@ -71,7 +71,7 @@ function FormationsPaiementContent() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">Inscription</h2>
-              <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-4">
+              <h1 className="brand-h1">
                 Inscrivez-vous a une formation
               </h1>
               <p className="text-slate-400 max-w-2xl mx-auto">
@@ -173,7 +173,7 @@ function FormationsPaiementContent() {
                   <button
                     type="submit"
                     disabled={loading || !formation}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] text-sm"
+                    className="btn-brand w-full disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Redirection...' : 'Proceder au paiement'}
                     <ArrowRight className="w-4 h-4" />

@@ -7,11 +7,11 @@ interface ExpertCTAButtonProps {
 }
 
 export function ExpertCTAButton({ className = '', variant = 'default' }: ExpertCTAButtonProps) {
-  const baseStyles = 'inline-flex items-center gap-4 px-10 py-5 text-lg font-bold tracking-widest uppercase transition-all rounded-full group';
-  
+  // Boutons de la charte (globals.css) : orange plein ou contour bleu ciel.
+  const baseStyles = 'group';
   const variantStyles = {
-    default: 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]',
-    outline: 'border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 shadow-[0_0_15px_rgba(118,166,209,0.2)] hover:shadow-[0_0_25px_rgba(118,166,209,0.4)]'
+    default: 'btn-brand',
+    outline: 'btn-brand-ghost',
   };
 
   return (

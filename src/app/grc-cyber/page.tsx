@@ -8,7 +8,7 @@ import { SkyCTAButton } from '@/components/ui/sky-cta-button';
 
 export default function GRCCyberPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       {/* Scanline Overlay */}
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
@@ -37,12 +37,8 @@ export default function GRCCyberPage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Pilier Stratégique
               </h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                GOUVERNANCE
-                <br />
-                RISQUES
-                <br />
-                CONFORMITÉ
+              <h1 className="brand-h1">
+                Gouvernance, risques et conformité
               </h1>
               <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
                 Face à la complexité croissante et à la sophistication des attaques, une réponse tactique isolée n&apos;est plus suffisante. Pour établir une résilience durable face aux cybermenaces, il faut une approche globale et stratégique de gestion des risques cyber.
@@ -122,7 +118,7 @@ export default function GRCCyberPage() {
                 { icon: TrendingUp, title: 'Amélioration continue', desc: 'Pilotage et optimisation permanente' }
               ].map((item, index) => (
                 <div key={index} className="tilt-card group relative z-10 p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
+                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <item.icon className="w-8 h-8 text-cyan-400" />

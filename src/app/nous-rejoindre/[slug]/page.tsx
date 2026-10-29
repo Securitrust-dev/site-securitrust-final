@@ -223,7 +223,7 @@ export default async function JobPostingPage({ params }: { params: Promise<{ slu
                   <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/20 rounded text-xs text-cyan-400 font-semibold mb-3 uppercase tracking-wider">
                     {job.category}
                   </div>
-                  <h1 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-tight">
+                  <h1 className="brand-h1">
                     {job.title}
                   </h1>
                   <p className="text-lg text-slate-400 font-light leading-relaxed mb-6">

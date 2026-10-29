@@ -10,7 +10,7 @@ const conformiteComplete = [
     title: 'ISO 27001',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
-    glow: 'shadow-[0_0_15px_rgba(118,166,209,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(56,189,248,0.1)]',
     description: 'Certification internationale du Système de Management de la Sécurité de l\'Information.',
     etapes: ['Analyse d\'écart initiale', 'Définition du périmètre SMSI', 'Traitement des risques', 'Déploiement des contrôles', 'Audit de certification'],
     duree: '6 à 18 mois',
@@ -70,7 +70,7 @@ const livrables = [
     title: 'PSSI',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
-    glow: 'shadow-[0_0_15px_rgba(118,166,209,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(56,189,248,0.1)]',
     contenu: "Politique de Sécurité des Systèmes d'Information définissant les règles, responsabilités et engagements de l'organisation en matière de protection de l'information. Adaptée au contexte métier, elle couvre la gouvernance, la gestion des accès, la continuité et la gestion des incidents.",
     casUsage: "Prérequis ISO 27001 (contrôle A.5.1), conformité DORA, réponse aux questionnaires de qualification fournisseurs, documentation de maturité sécurité à destination des clients et partenaires.",
   },
@@ -125,7 +125,7 @@ const tousLesReferentiels = [
 
 export default function AccompagnementPage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen" />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60" />
@@ -159,7 +159,7 @@ export default function AccompagnementPage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Gouvernance &amp; Conformité
               </h2>
-              <h1 className="text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tighter leading-[1.05] mb-6 mix-blend-screen uppercase break-words">
+              <h1 className="brand-h1 break-words">
                 Accompagnement
                 <span className="block text-3xl md:text-5xl lg:text-6xl mt-3">à la conformité cybersécurité</span>
               </h1>
@@ -167,11 +167,11 @@ export default function AccompagnementPage() {
                 Notre cabinet de conseil en sécurité des systèmes d&apos;information s&apos;appuie sur une méthodologie éprouvée d&apos;accompagnement à la conformité, adaptable à différents cadres réglementaires ou normatifs, afin de structurer efficacement la démarche de conformité et de préparer, lorsque nos clients le souhaitent, l&apos;obtention d&apos;une certification dans les meilleures conditions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-                <a href="/contact?service=accompagnement" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)]">
+                <a href="/contact?service=accompagnement" className="btn-brand">
                   Je souscris à mon accompagnement
                   <ArrowRight className="w-5 h-5" />
                 </a>
-                <a href="/contact?service=audit" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all">
+                <a href="/contact?service=audit" className="btn-brand-ghost">
                   Je souscris à mon audit
                   <ArrowRight className="w-5 h-5" />
                 </a>
@@ -287,11 +287,11 @@ export default function AccompagnementPage() {
         <section className="py-12 relative z-10">
           <div className="max-w-4xl mx-auto px-6">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/contact?service=accompagnement" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)]">
+              <a href="/contact?service=accompagnement" className="btn-brand">
                 Je souscris à mon accompagnement
                 <ArrowRight className="w-5 h-5" />
               </a>
-              <a href="/contact?service=audit" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all">
+              <a href="/contact?service=audit" className="btn-brand-ghost">
                 Je souscris à mon audit
                 <ArrowRight className="w-5 h-5" />
               </a>
@@ -368,11 +368,11 @@ export default function AccompagnementPage() {
                 Un échange de 30 minutes suffit à identifier le bon niveau d&apos;engagement et le chemin le plus direct vers votre objectif.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                <a href="/contact?service=accompagnement" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)]">
+                <a href="/contact?service=accompagnement" className="btn-brand">
                   Je souscris à mon accompagnement
                   <ArrowRight className="w-5 h-5" />
                 </a>
-                <a href="/contact?service=audit" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all">
+                <a href="/contact?service=audit" className="btn-brand-ghost">
                   Je souscris à mon audit
                   <ArrowRight className="w-5 h-5" />
                 </a>

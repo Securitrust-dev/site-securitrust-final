@@ -38,7 +38,7 @@ export default function FormationLearnPage() {
 
   if (!formation) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#030303' }}>
+      <div className="min-h-screen flex items-center justify-center">
         <p className="text-white text-xl">Formation introuvable</p>
       </div>
     );
@@ -63,7 +63,7 @@ export default function FormationLearnPage() {
   const progress = Math.round((completedModules.length / formation.modules.length) * 100);
 
   return (
-    <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
       <div className="relative z-10">
         <Navbar />
@@ -141,7 +141,7 @@ export default function FormationLearnPage() {
                 <span className="text-xs text-cyan-500 font-mono">
                   Module {String(currentIndex + 1).padStart(2, '0')} / {String(formation.modules.length).padStart(2, '0')}
                 </span>
-                <h1 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mt-1">
+                <h1 className="brand-h1">
                   {activeModule.title}
                 </h1>
                 <div className="flex items-center gap-2 text-xs text-slate-500 mt-2">
@@ -188,7 +188,7 @@ export default function FormationLearnPage() {
                 {nextModule ? (
                   <button
                     onClick={() => goToModule(nextModule)}
-                    className="flex items-center gap-2 px-4 py-3 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-sm transition-all"
+                    className="btn-brand"
                   >
                     <span className="hidden sm:inline">Suivant</span>
                     <ChevronRight className="w-4 h-4" />

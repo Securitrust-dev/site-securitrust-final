@@ -55,7 +55,7 @@ const ATELIERS = [
 
 export default function EbiosRmPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300">
       <ServiceSchema
         name="Analyse de risques EBIOS RM"
         description="Analyse de risques cyber selon la méthode EBIOS Risk Manager de l'ANSSI : cartographie des scénarios stratégiques et opérationnels, plan de traitement du risque."
@@ -87,7 +87,7 @@ export default function EbiosRmPage() {
                 Analyse de Risques
               </span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-semibold text-white tracking-tighter leading-tight mb-6">
+            <h1 className="brand-h1">
               Analyse de Risques{' '}
               <span className="text-cyan-400">EBIOS RM</span>
             </h1>
@@ -97,13 +97,13 @@ export default function EbiosRmPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact"
-                className="px-8 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Démarrer mon analyse EBIOS RM
               </a>
               <a
                 href="/gouvernance-conformite/accompagnement"
-                className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-all rounded text-sm flex items-center justify-center gap-2"
+                className="btn-brand-ghost"
               >
                 Notre offre Gouvernance <ArrowRight className="w-4 h-4" />
               </a>
@@ -169,7 +169,7 @@ export default function EbiosRmPage() {
                 </p>
                 <a
                   href="/contact"
-                  className="inline-block px-6 py-3 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-xs"
+                  className="btn-brand"
                 >
                   Nous contacter
                 </a>
@@ -211,7 +211,7 @@ export default function EbiosRmPage() {
               </p>
               <a
                 href="/contact"
-                className="inline-block px-10 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Planifier mon analyse EBIOS RM
               </a>

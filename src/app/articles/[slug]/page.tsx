@@ -674,7 +674,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-5xl font-light text-white tracking-tight leading-snug mb-8 max-w-4xl">
+            <h1 className="brand-h1 max-w-4xl">
               {displayTitle}
             </h1>
 
@@ -764,7 +764,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="text-center mt-16">
               <Link 
                 href={backHref}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] rounded group"
+                className="btn-brand group"
               >
                 <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform" />
                 <span>{veille ? 'Toute la veille' : 'Tous les articles'}</span>

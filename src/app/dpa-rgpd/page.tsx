@@ -54,7 +54,7 @@ const PILIERS = [
 
 export default function DpaRgpdPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300">
       <ServiceSchema
         name="DPA & Sous-Traitance RGPD"
         description="Rédaction et négociation des accords de traitement (DPA), tenue du registre des traitements, DPIA et gestion des violations de données personnelles."
@@ -86,7 +86,7 @@ export default function DpaRgpdPage() {
                 Sous-Traitance
               </span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-semibold text-white tracking-tighter leading-tight mb-6">
+            <h1 className="brand-h1">
               DPA &amp;{' '}
               <span className="text-cyan-400">RGPD</span>
             </h1>
@@ -96,13 +96,13 @@ export default function DpaRgpdPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact"
-                className="px-8 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Sécuriser mes DPA
               </a>
               <a
                 href="/dpo-externalise"
-                className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-all rounded text-sm flex items-center justify-center gap-2"
+                className="btn-brand-ghost"
               >
                 Notre offre DPO Externalisé <ArrowRight className="w-4 h-4" />
               </a>
@@ -168,7 +168,7 @@ export default function DpaRgpdPage() {
                 </p>
                 <a
                   href="/contact"
-                  className="inline-block px-6 py-3 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-xs"
+                  className="btn-brand"
                 >
                   Nous contacter
                 </a>
@@ -210,7 +210,7 @@ export default function DpaRgpdPage() {
               </p>
               <a
                 href="/contact"
-                className="inline-block px-10 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Sécuriser mes DPA
               </a>

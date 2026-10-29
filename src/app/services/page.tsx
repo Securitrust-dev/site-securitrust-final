@@ -14,7 +14,7 @@ export default function ServicesPage() {
     { id: 'power-grc', label: 'POWER GRC' },
     { id: 'cybersecurity', label: 'CYBERSECURITY' },
     { id: 'app-continues', label: 'APP CYBERSECURITY CONTINUES' },
-    { id: 'pentrages', label: 'PENTRAGES' },
+    { id: 'pentrages', label: 'PENTESTS' },
     { id: 'scenarios', label: 'SCENARIOS' },
     { id: 'expertise', label: 'EXPERTISE' },
   ];
@@ -126,7 +126,7 @@ export default function ServicesPage() {
             FOCUS CYBERSECURITE
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+          <h1 className="brand-h1">
             <span className="block">Votre prestataire</span>
             <span className="block">en cybersécurité,</span>
             <span className="block text-cyan-400">de l&apos;audit au pilotage</span>
@@ -185,7 +185,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="mt-8 text-center">
-            <button className="px-8 py-3 bg-cyan-500 text-black font-medium rounded-lg hover:bg-cyan-400 transition-colors inline-flex items-center gap-2">
+            <button className="btn-brand">
               Je réserve mon premier gratuit
               <Zap className="w-4 h-4" />
             </button>
@@ -303,7 +303,7 @@ export default function ServicesPage() {
               Nos experts vous accompagnent dans la structuration de votre stratégie GRC cyber.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-3 bg-cyan-500 text-black font-medium rounded-lg hover:bg-cyan-400 transition-colors">
+              <button className="btn-brand">
                 Demander un diagnostic
               </button>
               <button className="px-8 py-3 border border-cyan-500 text-cyan-400 font-medium rounded-lg hover:bg-cyan-500/10 transition-colors">

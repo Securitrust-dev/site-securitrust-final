@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function FormationsPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60"></div>

@@ -12,17 +12,17 @@ export const metadata: Metadata = {
 
 export default function CGVPage() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden" style={{ background: '#02040a' }}>
+    <div className="relative min-h-screen overflow-x-hidden">
       <Navbar />
       
       <div className="relative z-30 max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#76a6d1]/10 border border-[#76a6d1]/20 mb-6">
-            <Shield className="h-4 w-4 text-[#76a6d1]" />
-            <span className="text-xs sm:text-sm font-mono text-[#76a6d1]">SECURITRUST</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#38bdf8]/10 border border-[#38bdf8]/20 mb-6">
+            <Shield className="h-4 w-4 text-[#38bdf8]" />
+            <span className="text-xs sm:text-sm font-mono text-[#38bdf8]">SECURITRUST</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h1 className="brand-h1">
             Conditions générales d'utilisation
           </h1>
           <p className="text-slate-400 text-sm sm:text-base">
@@ -41,7 +41,7 @@ export default function CGVPage() {
 
           {/* Article 1 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 1: OBJET DU SERVICE
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -51,7 +51,7 @@ export default function CGVPage() {
 
           {/* Article 2 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 2: DÉFINITIONS
             </h2>
             <div className="space-y-3 text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -63,7 +63,7 @@ export default function CGVPage() {
 
           {/* Article 3 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 3: UTILISATION DU SITE
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -73,7 +73,7 @@ export default function CGVPage() {
 
           {/* Article 4 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 4: FONCTIONNALITÉ DU SITE
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -83,7 +83,7 @@ export default function CGVPage() {
 
           {/* Article 5 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 5: RESPONSABILITÉ
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">
@@ -96,7 +96,7 @@ export default function CGVPage() {
 
           {/* Article 6 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 6: CONDITIONS DE PROTECTION DES DONNÉES PERSONNELLES
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">
@@ -109,7 +109,7 @@ export default function CGVPage() {
 
           {/* Article 7 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 7: GESTION DES DONNÉES À CARACTÈRE PERSONNEL
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -119,7 +119,7 @@ export default function CGVPage() {
 
           {/* Article 8 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 8: LIENS HYPERTEXTES ET COOKIES
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -129,7 +129,7 @@ export default function CGVPage() {
 
           {/* Article 9 */}
           <section>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#76a6d1] mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#38bdf8] mb-4">
               ARTICLE 9: DROIT APPLICABLE ET JURIDICTION COMPÉTENTE
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">

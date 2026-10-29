@@ -3,58 +3,71 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-inter);
+  /* Charte SecuriTrust — reprise de /rssi-externalise (source unique des valeurs). */
+  --brand-bg: #04060e;
+  --brand-bg-top: #060c18;
+  --brand-ink: #e8f0fb;
+  --brand-muted: rgba(255, 255, 255, 0.8);
+  --brand-muted-2: rgba(255, 255, 255, 0.6);
+  --brand-sky: #38bdf8;
+  --brand-cyan: #22d3ee;
+  --brand-hair: rgba(255, 255, 255, 0.09);
+  --brand-cyhair: rgba(56, 189, 248, 0.22);
+  --brand-card: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  --brand-orange: linear-gradient(135deg, #fdba74, #f97316);
+  --brand-mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-sans: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
+  --font-display: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
 }
 
 @theme {
-  --color-background: #0a0a0a;
+  --color-background: #04060e;
   --color-foreground: #ffffff;
 
-  --color-void: #0a0a0a;
-  --color-panel: #121212;
-  --color-mint: #00ffa3;
-  --color-mint-dark: #00b372;
+  --color-void: #04060e;
+  --color-panel: #0a1326;
+  --color-mint: #38bdf8;
+  --color-mint-dark: #0ea5e9;
   --color-sub: #888888;
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.15);
 
   /* Brand blue — #76a6d1 */
-  --color-cyan-50: #f0f7fd;
-  --color-cyan-100: #e0eef9;
-  --color-cyan-200: #c0ddf3;
-  --color-cyan-300: #9dc3e3;
-  --color-cyan-400: #76a6d1;
-  --color-cyan-500: #5a90be;
-  --color-cyan-600: #4378a8;
-  --color-cyan-700: #2f5d8a;
-  --color-cyan-800: #1e4570;
-  --color-cyan-900: #122d50;
-  --color-cyan-950: #0a1f3a;
+  --color-cyan-50: #f0f9ff;
+  --color-cyan-100: #e0f2fe;
+  --color-cyan-200: #bae6fd;
+  --color-cyan-300: #7dd3fc;
+  --color-cyan-400: #38bdf8;
+  --color-cyan-500: #0ea5e9;
+  --color-cyan-600: #0284c7;
+  --color-cyan-700: #0369a1;
+  --color-cyan-800: #075985;
+  --color-cyan-900: #0c4a6e;
+  --color-cyan-950: #082f49;
 
-  --color-sky-50: #f0f7fd;
-  --color-sky-100: #e0eef9;
-  --color-sky-200: #c0ddf3;
-  --color-sky-300: #9dc3e3;
-  --color-sky-400: #76a6d1;
-  --color-sky-500: #5a90be;
-  --color-sky-600: #4378a8;
-  --color-sky-700: #2f5d8a;
-  --color-sky-800: #1e4570;
-  --color-sky-900: #122d50;
-  --color-sky-950: #0a1f3a;
+  --color-sky-50: #f0f9ff;
+  --color-sky-100: #e0f2fe;
+  --color-sky-200: #bae6fd;
+  --color-sky-300: #7dd3fc;
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0284c7;
+  --color-sky-700: #0369a1;
+  --color-sky-800: #075985;
+  --color-sky-900: #0c4a6e;
+  --color-sky-950: #082f49;
 
-  --color-blue-50: #f0f7fd;
-  --color-blue-100: #e0eef9;
-  --color-blue-200: #c0ddf3;
-  --color-blue-300: #9dc3e3;
-  --color-blue-400: #76a6d1;
-  --color-blue-500: #5a90be;
-  --color-blue-600: #4378a8;
-  --color-blue-700: #2f5d8a;
-  --color-blue-800: #1e4570;
-  --color-blue-900: #122d50;
-  --color-blue-950: #0a1f3a;
+  --color-blue-50: #f0f9ff;
+  --color-blue-100: #e0f2fe;
+  --color-blue-200: #bae6fd;
+  --color-blue-300: #7dd3fc;
+  --color-blue-400: #38bdf8;
+  --color-blue-500: #0ea5e9;
+  --color-blue-600: #0284c7;
+  --color-blue-700: #0369a1;
+  --color-blue-800: #075985;
+  --color-blue-900: #0c4a6e;
+  --color-blue-950: #082f49;
 
   /* Remap orange/amber/yellow → brand blue */
   --color-orange-50: #f0f7fd;
@@ -192,20 +205,21 @@
   --color-emerald-900: #00291a;
   --color-emerald-950: #00150d;
 
-  --color-teal-50: #f0fff8;
-  --color-teal-100: #ccfff0;
-  --color-teal-200: #99ffe0;
-  --color-teal-300: #52ffb6;
-  --color-teal-400: #00ffa3;
-  --color-teal-500: #00cc82;
-  --color-teal-600: #009961;
-  --color-teal-700: #007047;
-  --color-teal-800: #004d30;
-  --color-teal-900: #00291a;
-  --color-teal-950: #00150d;
+  --color-teal-50: #f0f9ff;
+  --color-teal-100: #e0f2fe;
+  --color-teal-200: #bae6fd;
+  --color-teal-300: #7dd3fc;
+  --color-teal-400: #38bdf8;
+  --color-teal-500: #0ea5e9;
+  --color-teal-600: #0284c7;
+  --color-teal-700: #0369a1;
+  --color-teal-800: #075985;
+  --color-teal-900: #0c4a6e;
+  --color-teal-950: #082f49;
 
-  --font-display: "Inter", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-display: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
+  --font-body: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
+  --font-sans: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
   --letter-spacing-tightest: -0.04em;
@@ -213,8 +227,8 @@
 
 @layer base {
   body {
-    background-color: #0a0a0a;
-    color: #f0f0f0;
+    background-color: var(--brand-bg);
+    color: var(--brand-ink);
     font-family: var(--font-body);
   }
 }
@@ -233,10 +247,11 @@
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--brand-card);
+  border: 1px solid var(--brand-hair);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 26px 50px -28px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
 }
 
 .tilt-card {
@@ -254,7 +269,7 @@
 
 .hover-card:hover {
   background: rgba(255, 255, 255, 0.03);
-  border-color: #00ffa3;
+  border-color: var(--brand-cyhair);
 }
 
 .scan-line {
@@ -357,3 +372,22 @@
 .est-foot { margin: 14px 0 0; font-size: 0.82rem; color: #94a3b8; }
 .est-foot a { color: #22d3ee; }
 @media (max-width: 760px) { .est-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   Charte SecuriTrust (identité de /rssi-externalise) — commun à toutes les pages React.
+   ============================================================ */
+/* fond global : dégradé bleu nuit fixe + grain fin, comme la page RSSI */
+body::before{content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;background:linear-gradient(180deg,var(--brand-bg-top),#04070f 55%)}
+body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px 160px}
+body:has(.lp-root)::after{display:none}
+
+/* titres principaux des anciennes pages : gabarit RSSI */
+.brand-h1{font-family:var(--font-display);font-size:clamp(2.05rem,4.4vw,3.2rem);font-weight:700;line-height:1.12;letter-spacing:-.025em;color:#fff;margin-bottom:1.25rem;text-wrap:balance}
+
+/* boutons de la charte */
+.btn-brand,.btn-brand-ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:1rem;letter-spacing:0;text-transform:none;padding:15px 26px;border-radius:12px;transition:transform .15s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease}
+.btn-brand{background:var(--brand-orange);color:#fff;box-shadow:0 10px 26px -8px rgba(249,115,22,.6),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-brand:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(249,115,22,.45)}
+.btn-brand-ghost{border:1px solid rgba(56,189,248,.55);color:var(--brand-sky);background:rgba(56,189,248,.05)}
+.btn-brand-ghost:hover{background:rgba(56,189,248,.12);transform:translateY(-2px)}

@@ -1,4 +1,5 @@
 import './globals.css';
+import { brandFont } from './brand-font';
 import { ReactNode } from 'react';
 import { FloatingCTA } from '@/components/floating-cta';
 import { Metadata, Viewport } from 'next';
@@ -75,7 +76,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   // page mise en cache garderait un nonce périmé et ses scripts seraient bloqués.
   const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
-    <html lang="fr">
+    <html lang="fr" className={brandFont.variable}>
       <body>
         {/* Google Tag Manager — init du dataLayer (inline, tout en haut du body) */}
         <script

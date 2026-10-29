@@ -11,7 +11,7 @@ const pillars = [
     href: '/gouvernance-conformite/domaines-expertise',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
-    glow: 'shadow-[0_0_15px_rgba(118,166,209,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(56,189,248,0.1)]',
     badgeBg: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20',
     num: '01',
     title: "Domaines d'Expertise",
@@ -59,7 +59,7 @@ const pillars = [
 
 export default function GouvernanceConformitePage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen" />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60" />
@@ -81,14 +81,14 @@ export default function GouvernanceConformitePage() {
           <div className="max-w-7xl mx-auto">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">Services</h2>
-              <h1 className="text-[2rem] sm:text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[1.05] mb-6 mix-blend-screen uppercase break-words">
+              <h1 className="brand-h1 break-words">
                 Gouvernance et conformité cybersécurité
               </h1>
               <p className="text-lg md:text-xl text-white font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left mb-8">
                 Structurez votre posture de sécurité, répondez aux obligations réglementaires et pilotez la conformité avec des experts à vos côtés.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-                <a href="/contact?service=audit" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)]">
+                <a href="/contact?service=audit" className="btn-brand">
                   Je souscris à mon audit
                   <ArrowRight className="w-5 h-5" />
                 </a>
@@ -167,11 +167,11 @@ export default function GouvernanceConformitePage() {
                 Un échange de 30 minutes permet d&apos;identifier votre niveau de maturité et les priorités d&apos;action.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                <a href="/contact?service=audit" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)]">
+                <a href="/contact?service=audit" className="btn-brand">
                   Je souscris à mon audit
                   <ArrowRight className="w-5 h-5" />
                 </a>
-                <a href="/contact?service=accompagnement" className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all">
+                <a href="/contact?service=accompagnement" className="btn-brand-ghost">
                   Je souscris à mon accompagnement
                   <ArrowRight className="w-5 h-5" />
                 </a>

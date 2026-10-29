@@ -28,7 +28,7 @@ export default async function FormationDetailPage({ params }: { params: Promise<
   if (!formation) notFound();
 
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60"></div>
@@ -54,7 +54,7 @@ export default async function FormationDetailPage({ params }: { params: Promise<
                   </span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-6">
+                <h1 className="brand-h1">
                   {formation.title}
                 </h1>
 
@@ -98,7 +98,7 @@ export default async function FormationDetailPage({ params }: { params: Promise<
                   )}
                   <a
                     href={`/formations-paiement?formation=${formation.slug}`}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] text-sm"
+                    className="btn-brand w-full"
                   >
                     S&apos;inscrire maintenant
                     <ArrowRight className="w-4 h-4" />
@@ -210,7 +210,7 @@ export default async function FormationDetailPage({ params }: { params: Promise<
               </p>
               <a
                 href={`/formations-paiement?formation=${formation.slug}`}
-                className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)] relative z-10"
+                className="btn-brand relative z-10"
               >
                 S&apos;inscrire - {formatPrice(formation.price)}
                 <ArrowRight className="w-5 h-5" />

@@ -7,7 +7,7 @@ import { Shield, Search, FileText, Target, CheckCircle, AlertTriangle, ArrowRigh
 
 export default function AuditCybersecuritePage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       {/* Scanline Overlay */}
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
@@ -36,10 +36,8 @@ export default function AuditCybersecuritePage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Évaluation de Sécurité
               </h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                AUDIT
-                <br />
-                CYBERSÉCURITÉ
+              <h1 className="brand-h1">
+                Audit cybersécurité
               </h1>
               <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
                 L&apos;<strong>audit de sécurité informatique</strong> constitue une étape essentielle pour évaluer la <strong>protection des systèmes d&apos;information</strong> d&apos;une entreprise. Réalisé par un <strong>expert en cybersécurité</strong>, cet audit examine de manière approfondie les aspects <strong>techniques</strong>, <strong>organisationnels</strong> et <strong>humains</strong>.
@@ -201,7 +199,7 @@ export default function AuditCybersecuritePage() {
                 }
               ].map((step, index) => (
                 <div key={index} className="flex items-start gap-6 glass-panel p-8 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-all relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(118,166,209,0.3)]">
+                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
                     <span className="text-2xl font-bold text-white">{step.number}</span>
                   </div>
                   <div>
@@ -233,14 +231,14 @@ export default function AuditCybersecuritePage() {
                   href="https://calendly.com/expert-securitrust"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
+                  className="btn-brand"
                 >
                   Demander un audit
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2 glass-panel border border-cyan-500/30 text-white px-8 py-4 rounded font-medium tracking-widest uppercase hover:border-cyan-500 transition-all"
+                  className="btn-brand-ghost"
                 >
                   Demander un devis
                 </a>

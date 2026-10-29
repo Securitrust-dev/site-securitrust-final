@@ -41,7 +41,7 @@ export default function PriseDeRdvPage() {
   ];
 
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       {/* Scanline Overlay */}
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
@@ -71,11 +71,9 @@ export default function PriseDeRdvPage() {
                 <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                   Réservez votre consultation
                 </h2>
-                <h1 className="text-5xl md:text-7xl font-semibold text-white tracking-tighter leading-[0.9]">
-                  PRISE DE
-                  <br />
-                  RENDEZ-VOUS
-                </h1>
+                <h1 className="brand-h1">
+                Prise de rendez-vous
+              </h1>
               </div>
               <span className="text-cyan-500 font-mono text-xs hidden md:block">01 // BOOKING</span>
             </div>
@@ -120,7 +118,7 @@ export default function PriseDeRdvPage() {
         {/* Calendly Widget Section */}
         <section className="py-12 relative z-10 pb-32">
           <div className="max-w-5xl mx-auto px-6">
-            <div className="glass-panel p-8 md:p-12 rounded-2xl border border-cyan-500/20 relative overflow-hidden shadow-[0_0_30px_rgba(118,166,209,0.1)]">
+            <div className="glass-panel p-8 md:p-12 rounded-2xl border border-cyan-500/20 relative overflow-hidden shadow-[0_0_30px_rgba(56,189,248,0.1)]">
               <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
               
               <div className="relative z-10">

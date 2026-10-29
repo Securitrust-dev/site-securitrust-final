@@ -8,7 +8,7 @@ import { Shield, CheckCircle, FileText, Users, Lock, AlertTriangle, ArrowRight, 
 
 export default function PCAPRAPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       {/* Scanline Overlay */}
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
@@ -37,8 +37,8 @@ export default function PCAPRAPage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Analyse des Risques
               </h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                PCAPRA
+              <h1 className="brand-h1">
+                PCA / PRA
               </h1>
               <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
                 Le <strong>Plan de Continuité d&apos;Activité et Plan de Reprise d&apos;Activité (PCA/PRA)</strong> est un ensemble de <strong>procédures et de mesures</strong> permettant à une organisation de maintenir ou reprendre rapidement ses activités essentielles en cas de <strong>sinistre majeur</strong> ou d&apos;incident critique.
@@ -125,7 +125,7 @@ export default function PCAPRAPage() {
               </div>
             </div>
 
-            <div className="glass-panel p-8 rounded-xl border border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
+            <div className="glass-panel p-8 rounded-xl border border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
               <h4 className="text-xl font-bold text-white mb-4 text-center">Indicateurs clés du PRA</h4>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="text-center">
@@ -175,7 +175,7 @@ export default function PCAPRAPage() {
                 }
               ].map((item, index) => (
                 <div key={index} className="tilt-card group relative z-10 p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
+                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <item.icon className="w-8 h-8 text-cyan-400" />
@@ -328,14 +328,14 @@ export default function PCAPRAPage() {
                   href="https://calendly.com/expert-securitrust"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
+                  className="btn-brand"
                 >
                   Demander un audit
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2 glass-panel border border-cyan-500/30 text-white px-8 py-4 rounded font-medium tracking-widest uppercase hover:border-cyan-500 transition-all"
+                  className="btn-brand-ghost"
                 >
                   Demander un devis
                 </a>

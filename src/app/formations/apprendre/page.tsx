@@ -32,7 +32,7 @@ export default async function FormationsApprendre() {
   const allFormations = getPublishedFormations();
 
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60"></div>
@@ -47,7 +47,7 @@ export default async function FormationsApprendre() {
           <div className="max-w-7xl mx-auto">
             <div className="max-w-4xl mb-12">
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">Espace Formation</h2>
-              <h1 className="text-4xl md:text-5xl font-semibold text-white tracking-tight mb-4">
+              <h1 className="brand-h1">
                 Mes formations
               </h1>
               <p className="text-slate-400">

@@ -54,7 +54,7 @@ const PILIERS = [
 
 export default function PilotageSmsiPage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300">
       <ServiceSchema
         name="Pilotage SMSI"
         description="Pilotage externalisé du Système de Management de la Sécurité de l'Information : gouvernance, animation du COSEC, gestion des risques, indicateurs et maintien en condition opérationnelle."
@@ -86,7 +86,7 @@ export default function PilotageSmsiPage() {
                 ISO 27001
               </span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-semibold text-white tracking-tighter leading-tight mb-6">
+            <h1 className="brand-h1">
               Pilotage{' '}
               <span className="text-cyan-400">SMSI</span>
             </h1>
@@ -96,13 +96,13 @@ export default function PilotageSmsiPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/contact"
-                className="px-8 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Discuter du pilotage SMSI
               </a>
               <a
                 href="/rssi-externalise"
-                className="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-all rounded text-sm flex items-center justify-center gap-2"
+                className="btn-brand-ghost"
               >
                 Notre offre RSSI Externalisé <ArrowRight className="w-4 h-4" />
               </a>
@@ -214,7 +214,7 @@ export default function PilotageSmsiPage() {
               </p>
               <a
                 href="/contact"
-                className="inline-block px-10 py-4 bg-cyan-500 text-[#030303] font-bold uppercase tracking-widest hover:bg-cyan-400 transition-all rounded text-sm"
+                className="btn-brand"
               >
                 Discuter du pilotage SMSI
               </a>

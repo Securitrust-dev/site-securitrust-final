@@ -65,7 +65,7 @@ const pillars = [
 
 export default function CybersecuriteOperationnellePage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen" />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60" />
@@ -83,7 +83,7 @@ export default function CybersecuriteOperationnellePage() {
               <Shield className="w-4 h-4" />
               Cybersécurité Opérationnelle
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+            <h1 className="brand-h1">
               Pentest Entreprise & Audit Cybersécurité en France —{' '}
               <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
                 Testez, Anticipez, Protégez.

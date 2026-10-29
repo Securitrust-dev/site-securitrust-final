@@ -8,7 +8,7 @@ import { Package, Cpu, FileCheck, Shield, Lock, Scale, Users, CheckCircle } from
 
 export default function DPOExternalisePage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
       {/* Scanline Overlay */}
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
@@ -37,8 +37,8 @@ export default function DPOExternalisePage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Protection des Données
               </h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                DPO EXTERNALISÉ
+              <h1 className="brand-h1">
+                DPO externalisé
               </h1>
               <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
                 Externaliser la fonction de <strong>DPO externalisé</strong> (<strong>Délégué à la Protection des Données</strong>) est une solution idéale pour les entreprises souhaitant garantir leur <strong>conformité RGPD</strong> sans recourir à un recrutement interne. Chez <strong>SecuriTrust</strong>, nous mettons à votre disposition un <strong>service DPO externalisé</strong> alliant expertise, réactivité et indépendance, pour une gestion optimale de vos obligations en matière de protection des données.
@@ -144,9 +144,9 @@ export default function DPOExternalisePage() {
               </div>
 
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
+                <div className="glass-panel h-full p-6 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(118,166,209,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <Shield className="w-6 h-6" />
                   </div>
                   <h4 className="text-lg font-medium text-white mb-2">Réduction des coûts</h4>

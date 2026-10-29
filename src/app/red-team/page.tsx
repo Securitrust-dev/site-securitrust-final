@@ -7,7 +7,7 @@ import { Swords, CheckCircle, Target, Zap, AlertTriangle, ArrowRight, Box, Cpu }
 
 export default function RedTeamPage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black" style={{ background: '#030303' }}>
+    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -32,8 +32,8 @@ export default function RedTeamPage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Cybersécurité Opérationnelle
               </h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                RED TEAM
+              <h1 className="brand-h1">
+                Red Team
               </h1>
               <p className="text-lg md:text-xl text-white font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left mb-6">
                 L&apos;exercice <strong>Red Team</strong> est une <strong>simulation d&apos;attaque avancée</strong> qui reproduit les techniques, tactiques et procédures (TTP) utilisées par des <strong>groupes APT</strong> (Advanced Persistent Threat) réels.
@@ -91,9 +91,9 @@ export default function RedTeamPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(118,166,209,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(118,166,209,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <Target className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Objectifs stratégiques</h4>
@@ -239,7 +239,7 @@ export default function RedTeamPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                 <a
                   href="/contact"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
+                  className="btn-brand"
                 >
                   Nous contacter
                   <ArrowRight className="w-5 h-5" />
