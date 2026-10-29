@@ -13,8 +13,11 @@
   var timer = null, paused = false;
 
   function step() { return cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth; }
-  function index() { return Math.round(track.scrollLeft / step()); }
   function maxIndex() { return Math.max(0, Math.ceil((track.scrollWidth - track.clientWidth) / step())); }
+  function index() {
+    if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) return maxIndex();
+    return Math.round(track.scrollLeft / step());
+  }
   function go(i) {
     var last = maxIndex();
     if (i > last) i = 0;
