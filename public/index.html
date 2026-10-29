@@ -399,28 +399,33 @@
     color: var(--muted-2);
   }
 
+  /* Deux rangées équilibrées de 5 logos sur grand écran ; retour à la ligne libre sur mobile. */
   .trust-logos {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
     align-items: center;
     justify-content: center;
-    gap: 44px;
+    justify-items: center;
+    gap: 30px 64px;
     padding-bottom: 40px;
   }
 
+  /* Hauteur propre à chaque logo (--h, posée sur l'image) : calculée pour une aire
+     visuelle constante, afin qu'un logo carré (AXA) pèse autant qu'un logo très
+     large (Backupta). */
   .trust-logos img {
-    height: 26px;
+    height: var(--h, 28px);
     width: auto;
-    opacity: 0.6;
+    opacity: 0.9;
     filter: grayscale(1) brightness(1.8);
     transition: opacity 0.2s;
   }
 
   .trust-logos img:hover { opacity: 1; }
 
-  @media (max-width: 700px) {
-    .trust-logos { gap: 28px; }
-    .trust-logos img { height: 20px; }
+  @media (max-width: 900px) {
+    .trust-logos { display: flex; flex-wrap: wrap; gap: 22px 30px; }
+    .trust-logos img { height: calc(var(--h, 28px) * 0.75); }
   }
 
   .btn-row {
@@ -1118,16 +1123,16 @@
   <div class="trust-bar">
     <p class="trust-label">Ils nous font confiance</p>
     <div class="trust-logos">
-      <img src="/clients/white/abeille-assurance.png" alt="Abeille Assurances" loading="lazy" />
-      <img src="/clients/white/axa.png" alt="AXA" loading="lazy" />
-      <img src="/clients/white/bollore.png" alt="Bolloré Logistics" loading="lazy" />
-      <img src="/clients/white/cegedim.png" alt="Cegedim" loading="lazy" />
-      <img src="/clients/white/malakoff.png" alt="Malakoff Médéric" loading="lazy" />
-      <img src="/clients/white/lyvoc.png" alt="Lyvoc" loading="lazy" />
-      <img src="/clients/white/thales.png" alt="Thales" loading="lazy" />
-      <img src="/clients/white/natixis.png" alt="Natixis" loading="lazy" />
-      <img src="/clients/white/munich-re.png" alt="Munich Re" loading="lazy" />
-      <img src="/clients/white/backupta.png" alt="BackupTa" loading="lazy" />
+      <img style="--h:32px" src="/clients/white/abeille-assurance.png" alt="Abeille Assurances" loading="lazy" />
+      <img style="--h:40px" src="/clients/white/axa.png" alt="AXA" loading="lazy" />
+      <img style="--h:35px" src="/clients/white/bollore.png" alt="Bolloré Logistics" loading="lazy" />
+      <img style="--h:25px" src="/clients/white/cegedim.png" alt="Cegedim" loading="lazy" />
+      <img style="--h:40px" src="/clients/white/malakoff.png" alt="Malakoff Médéric" loading="lazy" />
+      <img style="--h:38px" src="/clients/white/lyvoc.png" alt="Lyvoc" loading="lazy" />
+      <img style="--h:30px" src="/clients/white/thales.png" alt="Thales" loading="lazy" />
+      <img style="--h:26px" src="/clients/white/natixis.png" alt="Natixis" loading="lazy" />
+      <img style="--h:26px" src="/clients/white/munich-re.png" alt="Munich Re" loading="lazy" />
+      <img style="--h:24px" src="/clients/white/backupta.png" alt="BackupTa" loading="lazy" />
     </div>
   </div>
 
