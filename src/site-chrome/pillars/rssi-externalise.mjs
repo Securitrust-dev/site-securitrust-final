@@ -100,5 +100,5 @@ export default {
     { label: 'Pilotage du SMSI', href: '/pilotage-smsi', description: 'Le pilotage opérationnel de votre système de management.' },
     { label: 'Tous nos pentests', href: '/pentest', description: 'Les tests que votre RSSI planifie et exploite.' },
   ],
-  articles: ['rssi-externalise-la-reponse-cybersecurite-adaptee-aux-pme-et-eti'],
+  articles: [],
 };

@@ -13,7 +13,20 @@ export type StoredArticle = typeof articles.$inferSelect;
 export const HIDDEN_SLUGS = new Set([
   'pentest-au-resultat-evaluer-l-impact-reel-des-tests-d-intrusion-sur-votre-si', // offre retirée du site
   'test-de-chute-de-garde', // article de test
+  // Redirigés (next.config.js) le 29/10/2026 : retirés des listes et des sitemaps.
+  'rssi-externalise-la-reponse-cybersecurite-adaptee-aux-pme-et-eti', // cannibalisait /rssi-externalise
+  'guardfall-expose-les-agents-de-codage-d-ia-open-source-a-des-risques-d-injection-de-shell-vieux-de-plusieurs-decennies', // doublon de guardfall-les-agents-ia-open-source-vulnerables-a-l-injection-shell-classique
 ]);
+
+/**
+ * Articles liés affichés en « À lire aussi » sous l'article. Tenu ici plutôt que dans le
+ * texte des articles, que `npm run blog:export` réécrit depuis la base.
+ */
+export const RELATED_ARTICLES: Record<string, string[]> = {
+  // Deux angles sur la même faille Kemp LoadMaster : exploitation active / détail de la CVE.
+  'exploitation-active-de-la-faille-rce-critique-dans-progress-kemp-loadmaster': ['faille-critique-cve-2026-8037-dans-progress-kemp-loadmaster-execution-root-sans-authentification'],
+  'faille-critique-cve-2026-8037-dans-progress-kemp-loadmaster-execution-root-sans-authentification': ['exploitation-active-de-la-faille-rce-critique-dans-progress-kemp-loadmaster'],
+};
 
 export const isHidden = (a: { slug: string; slugFr?: string | null }) =>
   HIDDEN_SLUGS.has(a.slug) || (!!a.slugFr && HIDDEN_SLUGS.has(a.slugFr));

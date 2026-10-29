@@ -4,6 +4,7 @@ import { db, client } from '@/db';
 import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { synthesizeArticle } from '@/lib/claude';
+import { checkVeilleRelevance } from '@/lib/veille-filter';
 import sanitizeHtml from 'sanitize-html';
 import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage } from '@/lib/rss-utils';
 
@@ -40,6 +41,13 @@ export async function GET(request: NextRequest) {
 
       if (existing.length > 0) {
         results.push({ title: item.title || 'Unknown', status: 'skipped', reason: 'already exists' });
+        continue;
+      }
+
+      // Ligne éditoriale : une actualité hors cible n'est ni synthétisée ni publiée.
+      const verdict = await checkVeilleRelevance({ title: item.title || '', excerpt: item.contentSnippet || '' });
+      if (!verdict.pertinent) {
+        results.push({ title: item.title || 'Unknown', status: 'skipped', reason: `hors ligne éditoriale : ${verdict.raison}` });
         continue;
       }
 

@@ -14,12 +14,13 @@ import { articles } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import Parser from 'rss-parser';
 import { synthesizeArticle } from '@/lib/claude';
+import { checkVeilleRelevance } from '@/lib/veille-filter';
 import { translateToFrench, generateFrenchSlug } from '@/lib/translate';
 import { classifyArticle } from '@/lib/articles';
 import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage, RSS_STOP_WORDS } from '@/lib/rss-utils';
 import ArticleInfographic from '@/components/ArticleInfographic';
 import { BLOG_URL, VEILLE_PATH, categoryUrl, cleanAuthor, formatFrDate, toIsoDate } from '@/lib/blog';
-import { DUPLICATE_SLUGS, HIDDEN_SLUGS, STORED_ARTICLES, findStoredArticle, isHidden, isVeille } from '@/lib/blog-store';
+import { DUPLICATE_SLUGS, HIDDEN_SLUGS, RELATED_ARTICLES, STORED_ARTICLES, findStoredArticle, isHidden, isVeille } from '@/lib/blog-store';
 import { clampDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { unstable_cache } from 'next/cache';
 
@@ -68,6 +69,10 @@ async function synthesizeAndInsertArticle(item: any, slug: string): Promise<Arti
   } catch {
     // Base injoignable : on synthétise sans pouvoir réutiliser.
   }
+
+  // Hors ligne éditoriale : pas de synthèse ; la page retombe sur l'affichage brut du
+  // flux, en noindex (getRssArticleDirect).
+  if (!(await checkVeilleRelevance({ title: item.title || '', excerpt: item.contentSnippet || '' })).pertinent) return null;
 
   let synthesized: Awaited<ReturnType<typeof synthesizeArticle>>;
   try {
@@ -188,6 +193,7 @@ async function synthesizeMissingRssArticle(article: ArticleRow): Promise<Article
     const feed = await parser.parseURL(RSS_FEED_URL);
     const item = feed.items.find((i) => (i.link || i.guid) === article.sourceUrl);
     if (!item) return null;
+    if (!(await checkVeilleRelevance({ title: item.title || article.title, excerpt: item.contentSnippet || article.excerpt || '' })).pertinent) return null;
 
     // Synthesize via Claude
     const synthesized = await synthesizeArticle({
@@ -731,6 +737,28 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 </p>
               </section>
             )}
+
+            {(() => {
+              // « À lire aussi » : articles liés déclarés dans blog-store (RELATED_ARTICLES).
+              const related = (RELATED_ARTICLES[article.slugFr || article.slug] ?? [])
+                .map((s) => findStoredArticle(s))
+                .filter((a): a is NonNullable<typeof a> => !!a);
+              if (!related.length) return null;
+              return (
+                <section id="a-lire-aussi" className="mt-12 scroll-mt-28 border-t border-white/10 pt-8">
+                  <h2 className="mb-4 text-base font-medium text-white">À lire aussi</h2>
+                  <ul className="space-y-3">
+                    {related.map((r) => (
+                      <li key={r.slugFr || r.slug}>
+                        <Link href={`/articles/${r.slugFr || r.slug}`} className="text-cyan-400 underline underline-offset-4 hover:text-cyan-300">
+                          {r.titleFr || r.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            })()}
 
             {/* Back to Articles CTA */}
             <div className="text-center mt-16">

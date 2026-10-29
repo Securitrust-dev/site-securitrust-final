@@ -84,6 +84,10 @@ const nextConfig = {
       // Article de blog qui cannibalisait la LP « RSSI externalisé » : on redirige
       // vers la LP canonique pour consolider le référencement sur une seule URL.
       { source: '/articles/rssi-externalise-prix-missions-et-roi-pour-les-pme', destination: '/rssi-externalise', permanent: true },
+      // Même cas (29/10/2026) : 88 impressions en position 48 contre 2 717 en 22,8 pour la page service.
+      { source: '/articles/rssi-externalise-la-reponse-cybersecurite-adaptee-aux-pme-et-eti', destination: '/rssi-externalise', permanent: true },
+      // Quasi-doublon GuardFall : on garde la version la plus complète (source citée, impacts, action).
+      { source: '/articles/guardfall-expose-les-agents-de-codage-d-ia-open-source-a-des-risques-d-injection-de-shell-vieux-de-plusieurs-decennies', destination: '/articles/guardfall-les-agents-ia-open-source-vulnerables-a-l-injection-shell-classique', permanent: true },
       // Offre « pentest au résultat » retirée : la page et tout son parcours commercial
       // (éligibilité, proposition, signature, paiement) renvoient vers la page Pentest.
       { source: '/pentest-au-resultat', destination: '/pentest', permanent: true },
