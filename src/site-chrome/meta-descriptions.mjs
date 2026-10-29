@@ -59,7 +59,7 @@ export const META_DESCRIPTIONS = {
   '/pentest-physique': 'Test d’intrusion physique de vos locaux : contrôle d’accès, badges, ingénierie sociale sur site et sécurité périmétrique, avec un rapport d’amélioration.',
   '/red-team': 'Exercice Red Team : une attaque ciblée et réaliste pour mesurer la capacité de vos équipes à détecter et à répondre à l’intrusion.',
   '/audit-o365': 'Audit de sécurité Microsoft 365 : identités et MFA, accès conditionnel, messagerie, partage de données et Secure Score, avec un plan d’action priorisé.',
-  '/audit-cybersecurite': 'Audit de cybersécurité complet : architecture, configurations, droits d’accès, organisation et conformité, pour connaître votre niveau réel de sécurité.',
+  '/audit-cybersecurite': 'Audit de cybersécurité à Paris : organisation, configurations, accès et conformité (ISO 27001, ANSSI, NIS2, DORA) évalués, avec un plan d’action priorisé.',
   '/audit-flash': 'Audit flash cybersécurité en 1 à 2 jours : diagnostic express de vos risques critiques et premières recommandations, idéal avant un audit complet.',
   '/audit-code-source': 'Audit de code source : revue manuelle et outillée pour détecter injections, failles d’authentification et erreurs de logique avant la mise en production.',
   '/audit-organisationnel': 'Audit organisationnel de la sécurité : gouvernance SSI, rôles et responsabilités, politiques, processus et facteur humain, avec des recommandations concrètes.',

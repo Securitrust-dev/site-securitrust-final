@@ -1,276 +1,231 @@
-'use client';
+import Link from 'next/link';
+import { ArrowRight, Network, ShieldCheck, KeyRound, Users, FileCheck2, CloudOff, Award, ClipboardCheck, FileText } from 'lucide-react';
+import { StaticThemeShell } from '@/components/static-theme/StaticThemeShell';
+import { LeadForm } from '@/components/brand/LeadForm';
+import { CasCard } from '@/components/cas-clients/CasCard';
+import { FAQSchema } from '@/components/StructuredData';
+import { casBySlug, type CasClient } from '@/content/cas-clients';
 
-import { Navbar } from '@/components/sections/navbar';
-import { PromoBanner } from '@/components/sections/promo-banner';
-import { Footer } from '@/components/sections/footer';
-import { Shield, Search, FileText, Target, CheckCircle, AlertTriangle, ArrowRight, Box, Cpu, Lock } from 'lucide-react';
+// Page refondue le 29/10/2026 (gabarit RSSI) : page carrefour de l'offre d'audit,
+// ciblée « audit cybersécurité » / « audit sécurité informatique ». URL conservée.
+
+const FAQS = [
+  {
+    question: 'Qu’est-ce qu’un audit de cybersécurité ?',
+    answer:
+      'C’est une évaluation indépendante du niveau de sécurité de votre système d’information : organisation, procédures, configurations techniques, droits d’accès et pratiques des utilisateurs. Il aboutit à une liste de constats priorisés et à un plan d’action concret.',
+  },
+  {
+    question: 'Quelle différence entre un audit de sécurité et un test d’intrusion ?',
+    answer:
+      'L’audit examine l’ensemble de votre sécurité, organisationnelle et technique, par rapport à un référentiel. Le test d’intrusion simule une attaque réelle sur un périmètre précis pour démontrer ce qu’un attaquant pourrait obtenir. Les deux sont complémentaires, et un audit complet intègre souvent des tests techniques.',
+  },
+  {
+    question: 'Combien de temps dure un audit ?',
+    answer:
+      'Cela dépend du périmètre : un audit flash donne une première photographie en quelques jours, un audit complet d’une organisation multi-sites demande plusieurs semaines. La durée est fixée lors du cadrage, avant le démarrage.',
+  },
+  {
+    question: 'Sur quels référentiels vous appuyez-vous ?',
+    answer:
+      'Selon votre contexte : ISO 27001 et ISO 27002, guide d’hygiène informatique de l’ANSSI, exigences NIS2 ou DORA, HDS pour la santé, TISAX pour l’automobile. Nous pouvons aussi construire une grille adaptée à votre secteur.',
+  },
+  {
+    question: 'Un audit de cybersécurité est-il obligatoire ?',
+    answer:
+      'Il l’est de fait pour de nombreuses organisations : NIS2, DORA et ISO 27001 exigent d’évaluer régulièrement l’efficacité des mesures de sécurité. Il est aussi de plus en plus demandé par les clients, les donneurs d’ordre et les assureurs cyber.',
+  },
+  {
+    question: 'Que contient le rapport d’audit ?',
+    answer:
+      'Une synthèse pour la direction, les constats détaillés avec leur niveau de risque, les preuves recueillies, et un plan d’action priorisé avec des recommandations réalistes. Les résultats sont présentés à vos équipes lors d’une réunion de restitution.',
+  },
+];
+
+const TYPES = [
+  { titre: 'Audit organisationnel', href: '/audit-organisationnel', texte: 'Gouvernance, politiques, rôles, gestion des risques et des incidents.' },
+  { titre: 'Audit de sécurité technique', href: '/audit-securite-technique', texte: 'Architecture réseau, configurations, durcissement des systèmes.' },
+  { titre: 'Tests d’intrusion', href: '/pentest', texte: 'Attaques simulées sur vos applications, votre réseau et votre Active Directory.' },
+  { titre: 'Audit Microsoft 365', href: '/audit-o365', texte: 'Messagerie, identités, partages et configuration du tenant.' },
+  { titre: 'Audit de code source', href: '/audit-code-source', texte: 'Revue de sécurité de vos applications développées en interne.' },
+  { titre: 'Évaluation de maturité', href: '/evaluation-maturite', texte: 'Votre niveau mesuré sur une grille reconnue, comparable dans le temps.' },
+  { titre: 'Audit d’écart (gap analysis)', href: '/gap-analysis', texte: 'L’écart avec ISO 27001, NIS2 ou DORA, et le plan pour le combler.' },
+  { titre: 'Audit flash', href: '/audit-flash', texte: 'Une première photographie de votre sécurité, en quelques jours.' },
+];
+
+const PERIMETRE = [
+  { icon: Network, titre: 'Architecture réseau', texte: 'Cloisonnement, flux, accès distants, exposition sur Internet.' },
+  { icon: ShieldCheck, titre: 'Dispositifs de sécurité', texte: 'Pare-feu, antivirus et EDR, sauvegardes, journalisation.' },
+  { icon: KeyRound, titre: 'Droits d’accès', texte: 'Comptes à privilèges, gestion des identités, authentification forte.' },
+  { icon: Users, titre: 'Pratiques des utilisateurs', texte: 'Sensibilisation, mots de passe, réaction face à l’hameçonnage.' },
+  { icon: FileCheck2, titre: 'Gouvernance et conformité', texte: 'Politiques, procédures, gestion des risques, exigences réglementaires.' },
+  { icon: CloudOff, titre: 'Shadow IT', texte: 'Applications et services cloud utilisés sans validation de la DSI, hors de tout contrôle.' },
+];
+
+const ETAPES = [
+  { titre: 'Cadrage', texte: 'Objectifs, périmètre, référentiel et planning, validés avec vous.' },
+  { titre: 'Collecte', texte: 'Entretiens avec les équipes, revue documentaire, inventaire des actifs.' },
+  { titre: 'Analyse technique', texte: 'Vérification des configurations et, si prévu, tests d’intrusion ciblés.' },
+  { titre: 'Évaluation des risques', texte: 'Chaque constat est qualifié selon sa probabilité et son impact métier.' },
+  { titre: 'Restitution et plan d’action', texte: 'Présentation à la direction et aux équipes, recommandations priorisées.' },
+];
+
+const CAS = [
+  'verspieren-audit-annuel-iso-27001',
+  'groupe-adp-audit-interne-iso-27001',
+  'cegedim-activ-audits-internes-iso-27001-dora',
+  'cavp-evaluation-maturite-cyber-guide-hygiene-anssi',
+  'brgm-audit-interne-iso-27001-formation-auditeurs',
+  'telediag-audit-interne-iso-27001',
+].map(casBySlug).filter((c): c is CasClient => Boolean(c));
 
 export default function AuditCybersecuritePage() {
   return (
-    <div className="relative min-h-screen antialiased text-slate-300 selection:bg-cyan-500 selection:text-black">
-      {/* Scanline Overlay */}
-      <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
+    <StaticThemeShell>
+      <FAQSchema faqs={FAQS} />
 
-      {/* Background Particles */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-full h-full bg-void opacity-60"></div>
-        <div className="stars opacity-20"></div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute top-1/4 left-10 opacity-20 animate-float hidden md:block" style={{ animationDelay: '0s' }}>
-        <Box className="w-24 h-24 text-cyan-500" />
-      </div>
-      <div className="absolute bottom-1/3 right-20 opacity-20 animate-float hidden md:block" style={{ animationDelay: '2s' }}>
-        <Cpu className="w-16 h-16 text-cyan-500" />
-      </div>
-
-      <div className="relative z-10">
-        <PromoBanner />
-        <Navbar />
-        
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
-                Évaluation de Sécurité
-              </h2>
-              <h1 className="brand-h1">
-                Audit cybersécurité
+      <section className="hero-simple">
+        <div className="wrap">
+          <p className="crumb">
+            <Link href="/">Accueil</Link>
+            <span className="sep">›</span>
+            <span className="now">Audit de cybersécurité</span>
+          </p>
+          <div className="hero-split">
+            <div>
+              <span className="eyebrow">Audit de cybersécurité · Paris</span>
+              <h1>
+                Audit de cybersécurité&nbsp;: <span className="hl">sachez où vous en êtes</span>, et quoi faire ensuite
               </h1>
-              <p className="text-lg md:text-xl text-slate-400 font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left">
-                L&apos;<strong>audit de sécurité informatique</strong> constitue une étape essentielle pour évaluer la <strong>protection des systèmes d&apos;information</strong> d&apos;une entreprise. Réalisé par un <strong>expert en cybersécurité</strong>, cet audit examine de manière approfondie les aspects <strong>techniques</strong>, <strong>organisationnels</strong> et <strong>humains</strong>.
+              <p className="hero-sub">
+                Nos auditeurs évaluent la <b>sécurité de votre système d’information</b>, de l’organisation aux
+                configurations techniques, au regard des référentiels qui vous concernent. Vous obtenez une vision claire
+                de vos risques et un <b>plan d’action priorisé</b>.
               </p>
+              <ul className="fact-row">
+                <li><Award size={16} /> Auditeurs ISO 27001 Lead Auditor</li>
+                <li><ClipboardCheck size={16} /> ISO 27001, ANSSI, NIS2, DORA</li>
+                <li><FileText size={16} /> Plan d’action priorisé</li>
+              </ul>
+            </div>
+            <div id="devis" style={{ scrollMarginTop: 110 }}>
+              <LeadForm
+                formId="audit_cybersecurite"
+                source="Audit cybersécurité"
+                title="Demander un audit"
+                subtitle="Présentez votre contexte : un auditeur vous rappelle pour cadrer la mission."
+                messageLabel="Votre besoin (facultatif)"
+                messagePlaceholder="Ex. : audit avant certification ISO 27001, exigence d’un client, NIS2…"
+              />
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
-            <span className="text-[0.6rem] uppercase tracking-[0.3em]">Scroll</span>
-            <div className="w-4 h-4 text-cyan-400">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
-          </div>
-        </section>
-
-        {/* Tech Stack Banner */}
-        <section className="relative z-10 border-y border-white/5 bg-black/40">
-          <div className="max-w-7xl mx-auto px-6 py-6 flex items-center gap-10 overflow-hidden">
-            <div className="flex items-center gap-3 shrink-0">
-              <span className="text-[0.6rem] uppercase tracking-[0.3em] text-cyan-400">
-                Périmètre
-              </span>
-              <div className="h-px w-12 bg-gradient-to-r from-cyan-500/60 to-transparent"></div>
-            </div>
-            <div className="relative w-full overflow-hidden">
-              <div className="flex gap-10 items-center whitespace-nowrap animate-marquee text-slate-300/80 text-sm md:text-base">
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Shield className="w-5 h-5 text-cyan-400" />
-                  <span>Architecture Réseau</span>
-                </div>
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Lock className="w-5 h-5 text-cyan-400" />
-                  <span>Dispositifs Sécurité</span>
-                </div>
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Target className="w-5 h-5 text-cyan-400" />
-                  <span>Droits d&apos;Accès</span>
-                </div>
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <FileText className="w-5 h-5 text-cyan-400" />
-                  <span>Comportements Utilisateurs</span>
-                </div>
-                {/* Duplicate for seamless loop */}
-                <div className="flex items-center gap-2 uppercase tracking-[0.25em] text-xs md:text-[0.7rem]">
-                  <Shield className="w-5 h-5 text-cyan-400" />
-                  <span>Architecture Réseau</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Qu'examine l'audit */}
-        <section className="py-32 relative z-10">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-4">
-              <h3 className="text-4xl font-light text-white tracking-tight">
-                Périmètre de l&apos;audit
-              </h3>
-              <span className="text-cyan-500 font-mono text-xs">01 // ANALYSE</span>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              {[
-                { icon: Shield, title: 'L\'architecture réseau', description: 'Analyse complète de l\'infrastructure réseau' },
-                { icon: FileText, title: 'Les dispositifs de sécurité', description: 'Pare-feu, antivirus, EDR' },
-                { icon: AlertTriangle, title: 'Les droits d\'accès', description: 'Gestion des permissions et contrôles' },
-                { icon: CheckCircle, title: 'Les comportements utilisateurs', description: 'Pratiques et sensibilisation' }
-              ].map((item, index) => (
-                <div key={index} className="tilt-card group relative p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden">
-                    <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                    <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/10 bg-black/50 text-cyan-400 group-hover:scale-110 transition-transform duration-300">
-                      <item.icon className="w-6 h-6" />
-                    </div>
-                    <h4 className="text-xl font-medium text-white mb-2">{item.title}</h4>
-                    <p className="text-sm text-slate-400 leading-relaxed">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-slate-300 text-center max-w-3xl mx-auto">
-              En croisant ces éléments, l&apos;auditeur identifie les <strong>failles de sécurité potentielles</strong> qui pourraient être exploitées lors d&apos;une cyberattaque.
+      <section className="sec">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Nos audits</span>
+            <h2>Un audit adapté à chaque besoin</h2>
+            <p>
+              De la photographie rapide à l’audit approfondi, choisissez l’angle qui répond à votre question, ou combinez-les
+              dans un audit de sécurité informatique complet.
             </p>
           </div>
-        </section>
+          <div className="case-grid">
+            {TYPES.map((t) => (
+              <Link key={t.href} href={t.href} className="case-card">
+                <span className="case-client" style={{ fontSize: 19 }}>{t.titre}</span>
+                <span className="case-mission">{t.texte}</span>
+                <span className="case-more">Découvrir <ArrowRight size={14} /></span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        {/* Shadow IT */}
-        <section className="py-32 relative z-10">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-4">
-              <h3 className="text-4xl font-light text-white tracking-tight">
-                Shadow IT : un risque sous-estimé
-              </h3>
-              <span className="text-cyan-500 font-mono text-xs">02 // MENACES</span>
-            </div>
+      <section className="sec sec--dark">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Ce que nous examinons</span>
+            <h2>Le périmètre d’un audit de sécurité</h2>
+            <p>
+              En croisant ces dimensions, l’auditeur identifie les failles qu’un attaquant pourrait exploiter, et celles que
+              vos processus laissent passer.
+            </p>
+          </div>
+          <div className="grid-3">
+            {PERIMETRE.map(({ icon: Icon, titre, texte }) => (
+              <article key={titre} className="pilier">
+                <span className="pilier-icon"><Icon size={22} /></span>
+                <h3>{titre}</h3>
+                <p>{texte}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="glass-panel p-8 rounded-xl border border-white/5">
-              <p className="text-slate-300 mb-6">
-                Près de <strong>85 % des collaborateurs</strong> utilisent encore des applications ou services cloud <strong>non validés par la DSI</strong>.
-              </p>
-              
-              <p className="text-slate-300 mb-6">
-                Ce comportement expose l&apos;entreprise à :
-              </p>
+      <section className="sec">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">La méthode</span>
+            <h2>Un audit en cinq étapes</h2>
+          </div>
+          <div className="grid-3">
+            {ETAPES.map((e, i) => (
+              <article key={e.titre} className="pilier">
+                <span className="step-num">ÉTAPE {String(i + 1).padStart(2, '0')}</span>
+                <h3>{e.titre}</h3>
+                <p>{e.texte}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  { title: 'Vulnérabilités invisibles', desc: 'Applications non sécurisées hors contrôle IT' },
-                  { title: 'Manque de contrôle', desc: 'Sur les données échangées' },
-                  { title: 'Risque accru', desc: 'De fuite d\'informations sensibles' }
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 bg-[#0b1221]/50 rounded-lg">
-                    <AlertTriangle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-bold text-white mb-1">{item.title}</h4>
-                      <p className="text-slate-300 text-sm">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      <section className="sec sec--dark">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Cas clients</span>
+            <h2>Ils nous confient leurs audits</h2>
+            <p>Assurance, transport aérien, santé, secteur public : des audits menés selon la même exigence que les audits de certification.</p>
+          </div>
+          <div className="case-grid">
+            {CAS.map((c) => <CasCard key={c.slug} cas={c} />)}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="sec-head">
+            <span className="eyebrow">Questions fréquentes</span>
+            <h2>Audit de cybersécurité : vos questions</h2>
+          </div>
+          <div className="faq-list">
+            {FAQS.map((f) => (
+              <details key={f.question}>
+                <summary>{f.question}</summary>
+                <p>{f.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="wrap">
+          <div className="cta-box">
+            <h2>Faites le point sur votre sécurité</h2>
+            <p>Un échange de 30 minutes pour définir le bon périmètre d’audit et recevoir une proposition.</p>
+            <div className="hero-actions" style={{ justifyContent: 'center' }}>
+              <a href="#devis" className="btn-primary">Demander un audit <ArrowRight size={16} /></a>
+              <Link href="/cas-clients" className="btn-ghost">Voir nos cas clients <ArrowRight size={16} /></Link>
             </div>
           </div>
-        </section>
-
-        {/* Les étapes */}
-        <section className="py-32 relative z-10">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-4">
-              <h3 className="text-4xl font-light text-white tracking-tight">
-                Les étapes de l&apos;audit
-              </h3>
-              <span className="text-cyan-500 font-mono text-xs">03 // PROCESSUS</span>
-            </div>
-
-            <div className="space-y-6 relative">
-              {/* Connecting Line */}
-              <div className="hidden md:block absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-cyan-500/20 to-transparent"></div>
-
-              {[
-                {
-                  number: '1',
-                  title: 'Cartographie du SI',
-                  description: 'Analyse complète de l\'infrastructure'
-                },
-                {
-                  number: '2',
-                  title: 'Tests d\'intrusion',
-                  description: 'Simulation d\'attaques réelles'
-                },
-                {
-                  number: '3',
-                  title: 'Audit de configuration',
-                  description: 'Vérification des paramètres de sécurité'
-                }
-              ].map((step, index) => (
-                <div key={index} className="flex items-start gap-6 glass-panel p-8 rounded-xl border border-white/5 hover:border-cyan-500/30 transition-all relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-[0_0_20px_rgba(56,189,248,0.3)]">
-                    <span className="text-2xl font-bold text-white">{step.number}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                    <p className="text-slate-300">{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-32 relative z-10">
-          <div className="absolute right-0 top-1/4 w-1/2 h-1/2 bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none"></div>
-
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <div className="glass-panel p-12 rounded-2xl border-2 border-cyan-500/20 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/5 to-transparent pointer-events-none"></div>
-              
-              <h2 className="text-4xl md:text-5xl font-semibold text-white mb-6 tracking-tight relative z-10">
-                Besoin d&apos;un audit cybersécurité ?
-              </h2>
-              <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto relative z-10">
-                Nos experts auditeurs vous accompagnent dans l&apos;évaluation de votre sécurité informatique.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                <a
-                  href="https://calendly.com/expert-securitrust"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-brand"
-                >
-                  Demander un audit
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-                <a
-                  href="/contact"
-                  className="btn-brand-ghost"
-                >
-                  Demander un devis
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-
-        {/* Services liés */}
-        <section className="py-16 px-6 relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
-                { title: 'Audit Flash', href: '/audit-flash', desc: 'Évaluation rapide de votre posture sécurité en 48h avec un rapport priorisé et actionnables.' },
-                { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Transformez les recommandations d\'audit en programme GRC structuré et pérenne.' },
-              ].map((s, i) => (
-                <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
-                  <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{s.desc}</p>
-                  <span className="text-cyan-400 text-xs font-mono flex items-center gap-1">En savoir plus →</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <Footer />
-      </div>
-    </div>
+        </div>
+      </section>
+    </StaticThemeShell>
   );
 }

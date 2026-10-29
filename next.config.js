@@ -58,6 +58,7 @@ const nextConfig = {
       { source: '/conformite', destination: '/rgpd', permanent: true },
       { source: '/rssi', destination: '/rssi-externalise', permanent: true },
       { source: '/portfolio', destination: '/cas-clients', permanent: true },
+      { source: '/certification-iso-27001', destination: '/iso27001', permanent: true },
       // Fusions du 29/10/2026 : pages faibles supprimées, redirigées vers la page qui reprend le sujet.
       { source: '/cybersecurite-operationnelle/proteger-chiffre-affaires', destination: '/cybersecurite-operationnelle', permanent: true },
       { source: '/cybersecurite-operationnelle/exigences-reglementaires', destination: '/cybersecurite-operationnelle', permanent: true },
