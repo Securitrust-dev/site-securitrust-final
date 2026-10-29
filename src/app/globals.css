@@ -7,8 +7,8 @@
   --brand-bg: #04060e;
   --brand-bg-top: #060c18;
   --brand-ink: #e8f0fb;
-  --brand-muted: rgba(255, 255, 255, 0.8);
-  --brand-muted-2: rgba(255, 255, 255, 0.6);
+  --brand-muted: #dbe2ea;
+  --brand-muted-2: #b4bfcc;
   --brand-sky: #38bdf8;
   --brand-cyan: #22d3ee;
   --brand-hair: rgba(255, 255, 255, 0.09);
@@ -16,11 +16,14 @@
   --brand-card: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
   --brand-orange: linear-gradient(135deg, #fdba74, #f97316);
   --brand-mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-  --font-sans: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
+  --font-sans: var(--font-text), "Inter", system-ui, sans-serif;
   --font-display: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
 }
 
 @theme {
+  --color-slate-300: #e2e8f0;
+  --color-slate-400: #c3ccd8;
+  --color-slate-500: #a7b2c0;
   --color-background: #04060e;
   --color-foreground: #ffffff;
 
@@ -218,8 +221,8 @@
   --color-teal-950: #082f49;
 
   --font-display: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
-  --font-body: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
-  --font-sans: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
+  --font-body: var(--font-text), "Inter", system-ui, sans-serif;
+  --font-sans: var(--font-text), "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
   --letter-spacing-tightest: -0.04em;
@@ -391,3 +394,6 @@ body:has(.lp-root)::after{display:none}
 .btn-brand:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(249,115,22,.45)}
 .btn-brand-ghost{border:1px solid rgba(56,189,248,.55);color:var(--brand-sky);background:rgba(56,189,248,.05)}
 .btn-brand-ghost:hover{background:rgba(56,189,248,.12);transform:translateY(-2px)}
+
+/* lisibilité : titres en Space Grotesk, texte courant en Inter */
+h1,h2,h3,h4,.brand-h1{font-family:var(--font-display)}

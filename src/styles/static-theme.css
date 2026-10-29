@@ -9,8 +9,8 @@
   /* charte /rssi-externalise */
   --bg:#04060e;
   --ink:#ffffff;
-  --muted:rgba(255,255,255,.78);
-  --muted-2:rgba(255,255,255,.6);
+  --muted:#dbe2ea;
+  --muted-2:#b4bfcc;
   --cyan:#38bdf8;
   --mint:#22d3ee;
   --line:rgba(255,255,255,.09);
@@ -24,7 +24,7 @@
 
   background:transparent;
   color:#e8f0fb;
-  font-family:var(--sfont-space-grotesk),'Space Grotesk',system-ui,sans-serif;
+  font-family:var(--sfont-inter),'Inter',system-ui,sans-serif;
   line-height:1.6;
   position:relative;
 }
@@ -372,15 +372,15 @@ body.nav-open{overflow:hidden}
 #static-theme-root#static-theme-root.static-theme .case-card:hover{transform:translateY(-3px);border-color:var(--cyan)}
 #static-theme-root#static-theme-root.static-theme .case-sector{font-family:var(--sfont-jetbrains-mono),'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
 #static-theme-root#static-theme-root.static-theme .case-client{font-family:var(--sfont-space-grotesk),'Space Grotesk',sans-serif;font-size:22px;font-weight:600;line-height:1.15}
-#static-theme-root#static-theme-root.static-theme .case-mission{color:#c9d3e0;font-size:14.5px;line-height:1.55;flex-grow:1}
+#static-theme-root#static-theme-root.static-theme .case-mission{color:#dbe2ea;font-size:14.5px;line-height:1.55;flex-grow:1}
 #static-theme-root#static-theme-root.static-theme .case-tags{display:flex;flex-wrap:wrap;gap:6px}
 #static-theme-root#static-theme-root.static-theme .case-tag{font-size:12px;color:var(--ink);border:1px solid var(--line-strong);border-radius:100px;padding:3px 10px}
 #static-theme-root#static-theme-root.static-theme .case-more{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--cyan);margin-top:4px}
 #static-theme-root#static-theme-root.static-theme .case-h1{font-size:clamp(30px,4.4vw,52px)}
 #static-theme-root#static-theme-root.static-theme .case-body h2{font-size:clamp(22px,2.6vw,28px);margin:44px 0 16px}
 #static-theme-root#static-theme-root.static-theme .case-body h2:first-child{margin-top:0}
-#static-theme-root#static-theme-root.static-theme .case-body p{color:#c9d3e0;font-size:16px;line-height:1.75;margin-bottom:14px}
-#static-theme-root#static-theme-root.static-theme .case-body .check-list li{color:#c9d3e0}
+#static-theme-root#static-theme-root.static-theme .case-body p{color:#dbe2ea;font-size:16px;line-height:1.75;margin-bottom:14px}
+#static-theme-root#static-theme-root.static-theme .case-body .check-list li{color:#dbe2ea}
 #static-theme-root#static-theme-root.static-theme .case-links{margin-top:40px;padding-top:22px;border-top:1px solid var(--line-strong);font-size:15px}
 #static-theme-root#static-theme-root.static-theme .case-pager{display:flex;justify-content:space-between;gap:16px;margin-top:48px}
 #static-theme-root#static-theme-root.static-theme .case-pager a{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;line-height:1.4}
@@ -408,7 +408,7 @@ body.nav-open{overflow:hidden}
 #static-theme-root#static-theme-root.static-theme .hero-split .form-card{background:linear-gradient(180deg,rgba(12,19,34,.86),rgba(7,12,24,.9));border-color:rgba(56,189,248,.22);border-radius:20px;box-shadow:0 0 0 1px rgba(56,189,248,.12),0 40px 90px -30px rgba(0,0,0,.92),0 0 90px -22px rgba(56,189,248,.30);padding:30px 28px}
 #static-theme-root#static-theme-root.static-theme .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:520px){#static-theme-root#static-theme-root.static-theme .field-row{grid-template-columns:1fr}}
-#static-theme-root#static-theme-root.static-theme .field label{font-family:var(--sfont-space-grotesk),'Space Grotesk',sans-serif;text-transform:none;letter-spacing:0;font-weight:600;font-size:13px;color:rgba(255,255,255,.8)}
+#static-theme-root#static-theme-root.static-theme .field label{font-family:var(--sfont-space-grotesk),'Space Grotesk',sans-serif;text-transform:none;letter-spacing:0;font-weight:600;font-size:13px;color:#dbe2ea}
 #static-theme-root#static-theme-root.static-theme .field input,#static-theme-root#static-theme-root.static-theme .field select,#static-theme-root#static-theme-root.static-theme .field textarea{background:rgba(4,6,14,.6);border-color:rgba(255,255,255,.12)}
 #static-theme-root#static-theme-root.static-theme .field textarea{min-height:84px}
 #static-theme-root#static-theme-root.static-theme .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
@@ -421,14 +421,14 @@ body.nav-open{overflow:hidden}
 #static-theme-root#static-theme-root.static-theme .lead-done h3{color:#fff;margin-top:10px}
 #static-theme-root#static-theme-root.static-theme .hero-split h1{font-size:clamp(2.05rem,4.4vw,3.2rem)}
 #static-theme-root#static-theme-root.static-theme .hero-split h1 .hl{color:#38bdf8}
-#static-theme-root#static-theme-root.static-theme .prose-sec p{color:rgba(255,255,255,.8);font-size:16.5px;line-height:1.75;margin-bottom:14px;max-width:760px}
+#static-theme-root#static-theme-root.static-theme .prose-sec p{color:#dbe2ea;font-size:16.5px;line-height:1.75;margin-bottom:14px;max-width:760px}
 #static-theme-root#static-theme-root.static-theme .prose-sec p b{color:#fff}
 #static-theme-root#static-theme-root.static-theme .faq-list{display:grid;gap:12px;max-width:860px}
 #static-theme-root#static-theme-root.static-theme .faq-list details{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px 22px}
 #static-theme-root#static-theme-root.static-theme .faq-list summary{cursor:pointer;font-weight:600;font-size:16.5px;color:#fff;list-style:none;display:flex;justify-content:space-between;gap:16px}
 #static-theme-root#static-theme-root.static-theme .faq-list summary::after{content:"+";color:#38bdf8;font-size:20px;line-height:1}
 #static-theme-root#static-theme-root.static-theme .faq-list details[open] summary::after{content:"–"}
-#static-theme-root#static-theme-root.static-theme .faq-list details p{color:rgba(255,255,255,.78);margin-top:12px;line-height:1.7;font-size:15px}
+#static-theme-root#static-theme-root.static-theme .faq-list details p{color:#dbe2ea;margin-top:12px;line-height:1.7;font-size:15px}
 #static-theme-root#static-theme-root.static-theme .step-num{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:12px;color:#38bdf8;letter-spacing:.14em;margin-bottom:12px;display:block}
 
 #static-theme-root#static-theme-root.static-theme .logo-band{padding:30px 0 50px;position:relative;z-index:2}
