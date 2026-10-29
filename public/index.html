@@ -445,6 +445,13 @@
     border-radius: 16px;
   }
 
+  .pathway-kicker { margin: 0 0 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); }
+  .pathway h3 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); line-height: 1.25; letter-spacing: -0.02em; margin: 0; color: #fff; }
+  .pathway h3 + .pathway-tagline { margin-top: 10px; font-size: 1.05rem; line-height: 1.5; }
+  .pathway-proof { margin: 0 0 24px; padding: 12px 16px; border-left: 2px solid var(--blue); background: rgba(56, 189, 248, 0.06); border-radius: 0 10px 10px 0; color: var(--muted); font-size: 0.94rem; }
+  .pathway-proof strong { color: #fff; }
+  .pathway-proof a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+
   .pathway + .pathway { margin-top: 20px; }
 
   .pathway-tagline {
@@ -1146,66 +1153,81 @@
   <section id="expertises">
     <div class="container">
       <div class="section-intro">
-        <h2>Trois façons de vous accompagner</h2>
+        <h2>Ce que nous réglons pour vous</h2>
         <p>
-          Selon votre besoin : être conforme, tester votre sécurité, ou piloter votre cybersécurité
-          dans la durée.
+          Gagner un marché, tenir une obligation réglementaire, connaître vos failles, rassurer vos partenaires
+          ou piloter votre sécurité : partez de votre enjeu.
         </p>
       </div>
 
       <div class="pathway">
-        <h3>Vous devez être conforme</h3>
-        <p class="pathway-tagline">Transformez vos obligations en preuve de confiance.</p>
-        <p>
-          Vos clients, donneurs d&rsquo;ordre et régulateurs demandent des garanties. SecuriTrust
-          vous aide à identifier vos obligations, structurer votre conformité et préparer
-          les audits ou certifications nécessaires.
-        </p>
+        <p class="pathway-kicker mono">Gagner des marchés</p>
+        <h3>Votre prochain gros contrat dépend peut-être d&rsquo;une certification.</h3>
+        <p class="pathway-tagline">ISO 27001, TISAX, HDS : on transforme l&rsquo;exigence de votre client en argument commercial.</p>
+        <ul class="pathway-list">
+          <li><a href="/iso27001"><strong>ISO 27001</strong> — Structurez votre sécurité et faites de votre conformité un argument commercial.</a></li>
+          <li><a href="/tisax"><strong>TISAX</strong> — Répondez aux attentes de l&rsquo;industrie automobile et de ses donneurs d&rsquo;ordre.</a></li>
+          <li><a href="/hds"><strong>HDS</strong> — Sécurisez l&rsquo;hébergement de données de santé et répondez aux exigences du secteur.</a></li>
+          <li><a href="/formations/construire-smsi-iso-27001"><strong>Formation SMSI</strong> — Rendez vos équipes autonomes sur l&rsquo;ISO 27001.</a></li>
+        </ul>
+        <p class="pathway-proof"><strong>+100 accompagnements ISO 27001.</strong> Nippon Paint, Amphenol, Sogefi, FILEC : des sous-traitants automobiles accompagnés vers TISAX.</p>
+        <a href="/iso27001" class="btn btn-outline">Préparer ma certification →</a>
+      </div>
+
+      <div class="pathway">
+        <p class="pathway-kicker mono">Transformer une obligation en plan maîtrisé</p>
+        <h3>NIS2, DORA : savoir exactement ce que vous devez faire, et dans quel ordre.</h3>
+        <p class="pathway-tagline">Un diagnostic clair, un plan priorisé, des preuves prêtes pour le régulateur.</p>
         <ul class="pathway-list">
           <li><a href="/nis2"><strong>NIS2</strong> — Protégez vos activités critiques et préparez votre résilience face aux cyberattaques.</a></li>
-          <li><a href="/iso27001"><strong>ISO 27001</strong> — Structurez votre sécurité et faites de votre conformité un argument commercial.</a></li>
-          <li><a href="/hds"><strong>HDS</strong> — Sécurisez l&rsquo;hébergement de données de santé et répondez aux exigences du secteur.</a></li>
-          <li><a href="/tisax"><strong>TISAX</strong> — Répondez aux attentes de l&rsquo;industrie automobile et de ses donneurs d&rsquo;ordre.</a></li>
-          <li><a href="/rgpd"><strong>RGPD</strong> — Protégez les données personnelles et renforcez la confiance de vos clients.</a></li>
           <li><a href="/dora"><strong>DORA</strong> — Renforcez la résilience numérique de vos services financiers.</a></li>
+          <li><a href="/rgpd"><strong>RGPD</strong> — Protégez les données personnelles et renforcez la confiance de vos clients.</a></li>
+          <li><a href="/gap-analysis"><strong>Gap analysis</strong> — Mesurez l&rsquo;écart avec le référentiel et priorisez les actions.</a></li>
         </ul>
-        <a href="/gouvernance-conformite" class="btn btn-outline">Découvrir nos accompagnements conformité →</a>
+        <p class="pathway-proof"><strong>CFDP, assureur :</strong> mise en conformité DORA et ISO 27001 pilotée par notre RSSI externalisé. <a href="/cas-clients/cfdp-conformite-dora-iso-27001">Lire le cas client</a></p>
+        <a href="/nis2" class="btn btn-outline">Suis-je concerné ? →</a>
       </div>
 
       <div class="pathway">
-        <h3>Vous devez tester votre sécurité</h3>
-        <p class="pathway-tagline">Identifiez vos failles avant qu&rsquo;un attaquant ne les exploite.</p>
-        <p>
-          Nos experts simulent des scénarios d&rsquo;attaque réalistes, dans un cadre maîtrisé,
-          pour révéler les vulnérabilités réellement exploitables et vous fournir un plan
-          de correction priorisé.
-        </p>
+        <p class="pathway-kicker mono">Connaître vos vraies failles</p>
+        <h3>Savoir où vous êtes vulnérable, et quoi corriger en premier.</h3>
+        <p class="pathway-tagline">Nos experts testent vos applications, votre Active Directory et votre Microsoft 365, puis vous remettent un plan de correction priorisé, compréhensible par votre direction.</p>
         <ul class="pathway-list">
+          <li><a href="/pentest-externe"><strong>Test d&rsquo;intrusion externe</strong> — Votre périmètre exposé sur Internet.</a></li>
           <li><a href="/pentest-web"><strong>Pentest web</strong> — Sécurisez vos sites, applications et API.</a></li>
-          <li><a href="/pentest-mobile"><strong>Pentest mobile</strong> — Protégez vos applications Android, iOS et les données de vos utilisateurs.</a></li>
           <li><a href="/pentest-ad"><strong>Pentest Active Directory</strong> — Sécurisez les comptes, droits et accès au cœur de votre système d&rsquo;information.</a></li>
           <li><a href="/audit-o365"><strong>Audit Microsoft 365</strong> — Renforcez la sécurité de vos messageries, fichiers, identités et outils collaboratifs.</a></li>
+          <li><a href="/pentest-mobile"><strong>Pentest mobile</strong> — Protégez vos applications Android, iOS et les données de vos utilisateurs.</a></li>
+          <li><a href="/pentest-interne"><strong>Pentest interne</strong> — Ce qu&rsquo;un attaquant peut faire une fois dans votre réseau.</a></li>
         </ul>
-        <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Évaluer mon exposition →</a>
+        <p class="pathway-proof"><strong>+86 tests d&rsquo;intrusion réalisés</strong> par des experts certifiés OSCP et CEH.</p>
+        <a href="/pentest" class="btn btn-outline">Tester ma sécurité →</a>
       </div>
 
       <div class="pathway">
-        <h3>Vous devez piloter votre cybersécurité</h3>
-        <p class="pathway-tagline">Un RSSI senior à vos côtés, sans la charge d&rsquo;un recrutement.</p>
-        <p>
-          De quelques jours par mois à plusieurs jours par semaine, un expert SecuriTrust pilote
-          votre stratégie cybersécurité : gouvernance, risques, conformité, reporting direction,
-          gestion de crise et coordination des prestataires.
-        </p>
+        <p class="pathway-kicker mono">Rassurer l&rsquo;assureur et les partenaires</p>
+        <h3>Répondez aux questionnaires sécurité avec des preuves, pas des promesses.</h3>
+        <p class="pathway-tagline">Assureurs, clients, donneurs d&rsquo;ordre : on vous aide à démontrer votre niveau de sécurité.</p>
+        <ul class="pathway-list">
+          <li><a href="/evaluation-maturite"><strong>Évaluation de maturité</strong> — Situez votre niveau sur un référentiel reconnu.</a></li>
+          <li><a href="/audit-cybersecurite"><strong>Audit de cybersécurité</strong> — Organisation, technique et conformité passées en revue.</a></li>
+        </ul>
+        <p class="pathway-proof"><strong>Cegedim Activ :</strong> audits internes ISO 27001, ISO 20000-1 et DORA pour répondre aux exigences de ses clients. <a href="/cas-clients/cegedim-activ-audits-internes-iso-27001-dora">Lire le cas client</a></p>
+        <a href="/evaluation-maturite" class="btn btn-outline">Évaluer mon niveau →</a>
+      </div>
+
+      <div class="pathway">
+        <p class="pathway-kicker mono">Un pilote à bord, sans recruter</p>
+        <h3>L&rsquo;expertise d&rsquo;un RSSI senior, pour le coût de quelques jours par mois.</h3>
+        <p class="pathway-tagline">Stratégie, conformité, reporting au COMEX : un expert pilote votre sécurité à votre rythme. Comme un directeur financier à temps partagé, mais pour votre sécurité.</p>
         <ul class="pathway-list">
           <li>Pilotage RSSI à temps partagé</li>
           <li>Feuille de route cybersécurité priorisée</li>
           <li>Gestion des risques et conformité</li>
           <li>Reporting COMEX et indicateurs de pilotage</li>
-          <li>Gestion de crise et continuité d&rsquo;activité</li>
-          <li>Support aux équipes IT et métiers</li>
         </ul>
-        <a href="/rssi-externalise" class="btn btn-outline">Découvrir RSSI Externalisé →</a>
+        <p class="pathway-proof"><strong>Abeille Assurances, Polyconseil, Afluens :</strong> un RSSI externalisé dans la durée. <a href="/cas-clients">Voir nos cas clients</a></p>
+        <a href="/rssi-externalise" class="btn btn-outline">Découvrir le RSSI externalisé →</a>
       </div>
     </div>
   </section>
@@ -1271,7 +1293,7 @@
           </div>
           <div class="stat-card">
             <div class="num-big">+100</div>
-            <div class="label">Accompagnements ISO 27001 obtenus</div>
+            <div class="label">Accompagnements ISO 27001</div>
           </div>
         </div>
       </div>

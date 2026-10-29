@@ -294,7 +294,7 @@ export default function HomeDesignLPPage() {
 
           <div className="stats-wall">
             <div className="stat-box"><div className="num">+86</div><div className="lbl">pentests réalisés</div></div>
-            <div className="stat-box"><div className="num">+100</div><div className="lbl">conformités ISO 27001 obtenues</div></div>
+            <div className="stat-box"><div className="num">+100</div><div className="lbl">accompagnements ISO 27001</div></div>
             <div className="stat-box"><div className="num">+100</div><div className="lbl">entreprises sécurisées</div></div>
             <div className="stat-box"><div className="num">+2 500</div><div className="lbl">jours-homme de RSSI externalisé</div></div>
             <div className="stat-box"><div className="num">10 ans</div><div className="lbl">d&apos;expertise</div></div>
@@ -353,7 +353,7 @@ export default function HomeDesignLPPage() {
             <div className="feat-card">
               <div className="feat-ico">{ICO.iso}</div>
               <h3>ISO 27001 &amp; 27701</h3>
-              <p>De la préparation à la certification, méthodologie rigoureuse et délais tenus. +100 conformités obtenues&nbsp;: certification devient argument commercial.</p>
+              <p>De la préparation à la certification, méthodologie rigoureuse et délais tenus. +100 accompagnements ISO 27001&nbsp;: la certification devient un argument commercial.</p>
             </div>
             <div className="feat-card">
               <div className="feat-ico">{ICO.formation}</div>

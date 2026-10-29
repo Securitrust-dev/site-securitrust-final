@@ -220,7 +220,7 @@ export const HeroSectionV2 = () => {
             <div className="flex flex-wrap gap-8 pt-2">
               {[
                 { value: '+86', label: 'Pentests réalisés' },
-                { value: '+100', label: 'Conformités ISO 27001' },
+                { value: '+100', label: 'Accompagnements ISO 27001' },
               ].map(({ value, label }) => (
                 <div key={label}>
                   <p className="text-2xl font-bold" style={{ color: '#76a6d1', fontFamily: "'Sora', sans-serif" }}>{value}</p>
