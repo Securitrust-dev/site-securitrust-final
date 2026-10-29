@@ -9,7 +9,7 @@ export const META_MAX = 160;
 /** @type {Record<string, string>} */
 export const META_DESCRIPTIONS = {
   // Accueil et pages institutionnelles
-  '/': 'SecuriTrust, cabinet de cybersécurité à Paris depuis 2016 : tests d’intrusion, audits, conformité NIS2, DORA et ISO 27001, RSSI externalisé. Certifié ISO 27001.',
+  '/': 'Prestataire en sécurité informatique à Paris depuis 2016 : audits, tests d’intrusion, conformité NIS2, DORA et ISO 27001, RSSI externalisé. Rappel sous 2 h.',
   '/services': 'Tous les services SecuriTrust : tests d’intrusion, audits de sécurité, gouvernance et conformité, RSSI et DPO externalisés, sensibilisation des équipes.',
   '/contact': 'Contactez SecuriTrust, 11 rue Saint-Didier à Paris 16e : devis de pentest, audit, conformité ou RSSI externalisé. Rappel sous 2 heures.',
   '/prise-de-rdv': 'Réservez un échange de 30 minutes, sans engagement, avec un expert SecuriTrust pour cadrer votre projet de cybersécurité ou de conformité.',
@@ -30,13 +30,8 @@ export const META_DESCRIPTIONS = {
   '/en/outsourced-ciso': 'Outsourced CISO on a fractional basis for SMEs: security roadmap, governance, ISO 27001, NIS2 and DORA compliance, by a Paris-based cybersecurity firm.',
   '/gouvernance-conformite': 'Gouvernance et conformité cybersécurité : NIS2, DORA, ISO 27001, HDS, TISAX et RGPD, de l’audit d’écart au pilotage du SMSI. Cabinet SecuriTrust, Paris.',
   '/gouvernance-conformite/accompagnement': 'Accompagnement à la conformité pas à pas : cadrage, analyse de risques, politiques, mise en œuvre et préparation à l’audit ISO 27001, NIS2, DORA ou HDS.',
-  '/gouvernance-conformite/audits': 'Audits de conformité et de sécurité avec livrables actionnables : écarts ISO 27001, NIS2, DORA et RGPD, audit organisationnel et technique, plan priorisé.',
-  '/gouvernance-conformite/domaines-expertise': 'Vos obligations cyber selon votre secteur : HDS pour la santé, DORA pour la finance, TISAX pour l’automobile, NIS2 pour les entités essentielles.',
-  '/gouvernance-conformite/services-externalises': 'Fonctions de sécurité externalisées : RSSI, DPO et pilotage du SMSI à temps partagé, pour disposer d’une expertise senior sans recrutement à temps plein.',
   '/grc-cyber': 'Gouvernance, risques et conformité (GRC) cyber : analyse de risques EBIOS RM et ISO 27005, politiques de sécurité, suivi des exigences ISO 27001, NIS2 et DORA.',
   '/pilotage-smsi': 'Pilotage externalisé de votre SMSI : comité sécurité, revue des risques, indicateurs, audits internes et maintien de la certification ISO 27001 dans la durée.',
-  '/strategie-cybersecurite': 'Une stratégie de cybersécurité alignée sur vos enjeux métier : état des lieux, priorités, feuille de route budgétée et indicateurs pour la direction.',
-  '/gestion-risques': 'Gestion des risques cyber : identification, évaluation et traitement selon EBIOS RM et ISO 27005, registre des risques et suivi des plans de traitement.',
   '/ebios-rm': 'Analyse de risques EBIOS Risk Manager, la méthode de l’ANSSI : scénarios stratégiques et opérationnels, homologation, socle pour NIS2 et ISO 27001.',
   '/gap-analysis': 'Audit d’écart (gap analysis) face à ISO 27001, NIS2, DORA, HDS ou TISAX : mesure de votre niveau actuel et plan d’action priorisé et chiffré.',
   '/evaluation-maturite': 'Évaluation de la maturité cybersécurité de votre organisation selon ISO 27001 et le NIST CSF : notation par domaine, comparaison et plan de progression.',
@@ -52,7 +47,6 @@ export const META_DESCRIPTIONS = {
   '/hds': 'Certification HDS des hébergeurs de données de santé : référentiel v2.0 aligné sur ISO 27001:2022, exigences de souveraineté et préparation à l’audit.',
   '/tisax': 'Préparation au label TISAX pour les fournisseurs automobiles : catalogue VDA ISA 6.0, niveau AL2 ou AL3, protection des prototypes et audit d’évaluation.',
   '/rgpd': 'Mise en conformité RGPD : audit, registre des traitements, AIPD, contrats de sous-traitance, DPO externalisé et sensibilisation des équipes.',
-  '/audit-conformite': 'Audit de conformité réglementaire : écarts RGPD, NIS2, DORA, ISO 27001 ou HDS, risques de sanction et plan de remédiation priorisé pour votre direction.',
 
   // Tests d'intrusion et audits techniques
   '/pentest': 'Cabinet de pentest à Paris : tests d’intrusion externes, internes, web, mobile, Active Directory, physiques et Red Team, menés par des experts certifiés OSCP.',
@@ -64,19 +58,14 @@ export const META_DESCRIPTIONS = {
   '/pentest-ad': 'Pentest Active Directory : chemins d’attaque jusqu’aux droits d’administrateur du domaine, comptes à privilèges, délégations et durcissement à prévoir.',
   '/pentest-physique': 'Test d’intrusion physique de vos locaux : contrôle d’accès, badges, ingénierie sociale sur site et sécurité périmétrique, avec un rapport d’amélioration.',
   '/red-team': 'Exercice Red Team : une attaque ciblée et réaliste pour mesurer la capacité de vos équipes à détecter et à répondre à l’intrusion.',
-  '/osint': 'Audit OSINT : ce qu’un attaquant peut apprendre sur votre entreprise à partir de sources publiques (fuites, comptes, infrastructure) et comment le réduire.',
   '/audit-o365': 'Audit de sécurité Microsoft 365 : identités et MFA, accès conditionnel, messagerie, partage de données et Secure Score, avec un plan d’action priorisé.',
   '/audit-cybersecurite': 'Audit de cybersécurité complet : architecture, configurations, droits d’accès, organisation et conformité, pour connaître votre niveau réel de sécurité.',
   '/audit-flash': 'Audit flash cybersécurité en 1 à 2 jours : diagnostic express de vos risques critiques et premières recommandations, idéal avant un audit complet.',
-  '/audit-architecture': 'Audit d’architecture de votre système d’information : conception réseau, cloud et applicative, cloisonnement et failles structurelles, plan de remédiation.',
-  '/audit-configuration': 'Audit de configuration de vos serveurs, postes, équipements réseau et applications : écarts aux bonnes pratiques de durcissement et corrections à appliquer.',
   '/audit-code-source': 'Audit de code source : revue manuelle et outillée pour détecter injections, failles d’authentification et erreurs de logique avant la mise en production.',
   '/audit-organisationnel': 'Audit organisationnel de la sécurité : gouvernance SSI, rôles et responsabilités, politiques, processus et facteur humain, avec des recommandations concrètes.',
   '/audit-securite-technique': 'Audit de sécurité technique de votre infrastructure : vulnérabilités, configurations, architecture et procédures d’exploitation, rapport priorisé.',
-  '/protection-ransomware': 'Protection contre les ransomwares : évaluation de votre exposition, sauvegardes isolées, détection, cloisonnement et plan de réponse pour reprendre vite.',
 
   // Facteur humain et formation
-  '/cyber-vigilance-humaine': 'Cyber-vigilance des équipes : campagnes de phishing simulé, sensibilisation ciblée et mesure des comportements pour réduire le risque humain.',
   '/sensibilisation-formation': 'Sensibilisation et formation à la cybersécurité : ateliers, e-learning et exercices de phishing adaptés aux métiers de vos collaborateurs.',
   '/formations': 'Formations en cybersécurité en ligne et en présentiel à Paris : construire un SMSI ISO 27001, pentest web OWASP, hacking éthique, forensic et RGPD.',
   '/formations-paiement': 'Paiement sécurisé de votre formation en ligne SecuriTrust : choisissez votre formation, réglez par carte et accédez ensuite à ses modules.',
@@ -89,9 +78,6 @@ export const META_DESCRIPTIONS = {
 
   // Parcours « cybersécurité opérationnelle »
   '/cybersecurite-operationnelle': 'Cybersécurité opérationnelle pour PME et ETI : tests d’intrusion, audits et protection de la réputation, choisis selon ce que vous devez protéger en priorité.',
-  '/cybersecurite-operationnelle/exigences-reglementaires': 'Répondre aux exigences NIS2, ISO 27001, DORA et RGPD : audits de configuration, d’architecture et de code, audit flash, livrables pour la direction.',
-  '/cybersecurite-operationnelle/proteger-chiffre-affaires': 'Protéger votre chiffre d’affaires : pentest interne, externe, web et mobile, test de résistance aux ransomwares, pour PME et ETI, dès 3 500 €.',
-  '/cybersecurite-operationnelle/preserver-image-confiance': 'Préserver votre image : audit OSINT, exercices Red Team et campagnes de phishing pour limiter le risque d’incident public et de perte de confiance.',
 
   // Secteurs
   '/secteurs': 'Cybersécurité par secteur : banque et finance, santé, tech, secteur public, retail et industrie, avec les réglementations propres à chacun.',

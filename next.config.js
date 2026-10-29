@@ -58,6 +58,24 @@ const nextConfig = {
       { source: '/conformite', destination: '/rgpd', permanent: true },
       { source: '/rssi', destination: '/rssi-externalise', permanent: true },
       { source: '/portfolio', destination: '/cas-clients', permanent: true },
+      // Fusions du 29/10/2026 : pages faibles supprimées, redirigées vers la page qui reprend le sujet.
+      { source: '/cybersecurite-operationnelle/proteger-chiffre-affaires', destination: '/cybersecurite-operationnelle', permanent: true },
+      { source: '/cybersecurite-operationnelle/exigences-reglementaires', destination: '/cybersecurite-operationnelle', permanent: true },
+      { source: '/cybersecurite-operationnelle/preserver-image-confiance', destination: '/cybersecurite-operationnelle', permanent: true },
+      { source: '/gouvernance-conformite/services-externalises', destination: '/rssi-externalise', permanent: true },
+      { source: '/gouvernance-conformite/audits', destination: '/audit-cybersecurite', permanent: true },
+      { source: '/gouvernance-conformite/domaines-expertise', destination: '/gouvernance-conformite', permanent: true },
+      { source: '/audit-architecture', destination: '/audit-securite-technique', permanent: true },
+      { source: '/audit-configuration', destination: '/audit-securite-technique', permanent: true },
+      { source: '/audit-conformite', destination: '/gap-analysis', permanent: true },
+      { source: '/gestion-risques', destination: '/ebios-rm', permanent: true },
+      { source: '/cyber-vigilance-humaine', destination: '/sensibilisation-formation', permanent: true },
+      { source: '/protection-ransomware', destination: '/cybersecurite-operationnelle', permanent: true },
+      { source: '/strategie-cybersecurite', destination: '/rssi-externalise', permanent: true },
+      { source: '/osint', destination: '/pentest-externe', permanent: true },
+      { source: '/accueil-2', destination: '/', permanent: true },
+      { source: '/rssi-a-temps-partage', destination: '/rssi-externalise', permanent: true },
+      { source: '/cybersecurite-rssi-externalise-temps-partage', destination: '/rssi-externalise', permanent: true },
       // Doublons (cannibalisation) : l'ancienne page React renvoie vers la landing page
       // exposée dans le menu, qui devient l'unique URL de référence du sujet.
       { source: '/conformite-nis2', destination: '/nis2', permanent: true },
@@ -70,7 +88,7 @@ const nextConfig = {
       { source: '/services-cybersecurite', destination: '/services', permanent: true },
       { source: '/audit-securite', destination: '/audit-cybersecurite', permanent: true },
       { source: '/dpo-data-protection-officer', destination: '/dpo-externalise', permanent: true },
-      { source: '/audit-conformite-sur-le-rgpd', destination: '/audit-conformite', permanent: true },
+      { source: '/audit-conformite-sur-le-rgpd', destination: '/gap-analysis', permanent: true },
       { source: '/test-dintrusion', destination: '/pentest-externe', permanent: true },
       // Offre Cyber-Pilote retirée : ses anciennes URLs pointent vers le RSSI externalisé.
       { source: '/rssi-automatise', destination: '/rssi-externalise', permanent: true },

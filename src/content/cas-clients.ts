@@ -152,7 +152,7 @@ export const CAS_CLIENTS: CasClient[] = [
       'Une connaissance de l’environnement santé et hébergement.',
       'Un regard indépendant, renouvelé d’un cycle d’audit à l’autre.',
     ],
-    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de conformité', '/audit-conformite'], ['Conformité DORA', '/dora'], ['Certification HDS', '/hds']],
+    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de cybersécurité', '/audit-cybersecurite'], ['Conformité DORA', '/dora'], ['Certification HDS', '/hds']],
   },
   {
     slug: 'abeille-assurances-rssi-externalise',
@@ -215,7 +215,7 @@ export const CAS_CLIENTS: CasClient[] = [
       'Des recommandations concrètes, directement exploitables.',
       'Un regard extérieur renouvelé chaque année.',
     ],
-    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de conformité', '/audit-conformite']],
+    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de cybersécurité', '/audit-cybersecurite']],
   },
   {
     slug: 'munich-re-accompagnement-rgpd-dpo-externalise',
@@ -338,7 +338,7 @@ export const CAS_CLIENTS: CasClient[] = [
       'Des recommandations adaptées à l’industrie.',
       'Un diagnostic clair pour décider vite.',
     ],
-    liens: [['Labellisation TISAX', '/tisax'], ['Audit de conformité', '/audit-conformite']],
+    liens: [['Labellisation TISAX', '/tisax'], ['Audit de cybersécurité', '/audit-cybersecurite']],
   },
   {
     slug: 'sogefi-audit-securite-conformite-iso-27001',
@@ -524,7 +524,7 @@ export const CAS_CLIENTS: CasClient[] = [
       'Une lecture intégrée qualité et sécurité.',
       'Des constats exploitables immédiatement.',
     ],
-    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de conformité', '/audit-conformite']],
+    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de cybersécurité', '/audit-cybersecurite']],
   },
   {
     slug: 'groupe-adp-audit-interne-iso-27001',
@@ -554,7 +554,7 @@ export const CAS_CLIENTS: CasClient[] = [
       'Une méthode alignée sur les audits de certification.',
       'Un rapport clair et priorisé.',
     ],
-    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de conformité', '/audit-conformite']],
+    liens: [['Certification ISO 27001', '/iso27001'], ['Audit de cybersécurité', '/audit-cybersecurite']],
   },
   {
     slug: 'brgm-audit-interne-iso-27001-formation-auditeurs',
@@ -708,7 +708,7 @@ export const CAS_CLIENTS: CasClient[] = [
       'Une méthode reconnue, opposable aux clients.',
       'Un plan de traitement directement exploitable.',
     ],
-    liens: [['Analyse de risques EBIOS RM', '/ebios-rm'], ['Gestion des risques cyber', '/gestion-risques']],
+    liens: [['Analyse de risques EBIOS RM', '/ebios-rm'], ['GRC cybersécurité', '/grc-cyber']],
   },
   {
     slug: 'les-parents-zen-conformite-rgpd-dpo-externalise',

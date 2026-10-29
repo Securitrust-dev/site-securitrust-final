@@ -119,7 +119,7 @@ export default {
     { label: 'Tous nos pentests', href: '/pentest', description: 'Compléter l’audit cloud par des tests d’intrusion ciblés.' },
     { label: 'Pentest Active Directory', href: '/pentest-ad', description: 'L’annuaire local, souvent synchronisé avec Entra ID.' },
     { label: 'Pentest web', href: '/pentest-web', description: 'Vos applications exposées, l’autre porte d’entrée.' },
-    { label: 'Cyber-vigilance humaine', href: '/cyber-vigilance-humaine', description: 'Préparer vos équipes à l’hameçonnage qui vise leurs comptes.' },
+    { label: 'Sensibilisation des équipes', href: '/sensibilisation-formation', description: 'Préparer vos équipes à l’hameçonnage qui vise leurs comptes.' },
     { label: 'Directive NIS2', href: '/nis2', description: 'MFA et contrôle d’accès figurent parmi les mesures exigées.' },
   ],
   articles: [
