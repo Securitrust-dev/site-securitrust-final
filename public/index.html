@@ -265,6 +265,9 @@
     align-items: start;
   }
 
+  .hero-title .hero-kicker { display: block; margin-bottom: 14px; font-family: ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); line-height: 1.4; }
+
   .eyebrow {
     display: inline-flex;
     align-items: center;
@@ -293,10 +296,11 @@
   h1 .hl { color: var(--blue-soft); }
 
   .hero-define {
-    margin: 18px 0 0;
-    max-width: 560px;
-    font-size: 0.95rem;
-    color: var(--muted-2);
+    margin: 20px 0 28px;
+    max-width: 580px;
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: var(--muted);
   }
 
   .hero-lede {
@@ -1134,28 +1138,20 @@
 <main>
 
   <section class="hero">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'ariane">
-        <span class="current" aria-current="page">Accueil</span>
-      </nav>
-    </div>
-
     <div class="container hero-grid">
       <div>
-        <span class="eyebrow"><span class="dot"></span>Cybersécurité &amp; conformité</span>
-        <h1>Cabinet de cybersécurité : transformez vos risques en avantage concurrentiel.</h1>
+        <h1 class="hero-title">
+          <span class="hero-kicker">Cabinet de cybersécurité à Paris</span>
+          La maîtrise de vos risques cyber et de votre conformité, au service de votre croissance.
+        </h1>
         <p class="hero-define">
-          SecuriTrust, cabinet de cybersécurité à Paris, accompagne les organisations à forts enjeux pour sécuriser leurs systèmes,
-          répondre aux exigences réglementaires et rassurer leurs clients, partenaires et assureurs.
-        </p>
-        <p class="hero-lede">
-          De NIS2 à ISO 27001, du pentest au RSSI externalisé : un accompagnement senior,
-          concret et adapté à votre activité.
+          SecuriTrust accompagne les organisations à forts enjeux, de l&rsquo;audit à la certification, avec des consultants
+          exclusivement seniors. Nous faisons de la sécurité de votre organisation un gage de confiance auprès de vos clients
+          et de vos régulateurs.
         </p>
 
         <div class="btn-row">
           <a href="https://calendly.com/expert-securitrust" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Échanger avec un expert →</a>
-          <a href="#expertises" class="btn btn-outline">Découvrir nos expertises</a>
         </div>
 
         <div class="hero-meta">
