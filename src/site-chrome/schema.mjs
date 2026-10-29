@@ -147,7 +147,7 @@ const PAGES = {
   '/equipe': ['Équipe', '/'],
   '/certifications': ['Certifications', '/'],
   '/prise-de-rdv': ['Prise de rendez-vous', '/'],
-  '/portfolio': ['Références', '/'],
+  '/cas-clients': ['Cas clients', '/'],
   '/services': ['Services', '/'],
   '/rssi-externalise': ['RSSI externalisé', '/'],
   '/cgv': ['Conditions générales de vente', '/'],

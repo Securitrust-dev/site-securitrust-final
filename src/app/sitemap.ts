@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { categoryUrl, dbCategoriesWithArticles, listStoredArticleUrls } from '@/lib/blog';
+import { CAS_CLIENTS } from '@/content/cas-clients';
 import LASTMOD from '@/site-chrome/generated/lastmod.json';
 
 // Date du dernier commit touchant la page (scripts/sitemap-lastmod.mjs, lancé avant le
@@ -79,7 +80,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/pilotage-smsi',
     '/politique-de-confidentialite',
     '/politique-de-cookies',
-    '/portfolio',
+    '/cas-clients',
     '/prise-de-rdv',
     '/protection-ransomware',
     '/red-team',
@@ -127,5 +128,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  return [...sitemapEntries, ...categoryEntries, ...articleEntries];
+  const casEntries: MetadataRoute.Sitemap = CAS_CLIENTS.map((c) => ({
+    url: `${baseUrl}/cas-clients/${c.slug}`,
+    lastModified: lastmodOf(`/cas-clients/${c.slug}`),
+    changeFrequency: 'yearly' as const,
+    priority: 0.6,
+  }));
+
+  return [...sitemapEntries, ...casEntries, ...categoryEntries, ...articleEntries];
 }

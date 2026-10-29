@@ -57,6 +57,7 @@ const nextConfig = {
       { source: '/audit', destination: '/services', permanent: true },
       { source: '/conformite', destination: '/rgpd', permanent: true },
       { source: '/rssi', destination: '/rssi-externalise', permanent: true },
+      { source: '/portfolio', destination: '/cas-clients', permanent: true },
       // Doublons (cannibalisation) : l'ancienne page React renvoie vers la landing page
       // exposée dans le menu, qui devient l'unique URL de référence du sujet.
       { source: '/conformite-nis2', destination: '/nis2', permanent: true },

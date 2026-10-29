@@ -15,7 +15,7 @@ export const META_DESCRIPTIONS = {
   '/prise-de-rdv': 'Réservez un échange de 30 minutes, sans engagement, avec un expert SecuriTrust pour cadrer votre projet de cybersécurité ou de conformité.',
   '/equipe': 'L’équipe SecuriTrust : le fondateur et les consultants qui mènent vos missions de gouvernance, de conformité NIS2, DORA et ISO 27001, de pentest et de RSSI.',
   '/certifications': 'Certifications de SecuriTrust et de ses consultants : ISO 27001 (AFAQ / AFNOR), Lead Auditor et Lead Implementer, EBIOS RM, OSCP, CEH, PNPT, CRTP, CRTE.',
-  '/portfolio': 'Exemples de missions SecuriTrust : tests d’intrusion, audits de sécurité, certifications ISO 27001 et HDS, mise en conformité RGPD, par secteur d’activité.',
+  '/cas-clients': 'Cas clients SecuriTrust : conformité DORA, TISAX, ISO 27001 et RGPD, audits de sécurité, RSSI et DPO externalisés, dans l’assurance, l’industrie, la santé.',
   '/nous-rejoindre': 'Rejoignez SecuriTrust à Paris : postes en CDI de consultant junior, consultant senior et manager en cybersécurité, sur l’audit, la gouvernance et la conformité.',
   '/nous-rejoindre/consultant-junior-cybersecurite': 'Consultant(e) junior en cybersécurité, CDI à Paris avec télétravail possible : analyses de risques, audits et conformité, avec le mentorat de nos seniors.',
   '/nous-rejoindre/consultant-senior-cybersecurite': 'Consultant(e) senior en cybersécurité, CDI à Paris : pilotez des missions d’audit, de gouvernance et de conformité, et encadrez des consultants juniors.',

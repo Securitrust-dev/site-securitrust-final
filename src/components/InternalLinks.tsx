@@ -356,7 +356,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   ],
   'nous-rejoindre': [
     { title: 'Services', href: '/services', desc: 'Découvrez les missions sur lesquelles vous travaillerez.' },
-    { title: 'Portfolio', href: '/portfolio', desc: 'Nos réalisations — ce que vous pourrez accomplir chez SecuriTrust.' },
+    { title: 'Cas clients', href: '/cas-clients', desc: 'Nos missions — ce que vous pourrez accomplir chez SecuriTrust.' },
     { title: 'Formations', href: '/formations', desc: 'Certifications et formations que nous valorisons chez nos experts.' },
     { title: 'Contact', href: '/contact', desc: 'Postulez ou posez vos questions à notre équipe RH.' },
   ],

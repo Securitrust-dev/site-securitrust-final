@@ -89,7 +89,7 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: 'Équipe', href: '/equipe' },
       { label: 'Certifications', href: '/certifications' },
-      { label: 'Références', href: '/portfolio' },
+      { label: 'Cas clients', href: '/cas-clients' },
       { label: 'Secteurs', href: '/secteurs' },
       { label: 'Articles', href: '/articles' },
       { label: 'Nous rejoindre', href: '/nous-rejoindre' },
