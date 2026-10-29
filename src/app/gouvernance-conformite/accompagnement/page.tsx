@@ -159,11 +159,12 @@ export default function AccompagnementPage() {
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">
                 Gouvernance &amp; Conformité
               </h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                ACCOMPAGNEMENT
+              <h1 className="text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white tracking-tighter leading-[1.05] mb-6 mix-blend-screen uppercase break-words">
+                Accompagnement
+                <span className="block text-3xl md:text-5xl lg:text-6xl mt-3">à la conformité cybersécurité</span>
               </h1>
               <p className="text-lg md:text-xl text-white font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left mb-8">
-                Notre cabinet de conseil en sécurité des systèmes d&apos;information s&apos;appuie ainsi sur une méthodologie d&apos;accompagnement éprouvée, adaptable à différents cadres réglementaires ou normatifs, afin de structurer efficacement la démarche de conformité et de préparer, lorsque nos clients le souhaitent, l&apos;obtention d&apos;une certification dans les meilleures conditions.
+                Notre cabinet de conseil en sécurité des systèmes d&apos;information s&apos;appuie sur une méthodologie éprouvée d&apos;accompagnement à la conformité, adaptable à différents cadres réglementaires ou normatifs, afin de structurer efficacement la démarche de conformité et de préparer, lorsque nos clients le souhaitent, l&apos;obtention d&apos;une certification dans les meilleures conditions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
                 <a href="/contact?service=accompagnement" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)]">

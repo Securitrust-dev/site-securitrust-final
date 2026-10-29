@@ -34,19 +34,18 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  // Valeurs communes seulement : pas de title, description ni url ici. Une page sans bloc
+  // openGraph propre hérite de ce bloc ; avec un og:url et un og:title d'accueil, elle était
+  // partagée (LinkedIn, X) sous le titre et l'adresse de l'accueil. Sans eux, les réseaux
+  // reprennent le <title>, la meta description et l'adresse de la page partagée.
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    url: BASE_URL,
     siteName: 'SecuriTrust',
-    title: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité | Paris',
-    description: 'Cabinet de cybersécurité à Paris. Pentest, audit de sécurité, RSSI externalisé, conformité RGPD & ISO 27001.',
     images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SecuriTrust — Cabinet Cybersécurité, Pentest & Conformité',
-    description: 'Pentest, audit cybersécurité, RSSI externalisé, RGPD, ISO 27001. Paris.',
     images: [DEFAULT_OG_IMAGE.url],
   },
   icons: {

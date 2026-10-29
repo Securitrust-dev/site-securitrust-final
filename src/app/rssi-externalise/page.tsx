@@ -155,7 +155,7 @@ export default function HomeDesignLPPage() {
               <p className="eyebrow">Cabinet de conseil en cybersécurité · Paris</p>
 
               {/* Headline de la home, mot pour mot. */}
-              <h1>Reprendre le <span className="hl">contrôle</span> de votre sécurité.</h1>
+              <h1>RSSI externalisé : reprenez le <span className="hl">contrôle</span> de votre sécurité.</h1>
 
               <p className="hero-sub">Un cabinet multi-certifié qui pilote la cybersécurité des organisations à forts enjeux depuis 2016. Choisissez votre porte d&apos;entrée — le résultat, on l&apos;engage.</p>
 

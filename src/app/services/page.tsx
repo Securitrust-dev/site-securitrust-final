@@ -127,13 +127,13 @@ export default function ServicesPage() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-            <span className="block">GOUVERNANCE</span>
-            <span className="block">RISQUES</span>
-            <span className="block">CONFORMITÉ</span>
+            <span className="block">Votre prestataire</span>
+            <span className="block">en cybersécurité,</span>
+            <span className="block text-cyan-400">de l&apos;audit au pilotage</span>
           </h1>
           
           <p className="max-w-3xl mx-auto text-lg text-muted-foreground leading-relaxed mb-12">
-            Face à la complexité croissante et à la sophistication des attaques, une approche tactique solide n'est plus suffisante. Pour établir une résilience durable face aux cybermenaces, il faut une approche globale et stratégique de gestion des risques cyber.
+            Face à la complexité croissante et à la sophistication des attaques, une approche tactique solide n'est plus suffisante. Pour établir une résilience durable face aux cybermenaces, SecuriTrust, votre prestataire en cybersécurité, porte une approche globale et stratégique de gestion des risques cyber.
           </p>
 
           {/* Tabs */}

@@ -50,6 +50,9 @@ const nextConfig = {
         destination: 'https://www.securitrust.fr/:path*',
         permanent: true,
       },
+      // Les landing pages statiques sont servies sur des URLs propres (rewrites plus bas) :
+      // leur adresse technique en .html est un doublon, renvoyé vers l'URL propre.
+      ...Object.entries(STATIC_PAGES).map(([route, file]) => ({ source: `/${file}`, destination: route, permanent: true })),
       { source: '/test-intrusion', destination: '/pentest-externe', permanent: true },
       { source: '/audit', destination: '/services', permanent: true },
       { source: '/conformite', destination: '/rgpd', permanent: true },

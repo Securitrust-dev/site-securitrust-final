@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // Un title par offre (les 3 offres reprenaient celui de /nous-rejoindre) et un og:url propre.
   const title = job ? `${job.title} — ${job.contractType} à Paris` : undefined;
   return {
-    ...(title ? { title } : {}),
+    ...(title ? { title: { absolute: `${title} | SecuriTrust` } } : {}),
     description: META_DESCRIPTIONS[`/nous-rejoindre/${slug}`],
     alternates: { canonical: url },
     openGraph: {

@@ -20,14 +20,14 @@ import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 const BASE_URL = "https://www.securitrust.fr";
 
 export const metadata: Metadata = {
-  title: "RSSI externalisé — reprenez le contrôle de votre sécurité",
+  title: "RSSI externalisé pour PME et ETI — RSSI à temps partagé",
   description: metaDescription('/rssi-externalise'),
   alternates: {
     canonical: `${BASE_URL}/rssi-externalise`,
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: "RSSI externalisé, pilote de votre sécurité | SecuriTrust",
+    title: "RSSI externalisé pour PME et ETI — RSSI à temps partagé | SecuriTrust",
     description:
       "Un cabinet multi-certifié qui pilote la cybersécurité des organisations à forts enjeux depuis 2016. +2 500 jours-homme de RSSI externalisé, auditeur officiel AFNOR.",
     type: "website",

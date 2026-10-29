@@ -81,8 +81,8 @@ export default function GouvernanceConformitePage() {
           <div className="max-w-7xl mx-auto">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-cyan-400 tracking-[0.2em] text-xs uppercase mb-4">Services</h2>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[0.9] mb-6 mix-blend-screen">
-                GOUVERNANCE &amp; CONFORMITÉ
+              <h1 className="text-[2rem] sm:text-5xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter leading-[1.05] mb-6 mix-blend-screen uppercase break-words">
+                Gouvernance et conformité cybersécurité
               </h1>
               <p className="text-lg md:text-xl text-white font-light tracking-wide border-l-2 border-cyan-500 pl-6 text-left mb-8">
                 Structurez votre posture de sécurité, répondez aux obligations réglementaires et pilotez la conformité avec des experts à vos côtés.

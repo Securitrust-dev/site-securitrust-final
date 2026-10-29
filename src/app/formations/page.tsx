@@ -12,14 +12,14 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Formations Cybersécurité E-Learning — Pentest, RGPD, ISO 27001',
+  title: 'Formations cybersécurité en ligne et en présentiel à Paris',
   description: metaDescription('/formations'),
   alternates: {
     canonical: 'https://www.securitrust.fr/formations',
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: 'Formations Cybersécurité E-Learning — Pentest, RGPD, ISO 27001',
+    title: 'Formations cybersécurité en ligne et en présentiel à Paris',
     description: 'Formations en ligne en cybersécurité par des experts certifiés OSCP : Pentest, OWASP, Hacking Éthique, Forensics, RGPD.',
     url: 'https://www.securitrust.fr/formations',
     type: 'website',

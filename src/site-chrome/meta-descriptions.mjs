@@ -78,7 +78,7 @@ export const META_DESCRIPTIONS = {
   // Facteur humain et formation
   '/cyber-vigilance-humaine': 'Cyber-vigilance des équipes : campagnes de phishing simulé, sensibilisation ciblée et mesure des comportements pour réduire le risque humain.',
   '/sensibilisation-formation': 'Sensibilisation et formation à la cybersécurité : ateliers, e-learning et exercices de phishing adaptés aux métiers de vos collaborateurs.',
-  '/formations': 'Formations en ligne en cybersécurité à suivre à votre rythme : pentest web OWASP, hacking éthique, réponse à incident, sécurité réseau et RGPD.',
+  '/formations': 'Formations en cybersécurité en ligne et en présentiel à Paris : construire un SMSI ISO 27001, pentest web OWASP, hacking éthique, forensic et RGPD.',
   '/formations-paiement': 'Paiement sécurisé de votre formation en ligne SecuriTrust : choisissez votre formation, réglez par carte et accédez ensuite à ses modules.',
   '/formations/pentest-web-owasp': 'Formation en ligne au pentest web : les vulnérabilités de l’OWASP Top 10 (injections, XSS, CSRF, SSRF, contrôle d’accès) et la rédaction du rapport.',
   '/formations/hacking-ethique-fondamentaux': 'Formation en ligne aux fondamentaux du hacking éthique : méthodologie de test d’intrusion, Kali Linux, Nmap et Metasploit, pour débutants.',
