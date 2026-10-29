@@ -240,6 +240,11 @@
 #static-theme-root#static-theme-root.static-theme .notes p,#static-theme-root#static-theme-root.static-theme p.notes{font-size:13px;color:var(--muted-2);line-height:1.6;margin-bottom:8px}
 #static-theme-root#static-theme-root.static-theme a.link{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
 
+/* Contact : la colonne d'informations ne doit pas élargir la page sur mobile. */
+#static-theme-root#static-theme-root.static-theme .ct-grid > *{min-width:0}
+#static-theme-root#static-theme-root.static-theme .ct-details div{flex-wrap:wrap}
+#static-theme-root#static-theme-root.static-theme .ct-details span{overflow-wrap:anywhere}
+
 /* ============================================================
    NAV (identique aux pages statiques)
    ============================================================ */

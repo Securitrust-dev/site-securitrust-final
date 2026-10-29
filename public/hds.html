@@ -77,19 +77,19 @@
 
 <style>
   :root {
-    --bg: #05070d;
-    --bg-raised: #0b1220;
-    --bg-card: #0d1626;
-    --border: rgba(118, 166, 209, 0.16);
-    --border-strong: rgba(118, 166, 209, 0.32);
+    --bg: #0a1322;
+    --bg-raised: #101b2f;
+    --bg-card: #122036;
+    --border: rgba(118, 166, 209, 0.22);
+    --border-strong: rgba(118, 166, 209, 0.38);
     --blue: #4d9fe8;
     --blue-soft: #76a6d1;
     --green: #00ffa3;
     --orange-a: #ffb35c;
     --orange-b: #ed7d31;
     --text: #eef2f8;
-    --muted: #8b98ac;
-    --muted-2: #5e6b80;
+    --muted: #a9b5c6;
+    --muted-2: #8d9aae;
   }
 
   * { box-sizing: border-box; }
@@ -841,6 +841,29 @@
 .lead-form button.btn { font-family: inherit; }
 .lead-form button.btn:disabled { opacity: .7; cursor: progress; transform: none; }
 .lead-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* Carte du formulaire de rappel : surface claire sur la page sombre (29/10/2026).
+   Lisibilité de la saisie et point focal de la page ; contrastes WCAG AA (texte ≥ 4,5:1,
+   contour des champs ≥ 3:1). */
+.contact-card.lead-form { background: #f4f7fb; border: 1px solid #d6e0eb; color: #0c1726;
+  box-shadow: 0 30px 70px -24px rgba(0, 0, 0, .65), 0 0 0 1px rgba(255, 255, 255, .04); }
+.contact-card.lead-form h2 { color: #0c1726; }
+.contact-card.lead-form .field label { color: #334155; font-weight: 500; }
+.contact-card.lead-form .field input, .contact-card.lead-form .field select {
+  background: #fff; border: 1px solid #7c8aa0; color: #0c1726; transition: border-color .15s, box-shadow .15s; }
+.contact-card.lead-form .field input::placeholder { color: #6b7789; opacity: 1; }
+.contact-card.lead-form .field input:focus, .contact-card.lead-form .field select:focus {
+  border-color: #2f7fd0; box-shadow: 0 0 0 3px rgba(77, 159, 232, .25); outline: none; }
+.contact-card.lead-form .contact-foot { color: #5b6779; }
+.contact-card.lead-form .lead-status--ok { background: #e6f6ee; border-color: #9fd9bd; color: #11653d; }
+.contact-card.lead-form .lead-status--err { background: #fdf1e7; border-color: #efb98f; color: #8a3d0a; }
+
+/* Mobile : rien ne doit dépasser de l'écran (page qui « glisse » sur le côté). */
+.two-col > *, .hero-grid > *, .stats > * { min-width: 0; }
+@media (max-width: 560px) {
+  .path-choice .pill { white-space: normal; max-width: 100%; }
+  .stat-card { padding: 18px 12px; }
+  .stat-card .label { hyphens: auto; overflow-wrap: break-word; }
+}
 .lead-status { margin: 14px 0 0; padding: 12px 14px; border-radius: 9px; font-size: .9rem; line-height: 1.5; }
 .lead-status a { color: inherit; text-decoration: underline; }
 .lead-status--ok { background: rgba(0, 255, 163, .1); border: 1px solid rgba(0, 255, 163, .35); color: #b8ffe4; }
@@ -853,9 +876,9 @@
    pages statiques (variables locales, aucun recours aux styles de la page hôte).
    --------------------------------------------------------------------------- */
 #pl#pl {
-  --pl-bg: #05070d; --pl-raised: #0b1220; --pl-card: #0d1626;
+  --pl-bg: #0a1322; --pl-raised: #101b2f; --pl-card: #122036;
   --pl-line: rgba(118,166,209,.16); --pl-line-strong: rgba(118,166,209,.32);
-  --pl-text: #eef2f8; --pl-muted: #9aa8bb; --pl-muted2: #5e6b80;
+  --pl-text: #eef2f8; --pl-muted: #a9b5c6; --pl-muted2: #8d9aae;
   --pl-accent: #76a6d1; --pl-orange: #ed7d31;
   display: block; background: var(--pl-raised);
   border-top: 1px solid var(--pl-line); border-bottom: 1px solid var(--pl-line);
@@ -914,6 +937,7 @@
 #pl#pl .pl-btn:hover { filter: brightness(1.05); }
 #pl#pl .pl-btn:disabled { opacity: .7; cursor: progress; }
 #pl#pl .pl-res-foot { margin: 4px 0 0; font-size: .76rem; color: var(--pl-muted2); }
+#pl#pl .pl-res-foot a, #pl#pl .pl-meta a, #pl#pl .pl-sec p a, #pl#pl .pl-sec li a { text-decoration: underline; text-underline-offset: 2px; }
 
 #pl#pl .pl-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 4px; }
 #pl#pl .pl-card { display: block; padding: 18px 20px; background: var(--pl-card); border: 1px solid var(--pl-line); border-radius: 12px; transition: border-color .2s; }
