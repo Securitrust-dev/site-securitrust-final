@@ -401,3 +401,36 @@ body.nav-open{overflow:hidden}
 #static-theme-root#static-theme-root.static-theme .case-card{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border-color:rgba(255,255,255,.09);border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 26px 50px -28px rgba(0,0,0,.85)}
 #static-theme-root#static-theme-root.static-theme .case-card:hover{border-color:rgba(56,189,248,.22)}
 #static-theme-root#static-theme-root.static-theme .chip[aria-pressed="true"]{color:#04060e}
+
+/* ---------- pages d'offre (gabarit RSSI) : hero + formulaire ---------- */
+#static-theme-root#static-theme-root.static-theme .hero-split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:start}
+@media(max-width:960px){#static-theme-root#static-theme-root.static-theme .hero-split{grid-template-columns:1fr;gap:40px}}
+#static-theme-root#static-theme-root.static-theme .hero-split .form-card{background:linear-gradient(180deg,rgba(12,19,34,.86),rgba(7,12,24,.9));border-color:rgba(56,189,248,.22);border-radius:20px;box-shadow:0 0 0 1px rgba(56,189,248,.12),0 40px 90px -30px rgba(0,0,0,.92),0 0 90px -22px rgba(56,189,248,.30);padding:30px 28px}
+#static-theme-root#static-theme-root.static-theme .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){#static-theme-root#static-theme-root.static-theme .field-row{grid-template-columns:1fr}}
+#static-theme-root#static-theme-root.static-theme .field label{font-family:var(--sfont-space-grotesk),'Space Grotesk',sans-serif;text-transform:none;letter-spacing:0;font-weight:600;font-size:13px;color:rgba(255,255,255,.8)}
+#static-theme-root#static-theme-root.static-theme .field input,#static-theme-root#static-theme-root.static-theme .field select,#static-theme-root#static-theme-root.static-theme .field textarea{background:rgba(4,6,14,.6);border-color:rgba(255,255,255,.12)}
+#static-theme-root#static-theme-root.static-theme .field textarea{min-height:84px}
+#static-theme-root#static-theme-root.static-theme .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+#static-theme-root#static-theme-root.static-theme .consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.5;margin:6px 0 4px;cursor:pointer}
+#static-theme-root#static-theme-root.static-theme .consent input{margin-top:3px;accent-color:#38bdf8;flex:0 0 auto}
+#static-theme-root#static-theme-root.static-theme .form-error{color:#fca5a5;font-size:13px;margin:8px 0 0}
+#static-theme-root#static-theme-root.static-theme .rgpd-note{font-size:11px;color:rgba(255,255,255,.5);line-height:1.5;margin-top:12px}
+#static-theme-root#static-theme-root.static-theme .rgpd-note a{color:#38bdf8}
+#static-theme-root#static-theme-root.static-theme .lead-done{text-align:center;color:#38bdf8}
+#static-theme-root#static-theme-root.static-theme .lead-done h3{color:#fff;margin-top:10px}
+#static-theme-root#static-theme-root.static-theme .hero-split h1{font-size:clamp(2.05rem,4.4vw,3.2rem)}
+#static-theme-root#static-theme-root.static-theme .hero-split h1 .hl{color:#38bdf8}
+#static-theme-root#static-theme-root.static-theme .prose-sec p{color:rgba(255,255,255,.8);font-size:16.5px;line-height:1.75;margin-bottom:14px;max-width:760px}
+#static-theme-root#static-theme-root.static-theme .prose-sec p b{color:#fff}
+#static-theme-root#static-theme-root.static-theme .faq-list{display:grid;gap:12px;max-width:860px}
+#static-theme-root#static-theme-root.static-theme .faq-list details{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:18px 22px}
+#static-theme-root#static-theme-root.static-theme .faq-list summary{cursor:pointer;font-weight:600;font-size:16.5px;color:#fff;list-style:none;display:flex;justify-content:space-between;gap:16px}
+#static-theme-root#static-theme-root.static-theme .faq-list summary::after{content:"+";color:#38bdf8;font-size:20px;line-height:1}
+#static-theme-root#static-theme-root.static-theme .faq-list details[open] summary::after{content:"–"}
+#static-theme-root#static-theme-root.static-theme .faq-list details p{color:rgba(255,255,255,.78);margin-top:12px;line-height:1.7;font-size:15px}
+#static-theme-root#static-theme-root.static-theme .step-num{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:12px;color:#38bdf8;letter-spacing:.14em;margin-bottom:12px;display:block}
+
+#static-theme-root#static-theme-root.static-theme .logo-band{padding:30px 0 50px;position:relative;z-index:2}
+#static-theme-root#static-theme-root.static-theme .logo-wall--6{grid-template-columns:repeat(6,minmax(0,1fr))}
+@media(max-width:900px){#static-theme-root#static-theme-root.static-theme .logo-wall--6{grid-template-columns:repeat(3,minmax(0,1fr))}}

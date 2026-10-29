@@ -51,7 +51,7 @@ export const META_DESCRIPTIONS = {
   // Tests d'intrusion et audits techniques
   '/pentest': 'Cabinet de pentest à Paris : tests d’intrusion externes, internes, web, mobile, Active Directory, physiques et Red Team, menés par des experts certifiés OSCP.',
   '/pentest-paris': 'Test d’intrusion à Paris : nos pentesteurs certifiés OSCP et CEH évaluent vos applications, votre réseau et votre Active Directory depuis notre cabinet du 16e.',
-  '/pentest-externe': 'Pentest externe : nous attaquons votre périmètre exposé sur Internet (sites, VPN, messagerie, API) en boîte noire, grise ou blanche, comme un vrai attaquant.',
+  '/pentest-externe': 'Test d’intrusion externe : nos pentesteurs certifiés OSCP attaquent votre périmètre Internet (sites, API, VPN, messagerie) en boîte noire, grise ou blanche.',
   '/pentest-interne': 'Pentest interne : simulation d’un attaquant déjà présent sur votre réseau, mouvements latéraux, escalade de privilèges et efficacité de la segmentation.',
   '/pentest-web': 'Pentest d’application web et d’API selon l’OWASP WSTG : failles d’authentification, d’autorisation et de logique métier, rapport CVSS et re-test inclus.',
   '/pentest-mobile': 'Pentest d’application mobile iOS et Android selon l’OWASP MASVS : analyse statique et dynamique, stockage local, communications et API du backend.',
