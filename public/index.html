@@ -432,21 +432,34 @@
     .trust-logos img { height: calc(var(--h, 28px) * 0.85); max-width: 100%; object-fit: contain; }
   }
 
-  /* avis clients sous les logos. Avec 3 avis ou plus, ajouter la classe reviews--scroll
-     et dupliquer les cartes dans la piste : le bandeau défile alors en continu. */
-  .reviews { max-width: 1180px; margin: 0 auto; padding: 0 24px 56px; overflow: hidden; }
-  .reviews-track { display: flex; gap: 20px; justify-content: center; }
-  .reviews--scroll .reviews-track { justify-content: flex-start; width: max-content; animation: reviews-scroll 60s linear infinite; }
-  .reviews--scroll:hover .reviews-track { animation-play-state: paused; }
-  @keyframes reviews-scroll { to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .reviews--scroll .reviews-track { animation: none; } }
-  .review { flex: 0 0 auto; width: min(560px, 100%); margin: 0; padding: 24px 26px; border-radius: 18px; background: #0d1729; border: 1px solid rgba(255,255,255,.14); }
+  /* Carrousel d'avis clients (Google) sous les logos — piloté par /reviews-carousel.js.
+     Ajouter un avis = ajouter un <figure class="review"> dans .reviews-track.
+     Flèches et points n'apparaissent que si les avis dépassent la largeur visible. */
+  .reviews { max-width: 1180px; margin: 0 auto; padding: 0 24px 60px; }
+  .reviews-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+  .reviews-head h2 { margin: 0; font-size: 1.25rem; letter-spacing: -.01em; color: #fff; }
+  .reviews-nav { display: flex; gap: 8px; }
+  .reviews-nav[hidden] { display: none; }
+  .reviews-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(56,189,248,.55); background: rgba(56,189,248,.08);
+    color: #fff; font-size: 1.1rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background .2s; }
+  .reviews-btn:hover { background: rgba(56,189,248,.22); }
+  .reviews-btn:disabled { opacity: .35; cursor: default; }
+  .reviews-track { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .reviews-track::-webkit-scrollbar { display: none; }
+  .reviews-track:only-child, .reviews-track.is-static { justify-content: center; }
+  .review { flex: 0 0 min(440px, 86%); scroll-snap-align: start; margin: 0; padding: 24px 26px; border-radius: 18px;
+    background: #0d1729; border: 1px solid rgba(255,255,255,.14); display: flex; flex-direction: column; }
   .review-stars { color: #fbbf24; letter-spacing: 3px; font-size: 1rem; margin-bottom: 10px; }
-  .review blockquote { margin: 0 0 16px; color: #e8f0fb; font-size: 1.02rem; line-height: 1.6; }
+  .review blockquote { margin: 0 0 16px; color: #e8f0fb; font-size: 1rem; line-height: 1.6; flex: 1; }
   .review figcaption { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; font-size: .9rem; color: #cbd5e1; }
   .review figcaption strong { color: #fff; }
   .review .review-src { color: #7dd3fc; font-size: .82rem; }
-  @media (max-width: 560px) { .reviews { padding: 0 16px 44px; } .review { padding: 20px; } }
+  .reviews-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .reviews-dots[hidden] { display: none; }
+  .reviews-dots button { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: rgba(255,255,255,.25); cursor: pointer; }
+  .reviews-dots button[aria-current="true"] { background: #38bdf8; width: 22px; border-radius: 6px; }
+  @media (max-width: 560px) { .reviews { padding: 0 16px 48px; } .review { padding: 20px; } }
 
   .btn-row {
     display: flex;
@@ -1191,14 +1204,22 @@
     </div>
   </div>
 
-  <section class="reviews" aria-label="Avis clients">
-    <div class="reviews-track">
+  <section class="reviews" aria-roledescription="carrousel" aria-labelledby="reviews-title" data-reviews>
+    <div class="reviews-head">
+      <h2 id="reviews-title">Avis de nos clients</h2>
+      <div class="reviews-nav" hidden>
+        <button type="button" class="reviews-btn" data-dir="-1" aria-label="Avis précédent">&#8592;</button>
+        <button type="button" class="reviews-btn" data-dir="1" aria-label="Avis suivant">&#8594;</button>
+      </div>
+    </div>
+    <div class="reviews-track" tabindex="0">
       <figure class="review">
         <div class="review-stars" aria-label="5 étoiles sur 5">★★★★★</div>
         <blockquote>«&nbsp;Nous sommes extrêmement satisfaits de l&rsquo;accompagnement de SecuriTrust. Leur expertise en cybersécurité a été un véritable atout, notamment pour l&rsquo;obtention de notre certification SOC 2 Type II&nbsp;: méthodologie rigoureuse, délais respectés et conseils pertinents.&nbsp;»</blockquote>
         <figcaption><strong>Saida</strong> CEO, Élite Aéroport <span class="review-src">Avis vérifié sur Google</span></figcaption>
       </figure>
     </div>
+    <div class="reviews-dots" hidden></div>
   </section>
 
   <section id="expertises">
@@ -1338,5 +1359,6 @@
 <footer id="sc-footer" class="sc-footer"><div class="sc-wrap"><div class="sc-fgrid"><div class="sc-fbrand"><a class="sc-brand" href="/"><img src="/assets/logo-securitrust.png" alt="SecuriTrust – Accueil" width="160" height="33" /></a><p>Cabinet de conseil en cybersécurité à Paris depuis 2016 : pentest, audit, conformité et RSSI externalisé.</p><address>11 rue Saint-Didier<br />75116 Paris<br /><a href="tel:+33186044431">01 86 04 44 31</a><br /><a href="mailto:expertise@securitrust.fr">expertise@securitrust.fr</a><br />Lun–Ven · 09:00–18:30</address></div><div class="sc-fcol"><p class="sc-ftitle">Pentest</p><a href="/pentest">Tous nos pentests</a><a href="/pentest-web">Pentest web</a><a href="/pentest-mobile">Pentest mobile</a><a href="/pentest-ad">Pentest Active Directory</a><a href="/audit-o365">Audit Microsoft 365</a><a href="/red-team">Red Team</a></div><div class="sc-fcol"><p class="sc-ftitle">Gouvernance &amp; conformité</p><a href="/nis2">NIS2</a><a href="/iso27001">ISO 27001</a><a href="/hds">HDS</a><a href="/tisax">TISAX</a><a href="/rgpd">RGPD</a><a href="/dora">DORA</a><a href="/rssi-externalise">RSSI externalisé</a></div><div class="sc-fcol"><p class="sc-ftitle">Cabinet</p><a href="/equipe">Équipe</a><a href="/certifications">Certifications</a><a href="/cas-clients">Cas clients</a><a href="/secteurs">Secteurs</a><a href="/articles">Articles</a><a href="/nous-rejoindre">Nous rejoindre</a><a href="/contact">Contact</a></div><div class="sc-fcol"><p class="sc-ftitle">Informations légales</p><a href="/mentions-legales">Mentions légales</a><a href="/politique-de-confidentialite">Politique de confidentialité</a><a href="/politique-de-cookies">Politique de cookies</a><a href="/cgv">CGV</a></div></div><div class="sc-fbottom"><span>© 2016–2026 SecuriTrust. Tous droits réservés.</span><a href="https://www.linkedin.com/company/securitrust" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div></footer>
 <!-- /site-chrome:footer -->
 
+<script defer src="/reviews-carousel.js"></script>
 </body>
 </html>
