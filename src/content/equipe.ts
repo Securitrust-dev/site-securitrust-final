@@ -20,7 +20,7 @@ export const EXPERTS: Expert[] = [
     name: 'Jad Joumblat',
     role: 'Président & fondateur',
     bio: "Jad a fondé SecuriTrust en 2016. Il dirige le cabinet et pilote les missions à forts enjeux — RSSI externalisé, conformité et accompagnement des directions sur leur stratégie de cybersécurité.",
-    linkedin: 'https://www.linkedin.com/company/securitrust',
+    linkedin: 'https://fr.linkedin.com/in/jad-j-83379b19',
   },
   {
     slug: 'brice-gilbert',

@@ -8,6 +8,13 @@ export default {
   name: 'RSSI externalisé',
   service: 'RSSI externalisé',
   updated: '2026-11-02',
+  author: {
+    name: 'Jad Joumblat',
+    role: 'président-fondateur de SecuriTrust, plus de 20 ans d’expérience en cybersécurité',
+    jobTitle: 'Président-fondateur',
+    url: '/equipe#jad-joumblat',
+    linkedin: 'https://fr.linkedin.com/in/jad-j-83379b19',
+  },
   guideTitle: 'RSSI externalisé : le guide pour choisir et réussir votre mission',
   intro:
     'Faut-il un RSSI externalisé, un RSSI à temps partagé ou un vCISO ? Quand faire appel à lui, comment il porte vos obligations NIS2, DORA ou ISO 27001, et sur quels critères le choisir ? Ce guide répond aux questions que se posent les directions avant de confier la sécurité de leur système d’information à un expert externe.',

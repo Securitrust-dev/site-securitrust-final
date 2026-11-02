@@ -6,7 +6,7 @@
 //  - pages React : <PillarGuide slug="…" /> (src/components/PillarGuide.tsx).
 // Styles : public/site-chrome.css, préfixe #pl#pl (résiste au reset global de l'app).
 
-import { faqNode, renderJsonLdScript, absoluteUrl } from './schema.mjs';
+import { faqNode, renderJsonLdScript, absoluteUrl, ORG_ID } from './schema.mjs';
 
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -54,7 +54,10 @@ function linkArticles(html, articles) {
 function renderByline(pillar) {
   const a = pillar.author;
   if (!a) return 'Équipe SecuriTrust';
-  return `Par <a href="${esc(a.url)}" rel="author">${esc(a.name)}</a>, ${esc(a.role)}`;
+  const li = a.linkedin
+    ? ` · <a href="${esc(a.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`
+    : '';
+  return `Par <a href="${esc(a.url)}" rel="author">${esc(a.name)}</a>, ${esc(a.role)}${li}`;
 }
 
 /**
@@ -107,7 +110,29 @@ export function renderPillar(pillar, { articles = [] } = {}) {
 
 /** JSON-LD de la FAQ visible (mêmes questions, mêmes réponses). */
 export function pillarSchemaNodes(pillar) {
-  return [{ ...faqNode(pillar.faq), '@id': `${absoluteUrl(pillar.path)}#faq` }];
+  const nodes = [{ ...faqNode(pillar.faq), '@id': `${absoluteUrl(pillar.path)}#faq` }];
+  const a = pillar.author;
+  if (a) {
+    // Guide signé : auteur identifié (E-E-A-T), relié à sa fiche /equipe et à son LinkedIn.
+    nodes.push({
+      '@type': 'Article',
+      '@id': `${absoluteUrl(pillar.path)}#guide`,
+      headline: pillar.guideTitle,
+      mainEntityOfPage: absoluteUrl(pillar.path),
+      dateModified: pillar.updated,
+      inLanguage: 'fr-FR',
+      publisher: { '@id': ORG_ID },
+      author: {
+        '@type': 'Person',
+        name: a.name,
+        ...(a.jobTitle ? { jobTitle: a.jobTitle } : {}),
+        url: absoluteUrl(a.url),
+        worksFor: { '@id': ORG_ID },
+        ...(a.linkedin ? { sameAs: [a.linkedin] } : {}),
+      },
+    });
+  }
+  return nodes;
 }
 
 export const renderPillarSchema = (pillar) => renderJsonLdScript(pillarSchemaNodes(pillar));

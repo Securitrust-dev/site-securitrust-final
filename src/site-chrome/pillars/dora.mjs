@@ -14,6 +14,8 @@ export default {
     name: 'Brice Gilbert',
     role: 'consultant senior Gouvernance, Risques & Conformité',
     url: '/equipe#brice-gilbert',
+    jobTitle: 'Consultant senior Gouvernance, Risques & Conformité',
+    linkedin: 'https://fr.linkedin.com/in/brice-gilbert-cyber',
   },
   guideTitle: 'Conformité DORA : le guide complet de la résilience opérationnelle numérique',
   intro:
