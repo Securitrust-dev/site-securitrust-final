@@ -91,7 +91,7 @@ export default function HomeDesignLPEnPage() {
       return;
     }
 
-    // Lead capture (email + Dolibarr + Notion via /api/contact). Success is only
+    // Lead capture (email + Dolibarr + Turso via /api/contact). Success is only
     // shown once the lead is stored; otherwise the input stays with an error.
     // /api/contact only reads name/email/phone/company/subject/message/source,
     // so the selected need travels in `subject`, and the language is flagged

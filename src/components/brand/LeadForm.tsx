@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { trackLead, trackLeadError } from '@/lib/analytics';
 
 // Formulaire de demande commun aux pages d'offre (charte RSSI, thème statique).
-// Envoie vers /api/contact (e-mail + Dolibarr + Notion) avec la source de la page.
+// Envoie vers /api/contact (e-mail + Dolibarr + sauvegarde Turso) avec la source de la page.
 
 const PERSONAL = new Set([
   'gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.fr', 'hotmail.com', 'hotmail.fr', 'outlook.com', 'outlook.fr',

@@ -1,5 +1,5 @@
 // Stockage des leads dans Turso (base déjà utilisée par le site) : filet de sécurité
-// pour qu'aucune demande ne soit perdue, même si l'e-mail, Notion et Dolibarr échouent.
+// pour qu'aucune demande ne soit perdue, même si l'e-mail et Dolibarr échouent.
 // Consultable dans /admin-stats (section « Derniers leads »).
 //
 // La table est créée à la volée (CREATE TABLE IF NOT EXISTS) : pas de migration à
