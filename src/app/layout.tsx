@@ -10,6 +10,7 @@ import Script from 'next/script';
 import { headers } from 'next/headers';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
+import { GTM_LOADER } from '@/site-chrome/chrome.mjs';
 
 const BASE_URL = 'https://www.securitrust.fr';
 
@@ -78,16 +79,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="fr" className={`${brandFont.variable} ${textFont.variable}`}>
       <body>
-        {/* Google Tag Manager — init du dataLayer (inline, tout en haut du body) */}
-        <script
-          nonce={nonce}
-          dangerouslySetInnerHTML={{
-            __html:
-              "window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});",
-          }}
-        />
-        {/* GTM loader — <script async> hoisté dans le <head> par React 19 (détectable par Tag Assistant) */}
-        <script async nonce={nonce} src="https://www.googletagmanager.com/gtm.js?id=GTM-P5D5S5WJ" />
+        {/* Google Tag Manager — init du dataLayer + chargement différé de gtm.js (première
+            interaction ou 5 s après load) : voir GTM_LOADER dans src/site-chrome/chrome.mjs. */}
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: GTM_LOADER }} />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

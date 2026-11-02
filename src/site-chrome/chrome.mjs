@@ -117,10 +117,28 @@ export const GTM_ID = 'GTM-P5D5S5WJ';
  * @param {{ css?: string }} [opts] css : contenu de public/site-chrome.css, intégré
  *   en <style> pour éviter une requête bloquante (LCP mobile) ; à défaut, <link>.
  */
+/**
+ * Chargement différé de GTM (et donc d'Axeptio, GA4 et Google Ads, qu'il injecte).
+ * Ces scripts tiers (~800 Ko) bloquaient le fil principal 3 à 4 s sur mobile
+ * (Lighthouse, 2 novembre 2026). GTM est chargé à la première interaction
+ * (scroll, toucher, clic, clavier, souris) ou, à défaut, 5 s après l'événement load.
+ * Les événements poussés avant (generate_lead…) restent dans le dataLayer et sont
+ * traités dès que GTM arrive. Le bandeau de consentement apparaît à ce moment-là :
+ * aucun cookie n'est déposé avant, ce qui reste conforme.
+ * Domaine googletagmanager.com autorisé par la CSP (script-src) : pas de nonce requis.
+ */
+export const GTM_LOADER =
+  "window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
+  + '(function(w,d){var done=0,ev=["pointerdown","keydown","touchstart","scroll","mousemove"];'
+  + 'function load(){if(done)return;done=1;ev.forEach(function(e){w.removeEventListener(e,load,{passive:true})});'
+  + `var s=d.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtm.js?id=${GTM_ID}";d.head.appendChild(s)}`
+  + 'ev.forEach(function(e){w.addEventListener(e,load,{passive:true})});'
+  + 'if(d.readyState==="complete")setTimeout(load,5000);else w.addEventListener("load",function(){setTimeout(load,5000)})'
+  + '})(window,document);';
+
 export function renderHeadTags({ css } = {}) {
   return (css ? `<style id="site-chrome-css">\n${css.trim()}\n</style>\n` : '<link rel="stylesheet" href="/site-chrome.css">\n')
-    + `<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});</script>\n`
-    + `<script async src="https://www.googletagmanager.com/gtm.js?id=${GTM_ID}"></script>\n`
+    + `<script>${GTM_LOADER}</script>\n`
     + '<script defer src="/site-tracking.js"></script>';
 }
 
