@@ -20,7 +20,7 @@ import { classifyArticle } from '@/lib/articles';
 import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage, RSS_STOP_WORDS } from '@/lib/rss-utils';
 import ArticleInfographic from '@/components/ArticleInfographic';
 import { BLOG_URL, VEILLE_PATH, categoryUrl, cleanAuthor, formatFrDate, toIsoDate } from '@/lib/blog';
-import { DUPLICATE_SLUGS, HIDDEN_SLUGS, RELATED_ARTICLES, STORED_ARTICLES, findStoredArticle, isHidden, isVeille } from '@/lib/blog-store';
+import { ARTICLE_SERVICES, DUPLICATE_SLUGS, HIDDEN_SLUGS, RELATED_ARTICLES, STORED_ARTICLES, findStoredArticle, isHidden, isVeille } from '@/lib/blog-store';
 import { clampDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { unstable_cache } from 'next/cache';
 
@@ -753,6 +753,24 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                         <Link href={`/articles/${r.slugFr || r.slug}`} className="text-cyan-400 underline underline-offset-4 hover:text-cyan-300">
                           {r.titleFr || r.title}
                         </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            })()}
+
+            {(() => {
+              // Offres liées (maillage vers les pages de prestation), déclarées dans blog-store.
+              const services = ARTICLE_SERVICES[article.slugFr || article.slug] ?? [];
+              if (!services.length) return null;
+              return (
+                <section id="nos-offres" className="mt-10 scroll-mt-28 border-t border-white/10 pt-8">
+                  <h2 className="mb-4 text-base font-medium text-white">Nos offres liées</h2>
+                  <ul className="flex flex-wrap gap-3">
+                    {services.map(([label, href]) => (
+                      <li key={href}>
+                        <Link href={href} className="btn-brand-ghost">{label}</Link>
                       </li>
                     ))}
                   </ul>

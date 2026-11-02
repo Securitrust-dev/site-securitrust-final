@@ -22,6 +22,31 @@ export const HIDDEN_SLUGS = new Set([
  * Articles liés affichés en « À lire aussi » sous l'article. Tenu ici plutôt que dans le
  * texte des articles, que `npm run blog:export` réécrit depuis la base.
  */
+/**
+ * Offres liées affichées sous les articles de fond (maillage vers les pages de prestation).
+ * Clé : slug de l'article ; valeur : [libellé, URL] des pages d'offre.
+ */
+export const ARTICLE_SERVICES: Record<string, [string, string][]> = {
+  'preparer-un-pentest-web-perimetre-comptes-de-test-regles-d-engagement': [
+    ['Pentest web', '/pentest-web'],
+    ['Test d’intrusion externe', '/pentest-externe'],
+    ['Pentest mobile', '/pentest-mobile'],
+  ],
+  'les-failles-que-nous-retrouvons-le-plus-souvent-en-pentest-active-directory': [
+    ['Pentest Active Directory', '/pentest-ad'],
+    ['Pentest interne', '/pentest-interne'],
+    ['Test d’intrusion externe', '/pentest-externe'],
+  ],
+  'microsoft-365-12-reglages-de-securite-a-verifier-en-priorite': [
+    ['Audit Microsoft 365', '/audit-o365'],
+    ['Test d’intrusion externe', '/pentest-externe'],
+  ],
+  'nis2-entite-essentielle-ou-importante-methode-pas-a-pas': [['Conformité NIS2', '/nis2'], ['Évaluation de maturité', '/evaluation-maturite']],
+  'nis2-en-france-obligations-sanctions-et-mesures-concretes-pour-2026': [['Conformité NIS2', '/nis2'], ['Audit de cybersécurité', '/audit-cybersecurite']],
+  'dora-registre-d-informations-prestataires-tic-mode-d-emploi': [['Conformité DORA', '/dora'], ['RSSI externalisé', '/rssi-externalise']],
+  'declaration-d-applicabilite-iso-27001-la-construire-sans-se-perdre': [['Certification ISO 27001', '/iso27001'], ['Analyse de risques EBIOS RM', '/ebios-rm']],
+};
+
 export const RELATED_ARTICLES: Record<string, string[]> = {
   // Deux angles sur la même faille Kemp LoadMaster : exploitation active / détail de la CVE.
   'exploitation-active-de-la-faille-rce-critique-dans-progress-kemp-loadmaster': ['faille-critique-cve-2026-8037-dans-progress-kemp-loadmaster-execution-root-sans-authentification'],
