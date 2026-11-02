@@ -94,6 +94,20 @@ export default {
 </ol>
 <p>La durée dépend du périmètre, de la maturité de départ et des ressources mobilisables : pour une PME ou une ETI au périmètre bien délimité, elle se compte généralement en mois plutôt qu’en semaines.</p>`,
     },
+    {
+      id: 'iso-cas-clients',
+      title: 'Nos accompagnements ISO 27001 : quelques cas clients',
+      html: `<p>SecuriTrust a réalisé plus de 100 accompagnements ISO 27001, de la mise en conformité à l’audit interne. Quelques exemples :</p>
+<ul>
+<li><a href="/cas-clients/sunrise-conformite-iso-27001-iso-13485"><strong>Sunrise</strong></a> (dispositifs médicaux) : mise en conformité ISO 27001 en s’appuyant sur un système ISO 13485 existant.</li>
+<li><a href="/cas-clients/proges-plus-accompagnement-iso-27001"><strong>Proges Plus</strong></a> (hébergeur) : accompagnement vers la conformité ISO 27001.</li>
+<li><a href="/cas-clients/sogefi-audit-securite-conformite-iso-27001"><strong>Sogefi</strong></a> (équipementier automobile) : accompagnement à la conformité ISO 27001.</li>
+<li><a href="/cas-clients/verspieren-audit-annuel-iso-27001"><strong>Verspieren</strong></a> (courtage en assurance) : audit annuel du SMSI.</li>
+<li><a href="/cas-clients/groupe-adp-audit-interne-iso-27001"><strong>Groupe ADP</strong></a> et <a href="/cas-clients/brgm-audit-interne-iso-27001-formation-auditeurs"><strong>BRGM</strong></a> : audits internes ISO 27001.</li>
+<li><a href="/cas-clients/polyconseil-rssi-externalise-rgpd-iso-27001"><strong>Polyconseil</strong></a> (conseil numérique) : RSSI externalisé et mise en conformité ISO 27001.</li>
+</ul>
+<p><a href="/cas-clients">Voir tous nos cas clients</a></p>`,
+    },
   ],
   faq: [
     {

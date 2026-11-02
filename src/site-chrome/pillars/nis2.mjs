@@ -132,6 +132,11 @@ export default {
         'La directive impose aux organes de direction d’approuver les mesures de cybersécurité, d’en superviser la mise en œuvre et de suivre une formation. Ils peuvent être tenus responsables des manquements, et pour les entités essentielles une interdiction temporaire d’exercer des fonctions de direction est prévue en dernier recours.',
     },
     {
+      question: 'Existe-t-il une certification NIS2 ?',
+      answer:
+        'Non. La directive NIS2 ne crée pas de certification d’entreprise : les entités concernées doivent appliquer les mesures exigées et être en mesure de le démontrer, notamment lors des contrôles de l’ANSSI. Une certification ISO 27001 n’est pas imposée, mais elle constitue la manière la plus reconnue de prouver une démarche structurée. Méfiez-vous des offres de « certification NIS2 » : elles désignent au mieux un audit de conformité.',
+    },
+    {
       question: 'La certification ISO 27001 suffit-elle pour être conforme NIS2 ?',
       answer:
         'Elle n’est ni obligatoire ni suffisante à elle seule, mais elle couvre une large part des exigences : analyse de risques, gouvernance, gestion des fournisseurs, continuité, amélioration continue. Il reste à vérifier les points propres à NIS2, notamment l’organisation de la notification des incidents et le périmètre réellement couvert par le SMSI.',
