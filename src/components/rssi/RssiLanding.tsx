@@ -22,6 +22,7 @@ import "@/app/rssi-externalise/lp-v2.css";
 import "@/app/rssi-externalise/lp-v3.css";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { trackLead, trackLeadError } from "@/lib/analytics";
+import { logoDims } from "@/content/logo-dims";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -266,7 +267,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
               <div className="logo-track">
                 {[...clientLogos, ...clientLogos].map((logo, i) => (
                   <div className="logo-item" key={i}>
-                    <img className="logo-img" src={logo.src} alt={i < clientLogos.length ? logo.alt : ""} loading="lazy" aria-hidden={i >= clientLogos.length} />
+                    <img className="logo-img" src={logo.src} {...logoDims(logo.src)} alt={i < clientLogos.length ? logo.alt : ""} loading="lazy" aria-hidden={i >= clientLogos.length} />
                   </div>
                 ))}
               </div>

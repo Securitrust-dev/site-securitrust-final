@@ -7,6 +7,7 @@ import { CAS_CLIENTS } from '@/content/cas-clients';
 import { SITE_URL } from '@/site-chrome/schema.mjs';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
+import { logoDims } from '@/content/logo-dims';
 
 const PATH = '/cas-clients';
 const TITLE = 'Cas clients cybersécurité et conformité — Références';
@@ -82,7 +83,7 @@ export default function CasClientsPage() {
           <div className="logo-wall">
             {LOGOS.map(([alt, file, h]) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={file} src={`/clients/white/${file}.png`} alt={alt} style={{ height: h }} loading="lazy" />
+              <img key={file} src={`/clients/white/${file}.png`} {...logoDims(file)} alt={alt} style={{ height: h }} loading="lazy" />
             ))}
           </div>
         </div>
