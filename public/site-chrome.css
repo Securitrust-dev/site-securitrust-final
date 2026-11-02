@@ -270,3 +270,8 @@
   #pl#pl .pl-res { grid-template-columns: 1fr; }
   #pl#pl .pl-cards { grid-template-columns: 1fr; }
 }
+
+/* Badge de certification ISO 27001 (pied de page) */
+:is(#sc-header, #sc-footer):is(#sc-header, #sc-footer) .sc-badge { display: inline-flex; align-items: center; gap: 12px; margin-top: 18px; color: var(--sc-muted); font-size: 0.82rem; line-height: 1.4; }
+:is(#sc-header, #sc-footer):is(#sc-header, #sc-footer) .sc-badge img { display: block; width: 58px; height: auto; border-radius: 4px; }
+:is(#sc-header, #sc-footer):is(#sc-header, #sc-footer) .sc-badge:hover span { color: var(--sc-text); }

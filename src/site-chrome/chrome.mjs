@@ -170,7 +170,8 @@ export function renderFooter({ year = new Date().getFullYear() } = {}) {
     + '<p>Cabinet de conseil en cybersécurité à Paris depuis 2016 : pentest, audit, conformité et RSSI externalisé.</p>'
     + `<address>${esc(NAP.street)}<br />${NAP.postalCode} ${esc(NAP.city)}<br />`
     + `<a href="tel:${NAP.phoneHref}">${NAP.phoneDisplay}</a><br />`
-    + `<a href="mailto:${NAP.email}">${NAP.email}</a><br />${esc(NAP.hours)}</address></div>`
+    + `<a href="mailto:${NAP.email}">${NAP.email}</a><br />${esc(NAP.hours)}</address>`
+    + '<a class="sc-badge" href="/certifications"><img src="/afaq-iso27001-securite-trimmed.png" width="58" height="60" loading="lazy" alt="Certifié ISO/IEC 27001 (sécurité de l’information) par AFAQ, AFNOR Certification" /><span>Cabinet certifié ISO&nbsp;27001<br />AFAQ · AFNOR Certification</span></a></div>'
     + `${cols}</div>`
     + `<div class="sc-fbottom"><span>© 2016–${year} ${NAP.name}. Tous droits réservés.</span>`
     + `<a href="${NAP.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>`
