@@ -327,7 +327,7 @@ export default function SensibilisationFormationPage() {
             <h2 className="text-xl font-light text-white mb-6 border-b border-white/10 pb-3">Services complémentaires</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
-                { title: 'Cyber Vigilance Humaine', href: '/cyber-vigilance-humaine', desc: 'Simulations de phishing et exercices de social engineering pour tester la résilience de vos équipes.' },
+                { title: 'Audit Microsoft 365', href: '/audit-o365', desc: 'Messagerie, identités et partages : les comptes que visent les campagnes d\'hameçonnage.' },
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Pilotez votre programme de sensibilisation et votre stratégie cybersécurité avec un RSSI à temps partagé.' },
                 { title: 'GRC Cybersécurité', href: '/grc-cyber', desc: 'Gouvernance, gestion des risques et conformité pour structurer votre programme sécurité.' },
               ].map((s, i) => (

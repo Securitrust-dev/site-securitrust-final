@@ -8,7 +8,7 @@ import { ArrowRight, Box, Cpu } from 'lucide-react';
 
 const pillars = [
   {
-    href: '/gouvernance-conformite/domaines-expertise',
+    href: '/secteurs',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
     glow: 'shadow-[0_0_15px_rgba(56,189,248,0.1)]',
@@ -32,7 +32,7 @@ const pillars = [
     logique: "Un plan d'action structuré pour atteindre vos objectifs de conformité.",
   },
   {
-    href: '/gouvernance-conformite/audits',
+    href: '/audit-cybersecurite',
     accent: 'text-emerald-400',
     border: 'border-emerald-500/30',
     glow: 'shadow-[0_0_15px_rgba(16,185,129,0.1)]',
@@ -44,7 +44,7 @@ const pillars = [
     logique: "Des livrables actionnables, pas des rapports qui dorment.",
   },
   {
-    href: '/gouvernance-conformite/services-externalises',
+    href: '/rssi-externalise',
     accent: 'text-amber-400',
     border: 'border-amber-500/30',
     glow: 'shadow-[0_0_15px_rgba(245,158,11,0.1)]',

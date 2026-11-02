@@ -259,7 +259,7 @@ export default function RedTeamPage() {
               {[
                 { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
                 { title: 'Pentest Externe', href: '/pentest-externe', desc: 'Simulation d\'attaque depuis Internet — première étape avant une opération Red Team complète.' },
-                { title: 'OSINT', href: '/osint', desc: 'Cartographie de votre surface d\'attaque via des techniques de renseignement open source.' },
+                { title: 'Pentest externe', href: '/pentest-externe', desc: 'Votre surface d\'attaque exposée sur Internet, cartographiée puis testée.' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
                   <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>

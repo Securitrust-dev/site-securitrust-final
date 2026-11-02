@@ -199,7 +199,9 @@ export async function listBlogArticles(opts: { category?: string; q?: string; li
   const q = opts.q?.trim().toLowerCase();
   const [dbItems, rssItems] = await Promise.all([
     listDbArticles({ category: opts.category, q, limit, kind: opts.kind }),
-    opts.kind === 'editorial' ? Promise.resolve([]) : listRssArticles(limit * 2),
+    // Flux RSS non publiés retirés des listes le 02/11/2026 : leurs pages pouvaient répondre 404
+    // (actualités écartées par la ligne éditoriale). Seuls les articles publiés sont listés.
+    Promise.resolve([] as Awaited<ReturnType<typeof listRssArticles>>),
   ]);
   const dbSources = new Set(dbItems.map((a) => a.sourceUrl).filter(Boolean));
   const dbSlugs = new Set(dbItems.map((a) => a.slug));

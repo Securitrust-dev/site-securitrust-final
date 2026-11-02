@@ -101,7 +101,7 @@ export default function GapAnalysisPage() {
                 Demander ma Gap Analysis
               </a>
               <a
-                href="/gouvernance-conformite/audits"
+                href="/audit-cybersecurite"
                 className="btn-brand-ghost"
               >
                 Nos autres audits <ArrowRight className="w-4 h-4" />

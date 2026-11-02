@@ -51,6 +51,7 @@ const TYPES = [
   { titre: 'Évaluation de maturité', href: '/evaluation-maturite', texte: 'Votre niveau mesuré sur une grille reconnue, comparable dans le temps.' },
   { titre: 'Audit d’écart (gap analysis)', href: '/gap-analysis', texte: 'L’écart avec ISO 27001, NIS2 ou DORA, et le plan pour le combler.' },
   { titre: 'Audit flash', href: '/audit-flash', texte: 'Une première photographie de votre sécurité, en quelques jours.' },
+  { titre: 'Analyse de risques EBIOS RM', href: '/ebios-rm', texte: 'Vos scénarios de risque identifiés et priorisés selon la méthode de l’ANSSI.' },
 ];
 
 const PERIMETRE = [

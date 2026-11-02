@@ -186,6 +186,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI expert pour piloter opérationnellement votre GRC au quotidien.' },
     { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'Complétez votre GRC avec un DPO pour le volet protection des données.' },
     { title: 'Évaluation Maturité', href: '/evaluation-maturite', desc: 'Mesurez votre niveau de maturité cybersécurité actuel avant de structurer la GRC.' },
+    { title: 'Analyse de risques EBIOS RM', href: '/ebios-rm', desc: 'Le socle de toute démarche GRC : vos scénarios de risque, priorisés.' },
   ],
   'rssi-externalise': [
     { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'Complétez le RSSI par un DPO externalisé pour la gouvernance des données.' },
@@ -224,7 +225,7 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Gap Analysis', href: '/gap-analysis', desc: 'Identifiez vos écarts face à un référentiel cible avec un plan d\'action priorisé.' },
     { title: 'Conformité NIS2', href: '/nis2', desc: 'Mise en conformité avec la directive NIS2 pour les entités concernées.' },
     { title: 'DPO Externalisé', href: '/dpo-externalise', desc: 'DPO externalisé pour le volet protection des données personnelles.' },
-    { title: 'IA Act', href: '/ia-act', desc: 'Mise en conformité avec le règlement européen sur l\'intelligence artificielle.' },
+    { title: 'Analyse de risques EBIOS RM', href: '/ebios-rm', desc: 'La méthode de l\'ANSSI pour identifier et prioriser vos risques cyber.' },
   ],
   services: [
     { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion — validez la résistance de votre SI aux attaques réelles.' },

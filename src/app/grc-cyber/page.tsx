@@ -178,7 +178,7 @@ export default function GRCCyberPage() {
                 La gestion des risques cyber permet aux organisations d&apos;identifier et d&apos;atténuer proactivement les menaces qui pèsent sur leurs actifs informationnels critiques.
               </p>
               <p className="text-slate-300">
-                Référentiels reconnus : <strong>EBIOS Risk Manager</strong> et <strong>ISO 27005</strong>
+                Référentiels reconnus : <a href="/ebios-rm" className="text-cyan-400 underline underline-offset-4"><strong>analyse de risques EBIOS Risk Manager</strong></a> et <strong>ISO 27005</strong>
               </p>
             </div>
 
@@ -305,7 +305,7 @@ export default function GRCCyberPage() {
               {[
                 { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI à temps partagé pour piloter votre stratégie de sécurité et votre conformité.' },
                 { title: 'ISO 27001 & HDS', href: '/iso27001', desc: 'Accompagnement à la certification ISO 27001 et HDS par un auditeur officiel AFNOR.' },
-                { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
+                { title: 'Analyse de risques EBIOS RM', href: '/ebios-rm', desc: 'La méthode de l\'ANSSI pour identifier et prioriser vos scénarios de risque cyber.' },
               ].map((s, i) => (
                 <a key={i} href={s.href} className="group glass-panel rounded-xl p-5 border border-white/5 hover:border-cyan-500/30 transition-all">
                   <h3 className="text-white font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{s.title}</h3>
