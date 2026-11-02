@@ -107,35 +107,51 @@ export const FOOTER_COLUMNS = [
   },
 ];
 
-// Conteneur GTM (GA4, Google Ads et bandeau de consentement Axeptio y sont configurés).
-export const GTM_ID = 'GTM-P5D5S5WJ';
+// Conteneur GTM : GA4, Google Ads et événements de leads (compte « Analyse SEO »,
+// géré par SecuriTrust). Remplace GTM-P5D5S5WJ, inaccessible, le 2 novembre 2026.
+// Import de la configuration : docs/tracking/gtm-NB64TX95-import.json.
+export const GTM_ID = 'GTM-NB64TX95';
+
+// Bandeau de consentement Axeptio, chargé directement par le site (il était
+// auparavant injecté par l'ancien conteneur GTM). Même projet, même version de cookies.
+export const AXEPTIO_CLIENT_ID = '6a4cbef4ca068258325d3336';
+export const AXEPTIO_COOKIES_VERSION = '8673893a-20ef-4cee-bf5f-cf7b8975182c';
 
 /**
- * Balises de <head> des landing pages statiques : feuille commune, GTM et suivi
- * des leads (public/site-tracking.js). Les pages React chargent l'équivalent
- * dans src/app/layout.tsx.
- * @param {{ css?: string }} [opts] css : contenu de public/site-chrome.css, intégré
- *   en <style> pour éviter une requête bloquante (LCP mobile) ; à défaut, <link>.
+ * Script inline commun (pages statiques et React), placé en tête de page :
+ *
+ * 1. Mode consentement Google v2 : tout est refusé par défaut, avant tout tag.
+ *    Axeptio met à jour le consentement quand le visiteur fait son choix
+ *    (option googleConsentMode de axeptioSettings).
+ * 2. Chargement différé d'Axeptio puis de GTM (GA4, Google Ads) : à la première
+ *    interaction (scroll, toucher, clic, clavier, souris) ou, à défaut, 5 s après
+ *    l'événement load. Ces scripts (~800 Ko) bloquaient le fil principal 3 à 4 s
+ *    sur mobile. Les événements poussés avant (generate_lead…) restent dans le
+ *    dataLayer et sont traités dès l'arrivée de GTM. Aucun cookie n'est déposé
+ *    avant le consentement.
+ * Domaines static.axept.io et googletagmanager.com autorisés par la CSP : pas de nonce requis.
  */
-/**
- * Chargement différé de GTM (et donc d'Axeptio, GA4 et Google Ads, qu'il injecte).
- * Ces scripts tiers (~800 Ko) bloquaient le fil principal 3 à 4 s sur mobile
- * (Lighthouse, 2 novembre 2026). GTM est chargé à la première interaction
- * (scroll, toucher, clic, clavier, souris) ou, à défaut, 5 s après l'événement load.
- * Les événements poussés avant (generate_lead…) restent dans le dataLayer et sont
- * traités dès que GTM arrive. Le bandeau de consentement apparaît à ce moment-là :
- * aucun cookie n'est déposé avant, ce qui reste conforme.
- * Domaine googletagmanager.com autorisé par la CSP (script-src) : pas de nonce requis.
- */
+const CONSENT_DEFAULT = '{ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied",analytics_storage:"denied",wait_for_update:500}';
 export const GTM_LOADER =
-  "window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
+  'window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments)};'
+  + `gtag("consent","default",${CONSENT_DEFAULT});`
+  + "window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
+  + `window.axeptioSettings={clientId:"${AXEPTIO_CLIENT_ID}",cookiesVersion:"${AXEPTIO_COOKIES_VERSION}",googleConsentMode:{default:${CONSENT_DEFAULT}}};`
   + '(function(w,d){var done=0,ev=["pointerdown","keydown","touchstart","scroll","mousemove"];'
+  + 'function add(src){var s=d.createElement("script");s.async=true;s.src=src;d.head.appendChild(s)}'
   + 'function load(){if(done)return;done=1;ev.forEach(function(e){w.removeEventListener(e,load,{passive:true})});'
-  + `var s=d.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtm.js?id=${GTM_ID}";d.head.appendChild(s)}`
+  + `add("https://static.axept.io/sdk.js");add("https://www.googletagmanager.com/gtm.js?id=${GTM_ID}")}`
   + 'ev.forEach(function(e){w.addEventListener(e,load,{passive:true})});'
   + 'if(d.readyState==="complete")setTimeout(load,5000);else w.addEventListener("load",function(){setTimeout(load,5000)})'
   + '})(window,document);';
 
+/**
+ * Balises de <head> des landing pages statiques : feuille commune, consentement,
+ * Axeptio + GTM différés et suivi des leads (public/site-tracking.js). Les pages
+ * React chargent l'équivalent dans src/app/layout.tsx.
+ * @param {{ css?: string }} [opts] css : contenu de public/site-chrome.css, intégré
+ *   en <style> pour éviter une requête bloquante (LCP mobile) ; à défaut, <link>.
+ */
 export function renderHeadTags({ css } = {}) {
   return (css ? `<style id="site-chrome-css">\n${css.trim()}\n</style>\n` : '<link rel="stylesheet" href="/site-chrome.css">\n')
     + `<script>${GTM_LOADER}</script>\n`

@@ -1,46 +1,46 @@
 {
   "audit-o365.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "dora.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "hds.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "index.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "iso27001.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "nis2.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "pentest-ad.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "pentest-mobile.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "pentest-web.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "rgpd.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ],
   "tisax.html": [
-    "sha256-LhqUFCNPeqWwqtcF60fgFI0A+I2dYC2kJplsgxD83UU=",
+    "sha256-GjWETZQQsHXVSKTFkaqtuuu6/gJozCIEAB8cs9k9ZMg=",
     "sha256-qcdwBjcw6gt9irTI7sJ0oQTqCWtwYLg4VSD7RI6e0w0="
   ]
 }

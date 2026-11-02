@@ -10,7 +10,7 @@ import Script from 'next/script';
 import { headers } from 'next/headers';
 import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
-import { GTM_LOADER } from '@/site-chrome/chrome.mjs';
+import { GTM_ID, GTM_LOADER } from '@/site-chrome/chrome.mjs';
 
 const BASE_URL = 'https://www.securitrust.fr';
 
@@ -79,13 +79,13 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="fr" className={`${brandFont.variable} ${textFont.variable}`}>
       <body>
-        {/* Google Tag Manager — init du dataLayer + chargement différé de gtm.js (première
-            interaction ou 5 s après load) : voir GTM_LOADER dans src/site-chrome/chrome.mjs. */}
+        {/* Consentement par défaut + Axeptio et GTM différés (première interaction ou
+            5 s après load) : voir GTM_LOADER dans src/site-chrome/chrome.mjs. */}
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: GTM_LOADER }} />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-P5D5S5WJ"
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}

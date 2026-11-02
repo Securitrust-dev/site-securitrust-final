@@ -16,41 +16,41 @@ pour toutes les pages, `src/lib/analytics.ts` pour les formulaires React) :
 `form_id` : `lp_rappel` (landing pages statiques), `contact`, `rssi_rappel`,
 `rssi_rappel_ads` (LP Google Ads /lp/rssi-externalise), `rssi_rappel_en`, `hero_audit`.
 
-## Mise en place dans GTM (mise à jour du 2 novembre 2026)
+## Conteneur GTM-NB64TX95 (depuis le 2 novembre 2026)
 
-État constaté sur le conteneur publié (GTM-P5D5S5WJ) :
-- aucune balise GA4 d'événement : GA4 ne reçoit aucun lead ;
-- conversion Google Ads `sQTFCPDZys0cEMOb6s8C` déclenchée par « Envoi de
-  formulaire » sur **tous** les formulaires (recherche du blog, paiement des
-  formations, login admin…), avant même la réponse de l'API ;
-- conversion Google Ads `umWQCMP6_dUcEMOb6s8C` déclenchée au premier clic dans
-  le champ « nom » (début de saisie).
+Le site charge le conteneur **GTM-NB64TX95** (compte Tag Manager « Analyse SEO »).
+L'ancien conteneur GTM-P5D5S5WJ, auquel SecuriTrust n'avait plus accès, n'est plus
+chargé ; ses balises défectueuses (conversion Ads sur tout envoi de formulaire,
+conversion au premier clic dans le champ « nom ») ne tournent donc plus.
 
-Étapes :
+Le bandeau **Axeptio** n'est plus injecté par GTM : le site le charge lui-même
+(`GTM_LOADER` dans `src/site-chrome/chrome.mjs`), avec le mode consentement Google v2
+(tout refusé par défaut, mis à jour par Axeptio au choix du visiteur).
 
-1. GTM › Admin › Importer un conteneur › `gtm-import-leads.json`, espace de
-   travail existant, option **Fusionner › Renommer les éléments en conflit**.
-   Le fichier crée 7 balises « GA4 - … » (ID de mesure G-MX5KFW6M42), la balise
-   **« Google Ads - Lead confirmé (generate_lead) »** (même libellé de conversion
-   `sQTFCPDZys0cEMOb6s8C`, ID de transaction = `lead_id` pour le dédoublonnage),
-   7 déclencheurs « CE - … » et les variables « DLV - … ».
-2. **Mettre en pause l'ancienne balise de conversion Ads** déclenchée par
-   « Envoi de formulaire » (même libellé `sQTFCPDZys0cEMOb6s8C`) : sinon chaque
-   lead compte deux fois et les faux envois continuent.
-3. Conversions améliorées : dans la nouvelle balise Ads, cocher « Inclure les
-   données fournies par l'utilisateur » › nouvelle variable « Données fournies par
-   l'utilisateur » › Configuration manuelle › E-mail = `{{DLV - user_data.email}}`,
-   Téléphone = `{{DLV - user_data.phone_number}}`. Dans Google Ads : Objectifs ›
-   Conversions › Paramètres › activer les conversions améliorées (via GTM).
-4. Mode Aperçu : envoyer un vrai formulaire et vérifier que `generate_lead`
-   déclenche « GA4 - generate_lead » et « Google Ads - Lead confirmé », puis **publier**.
-5. GA4 › Admin › Événements : marquer `generate_lead` (et `calendly_booking`)
-   comme **événements clés**. Facultatif : dimensions personnalisées `form_id`,
-   `lead_service`, `link_location` (portée événement).
-6. Google Ads › Objectifs › Conversions : l'action liée à `sQTFCPDZys0cEMOb6s8C`
-   en **principale** ; celle de `umWQCMP6_dUcEMOb6s8C` (début de saisie) en
-   **secondaire**. Lier GA4 et Google Ads (GA4 › Admin › Association Google Ads).
+### Mise en place (à faire une fois)
 
-`generate_lead` porte désormais `lead_id` (identifiant du lead, aussi visible
-dans l'e-mail reçu et dans /admin-stats) et `user_data` (e-mail et téléphone,
-hachés par GTM avant envoi, vidés du dataLayer juste après).
+1. GTM › conteneur GTM-NB64TX95 › Administration › **Importer un conteneur** ›
+   `gtm-NB64TX95-import.json`, espace de travail existant, **Fusionner › Renommer
+   les éléments en conflit**. Le fichier crée :
+   - « Google tag - GA4 » (G-MX5KFW6M42) et « Google tag - Google Ads » (AW-704286147),
+     déclenchés à l'initialisation de toutes les pages ;
+   - « Conversion Linker » (conserve le clic Google Ads) ;
+   - 7 balises « GA4 - … » (generate_lead, lead_form_start, lead_form_error,
+     calendly_click, calendly_booking, phone_click, email_click) ;
+   - « Google Ads - Lead confirmé (generate_lead) » : libellé `sQTFCPDZys0cEMOb6s8C`,
+     ID de transaction = `lead_id` ;
+   - « Google Ads - Début de saisie (lead_form_start) » : libellé `umWQCMP6_dUcEMOb6s8C`.
+2. **Envoyer › Publier** (avant la mise en ligne du code qui charge ce conteneur).
+3. GA4 › Admin › Événements : `generate_lead` (et `calendly_booking`) en **événements clés**.
+4. Google Ads › Objectifs › Conversions : action `sQTFCPDZys0cEMOb6s8C` en **principale**,
+   action `umWQCMP6_dUcEMOb6s8C` en **secondaire**.
+5. Facultatif, conversions améliorées : dans « Google Ads - Lead confirmé », cocher
+   « Inclure les données fournies par l'utilisateur » › variable « Données fournies
+   par l'utilisateur » › manuelle › E-mail `{{DLV - user_data.email}}`, Téléphone
+   `{{DLV - user_data.phone_number}}` ; puis activer les conversions améliorées dans
+   Google Ads (Objectifs › Conversions › Paramètres).
+
+`generate_lead` porte `lead_id` (identifiant du lead, aussi dans l'e-mail reçu et
+dans /admin-stats) et `user_data` (e-mail et téléphone, hachés par Google avant envoi,
+vidés du dataLayer juste après). `gtm-import-leads.json` est l'ancien fichier prévu
+pour GTM-P5D5S5WJ, conservé pour mémoire.
