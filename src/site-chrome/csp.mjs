@@ -28,6 +28,8 @@ const SCRIPT_HOSTS = [
   'https://googleads.g.doubleclick.net',
   'https://static.axept.io',
   'https://assets.calendly.com',
+  // PostHog (analyse produit) : script et envoi des événements (eu.i.posthog.com, eu-assets.i.posthog.com…).
+  'https://*.posthog.com',
 ];
 
 const GOOGLE_PIXELS = [
@@ -69,6 +71,7 @@ export function buildCsp({ nonce, hashes = [], dev = false } = {}) {
       "connect-src 'self'",
       ...(dev ? ['ws:'] : []),
       'https://*.axept.io',
+      'https://*.posthog.com',
       'https://*.analytics.google.com',
       ...GOOGLE_PIXELS,
       'https://ad.doubleclick.net',
