@@ -16,14 +16,14 @@ import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 const BASE_URL = "https://www.securitrust.fr";
 
 export const metadata: Metadata = {
-  title: "RSSI externalisé à temps partagé pour PME et ETI",
+  title: "RSSI externalisé : missions, tarifs et cas clients",
   description: metaDescription('/rssi-externalise'),
   alternates: {
     canonical: `${BASE_URL}/rssi-externalise`,
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: "RSSI externalisé à temps partagé pour PME et ETI | SecuriTrust",
+    title: "RSSI externalisé : missions, tarifs et cas clients | SecuriTrust",
     description: metaDescription('/rssi-externalise'),
     type: "website",
     locale: "fr_FR",
