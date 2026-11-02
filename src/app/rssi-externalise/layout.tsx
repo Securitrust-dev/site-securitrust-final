@@ -5,31 +5,26 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 /* ============================================================================
-   /rssi-externalise — page canonique, refondue le 2026-09-04.
+   /rssi-externalise — page de référence SEO (refonte du 2026-11-02).
 
-   Le contenu est celui de la nouvelle page d'accueil securitrust.fr
-   (public/index.html), habillé du design de la LP. Aucun montant n'est
-   affiché : la nouvelle home ne communique plus de TJM.
-
-   ⚠️ Cette page n'a plus de FAQ : la home dont le texte est repris n'en a pas.
-   Le FAQSchema de 10 questions qui vivait ici a donc disparu avec elle
-   (perte de rich snippets signalée à Charles, arbitrage assumé). Si on veut
-   la récupérer un jour, elle est dans l'historique git au commit a043b97.
+   Contenu 100 % RSSI externalisé (définition, missions, cas clients, comparatif,
+   prix, déroulé, guide + FAQ), rendu par <RssiLanding variant="seo">. La page
+   d'atterrissage Google Ads est /lp/rssi-externalise (même composant, noindex).
+   Aucun montant affiché (arbitrage de Charles).
    ============================================================================ */
 
 const BASE_URL = "https://www.securitrust.fr";
 
 export const metadata: Metadata = {
-  title: "RSSI externalisé pour PME et ETI — RSSI à temps partagé",
+  title: "RSSI externalisé à temps partagé pour PME et ETI",
   description: metaDescription('/rssi-externalise'),
   alternates: {
     canonical: `${BASE_URL}/rssi-externalise`,
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: "RSSI externalisé pour PME et ETI — RSSI à temps partagé | SecuriTrust",
-    description:
-      "Un cabinet multi-certifié qui pilote la cybersécurité des organisations à forts enjeux depuis 2016. +2 500 jours-homme de RSSI externalisé, auditeur officiel AFNOR.",
+    title: "RSSI externalisé à temps partagé pour PME et ETI | SecuriTrust",
+    description: metaDescription('/rssi-externalise'),
     type: "website",
     locale: "fr_FR",
     url: `${BASE_URL}/rssi-externalise`,
@@ -44,7 +39,8 @@ export default function RSSIExternaliseLayout({ children }: { children: React.Re
     <>
       <ServiceSchema
         name="RSSI externalisé certifié à temps partagé"
-        description="RSSI externalisé à temps partagé pour PME et ETI. Pilotage stratégique et opérationnel de votre sécurité SI, de l'audit à la conformité, du monitoring continu à la gestion de crise. +2 500 jours-homme de RSSI externalisé. Auditeur officiel AFNOR, certifié ISO 27001."
+        description="Un RSSI senior mis à disposition à temps partagé pilote la cybersécurité et la conformité (NIS2, DORA, ISO 27001) des PME et ETI : gouvernance, analyse de risques, sécurité des tiers, sensibilisation et gestion de crise. Cabinet certifié ISO 27001, +2 500 jours-homme de RSSI externalisé."
+        serviceType="RSSI externalisé"
         url={`${BASE_URL}/rssi-externalise`}
       />
       {children}

@@ -20,7 +20,7 @@ export default {
 <ul>
 <li><strong>un périmètre beaucoup plus large</strong> : 18 secteurs au lieu de 7, et un critère de taille qui fait entrer automatiquement les moyennes et grandes entreprises de ces secteurs ;</li>
 <li><strong>des obligations harmonisées</strong> : un socle de mesures de gestion des risques et un régime de notification des incidents identiques dans toute l’Union ;</li>
-<li><strong>une responsabilité des dirigeants</strong> : les organes de direction approuvent les mesures, en supervisent la mise en œuvre et peuvent être tenus pour responsables des manquements.</li>
+<li><strong>une responsabilité des dirigeants</strong> : les organes de direction approuvent les mesures, en supervisent la mise en œuvre et peuvent être tenus pour responsables des manquements. Sans RSSI en interne, un <a href="/rssi-externalise">RSSI externalisé</a> peut préparer ces décisions et piloter les mesures.</li>
 </ul>
 <p>Une directive ne s’applique pas directement : chaque État membre doit la transposer dans son droit national. Les États devaient le faire avant le 17 octobre 2024.</p>`,
     },

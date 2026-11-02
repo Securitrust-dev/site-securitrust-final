@@ -37,7 +37,7 @@ export default {
 <thead><tr><th>Chapitre</th><th>Ce qui est attendu</th></tr></thead>
 <tbody>
 <tr><td>4. Contexte</td><td>Enjeux internes et externes, parties intéressées et leurs attentes, <strong>périmètre</strong> du SMSI.</td></tr>
-<tr><td>5. Leadership</td><td>Engagement de la direction, politique de sécurité, rôles et responsabilités.</td></tr>
+<tr><td>5. Leadership</td><td>Engagement de la direction, politique de sécurité, rôles et responsabilités (le pilotage du SMSI peut être confié à un <a href="/rssi-externalise">RSSI à temps partagé</a>).</td></tr>
 <tr><td>6. Planification</td><td><strong>Appréciation et traitement des risques</strong>, objectifs de sécurité, planification des changements.</td></tr>
 <tr><td>7. Support</td><td>Ressources, compétences, sensibilisation, communication, informations documentées.</td></tr>
 <tr><td>8. Fonctionnement</td><td>Mise en œuvre du plan de traitement des risques et appréciations régulières.</td></tr>

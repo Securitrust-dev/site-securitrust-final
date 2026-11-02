@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { recentLeads, type LeadRow } from '@/lib/leads-store';
 import { createHmac } from 'crypto';
 import { client } from '@/db';
 import AdminLoginForm from './AdminLoginForm';
@@ -151,6 +152,12 @@ export default async function AdminStatsPage({
   const selectedDate = params.date ?? '';
 
   const stats = await getStats();
+  let leads: LeadRow[] = [];
+  try {
+    leads = await recentLeads(50);
+  } catch (e) {
+    console.error('[admin-stats] lecture des leads échouée', e);
+  }
   const dayLogs = selectedDate ? await getDayLogs(selectedDate) : null;
 
   if (!stats) {
@@ -202,6 +209,40 @@ export default async function AdminStatsPage({
               {kpi.sub && <p className="text-white/30 text-xs mt-1">{kpi.sub}</p>}
             </div>
           ))}
+        </div>
+
+        {/* Derniers leads (sauvegarde Turso de /api/contact) */}
+        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+          <p className="text-white/40 text-xs uppercase tracking-widest mb-4">Derniers leads ({leads.length})</p>
+          {leads.length === 0 ? (
+            <p className="text-white/40 text-sm">Aucun lead enregistré pour l&apos;instant.</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-white/40 text-xs text-left">
+                    <th className="py-2 pr-4">Date</th><th className="py-2 pr-4">Nom</th><th className="py-2 pr-4">E-mail</th>
+                    <th className="py-2 pr-4">Téléphone</th><th className="py-2 pr-4">Entreprise</th><th className="py-2 pr-4">Sujet</th>
+                    <th className="py-2 pr-4">Page</th><th className="py-2">E-mail envoyé</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {leads.map((l) => (
+                    <tr key={l.id} className="border-t border-white/5 align-top">
+                      <td className="py-2 pr-4 whitespace-nowrap text-white/60">{new Date(l.created_at).toLocaleString('fr-FR', { timeZone: 'Europe/Paris' })}</td>
+                      <td className="py-2 pr-4">{l.name}</td>
+                      <td className="py-2 pr-4">{l.email ? <a className="text-cyan-400" href={`mailto:${l.email}`}>{l.email}</a> : '—'}</td>
+                      <td className="py-2 pr-4 whitespace-nowrap">{l.phone || '—'}</td>
+                      <td className="py-2 pr-4">{l.company || '—'}</td>
+                      <td className="py-2 pr-4 text-white/70">{l.subject || l.source || '—'}</td>
+                      <td className="py-2 pr-4 text-white/50">{l.page || '—'}</td>
+                      <td className="py-2">{Number(l.email_sent) ? <span className="text-emerald-400">oui</span> : <span className="text-amber-400" title={l.email_error || ''}>non{l.email_error ? ` (${l.email_error})` : ''}</span>}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
 
         {/* Avg duration */}

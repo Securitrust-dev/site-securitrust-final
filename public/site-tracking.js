@@ -58,6 +58,16 @@
     if (e.data && e.data.event === 'calendly.event_scheduled') track('calendly_booking', {});
   });
 
+  // Téléphone au format E.164 (FR par défaut), attendu par les conversions améliorées.
+  function e164(raw) {
+    var d = raw.replace(/[^\d+]/g, '');
+    if (!d) return undefined;
+    if (d.charAt(0) === '+') return d;
+    if (d.indexOf('00') === 0) return '+' + d.slice(2);
+    if (d.charAt(0) === '0' && d.length === 10) return '+33' + d.slice(1);
+    return undefined;
+  }
+
   // Formulaires de rappel des landing pages statiques : envoi réel vers /api/contact.
   function bindStaticForm(form) {
     var btn = form.querySelector('button[type="submit"]');
@@ -96,7 +106,20 @@
       })
         .then(function (res) {
           if (!res.ok) throw new Error('http_' + res.status);
-          track('generate_lead', { form_id: formId, lead_service: form.getAttribute('data-service') });
+          return res.json().catch(function () { return {}; });
+        })
+        .then(function (data) {
+          // lead_id : dédoublonnage Google Ads ; user_data : conversions améliorées
+          // (haché en SHA-256 par GTM). user_data est vidé juste après.
+          var email = String(fd.get('email') || '').trim().toLowerCase();
+          var phone = e164(String(fd.get('phone') || ''));
+          track('generate_lead', {
+            form_id: formId,
+            lead_service: form.getAttribute('data-service'),
+            lead_id: data && data.leadId,
+            user_data: email || phone ? { email: email || undefined, phone_number: phone } : undefined,
+          });
+          dl.push({ user_data: undefined });
           // La saisie n'est vidée qu'une fois le lead enregistré.
           form.reset();
           var download = form.getAttribute('data-download');

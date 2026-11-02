@@ -9,6 +9,7 @@
         "blog:export": "node scripts/export-blog-articles.mjs",
         "prebuild": "node scripts/sync-site-chrome.mjs && node scripts/sitemap-lastmod.mjs",
         "sitemap:lastmod": "node scripts/sitemap-lastmod.mjs",
+        "indexnow": "node scripts/indexnow.mjs",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",

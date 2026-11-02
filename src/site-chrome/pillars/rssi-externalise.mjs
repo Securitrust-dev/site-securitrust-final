@@ -7,69 +7,71 @@ export default {
   path: '/rssi-externalise',
   name: 'RSSI externalisé',
   service: 'RSSI externalisé',
-  updated: '2026-10-26',
-  guideTitle: 'RSSI externalisé : le guide pour piloter votre cybersécurité sans recruter',
+  updated: '2026-11-02',
+  guideTitle: 'RSSI externalisé : le guide pour choisir et réussir votre mission',
   intro:
-    'Un RSSI externalisé, c’est un responsable de la sécurité des systèmes d’information mis à disposition à temps partagé : il définit votre stratégie, pilote vos projets de sécurité et vous représente face aux clients et aux auditeurs, pour une fraction du coût d’un poste à plein temps. Ce guide explique ce que recouvre la mission, à qui elle s’adresse et comment elle se met en place.',
+    'Faut-il un RSSI externalisé, un RSSI à temps partagé ou un vCISO ? Quand faire appel à lui, comment il porte vos obligations NIS2, DORA ou ISO 27001, et sur quels critères le choisir ? Ce guide répond aux questions que se posent les directions avant de confier la sécurité de leur système d’information à un expert externe.',
   sections: [
     {
-      id: 'rssi-definition',
-      title: 'Qu’est-ce qu’un RSSI externalisé ?',
-      html: `<p>Le <strong>RSSI</strong> (Responsable de la Sécurité des Systèmes d’Information), ou CISO en anglais, est la personne qui porte la cybersécurité au niveau de la direction : il fixe le cap, arbitre les risques et fait le lien entre les enjeux métier et la technique. Beaucoup d’organisations en ont besoin sans pouvoir justifier un recrutement à temps plein, difficile et coûteux sur un marché en tension.</p>
-<p>Le <strong>RSSI externalisé</strong> (ou à temps partagé) répond à ce besoin : un expert senior intervient quelques jours par mois selon un cadre défini, avec un engagement de continuité. Il ne s’agit ni d’un audit ponctuel, ni d’une prestation purement technique, mais d’un <strong>pilotage dans la durée</strong>.</p>`,
+      id: 'rssi-differences',
+      title: 'RSSI externalisé, RSSI à temps partagé, vCISO : quelles différences ?',
+      html: `<p>Ces termes désignent le <strong>même modèle</strong> : un responsable de la sécurité des systèmes d’information qui n’est pas salarié de l’entreprise et qui intervient une partie de son temps. « RSSI externalisé » insiste sur le fait que la fonction est confiée à un prestataire, « <strong>RSSI à temps partagé</strong> » sur le rythme d’intervention, et <strong>vCISO</strong> (virtual CISO) est l’équivalent anglo-saxon.</p>
+<p>Le modèle se distingue en revanche nettement de deux autres prestations :</p>
+<ul>
+<li><strong>Le consultant en cybersécurité</strong> réalise une mission délimitée (un audit, un projet) puis s’en va ; le RSSI externalisé porte la responsabilité du pilotage dans la durée.</li>
+<li><strong>Le RSSI en régie ou en intérim</strong> remplace un salarié à plein temps sur une période donnée ; le RSSI externalisé est dimensionné au juste besoin et adossé à un cabinet qui assure la continuité.</li>
+</ul>`,
     },
     {
       id: 'rssi-pour-qui',
-      title: 'À qui s’adresse cette mission ?',
+      title: 'À qui s’adresse un RSSI externalisé ?',
       html: `<ul>
 <li><strong>PME et ETI</strong> qui doivent structurer leur sécurité sans créer de poste dédié ;</li>
 <li>organisations confrontées à une <strong>exigence réglementaire</strong> (NIS2, DORA) ou de certification (ISO 27001, HDS) et qui ont besoin d’un responsable identifié ;</li>
-<li>entreprises dont les <strong>clients ou assureurs</strong> réclament un interlocuteur sécurité et des garanties ;</li>
-<li>structures en <strong>transition</strong> : départ du RSSI, montée en charge, après un incident.</li>
+<li>entreprises dont les <strong>clients ou assureurs</strong> réclament un interlocuteur sécurité, des questionnaires remplis et des garanties ;</li>
+<li>éditeurs et entreprises du numérique qui répondent à des <strong>appels d’offres</strong> exigeant une gouvernance de la sécurité ;</li>
+<li>structures en <strong>transition</strong> : départ du RSSI, croissance rapide, rachat, après un incident.</li>
 </ul>`,
     },
     {
-      id: 'rssi-perimetre',
-      title: 'Ce que fait un RSSI externalisé',
-      html: `<p>La mission se module selon vos enjeux, mais couvre en général :</p>
+      id: 'rssi-quand',
+      title: 'Quand faire appel à un RSSI externalisé ?',
+      html: `<p>Plusieurs situations déclenchent en général la décision :</p>
 <ul>
-<li><strong>Stratégie et gouvernance</strong> : analyse de risques, politique de sécurité, feuille de route pluriannuelle, arbitrages budgétaires.</li>
-<li><strong>Conformité</strong> : pilotage des démarches NIS2, DORA, ISO 27001, HDS, RGPD et préparation des audits.</li>
-<li><strong>Pilotage opérationnel</strong> : suivi des mesures de sécurité, des prestataires et des projets, tableau de bord d’indicateurs.</li>
-<li><strong>Gestion des tiers</strong> : évaluation des fournisseurs, clauses de sécurité, réponses aux questionnaires clients.</li>
-<li><strong>Sensibilisation</strong> des équipes et de la direction.</li>
-<li><strong>Préparation et gestion de crise</strong> : plan de réponse, exercices, accompagnement en cas d’incident.</li>
+<li><strong>Une obligation nouvelle</strong> : l’entreprise entre dans le champ de NIS2 ou de DORA et doit démontrer une gestion des risques pilotée.</li>
+<li><strong>Une certification à obtenir</strong> : un client ou un marché exige ISO 27001 ou HDS dans un délai donné.</li>
+<li><strong>Une exigence client</strong> : questionnaires sécurité, audits de vos donneurs d’ordre, clauses contractuelles à tenir.</li>
+<li><strong>Un départ</strong> : le RSSI quitte l’entreprise et le poste reste vacant pendant le recrutement.</li>
+<li><strong>Un incident</strong> : après une attaque, la direction veut reprendre la main et éviter qu’elle se reproduise.</li>
 </ul>`,
     },
     {
-      id: 'rssi-interet',
-      title: 'Les avantages par rapport à un recrutement',
+      id: 'rssi-conformite',
+      title: 'RSSI externalisé et conformité NIS2, DORA, ISO 27001',
+      html: `<p>Les principaux référentiels ne demandent pas un intitulé de poste, mais ils exigent une responsabilité de la sécurité <strong>identifiée, pilotée et suivie par la direction</strong>. C’est précisément le rôle du RSSI externalisé.</p>
+<ul>
+<li><strong><a href="/nis2">NIS2</a></strong> : les organes de direction approuvent les mesures de gestion des risques de cybersécurité, en supervisent la mise en œuvre et peuvent être tenus responsables (article 20). Le RSSI externalisé construit ces mesures, prépare les décisions et organise la notification des incidents importants (alerte précoce sous 24 heures, notification sous 72 heures).</li>
+<li><strong><a href="/dora">DORA</a></strong> : les entités financières confient la gestion et la surveillance du risque lié aux TIC à une fonction de contrôle disposant d’un niveau d’indépendance suffisant. Un RSSI externalisé peut assumer ou soutenir cette fonction.</li>
+<li><strong><a href="/iso27001">ISO 27001</a></strong> : la direction attribue les rôles et responsabilités du système de management de la sécurité de l’information. Le RSSI externalisé pilote le SMSI, l’analyse de risques, les audits internes et la revue de direction.</li>
+</ul>`,
+    },
+    {
+      id: 'rssi-choisir',
+      title: 'Comment choisir son RSSI externalisé ?',
       html: `<ul>
-<li><strong>Coût maîtrisé</strong> : vous payez le niveau d’expertise dont vous avez besoin, au rythme qui convient, sans charge d’un plein temps.</li>
-<li><strong>Expertise immédiate</strong> : un profil senior opérationnel dès le premier jour, sans délai de recrutement.</li>
-<li><strong>Vision large</strong> : un RSSI externalisé intervient sur plusieurs organisations et apporte des pratiques éprouvées.</li>
-<li><strong>Continuité</strong> : l’expert est adossé à un cabinet, ce qui évite la dépendance à une seule personne et assure le relais en cas d’absence.</li>
-<li><strong>Indépendance</strong> : un regard extérieur, utile pour arbitrer face aux habitudes internes.</li>
+<li><strong>La séniorité</strong> : une expérience réelle de RSSI, et des certifications reconnues (CISSP, CISM, ISO 27001 Lead Implementer ou Lead Auditor).</li>
+<li><strong>Les références</strong> : des missions comparables à la vôtre par la taille, le secteur et les obligations. Demandez des <a href="/cas-clients">cas clients</a>.</li>
+<li><strong>La continuité</strong> : un expert adossé à un cabinet, avec un relais identifié en cas d’absence et une documentation qui reste chez vous.</li>
+<li><strong>L’indépendance</strong> : un RSSI qui ne vend pas de solutions logicielles recommande ce dont vous avez besoin, pas ce qu’il revend.</li>
+<li><strong>Un cadre clair</strong> : rythme d’intervention, livrables, indicateurs et reporting définis dès le cadrage.</li>
 </ul>`,
-    },
-    {
-      id: 'rssi-demarrage',
-      title: 'Comment se met en place la mission',
-      html: `<ol>
-<li><strong>Cadrage</strong> : enjeux, périmètre, niveau d’engagement (jours par mois), interlocuteurs.</li>
-<li><strong>État des lieux</strong> : diagnostic de maturité, cartographie des risques et des obligations applicables.</li>
-<li><strong>Feuille de route</strong> : priorités, planning, budget, indicateurs de suivi.</li>
-<li><strong>Exécution pilotée</strong> : avancement des chantiers, points réguliers avec la direction, relation avec les prestataires.</li>
-<li><strong>Revue et ajustement</strong> : revue périodique des risques et de la feuille de route, adaptation du rythme.</li>
-</ol>
-<p>Le dimensionnement s’ajuste dans le temps : plus soutenu au démarrage ou en préparation d’une certification, allégé en rythme de croisière.</p>`,
     },
   ],
   faq: [
     {
-      question: 'Quelle différence entre un RSSI externalisé et un consultant en cybersécurité ?',
+      question: 'Combien coûte un RSSI externalisé ?',
       answer:
-        'Un consultant intervient sur une mission délimitée (un audit, un projet) puis s’en va. Le RSSI externalisé s’inscrit dans la durée : il porte la responsabilité du pilotage de la sécurité, suit les risques en continu et vous représente auprès des clients et des auditeurs.',
+        'Le prix dépend du nombre de jours d’intervention par mois, facturés au tarif journalier d’un consultant senior. Ce volume est fixé après un premier diagnostic selon la taille du système d’information, les obligations réglementaires, la maturité de départ et la phase de la mission. Le budget reste très inférieur au coût d’un RSSI salarié à temps plein, de 80 000 à 120 000 euros chargés par an.',
     },
     {
       question: 'Combien de jours par mois faut-il prévoir ?',
@@ -77,9 +79,24 @@ export default {
         'Cela dépend de la taille de l’organisation, de ses enjeux réglementaires et de la phase : souvent plus soutenu au démarrage ou avant une certification, puis allégé en rythme de croisière. Le dimensionnement est défini au cadrage et revu régulièrement.',
     },
     {
-      question: 'Un RSSI externalisé peut-il nous aider pour NIS2 ou ISO 27001 ?',
+      question: 'Quelle différence entre un RSSI externalisé et un consultant en cybersécurité ?',
       answer:
-        'Oui, c’est un cas d’usage fréquent. Il pilote la démarche de bout en bout : analyse de risques, plan d’action, mise en conformité, préparation et suivi des audits, puis maintien dans le temps une fois la certification obtenue ou la loi applicable.',
+        'Un consultant intervient sur une mission délimitée (un audit, un projet) puis s’en va. Le RSSI externalisé s’inscrit dans la durée : il porte la responsabilité du pilotage de la sécurité, suit les risques en continu et vous représente auprès des clients et des auditeurs.',
+    },
+    {
+      question: 'NIS2 oblige-t-elle à avoir un RSSI ?',
+      answer:
+        'La directive n’impose pas d’intitulé de poste, mais elle exige que la direction approuve et supervise les mesures de gestion des risques de cybersécurité, et qu’elle en réponde. En pratique, un responsable identifié qui pilote ces mesures et prépare les décisions est indispensable : c’est le rôle d’un RSSI, interne ou externalisé.',
+    },
+    {
+      question: 'Un RSSI externalisé peut-il nous aider pour ISO 27001 ou DORA ?',
+      answer:
+        'Oui, c’est un cas d’usage fréquent. Il pilote la démarche de bout en bout : analyse de risques, plan d’action, mise en conformité, préparation et suivi des audits, puis maintien dans le temps une fois la certification obtenue ou la réglementation applicable.',
+    },
+    {
+      question: 'Un RSSI externalisé peut-il remplacer temporairement notre RSSI ?',
+      answer:
+        'Oui. Après un départ ou pendant une absence longue, un RSSI externalisé reprend le pilotage, maintient les engagements en cours (audits, projets, réponses aux clients) et prépare, si vous le souhaitez, la passation avec le futur RSSI interne.',
     },
     {
       question: 'Que se passe-t-il en cas d’incident de sécurité ?',
@@ -87,9 +104,14 @@ export default {
         'Le RSSI externalisé prépare en amont le plan de réponse et les exercices, puis vous accompagne pendant la crise : qualification, décisions, communication, coordination des intervenants et, le cas échéant, notification aux autorités dans les délais réglementaires.',
     },
     {
+      question: 'Quelle différence entre un RSSI externalisé et un DPO externalisé ?',
+      answer:
+        'Le RSSI protège le système d’information et pilote la cybersécurité. Le DPO veille à la conformité des traitements de données personnelles au RGPD. Les deux rôles travaillent ensemble mais restent distincts ; SecuriTrust propose les deux.',
+    },
+    {
       question: 'Dépend-on d’une seule personne ?',
       answer:
-        'Non. L’expert est adossé à un cabinet, ce qui garantit un relais en cas d’absence, l’accès à des compétences complémentaires (pentest, conformité, juridique) et la continuité de la documentation et du pilotage.',
+        'Non. L’expert est adossé à un cabinet, ce qui garantit un relais en cas d’absence, l’accès à des compétences complémentaires (conformité, analyse de risques, technique, juridique) et la continuité de la documentation et du pilotage.',
     },
   ],
   resource: null,
@@ -98,7 +120,9 @@ export default {
     { label: 'Directive NIS2', href: '/nis2', description: 'Un responsable identifié pour porter la conformité NIS2.' },
     { label: 'Certification ISO 27001', href: '/iso27001', description: 'Construire et faire vivre votre SMSI.' },
     { label: 'Pilotage du SMSI', href: '/pilotage-smsi', description: 'Le pilotage opérationnel de votre système de management.' },
-    { label: 'Tous nos pentests', href: '/pentest', description: 'Les tests que votre RSSI planifie et exploite.' },
+    { label: 'DPO externalisé', href: '/dpo-externalise', description: 'La conformité RGPD, complémentaire du RSSI externalisé.' },
+    { label: 'Analyse de risques EBIOS RM', href: '/ebios-rm', description: 'La méthode utilisée par votre RSSI pour prioriser.' },
+    { label: 'Cas clients', href: '/cas-clients', description: 'Des missions de RSSI externalisé et de conformité, détaillées.' },
   ],
   articles: [],
 };
