@@ -41,10 +41,10 @@ export const ARTICLE_SERVICES: Record<string, [string, string][]> = {
     ['Audit Microsoft 365', '/audit-o365'],
     ['Test d’intrusion externe', '/pentest-externe'],
   ],
-  'nis2-entite-essentielle-ou-importante-methode-pas-a-pas': [['Conformité NIS2', '/nis2'], ['Évaluation de maturité', '/evaluation-maturite']],
-  'nis2-en-france-obligations-sanctions-et-mesures-concretes-pour-2026': [['Conformité NIS2', '/nis2'], ['Audit de cybersécurité', '/audit-cybersecurite']],
+  'nis2-entite-essentielle-ou-importante-methode-pas-a-pas': [['Conformité NIS2', '/nis2'], ['RSSI externalisé', '/rssi-externalise'], ['Évaluation de maturité', '/evaluation-maturite']],
+  'nis2-en-france-obligations-sanctions-et-mesures-concretes-pour-2026': [['Conformité NIS2', '/nis2'], ['RSSI externalisé', '/rssi-externalise'], ['Audit de cybersécurité', '/audit-cybersecurite']],
   'dora-registre-d-informations-prestataires-tic-mode-d-emploi': [['Conformité DORA', '/dora'], ['RSSI externalisé', '/rssi-externalise']],
-  'declaration-d-applicabilite-iso-27001-la-construire-sans-se-perdre': [['Certification ISO 27001', '/iso27001'], ['Analyse de risques EBIOS RM', '/ebios-rm']],
+  'declaration-d-applicabilite-iso-27001-la-construire-sans-se-perdre': [['Certification ISO 27001', '/iso27001'], ['RSSI externalisé', '/rssi-externalise'], ['Analyse de risques EBIOS RM', '/ebios-rm']],
 };
 
 export const RELATED_ARTICLES: Record<string, string[]> = {

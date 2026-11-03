@@ -53,6 +53,12 @@ export default {
 </ul>`,
     },
     {
+      id: 'rssi-paris',
+      title: 'Un RSSI externalisé à Paris et en Île-de-France',
+      html: `<p>SecuriTrust est installé à Paris, dans le 16<sup>e</sup> arrondissement (11 rue Saint-Didier). Pour les entreprises de Paris et d’Île-de-France, votre RSSI externalisé est présent <strong>sur site</strong> pour les moments qui comptent : comités de direction et comités sécurité, ateliers d’analyse de risques, audits et revues, gestion de crise. Le suivi courant se fait à distance, au rythme défini au cadrage.</p>
+<p>Cette proximité permet de connaître vos équipes, vos locaux et vos prestataires, et d’intervenir vite quand un incident ou un audit l’exige. Pour les organisations implantées sur plusieurs sites en France, la mission s’organise autour du siège, avec des déplacements planifiés.</p>`,
+    },
+    {
       id: 'rssi-conformite',
       title: 'RSSI externalisé et conformité NIS2, DORA, ISO 27001',
       html: `<p>Les principaux référentiels ne demandent pas un intitulé de poste, mais ils exigent une responsabilité de la sécurité <strong>identifiée, pilotée et suivie par la direction</strong>. C’est précisément le rôle du RSSI externalisé.</p>
