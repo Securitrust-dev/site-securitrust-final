@@ -108,7 +108,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
     }
 
     // /api/contact ne lit que name/email/phone/company/subject/message/source : le besoin
-    // part dans `subject` (e-mail et /admin-stats). `source` reste « LP RSSI » ;
+    // part dans `subject` (e-mail + Notion). `source` reste « LP RSSI » (select Notion) ;
     // l'origine exacte (page SEO ou annonces) est rappelée dans le sujet.
     const fd = new FormData(form);
     const besoin = String(fd.get("besoin") || "non précisé");

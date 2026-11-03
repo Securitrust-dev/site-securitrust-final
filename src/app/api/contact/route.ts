@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { createLead, isDolibarrConfigured } from '@/lib/dolibarr';
+import { createLeadInNotion, isNotionConfigured } from '@/lib/notion';
 import { saveLead, markLeadEmail } from '@/lib/leads-store';
 
 // Init paresseuse : une clé absente ne doit pas casser la route (ni le push Dolibarr).
@@ -78,7 +79,7 @@ export async function POST(req: NextRequest) {
     const pagePath = typeof page === 'string' ? page : (req.headers.get('referer') || '').replace(/^https?:\/\/[^/]+/, '') || undefined;
 
     // 0. Sauvegarde du lead (Turso) AVANT tout envoi : aucune demande perdue,
-    //    même si l'e-mail et Dolibarr échouent. Visible dans /admin-stats.
+    //    même si l'e-mail, Notion et Dolibarr échouent. Visible dans /admin-stats.
     let stored = false;
     try {
       await saveLead({ id: leadId, name, email, phone, company, subject, message, source, page: pagePath });
@@ -87,8 +88,8 @@ export async function POST(req: NextRequest) {
       console.error('[contact] sauvegarde Turso échouée', e);
     }
 
-    // Formulaires de la page NIS2 : envoi direct par e-mail uniquement, sans Dolibarr.
-    // L'e-mail est alors obligatoire : s'il échoue, le visiteur voit l'erreur
+    // Formulaires de la page NIS2 : envoi direct par e-mail uniquement, ni Dolibarr ni
+    // Notion. L'e-mail est alors obligatoire : s'il échoue, le visiteur voit l'erreur
     // (sa saisie est conservée, avec téléphone et adresse de repli) au lieu d'un faux
     // « merci » pour une demande que personne ne recevrait.
     const emailOnly = typeof source === 'string' && EMAIL_ONLY_SOURCES.some((prefix) => source.startsWith(prefix));
@@ -108,8 +109,7 @@ export async function POST(req: NextRequest) {
         : NextResponse.json({ success: false, error: 'email_failed', reason: publicReason(mail.reason) }, { status: 502 });
     }
 
-    // 2. Dolibarr (best-effort). Notion a été débranché le 2 novembre 2026 : les leads
-    //    sont conservés dans Turso (/admin-stats) et envoyés par e-mail (Resend).
+    // 2. Dolibarr (best-effort)
     let inCrm = false;
     if (isDolibarrConfigured()) {
       try {
@@ -132,6 +132,23 @@ export async function POST(req: NextRequest) {
         inCrm = true;
       } catch (e) {
         console.error('[contact] création Dolibarr échouée', e);
+      }
+    }
+
+    // 3. Notion (best-effort)
+    if (isNotionConfigured()) {
+      try {
+        await createLeadInNotion({
+          name: name || company || email,
+          email,
+          phone,
+          company,
+          source: source === 'LP RSSI' ? 'LP RSSI' : 'Contact',
+          subjectMessage: [subject, message].filter(Boolean).join(' — '),
+        });
+        inCrm = true;
+      } catch (e) {
+        console.error('[contact] création Notion échouée', e);
       }
     }
 

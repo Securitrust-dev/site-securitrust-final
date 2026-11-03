@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { createLead, isDolibarrConfigured } from '@/lib/dolibarr';
+import { createLeadInNotion, isNotionConfigured } from '@/lib/notion';
 
 // Init paresseuse : une clé absente ne doit pas casser la route (ni le push Dolibarr).
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -46,6 +47,21 @@ export async function POST(req: NextRequest) {
         });
       } catch (e) {
         console.error('[lead] création Dolibarr échouée', e);
+      }
+    }
+
+    // 3. Notion (best-effort — stockage principal des leads)
+    if (isNotionConfigured()) {
+      try {
+        await createLeadInNotion({
+          name: organisation || email,
+          email,
+          phone: telephone,
+          company: organisation,
+          source: 'Hero',
+        });
+      } catch (e) {
+        console.error('[lead] création Notion échouée', e);
       }
     }
 
