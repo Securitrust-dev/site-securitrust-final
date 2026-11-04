@@ -225,11 +225,11 @@ export async function dbCategoriesWithArticles(): Promise<string[]> {
 
 /** Articles enregistrés (dépôt + base) pour les sitemaps. */
 export async function listStoredArticleUrls(): Promise<{ slug: string; category: string; updatedAt: string }[]> {
-  const rows: Pick<StoredArticle, 'slug' | 'slugFr' | 'category' | 'sourceUrl' | 'updatedAt' | 'createdAt'>[] = [...STORED_ARTICLES];
+  const rows: Pick<StoredArticle, 'slug' | 'slugFr' | 'category' | 'source' | 'sourceUrl' | 'author' | 'updatedAt' | 'createdAt'>[] = [...STORED_ARTICLES];
   try {
     rows.push(
       ...(await db
-        .select({ slug: articles.slug, slugFr: articles.slugFr, category: articles.category, sourceUrl: articles.sourceUrl, updatedAt: articles.updatedAt, createdAt: articles.createdAt })
+        .select({ slug: articles.slug, slugFr: articles.slugFr, category: articles.category, source: articles.source, sourceUrl: articles.sourceUrl, author: articles.author, updatedAt: articles.updatedAt, createdAt: articles.createdAt })
         .from(articles)
         .where(eq(articles.published, true))),
     );
@@ -241,7 +241,8 @@ export async function listStoredArticleUrls(): Promise<{ slug: string; category:
   return rows
     .filter((r) => {
       const keys = [r.slugFr || r.slug, r.sourceUrl].filter((k): k is string => !!k);
-      if (isHidden(r) || DUPLICATE_SLUGS.has(r.slugFr || r.slug) || keys.some((k) => seen.has(k))) return false;
+      // Les articles de veille sont en noindex : ils ne vont pas dans le plan du site.
+      if (isVeille(r) || isHidden(r) || DUPLICATE_SLUGS.has(r.slugFr || r.slug) || keys.some((k) => seen.has(k))) return false;
       keys.forEach((k) => seen.add(k));
       return true;
     })

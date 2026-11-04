@@ -49,7 +49,7 @@ export const META_DESCRIPTIONS = {
   '/rgpd': 'Mise en conformité RGPD : audit, registre des traitements, AIPD, contrats de sous-traitance, DPO externalisé et sensibilisation des équipes.',
 
   // Tests d'intrusion et audits techniques
-  '/pentest': 'Cabinet de pentest à Paris : tests d’intrusion externes, internes, web, mobile, Active Directory, physiques et Red Team, menés par des experts certifiés OSCP.',
+  '/pentest': 'Test d’intrusion (pentest) à Paris : tests externes, internes, web, mobile, Active Directory, physiques et Red Team, menés par des experts certifiés OSCP.',
   '/pentest-paris': 'Test d’intrusion à Paris : nos pentesteurs certifiés OSCP et CEH évaluent vos applications, votre réseau et votre Active Directory depuis notre cabinet du 16e.',
   '/pentest-externe': 'Test d’intrusion externe : nos pentesteurs certifiés OSCP attaquent votre périmètre Internet (sites, API, VPN, messagerie) en boîte noire, grise ou blanche.',
   '/pentest-interne': 'Pentest interne : simulation d’un attaquant déjà présent sur votre réseau, mouvements latéraux, escalade de privilèges et efficacité de la segmentation.',

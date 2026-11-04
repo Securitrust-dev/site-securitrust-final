@@ -19,6 +19,20 @@ export const HIDDEN_SLUGS = new Set([
 ]);
 
 /**
+ * Titre court pour la balise <title> quand le titre de l'article, suffixe « | SecuriTrust »
+ * compris, dépasse 65 caractères (Google le coupe). Le H1 et l'Open Graph gardent le titre
+ * complet. Tenu ici, et non dans le texte des articles, que `npm run blog:export` réécrit.
+ */
+export const SEO_TITLES: Record<string, string> = {
+  'nis2-en-france-obligations-sanctions-et-mesures-concretes-pour-2026': 'NIS2 en France : obligations, sanctions et mesures',
+  'nis2-entite-essentielle-ou-importante-methode-pas-a-pas': 'NIS2 : entité essentielle ou importante ?',
+  'dora-registre-d-informations-prestataires-tic-mode-d-emploi': 'Registre d\'informations DORA : mode d\'emploi',
+  'declaration-d-applicabilite-iso-27001-la-construire-sans-se-perdre': 'Déclaration d\'applicabilité ISO 27001 : méthode',
+  'les-failles-que-nous-retrouvons-le-plus-souvent-en-pentest-active-directory': 'Pentest Active Directory : faiblesses fréquentes',
+  'preparer-un-pentest-web-perimetre-comptes-de-test-regles-d-engagement': 'Préparer un pentest web : périmètre et règles',
+};
+
+/**
  * Articles liés affichés en « À lire aussi » sous l'article. Tenu ici plutôt que dans le
  * texte des articles, que `npm run blog:export` réécrit depuis la base.
  */

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Audit Microsoft 365 — Sécurité tenant, Secure Score & Conformité | SecuriTrust</title>
+<title>Audit Microsoft 365 et Office 365 | SecuriTrust</title>
 <meta name="description" content="Audit de sécurité Microsoft 365 : identités et MFA, accès conditionnel, messagerie, partage de données et Secure Score, avec un plan d’action priorisé." />
 <meta name="theme-color" content="#0a0a0a" />
 
@@ -931,6 +931,11 @@
 #pl#pl .pl-sec strong { color: #fff; font-weight: 600; }
 #pl#pl .pl-sec table { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: .92rem; }
 #pl#pl .pl-sec th, #pl#pl .pl-sec td { text-align: left; padding: 11px 14px; border: 1px solid var(--pl-line); vertical-align: top; color: #c7d0dd; }
+/* Mobile : un tableau trop large défile dans son cadre au lieu d'élargir la page. */
+@media (max-width: 640px) {
+  #pl#pl .pl-sec table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #pl#pl .pl-sec th, #pl#pl .pl-sec td { padding: 9px 10px; }
+}
 #pl#pl .pl-sec thead th { background: var(--pl-card); color: #fff; font-weight: 600; }
 
 #pl#pl .pl-faq { border: 1px solid var(--pl-line); border-radius: 12px; background: var(--pl-card); margin-bottom: 12px; overflow: hidden; }

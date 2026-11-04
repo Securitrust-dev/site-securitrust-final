@@ -206,7 +206,7 @@ export default function AccompagnementPage() {
                   Accompagnement de bout en bout ou partiel jusqu&apos;à la conformité normative et/ou règlementaire
                 </h3>
               </div>
-              <span className="text-cyan-500 font-mono text-xs whitespace-nowrap shrink-0 mt-1">01 // CERTIFICATION</span>
+              <span className="hidden sm:block text-cyan-500 font-mono text-xs whitespace-nowrap shrink-0 mt-1">01 // CERTIFICATION</span>
             </div>
 
             {/* 5 étapes */}
@@ -308,7 +308,7 @@ export default function AccompagnementPage() {
                   Exemples de livrables réalisés dans le cadre d&apos;une mise en conformité
                 </h3>
               </div>
-              <span className="text-cyan-500 font-mono text-xs whitespace-nowrap shrink-0 mt-1">02 // LIVRABLES</span>
+              <span className="hidden sm:block text-cyan-500 font-mono text-xs whitespace-nowrap shrink-0 mt-1">02 // LIVRABLES</span>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {livrables.map((item) => (

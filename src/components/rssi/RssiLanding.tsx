@@ -296,7 +296,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
         <section className="section" id="missions">
           <div className="wrap">
             <p className="eyebrow">Missions</p>
-            <h2>Les missions d&apos;un RSSI externalisé</h2>
+            <h2>Les missions d&apos;un RSSI à temps partagé</h2>
             <p className="lead">Le périmètre se dimensionne selon vos enjeux. Dans la plupart des missions, votre RSSI externalisé prend en charge&nbsp;:</p>
 
             <div className="feat-grid">
@@ -443,7 +443,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
         <section className="section" id="deroule">
           <div className="wrap">
             <p className="eyebrow">Déroulé</p>
-            <h2>Comment se déroule une mission de RSSI externalisé&nbsp;?</h2>
+            <h2>Comment se déroule la mission&nbsp;?</h2>
             <p className="lead">Un socle solide la première année, puis un pilotage continu qui s&apos;ajuste à vos priorités et à votre niveau de risque.</p>
             <div className="timeline">
               <div className="tl-item">

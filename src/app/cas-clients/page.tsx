@@ -10,7 +10,7 @@ import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 import { logoDims } from '@/content/logo-dims';
 
 const PATH = '/cas-clients';
-const TITLE = 'Cas clients cybersécurité et conformité — Références';
+const TITLE = 'Cas clients cybersécurité et conformité';
 
 export const metadata: Metadata = {
   title: TITLE,

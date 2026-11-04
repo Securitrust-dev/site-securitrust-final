@@ -21,6 +21,27 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   (sauvegarde des leads et /admin-stats en échec), rotation des secrets présents dans
   l'historique Git (le dépôt est public).
 
+## 2026-11-04 — Lot SEO préparé avec Claude (validation humaine, à publier)
+- Googlebot ajouté à `htmlLimitedBots` (next.config.js, validé par l'humain) : title,
+  description et canonique dans le `<head>` du HTML initial (86 pages React concernées).
+- Veille (39 actualités reprises) en noindex et hors du plan du site ; titres d'articles
+  et de cas clients sous 65 caractères ; titres de 30 pages raccourcis.
+- /pentest repositionnée sur « test d'intrusion » (title, H1, meta, guide pilier, FAQ sans
+  montant) ; liens depuis les guides pentest web et AD. /pentest-externe (gelée) inchangée.
+- /rssi-externalise : guide dé-sur-optimisé (« RSSI externalisé » 57 → 31 occurrences sur
+  la page), seule correction autorisée pendant le gel ; plus rien jusqu'au 15 décembre.
+- Attendu : clics sur les requêtes en positions 10–20, remontée de « test d'intrusion »
+  (positions 55–75), stabilisation de RSSI externalisé. Contrôle mi-décembre.
+- Corrections ajoutées avant publication (Claude, validées par l'humain le 4 novembre) :
+  tableaux des guides piliers défilants sous 640 px (/dora débordait à 411 px) ; étiquettes
+  « 01 // CERTIFICATION » et « 02 // LIVRABLES » masquées sur mobile et title raccourci
+  (77 → 58 caractères) sur /gouvernance-conformite/accompagnement ; titres courts dédiés
+  (`SEO_TITLES`, src/lib/blog-store.ts) pour les 6 articles d'expertise dont le title
+  dépassait 65 caractères, H1 inchangés ; package-lock.json resynchronisé
+  (@anthropic-ai/sdk manquant, aucune version existante modifiée).
+- Le lot touche next.config.js et /rssi-externalise (gelée) : validation humaine explicite
+  du 4 novembre.
+
 ## Entrées
 
 - 2026-11-05 · Claude (demande explicite de l'utilisateur, pages gelées et zones

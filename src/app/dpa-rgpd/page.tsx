@@ -9,7 +9,7 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'DPA & Sous-Traitance RGPD — Accords de Traitement des Données',
+  title: 'DPA RGPD : accord de sous-traitance des données',
   description: metaDescription('/dpa-rgpd'),
   alternates: {
     canonical: 'https://www.securitrust.fr/dpa-rgpd',

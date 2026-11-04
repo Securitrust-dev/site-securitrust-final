@@ -20,7 +20,7 @@ import { classifyArticle } from '@/lib/articles';
 import { RSS_SANITIZE_OPTIONS, RSS_FEED_URL, generateSlug, extractImage, RSS_STOP_WORDS } from '@/lib/rss-utils';
 import ArticleInfographic from '@/components/ArticleInfographic';
 import { BLOG_URL, VEILLE_PATH, categoryUrl, cleanAuthor, formatFrDate, toIsoDate } from '@/lib/blog';
-import { ARTICLE_SERVICES, DUPLICATE_SLUGS, HIDDEN_SLUGS, RELATED_ARTICLES, STORED_ARTICLES, findStoredArticle, isHidden, isVeille } from '@/lib/blog-store';
+import { ARTICLE_SERVICES, DUPLICATE_SLUGS, HIDDEN_SLUGS, RELATED_ARTICLES, SEO_TITLES, STORED_ARTICLES, findStoredArticle, isHidden, isVeille } from '@/lib/blog-store';
 import { clampDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { unstable_cache } from 'next/cache';
 
@@ -400,11 +400,18 @@ export async function generateMetadata({ params }: ArticlePageProps) {
   // Tout article synthétisé est indexable ; seul le repli brut (texte anglais de la
   // source) reste en noindex avec un canonical vers l'original.
   const rawCopy = isRawFeedCopy(article);
+  // Veille (synthèse d'une actualité externe) : consultable mais hors de l'index Google.
+  // Ces reprises courtes n'apportent pas de visites et pèsent sur l'évaluation du site ;
+  // l'index est réservé aux articles d'expertise rédigés par le cabinet.
+  const veille = isVeille(article);
+  // Suffixe de marque seulement si le titre reste lisible en entier dans Google (65 car.).
+  const seoTitle = SEO_TITLES[article.slugFr || article.slug] ?? SEO_TITLES[article.slug] ?? metaTitle;
+  const branded = `${seoTitle} | SecuriTrust`;
   return {
-    title: { absolute: `${metaTitle} | SecuriTrust` },
+    title: { absolute: branded.length <= 65 ? branded : seoTitle },
     description: metaDescription,
     robots: {
-      index: !rawCopy,
+      index: !rawCopy && !veille,
       follow: true,
     },
     alternates: {

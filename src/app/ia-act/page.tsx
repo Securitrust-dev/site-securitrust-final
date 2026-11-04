@@ -9,7 +9,7 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Conformité IA Act — Règlement Européen sur l\'Intelligence Artificielle',
+  title: 'Conformité IA Act : le règlement européen sur l\'IA',
   description: metaDescription('/ia-act'),
   alternates: {
     canonical: 'https://www.securitrust.fr/ia-act',

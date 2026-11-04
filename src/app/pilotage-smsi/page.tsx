@@ -9,7 +9,7 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Pilotage SMSI — Système de Management de la Sécurité de l\'Information',
+  title: 'Pilotage SMSI : management de la sécurité',
   description: metaDescription('/pilotage-smsi'),
   alternates: {
     canonical: 'https://www.securitrust.fr/pilotage-smsi',

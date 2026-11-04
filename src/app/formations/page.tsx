@@ -12,14 +12,14 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Formations cybersécurité en ligne et en présentiel à Paris',
+  title: 'Formations cybersécurité à Paris et en ligne',
   description: metaDescription('/formations'),
   alternates: {
     canonical: 'https://www.securitrust.fr/formations',
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: 'Formations cybersécurité en ligne et en présentiel à Paris',
+    title: 'Formations cybersécurité à Paris et en ligne',
     description: 'Formations en ligne en cybersécurité par des experts certifiés OSCP : Pentest, OWASP, Hacking Éthique, Forensics, RGPD.',
     url: 'https://www.securitrust.fr/formations',
     type: 'website',

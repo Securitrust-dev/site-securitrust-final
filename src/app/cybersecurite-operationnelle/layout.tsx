@@ -4,7 +4,7 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Cybersécurité Opérationnelle — Pentest Entreprise & Audit',
+  title: 'Cybersécurité opérationnelle : pentest et audit',
   description: metaDescription('/cybersecurite-operationnelle'),
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <ServiceSchema
-        name="Cybersécurité Opérationnelle — Pentest Entreprise & Audit"
+        name="Cybersécurité opérationnelle : pentest et audit"
         description="Cabinet de cybersécurité opérationnelle à Paris. Pentest entreprise, audit cybersécurité PME et test d'intrusion en France. Experts certifiés OSCP."
         url="https://www.securitrust.fr/cybersecurite-operationnelle"
       />

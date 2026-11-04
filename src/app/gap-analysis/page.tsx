@@ -9,7 +9,7 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Audit d\'Écart (Gap Analysis) — Cartographie de vos Non-Conformités',
+  title: 'Gap analysis : audit d\'écart de conformité',
   description: metaDescription('/gap-analysis'),
   alternates: {
     canonical: 'https://www.securitrust.fr/gap-analysis',

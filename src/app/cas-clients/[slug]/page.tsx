@@ -22,13 +22,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const cas = casBySlug((await params).slug);
   if (!cas) return {};
   const url = `${SITE_URL}/cas-clients/${cas.slug}`;
-  const title = `${titleOf(cas.client, cas.mission)} — Cas client`;
+  // Titre final = title + « | SecuriTrust » (gabarit du layout) : 65 caractères au plus,
+  // sinon Google le coupe. On retire d'abord « — Cas client », puis le suffixe de marque.
+  const base = titleOf(cas.client, cas.mission);
+  const withTag = `${base} — Cas client`;
+  const title = withTag.length + 15 <= 65 ? withTag : base.length + 15 <= 65 ? base : { absolute: base };
   const description = clampDescription(cas.chapeau);
   return {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { images: [DEFAULT_OG_IMAGE], title: `${title} | SecuriTrust`, description, url, type: 'article', siteName: 'SecuriTrust', locale: 'fr_FR' },
+    openGraph: { images: [DEFAULT_OG_IMAGE], title: `${base} | SecuriTrust`, description, url, type: 'article', siteName: 'SecuriTrust', locale: 'fr_FR' },
   };
 }
 

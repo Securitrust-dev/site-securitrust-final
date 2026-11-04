@@ -3,14 +3,15 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Accompagnement Conformité Cybersécurité — ISO 27001, RGPD, NIS2 | SecuriTrust',
+  // 65 caractères au plus (au-delà, Google coupe le titre) ; reprend le H1 de la page.
+  title: { absolute: 'Accompagnement à la conformité cybersécurité | SecuriTrust' },
   description: metaDescription('/gouvernance-conformite/accompagnement'),
   alternates: {
     canonical: 'https://www.securitrust.fr/gouvernance-conformite/accompagnement',
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: 'Accompagnement Conformité Cybersécurité — ISO 27001, RGPD, NIS2',
+    title: 'Accompagnement cybersécurité et conformité',
     description: "Accompagnement sur-mesure pour votre conformité cybersécurité : ISO 27001, RGPD, NIS2, DORA, HDS. Experts SecuriTrust.",
     url: 'https://www.securitrust.fr/gouvernance-conformite/accompagnement',
     type: 'website',

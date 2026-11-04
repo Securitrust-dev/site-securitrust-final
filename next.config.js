@@ -7,6 +7,11 @@ const STATIC_CSP_HASHES = JSON.parse(readFileSync(new URL('./src/site-chrome/gen
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Next.js diffuse les métadonnées (title, description, canonique) après le début du HTML
+  // pour les visiteurs qui ne sont pas des robots « limités ». Googlebot n'est pas dans la
+  // liste par défaut : il recevait ces balises hors du <head>. On le traite comme les autres
+  // robots pour que le <head> soit complet dès le HTML initial.
+  htmlLimitedBots: /Googlebot|Google-InspectionTool|Storebot-Google|bingbot|BingPreview|Slurp|DuckDuckBot|Baiduspider|YandexBot|Applebot|facebookexternalhit|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|Qwantbot|GPTBot|ClaudeBot|PerplexityBot/i,
   compress: true,
   poweredByHeader: false,
   typescript: {

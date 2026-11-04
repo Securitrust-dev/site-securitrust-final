@@ -6,9 +6,11 @@
 // charge par public/site-tracking.js, chargé sur toutes les pages.
 
 import { html as rssiHtml, schema as rssiSchema } from '@/site-chrome/generated/rssi-externalise';
+import { html as pentestHtml, schema as pentestSchema } from '@/site-chrome/generated/pentest';
 
 const GUIDES: Record<string, { html: string; schema: object }> = {
   'rssi-externalise': { html: rssiHtml, schema: rssiSchema },
+  pentest: { html: pentestHtml, schema: pentestSchema },
 };
 
 export function PillarGuide({ slug }: { slug: string }) {

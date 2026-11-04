@@ -4,14 +4,14 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Évaluation de Maturité Cybersécurité — Diagnostic SSI Entreprise',
+  title: 'Diagnostic de maturité cybersécurité',
   description: metaDescription('/evaluation-maturite'),
   alternates: {
     canonical: 'https://www.securitrust.fr/evaluation-maturite',
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: 'Évaluation de Maturité Cybersécurité — Diagnostic SSI Entreprise',
+    title: 'Diagnostic de maturité cybersécurité',
     description: "Mesurez votre niveau de maturité cybersécurité avec SecuriTrust. Diagnostic basé sur ISO 27001, NIST, CMMI avec plan de remédiation prioritisé.",
     url: 'https://www.securitrust.fr/evaluation-maturite',
     type: 'website',
@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <ServiceSchema
-        name="Évaluation de Maturité Cybersécurité — Diagnostic SSI Entreprise"
+        name="Diagnostic de maturité cybersécurité"
         description="Évaluez le niveau de maturité cybersécurité de votre organisation selon des référentiels reconnus (ISO 27001, NIST, CMMI). Diagnostic complet, rapport détaillé et plan de remédiation."
         url="https://www.securitrust.fr/evaluation-maturite"
       />

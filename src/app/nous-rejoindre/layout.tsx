@@ -3,14 +3,14 @@ import { metaDescription } from '@/site-chrome/meta-descriptions.mjs';
 import { DEFAULT_OG_IMAGE } from '@/site-chrome/og-image.mjs';
 
 export const metadata: Metadata = {
-  title: 'Rejoindre SecuriTrust — Carrières en Cybersécurité à Paris',
+  title: 'Carrières en cybersécurité à Paris',
   description: metaDescription('/nous-rejoindre'),
   alternates: {
     canonical: 'https://www.securitrust.fr/nous-rejoindre',
   },
   openGraph: {
     images: [DEFAULT_OG_IMAGE],
-    title: 'Rejoindre SecuriTrust — Carrières en Cybersécurité à Paris',
+    title: 'Carrières en cybersécurité à Paris',
     description: "Rejoignez SecuriTrust : pentest, audit SSI, conformité. Offres d'emploi en cybersécurité à Paris.",
     url: 'https://www.securitrust.fr/nous-rejoindre',
     type: 'website',
