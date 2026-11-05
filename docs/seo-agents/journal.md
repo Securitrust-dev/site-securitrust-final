@@ -20,3 +20,15 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
 - En attente côté humain : clé Resend (envoi des e-mails de leads en échec), base Turso
   (sauvegarde des leads et /admin-stats en échec), rotation des secrets présents dans
   l'historique Git (le dépôt est public).
+
+## Entrées
+
+- 2026-11-05 · Claude (validation humaine explicite, zones interdites) · captcha anti-spam
+  Cloudflare Turnstile sur tous les formulaires de demande · /contact, pages d'offre
+  (LeadForm), /rssi-externalise, /lp/rssi-externalise, /en/outsourced-ciso, formulaires
+  des pages statiques (site-tracking.js), /api/contact, /api/lead, CSP · bloquer le spam
+  des formulaires sans gêner les prospects (widget invisible sauf défi, chargé à la
+  première interaction) · captcha inactif tant que NEXT_PUBLIC_TURNSTILE_SITE_KEY et
+  TURNSTILE_SECRET_KEY ne sont pas définies dans Vercel, puis demandes sans jeton valide
+  refusées (403 captcha_failed). Constat hors périmètre : /dora déborde déjà de 21 px à
+  390 px (tableau), à corriger séparément.

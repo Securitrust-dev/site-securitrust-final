@@ -68,6 +68,99 @@
     return undefined;
   }
 
+  // Captcha anti-spam Cloudflare Turnstile des formulaires statiques. La clé publique est
+  // lue sur GET /api/contact au premier focus ou clic dans un formulaire ; sans clé
+  // (captcha non configuré), rien ne change. Widget « interaction-only » : invisible sauf
+  // si Cloudflare exige une interaction du visiteur.
+  var TS_SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  var tsKeyPromise = null;
+  var tsScriptPromise = null;
+
+  function captchaKey() {
+    if (!tsKeyPromise) {
+      tsKeyPromise = fetch('/api/contact', { method: 'GET', credentials: 'same-origin' })
+        .then(function (res) { return res.ok ? res.json() : {}; })
+        .then(function (data) { return (data && data.turnstileSiteKey) || ''; })
+        .catch(function () { tsKeyPromise = null; return ''; });
+    }
+    return tsKeyPromise;
+  }
+
+  function loadTurnstile() {
+    if (window.turnstile) return Promise.resolve(window.turnstile);
+    if (tsScriptPromise) return tsScriptPromise;
+    tsScriptPromise = new Promise(function (resolve) {
+      var s = document.createElement('script');
+      s.src = TS_SCRIPT;
+      s.async = true;
+      s.defer = true;
+      s.onload = function () {
+        var tries = 0;
+        (function check() {
+          if (window.turnstile) return resolve(window.turnstile);
+          if (++tries > 50) return resolve(null);
+          setTimeout(check, 50);
+        })();
+      };
+      s.onerror = function () { tsScriptPromise = null; resolve(null); };
+      document.head.appendChild(s);
+    });
+    return tsScriptPromise;
+  }
+
+  // Affiche le widget avant le bouton d'envoi (une seule fois par formulaire).
+  function startCaptcha(form) {
+    if (form.__stCaptcha) return form.__stCaptcha;
+    form.__stCaptcha = captchaKey().then(function (key) {
+      if (!key) return null;
+      return loadTurnstile().then(function (ts) {
+        if (!ts) return null;
+        var btn = form.querySelector('button[type="submit"]');
+        var box = document.createElement('div');
+        box.className = 'st-captcha';
+        box.style.maxWidth = '100%';
+        box.style.overflow = 'hidden';
+        if (btn && btn.parentNode) btn.parentNode.insertBefore(box, btn);
+        else form.appendChild(box);
+        try {
+          return ts.render(box, { sitekey: key, appearance: 'interaction-only', language: 'fr', action: 'lead' });
+        } catch (err) {
+          return null;
+        }
+      });
+    });
+    return form.__stCaptcha;
+  }
+
+  // Jeton du formulaire : attend au plus 6 s qu'il soit prêt ; chaîne vide sans captcha.
+  function captchaToken(form) {
+    var deadline = Date.now() + 6000;
+    function read() {
+      var input = form.querySelector('input[name="cf-turnstile-response"]');
+      return input ? String(input.value || '').trim() : '';
+    }
+    return startCaptcha(form).then(function (widgetId) {
+      if (widgetId === null || widgetId === undefined) return '';
+      return new Promise(function (resolve) {
+        (function poll() {
+          var t = read();
+          if (t || Date.now() >= deadline) return resolve(t);
+          setTimeout(poll, 150);
+        })();
+      });
+    }).catch(function () { return ''; });
+  }
+
+  // Nouveau défi après un envoi (réussi ou non) : un jeton ne sert qu'une fois.
+  function resetCaptcha(form) {
+    if (!form.__stCaptcha) return;
+    form.__stCaptcha.then(function (widgetId) {
+      if (widgetId !== null && widgetId !== undefined && window.turnstile) {
+        try { window.turnstile.reset(widgetId); } catch (err) { /* widget retiré */ }
+      }
+    });
+  }
+
   // Formulaires de rappel des landing pages statiques : envoi réel vers /api/contact.
   function bindStaticForm(form) {
     var btn = form.querySelector('button[type="submit"]');
@@ -81,6 +174,15 @@
       status.hidden = false;
     }
 
+    // Captcha chargé au premier focus ou clic dans le formulaire, pas au chargement de la page.
+    function onFirstInteraction() {
+      form.removeEventListener('focusin', onFirstInteraction);
+      form.removeEventListener('click', onFirstInteraction);
+      startCaptcha(form);
+    }
+    form.addEventListener('focusin', onFirstInteraction);
+    form.addEventListener('click', onFirstInteraction);
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (form.__stSending) return;
@@ -91,19 +193,23 @@
       btn.textContent = 'Envoi en cours…';
       status.hidden = true;
 
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: fd.get('name'),
-          email: fd.get('email'),
-          phone: fd.get('phone'),
-          company: fd.get('company') || undefined,
-          subject: form.getAttribute('data-subject'),
-          message: form.getAttribute('data-message') || undefined,
-          source: form.getAttribute('data-source'),
-        }),
-      })
+      captchaToken(form)
+        .then(function (turnstileToken) {
+          return fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: fd.get('name'),
+              email: fd.get('email'),
+              phone: fd.get('phone'),
+              company: fd.get('company') || undefined,
+              subject: form.getAttribute('data-subject'),
+              message: form.getAttribute('data-message') || undefined,
+              source: form.getAttribute('data-source'),
+              turnstileToken: turnstileToken || undefined,
+            }),
+          });
+        })
         .then(function (res) {
           if (!res.ok) throw new Error('http_' + res.status);
           return res.json().catch(function () { return {}; });
@@ -156,6 +262,7 @@
           );
         })
         .then(function () {
+          resetCaptcha(form);
           form.__stSending = false;
           btn.disabled = false;
           btn.textContent = label;

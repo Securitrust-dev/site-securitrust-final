@@ -22,6 +22,7 @@ import "@/app/rssi-externalise/lp-v2.css";
 import "@/app/rssi-externalise/lp-v3.css";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { trackLead, trackLeadError } from "@/lib/analytics";
+import { Captcha, captchaToken } from "@/components/brand/Captcha";
 import { logoDims } from "@/content/logo-dims";
 
 const spaceGrotesk = Space_Grotesk({
@@ -86,6 +87,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState(false);
+  const [captchaReset, setCaptchaReset] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -114,6 +116,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
     const besoin = String(fd.get("besoin") || "non précisé");
     setSending(true);
     setSendError(false);
+    const turnstileToken = await captchaToken(form);
     let res: Response;
     try {
       res = await fetch("/api/contact", {
@@ -127,6 +130,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
           subject: `RSSI externalisé${isAds ? " (annonce Google Ads)" : ""} — besoin : ${besoin}`,
           source: "LP RSSI",
           page: isAds ? "/lp/rssi-externalise" : "/rssi-externalise",
+          turnstileToken,
         }),
       });
     } catch {
@@ -136,6 +140,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
     if (!res.ok) {
       trackLeadError(formId, res.status === 599 ? "network" : `http_${res.status}`);
       setSendError(true);
+      setCaptchaReset((n) => n + 1);
       return;
     }
     let leadId: string | undefined;
@@ -233,6 +238,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
                       <label htmlFor="f-consent">J&apos;accepte que SecuriTrust utilise ces informations pour me recontacter dans le cadre de ma demande. Aucun transfert à des tiers.</label>
                     </div>
 
+                    <Captcha resetKey={captchaReset} />
                     <button type="submit" className="btn btn-primary" disabled={sending}>{sending ? "Envoi en cours…" : "Être rappelé sous 2h →"}</button>
                     {sendError && (
                       <p className="micro" role="alert" style={{ color: "#ffd2b0" }}>

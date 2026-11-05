@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 import { createLead, isDolibarrConfigured } from '@/lib/dolibarr';
 import { createLeadInNotion, isNotionConfigured } from '@/lib/notion';
 import { saveLead, markLeadEmail } from '@/lib/leads-store';
+import { captchaSiteKey, clientIp, verifyCaptcha } from '@/lib/captcha';
 
 // Init paresseuse : une clé absente ne doit pas casser la route (ni le push Dolibarr).
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -66,11 +67,28 @@ const PUBLIC_REASONS = new Set([
 ]);
 const publicReason = (r: string) => (PUBLIC_REASONS.has(r) ? r : 'resend_error');
 
+/**
+ * Clé publique du captcha Turnstile, lue par les pages statiques (public/site-tracking.js).
+ * Chaîne vide tant que le captcha n'est pas configuré : les formulaires restent inchangés.
+ */
+export async function GET() {
+  return NextResponse.json(
+    { turnstileSiteKey: captchaSiteKey() },
+    { headers: { 'Cache-Control': 'public, max-age=300, s-maxage=300' } },
+  );
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, phone, company, subject, message, source, page, website } = await req.json();
+    const { name, email, phone, company, subject, message, source, page, website, turnstileToken } = await req.json();
     // Pot de miel des formulaires statiques : champ invisible, rempli par les seuls robots.
     if (website) return NextResponse.json({ success: true });
+    // Captcha anti-spam (Cloudflare Turnstile) ; désactivé tant que la clé secrète est absente.
+    const captcha = await verifyCaptcha(turnstileToken, clientIp(req.headers));
+    if (!captcha.ok) {
+      console.warn('[contact] captcha refusé', captcha.reason);
+      return NextResponse.json({ success: false, error: 'captcha_failed' }, { status: 403 });
+    }
     if (!name || !email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }

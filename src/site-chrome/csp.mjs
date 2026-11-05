@@ -13,7 +13,8 @@
 //  - Axeptio (bandeau de consentement, injecté par GTM) ;
 //  - Calendly (widget de /prise-de-rdv) ;
 //  - images : stockage Supabase du site, Unsplash et images du flux de veille ;
-//  - YouTube : vidéos des formations.
+//  - YouTube : vidéos des formations ;
+//  - Cloudflare Turnstile (captcha anti-spam des formulaires) : script, vérification, iframe.
 //
 // styles : 'unsafe-inline' reste nécessaire. Les composants React posent des attributs
 // style="…" (qu'aucun nonce ne peut couvrir) et Axeptio, Calendly et GTM injectent leurs
@@ -30,6 +31,8 @@ const SCRIPT_HOSTS = [
   'https://assets.calendly.com',
   // PostHog (analyse produit) : script et envoi des événements (eu.i.posthog.com, eu-assets.i.posthog.com…).
   'https://*.posthog.com',
+  // Cloudflare Turnstile (captcha anti-spam des formulaires).
+  'https://challenges.cloudflare.com',
 ];
 
 const GOOGLE_PIXELS = [
@@ -75,8 +78,9 @@ export function buildCsp({ nonce, hashes = [], dev = false } = {}) {
       'https://*.analytics.google.com',
       ...GOOGLE_PIXELS,
       'https://ad.doubleclick.net',
+      'https://challenges.cloudflare.com',
     ].join(' '),
-    "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://calendly.com https://www.youtube.com",
+    "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://calendly.com https://www.youtube.com https://challenges.cloudflare.com",
     "object-src 'none'",
     // Équivalent moderne de X-Frame-Options (conservé pour les anciens navigateurs).
     "frame-ancestors 'none'",

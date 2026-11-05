@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { trackLead, trackLeadError } from '@/lib/analytics';
+import { Captcha, captchaToken } from '@/components/brand/Captcha';
 
 // Formulaire de demande commun aux pages d'offre (charte RSSI, thème statique).
 // Envoie vers /api/contact (e-mail + Dolibarr + Notion) avec la source de la page.
@@ -37,10 +38,12 @@ export function LeadForm({
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [captchaReset, setCaptchaReset] = useState(0);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const email = String(fd.get('email') || '').trim();
     const domain = email.split('@')[1]?.toLowerCase();
     if (domain && PERSONAL.has(domain)) {
@@ -49,6 +52,7 @@ export function LeadForm({
     }
     setError(null);
     setSending(true);
+    const turnstileToken = await captchaToken(form);
     let res: Response;
     try {
       res = await fetch('/api/contact', {
@@ -63,6 +67,7 @@ export function LeadForm({
           subject: `Demande ${source}`,
           source,
           website: fd.get('website'),
+          turnstileToken,
         }),
       });
     } catch {
@@ -71,6 +76,7 @@ export function LeadForm({
     setSending(false);
     if (!res.ok) {
       trackLeadError(formId, res.status === 599 ? 'network' : `http_${res.status}`);
+      setCaptchaReset((n) => n + 1);
       setError('L’envoi a échoué. Appelez-nous au 01 86 04 44 31 ou écrivez à expertise@securitrust.fr.');
       return;
     }
@@ -119,6 +125,7 @@ export function LeadForm({
         <input type="checkbox" name="consent" required />
         <span>J’accepte que SecuriTrust utilise ces informations pour me recontacter dans le cadre de ma demande. Aucun transfert à des tiers.</span>
       </label>
+      <Captcha resetKey={captchaReset} />
       {error && <p className="form-error" role="alert">{error}</p>}
       <button type="submit" className="btn-primary" disabled={sending}>
         {sending ? 'Envoi…' : submitLabel} {!sending && <ArrowRight size={16} />}

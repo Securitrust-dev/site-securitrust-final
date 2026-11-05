@@ -4,6 +4,7 @@ import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { trackLead, trackLeadError } from '@/lib/analytics';
+import { Captcha, captchaToken } from '@/components/brand/Captcha';
 import { MapPin, Phone, Mail, Clock, Send, Linkedin } from 'lucide-react';
 import { StaticThemeShell } from '@/components/static-theme/StaticThemeShell';
 import { InternalLinks } from '@/components/InternalLinks';
@@ -31,17 +32,22 @@ function ContactPageInner() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   // Retour affiché sous le bouton (aucun <Toaster> n'est monté : les toasts restaient invisibles).
   const [status, setStatus] = useState<'idle' | 'ok' | 'err'>('idle');
+  const [captchaReset, setCaptchaReset] = useState(0);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    // Pot de miel : champ invisible, rempli par les seuls robots.
+    const website = String(new FormData(form).get('website') || '');
     setIsSubmitting(true);
     setStatus('idle');
 
     try {
+      const turnstileToken = await captchaToken(form);
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, website, turnstileToken }),
       });
       if (!res.ok) throw new Error(`http_${res.status}`);
 
@@ -51,6 +57,7 @@ function ContactPageInner() {
     } catch (err) {
       trackLeadError('contact', err instanceof Error ? err.message : 'network');
       setStatus('err');
+      setCaptchaReset((n) => n + 1);
     } finally {
       setIsSubmitting(false);
     }
@@ -216,6 +223,17 @@ function ContactPageInner() {
                     required
                   />
                 </div>
+
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hp-field"
+                  style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                />
+                <Captcha resetKey={captchaReset} />
 
                 <button type="submit" disabled={isSubmitting} className="btn-primary">
                   {isSubmitting ? (

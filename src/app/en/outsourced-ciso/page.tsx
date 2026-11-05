@@ -5,6 +5,7 @@ import { Space_Grotesk } from "next/font/google";
 import "../../rssi-externalise/lp.css";
 import "../../rssi-externalise/lp-v2.css";
 import { trackLead, trackLeadError } from "@/lib/analytics";
+import { Captcha, captchaToken } from "@/components/brand/Captcha";
 import { logoDims } from "@/content/logo-dims";
 
 /* ============================================================================
@@ -69,6 +70,7 @@ export default function HomeDesignLPEnPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState(false);
+  const [captchaReset, setCaptchaReset] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -99,6 +101,7 @@ export default function HomeDesignLPEnPage() {
     const fd = new FormData(form);
     setSending(true);
     setSendError(false);
+    const turnstileToken = await captchaToken(form);
     let res: Response;
     try {
       res = await fetch("/api/contact", {
@@ -110,6 +113,7 @@ export default function HomeDesignLPEnPage() {
           phone: fd.get("phone"),
           subject: `[EN] Home — need: ${fd.get("besoin") || "not specified"}`,
           source: "Contact",
+          turnstileToken,
         }),
       });
     } catch {
@@ -119,6 +123,7 @@ export default function HomeDesignLPEnPage() {
     if (!res.ok) {
       trackLeadError("rssi_rappel_en", res.status === 599 ? "network" : `http_${res.status}`);
       setSendError(true);
+      setCaptchaReset((n) => n + 1);
       return;
     }
     trackLead("rssi_rappel_en", String(fd.get("besoin") || "") || undefined);
@@ -201,6 +206,7 @@ export default function HomeDesignLPEnPage() {
                     <label htmlFor="f-consent">I agree that SecuriTrust may use this information to contact me about my enquiry. Nothing is shared with third parties.</label>
                   </div>
 
+                  <Captcha resetKey={captchaReset} language="en" />
                   <button type="submit" className="btn btn-primary" disabled={sending}>{sending ? "Sending…" : "Get a call back within 2 hours →"}</button>
                   {sendError && (
                     <p className="micro" role="alert" style={{ color: "#ffd2b0" }}>

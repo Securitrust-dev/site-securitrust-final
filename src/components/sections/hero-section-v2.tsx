@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowRight, Shield, CheckCircle2, Eye, Lock, FileText } from 'lucide-react';
 import Image from 'next/image';
 import { trackLead, trackLeadError } from '@/lib/analytics';
+import { Captcha, captchaToken } from '@/components/brand/Captcha';
 
 const clientLogos = [
   { src: '/clients/abeille-assurance.jpg', alt: 'Abeille Assurance' },
@@ -97,6 +98,8 @@ const ScoreCardPreview = () => (
 const LeadForm = () => {
   const [fields, setFields] = useState({ url: '', email: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
+  const [captchaReset, setCaptchaReset] = useState(0);
+  const boxRef = useRef<HTMLDivElement>(null);
 
   const update = (key: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setFields(prev => ({ ...prev, [key]: e.target.value }));
@@ -105,17 +108,22 @@ const LeadForm = () => {
     if (!fields.email) return;
     setStatus('loading');
     try {
+      const turnstileToken = await captchaToken(boxRef.current);
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ organisation: fields.url, email: fields.email }),
+        body: JSON.stringify({ organisation: fields.url, email: fields.email, turnstileToken }),
       });
       if (res.ok) trackLead('hero_audit');
-      else trackLeadError('hero_audit', `http_${res.status}`);
+      else {
+        trackLeadError('hero_audit', `http_${res.status}`);
+        setCaptchaReset((n) => n + 1);
+      }
       setStatus(res.ok ? 'done' : 'error');
     } catch {
       trackLeadError('hero_audit', 'network');
       setStatus('error');
+      setCaptchaReset((n) => n + 1);
     }
   };
 
@@ -134,9 +142,10 @@ const LeadForm = () => {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" ref={boxRef}>
       <input type="url" placeholder="URL de votre site (ex: monentreprise.fr)" value={fields.url} onChange={update('url')} className={inp} />
       <input type="email" placeholder="Email professionnel *" value={fields.email} onChange={update('email')} className={inp} />
+      <Captcha resetKey={captchaReset} />
       <button
         onClick={submit}
         disabled={status === 'loading' || !fields.email}
