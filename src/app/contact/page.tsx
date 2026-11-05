@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { trackLead, trackLeadError } from '@/lib/analytics';
 import { Captcha, captchaToken } from '@/components/brand/Captcha';
+import { isProEmail, PRO_EMAIL_MESSAGE } from '@/lib/email-pro';
 import { MapPin, Phone, Mail, Clock, Send, Linkedin } from 'lucide-react';
 import { StaticThemeShell } from '@/components/static-theme/StaticThemeShell';
 import { InternalLinks } from '@/components/InternalLinks';
@@ -31,7 +32,7 @@ function ContactPageInner() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   // Retour affiché sous le bouton (aucun <Toaster> n'est monté : les toasts restaient invisibles).
-  const [status, setStatus] = useState<'idle' | 'ok' | 'err'>('idle');
+  const [status, setStatus] = useState<'idle' | 'ok' | 'err' | 'pro'>('idle');
   const [captchaReset, setCaptchaReset] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,6 +40,11 @@ function ContactPageInner() {
     const form = e.currentTarget;
     // Pot de miel : champ invisible, rempli par les seuls robots.
     const website = String(new FormData(form).get('website') || '');
+    // Adresses non professionnelles bloquées avant envoi (contrôle refait côté serveur).
+    if (!isProEmail(formData.email)) {
+      setStatus('pro');
+      return;
+    }
     setIsSubmitting(true);
     setStatus('idle');
 
@@ -49,6 +55,12 @@ function ContactPageInner() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, website, turnstileToken }),
       });
+      if (res.status === 422) {
+        trackLeadError('contact', 'http_422');
+        setStatus('pro');
+        setCaptchaReset((n) => n + 1);
+        return;
+      }
       if (!res.ok) throw new Error(`http_${res.status}`);
 
       trackLead('contact', formData.subject || undefined);
@@ -261,6 +273,8 @@ function ContactPageInner() {
                   >
                     {status === 'ok' ? (
                       <><strong>Message bien reçu.</strong> Nous vous recontactons dans les plus brefs délais.</>
+                    ) : status === 'pro' ? (
+                      <>{PRO_EMAIL_MESSAGE}</>
                     ) : (
                       <>L&apos;envoi n&apos;a pas abouti, votre saisie est conservée. Réessayez, ou contactez-nous au{' '}
                         <a href="tel:+33186044431" style={{ color: 'inherit', textDecoration: 'underline' }}>01 86 04 44 31</a> /{' '}

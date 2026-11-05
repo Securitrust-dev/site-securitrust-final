@@ -5,6 +5,7 @@ import { ArrowRight, Shield, CheckCircle2, Eye, Lock, FileText } from 'lucide-re
 import Image from 'next/image';
 import { trackLead, trackLeadError } from '@/lib/analytics';
 import { Captcha, captchaToken } from '@/components/brand/Captcha';
+import { isProEmail, PRO_EMAIL_MESSAGE } from '@/lib/email-pro';
 
 const clientLogos = [
   { src: '/clients/abeille-assurance.jpg', alt: 'Abeille Assurance' },
@@ -97,7 +98,7 @@ const ScoreCardPreview = () => (
 /* ── Lead Form ─────────────────────────────────────────── */
 const LeadForm = () => {
   const [fields, setFields] = useState({ url: '', email: '' });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error' | 'pro'>('idle');
   const [captchaReset, setCaptchaReset] = useState(0);
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -106,6 +107,11 @@ const LeadForm = () => {
 
   const submit = async () => {
     if (!fields.email) return;
+    // Adresses non professionnelles bloquées avant envoi (contrôle refait côté serveur).
+    if (!isProEmail(fields.email)) {
+      setStatus('pro');
+      return;
+    }
     setStatus('loading');
     try {
       const turnstileToken = await captchaToken(boxRef.current);
@@ -119,7 +125,7 @@ const LeadForm = () => {
         trackLeadError('hero_audit', `http_${res.status}`);
         setCaptchaReset((n) => n + 1);
       }
-      setStatus(res.ok ? 'done' : 'error');
+      setStatus(res.ok ? 'done' : res.status === 422 ? 'pro' : 'error');
     } catch {
       trackLeadError('hero_audit', 'network');
       setStatus('error');
@@ -159,6 +165,7 @@ const LeadForm = () => {
       >
         {status === 'loading' ? 'Analyse en cours…' : <>Lancer mon audit gratuit maintenant <ArrowRight className="w-4 h-4" /></>}
       </button>
+      {status === 'pro' && <p className="text-red-400 text-xs text-center">{PRO_EMAIL_MESSAGE}</p>}
       {status === 'error' && <p className="text-red-400 text-xs text-center">Une erreur s&apos;est produite. Réessayez.</p>}
       <p className="text-slate-500 text-xs text-center">Résultats immédiats · Sans engagement · RGPD conforme</p>
     </div>

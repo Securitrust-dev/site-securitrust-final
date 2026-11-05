@@ -254,6 +254,17 @@
         })
         .catch(function (err) {
           track('lead_form_error', { form_id: formId, error_type: String(err && err.message || 'network') });
+          // Adresse non professionnelle refusée par /api/contact (src/lib/email-pro.ts) :
+          // rien n'a été transmis, le visiteur corrige son adresse.
+          if (err && err.message === 'http_422') {
+            var emailInput = form.querySelector('input[name="email"]');
+            if (emailInput) emailInput.focus();
+            show(
+              'err',
+              'Merci d’indiquer votre adresse e-mail professionnelle (les messageries personnelles et les adresses jetables ne sont pas acceptées).'
+            );
+            return;
+          }
           // Saisie conservée : le visiteur peut réessayer ou nous joindre directement.
           show(
             'err',

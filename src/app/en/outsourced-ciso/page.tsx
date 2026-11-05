@@ -6,6 +6,7 @@ import "../../rssi-externalise/lp.css";
 import "../../rssi-externalise/lp-v2.css";
 import { trackLead, trackLeadError } from "@/lib/analytics";
 import { Captcha, captchaToken } from "@/components/brand/Captcha";
+import { isProEmail, PRO_EMAIL_MESSAGE_EN } from "@/lib/email-pro";
 import { logoDims } from "@/content/logo-dims";
 
 /* ============================================================================
@@ -44,14 +45,6 @@ const clientLogos = [
   { src: "/clients/white/bollore.png", alt: "Bolloré Logistics" },
 ];
 
-// Consumer email domains are rejected: we only keep work addresses.
-const PERSONAL_EMAIL_DOMAINS = new Set([
-  "gmail.com", "googlemail.com", "yahoo.com", "yahoo.fr", "ymail.com",
-  "hotmail.com", "hotmail.fr", "outlook.com", "outlook.fr", "live.com", "live.fr", "msn.com",
-  "icloud.com", "me.com", "mac.com", "aol.com", "gmx.com", "gmx.fr",
-  "free.fr", "orange.fr", "wanadoo.fr", "sfr.fr", "laposte.net", "bbox.fr",
-  "neuf.fr", "numericable.fr", "protonmail.com", "proton.me", "yopmail.com",
-]);
 
 const CHECK = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M20 6L9 17l-5-5" /></svg>
@@ -80,12 +73,9 @@ export default function HomeDesignLPEnPage() {
 
     const emailInput = form.querySelector<HTMLInputElement>("#f-email");
     if (emailInput) {
-      const domain = emailInput.value.trim().split("@")[1]?.toLowerCase() ?? "";
-      emailInput.setCustomValidity(
-        domain && PERSONAL_EMAIL_DOMAINS.has(domain)
-          ? "Please use a work email address."
-          : "",
-      );
+      // Adresses non professionnelles bloquées avant envoi (contrôle refait côté serveur).
+      const value = emailInput.value.trim();
+      emailInput.setCustomValidity(value && !isProEmail(value) ? PRO_EMAIL_MESSAGE_EN : "");
     }
 
     if (!form.checkValidity()) {

@@ -4,6 +4,7 @@ import { createLead, isDolibarrConfigured } from '@/lib/dolibarr';
 import { createLeadInNotion, isNotionConfigured } from '@/lib/notion';
 import { saveLead, markLeadEmail } from '@/lib/leads-store';
 import { captchaSiteKey, clientIp, verifyCaptcha } from '@/lib/captcha';
+import { checkProEmail } from '@/lib/email-pro';
 
 // Init paresseuse : une clé absente ne doit pas casser la route (ni le push Dolibarr).
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -83,14 +84,23 @@ export async function POST(req: NextRequest) {
     const { name, email, phone, company, subject, message, source, page, website, turnstileToken } = await req.json();
     // Pot de miel des formulaires statiques : champ invisible, rempli par les seuls robots.
     if (website) return NextResponse.json({ success: true });
+    if (!name || !email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+    }
+    // Adresses non professionnelles (messageries grand public, FAI, jetables) : refusées,
+    // rien n'est enregistré ni transmis (ni e-mail, ni Turso, ni Dolibarr, ni Notion).
+    const pro = checkProEmail(email);
+    if (!pro.ok) {
+      return NextResponse.json(
+        { success: false, error: pro.reason === 'personal' ? 'personal_email' : 'invalid_email' },
+        { status: 422 },
+      );
+    }
     // Captcha anti-spam (Cloudflare Turnstile) ; désactivé tant que la clé secrète est absente.
     const captcha = await verifyCaptcha(turnstileToken, clientIp(req.headers));
     if (!captcha.ok) {
       console.warn('[contact] captcha refusé', captcha.reason);
       return NextResponse.json({ success: false, error: 'captcha_failed' }, { status: 403 });
-    }
-    if (!name || !email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
 
     const leadId = crypto.randomUUID();

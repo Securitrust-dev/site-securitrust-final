@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 import { createLead, isDolibarrConfigured } from '@/lib/dolibarr';
 import { createLeadInNotion, isNotionConfigured } from '@/lib/notion';
 import { clientIp, verifyCaptcha } from '@/lib/captcha';
+import { checkProEmail } from '@/lib/email-pro';
 
 // Init paresseuse : une clé absente ne doit pas casser la route (ni le push Dolibarr).
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -13,6 +14,17 @@ export async function POST(req: NextRequest) {
     const { email, telephone } = body;
     // Pot de miel : champ invisible, rempli par les seuls robots.
     if (body.website) return NextResponse.json({ success: true });
+    if (!email) {
+      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+    }
+    // Adresses non professionnelles : refusées, rien n'est transmis.
+    const pro = checkProEmail(email);
+    if (!pro.ok) {
+      return NextResponse.json(
+        { success: false, error: pro.reason === 'personal' ? 'personal_email' : 'invalid_email' },
+        { status: 422 },
+      );
+    }
     // Captcha anti-spam (Cloudflare Turnstile) ; désactivé tant que la clé secrète est absente.
     const captcha = await verifyCaptcha(body.turnstileToken, clientIp(req.headers));
     if (!captcha.ok) {

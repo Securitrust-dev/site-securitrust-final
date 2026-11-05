@@ -4,15 +4,10 @@ import { useState } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { trackLead, trackLeadError } from '@/lib/analytics';
 import { Captcha, captchaToken } from '@/components/brand/Captcha';
+import { isProEmail, PRO_EMAIL_MESSAGE } from '@/lib/email-pro';
 
 // Formulaire de demande commun aux pages d'offre (charte RSSI, thème statique).
 // Envoie vers /api/contact (e-mail + Dolibarr + Notion) avec la source de la page.
-
-const PERSONAL = new Set([
-  'gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.fr', 'hotmail.com', 'hotmail.fr', 'outlook.com', 'outlook.fr',
-  'live.com', 'live.fr', 'msn.com', 'icloud.com', 'me.com', 'aol.com', 'gmx.com', 'gmx.fr', 'free.fr', 'orange.fr',
-  'wanadoo.fr', 'sfr.fr', 'laposte.net', 'protonmail.com', 'proton.me', 'yopmail.com',
-]);
 
 type Props = {
   /** Identifiant du formulaire pour GA4 (ex. pentest_externe). */
@@ -45,9 +40,9 @@ export function LeadForm({
     const form = e.currentTarget;
     const fd = new FormData(form);
     const email = String(fd.get('email') || '').trim();
-    const domain = email.split('@')[1]?.toLowerCase();
-    if (domain && PERSONAL.has(domain)) {
-      setError('Merci d’indiquer une adresse e-mail professionnelle.');
+    // Adresses non professionnelles bloquées avant envoi (contrôle refait côté serveur).
+    if (!isProEmail(email)) {
+      setError(PRO_EMAIL_MESSAGE);
       return;
     }
     setError(null);
@@ -77,6 +72,10 @@ export function LeadForm({
     if (!res.ok) {
       trackLeadError(formId, res.status === 599 ? 'network' : `http_${res.status}`);
       setCaptchaReset((n) => n + 1);
+      if (res.status === 422) {
+        setError(PRO_EMAIL_MESSAGE);
+        return;
+      }
       setError('L’envoi a échoué. Appelez-nous au 01 86 04 44 31 ou écrivez à expertise@securitrust.fr.');
       return;
     }

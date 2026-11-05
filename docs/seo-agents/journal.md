@@ -23,6 +23,14 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
 
 ## Entrées
 
+- 2026-11-05 · Claude (demande explicite de l'utilisateur, zones interdites) · filtre des
+  adresses e-mail non professionnelles sur tous les formulaires de demande · /contact,
+  pages d'offre (LeadForm), /rssi-externalise, /lp/rssi-externalise, /en/outsourced-ciso,
+  formulaire hero, pages statiques, /api/contact, /api/lead · ne recevoir que des leads
+  professionnels · messageries grand public, FAI, adresses jetables et domaines factices
+  bloqués dans le navigateur (message au visiteur) et refusés par le serveur (422
+  personal_email, rien n'est enregistré ni transmis). Source unique : src/lib/email-pro.ts.
+
 - 2026-11-05 · Claude (validation humaine explicite, zones interdites) · captcha anti-spam
   Cloudflare Turnstile sur tous les formulaires de demande · /contact, pages d'offre
   (LeadForm), /rssi-externalise, /lp/rssi-externalise, /en/outsourced-ciso, formulaires
