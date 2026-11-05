@@ -223,10 +223,6 @@ export function RssiLanding({ variant, cas, children }: Props) {
                       </select>
                     </div>
 
-                    <div className="field-consent">
-                      <input type="checkbox" id="f-consent" name="consent" required />
-                      <label htmlFor="f-consent">J&apos;accepte que SecuriTrust utilise ces informations pour me recontacter dans le cadre de ma demande. Aucun transfert à des tiers.</label>
-                    </div>
 
                     <Captcha resetKey={captchaReset} />
                     <button type="submit" className="btn btn-primary" disabled={sending}>{sending ? "Envoi en cours…" : "Être rappelé sous 2h →"}</button>
@@ -240,7 +236,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
                     )}
                     <p className="micro"><b>Réponse sous 2h</b> · <b>NDA dès le 1er échange</b></p>
 
-                    <p className="rgpd-notice">Les données collectées via ce formulaire sont traitées par SecuriTrust en qualité de responsable de traitement, sur la base de votre consentement, aux fins exclusives de traiter votre demande de contact. Elles sont conservées 24 mois puis supprimées. Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification, d&apos;effacement, de limitation et d&apos;opposition sur vos données — exerçables à <a href="mailto:dpo@securitrust.fr">dpo@securitrust.fr</a>. En savoir plus : <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>
+                    <p className="rgpd-notice">Les données collectées via ce formulaire sont traitées par SecuriTrust en qualité de responsable de traitement, pour répondre à votre demande de contact (mesures précontractuelles prises à votre demande, art. 6.1.b du RGPD). Aucun transfert à des tiers. Elles sont conservées 24 mois puis supprimées. Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification, d&apos;effacement, de limitation et d&apos;opposition sur vos données — exerçables à <a href="mailto:dpo@securitrust.fr">dpo@securitrust.fr</a>. En savoir plus : <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>
                   </form>
 
                   <div className={showSuccess ? "form-success show" : "form-success"} id="form-success" role="status" aria-live="polite">

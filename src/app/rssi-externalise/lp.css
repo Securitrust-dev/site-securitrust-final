@@ -528,6 +528,8 @@ html{scroll-behavior:smooth}
   background:rgba(2,8,23,.96);border-top:1px solid var(--line);backdrop-filter:blur(8px);
 }
 #lp-root#lp-root .sticky-cta .btn{padding:14px}
+/* Laisse la place au badge cookies Axeptio (bas gauche, ~53 px) sur mobile. */
+#lp-root#lp-root .sticky-cta{padding-left:84px}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:920px){

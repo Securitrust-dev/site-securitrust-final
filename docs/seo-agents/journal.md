@@ -23,6 +23,18 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
 
 ## Entrées
 
+- 2026-11-05 · Claude (demande explicite de l'utilisateur, pages gelées et zones
+  interdites) · correctifs de conversion rapides · /, /iso27001, /rssi-externalise,
+  en-tête commun · faciliter la demande de devis sur mobile · boutons « Échanger avec
+  un expert », « Être rappelé », « Évaluer ma situation », « Demander un échange » et
+  « Je veux un RDV » vers le formulaire (#contact) au lieu de Calendly, Calendly en lien
+  secondaire ; bouton fixe « Être rappelé sous 2h » sur mobile (accueil, ISO 27001),
+  décalé pour ne plus être masqué par le badge Axeptio (idem /rssi-externalise) ;
+  téléphone cliquable dans l'en-tête sous 1 200 px ; case de consentement obligatoire
+  retirée du formulaire RSSI (base légale : mesures précontractuelles, art. 6.1.b RGPD).
+  À aligner : la politique de confidentialité cite encore le consentement pour les
+  formulaires (page légale, validation humaine requise).
+
 - 2026-11-05 · Claude (demande explicite de l'utilisateur, zones interdites) · filtre des
   adresses e-mail non professionnelles sur tous les formulaires de demande · /contact,
   pages d'offre (LeadForm), /rssi-externalise, /lp/rssi-externalise, /en/outsourced-ciso,
