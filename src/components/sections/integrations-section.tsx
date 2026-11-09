@@ -38,7 +38,7 @@ export const IntegrationsSection = () => {
     { 
       name: 'Protection Ransomware', 
       icon: Lock,
-      href: '/cybersecurite-operationnelle',
+      href: '/pentest',
       description: 'Défense avancée contre les ransomwares'
     },
   ];

@@ -73,3 +73,17 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   TURNSTILE_SECRET_KEY ne sont pas définies dans Vercel, puis demandes sans jeton valide
   refusées (403 captcha_failed). Constat hors périmètre : /dora déborde déjà de 21 px à
   390 px (tableau), à corriger séparément.
+
+- 2026-11-09 · Claude (demande explicite de l'utilisateur, suppression de page et
+  next.config.js) · fusion de /cybersecurite-operationnelle dans /pentest et title de
+  /services · /pentest, /services, /cybersecurite-operationnelle (301 → /pentest),
+  /pentest-ad (lien retiré) · recommandations ChatSEO du 9 novembre : page faible (305
+  mots) qui doublonnait /pentest, et /services en concurrence avec l'accueil sur
+  « prestataire cybersécurité » · section « Quel test pour quel enjeu ? » sur /pentest
+  (contenu repris de l'ancienne page, rien d'ajouté) ; anciennes sous-pages et
+  /protection-ransomware redirigées directement vers /pentest ; title /services
+  « Services cybersécurité : audit, pentest et RSSI ». Non fait : canonique de
+  /dpo-externalise et /rssi-externalise, déjà présente dans le HTML serveur (faux positif
+  ChatSEO). Le H1 de /services contient encore « prestataire en cybersécurité ».
+  Attendu : /pentest consolide les signaux de l'ancienne URL ; l'accueil seul sur
+  « prestataire cybersécurité ». Contrôle mi-décembre.

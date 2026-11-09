@@ -181,8 +181,7 @@ const PAGES = {
   '/dpo-externalise': ['DPO externalisé', '/gouvernance-conformite'],
   '/dpa-rgpd': ['DPA & sous-traitance RGPD', '/gouvernance-conformite'],
 
-  '/cybersecurite-operationnelle': ['Cybersécurité opérationnelle', '/'],
-  '/sensibilisation-formation': ['Sensibilisation & formation', '/cybersecurite-operationnelle'],
+  '/sensibilisation-formation': ['Sensibilisation & formation', '/'],
 
   '/formations': ['Formations', '/'],
   '/formations/hacking-ethique-fondamentaux': ['Hacking éthique : les fondamentaux', '/formations'],

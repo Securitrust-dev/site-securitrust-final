@@ -77,7 +77,6 @@ export const META_DESCRIPTIONS = {
   '/formations/construire-smsi-iso-27001': 'Formation de 3 jours en présentiel à Paris pour construire un SMSI ISO/IEC 27001:2022 : périmètre, analyse de risques, déclaration d’applicabilité, audit.',
 
   // Parcours « cybersécurité opérationnelle »
-  '/cybersecurite-operationnelle': 'Cybersécurité opérationnelle pour PME et ETI : tests d’intrusion, audits et protection de la réputation, choisis selon ce que vous devez protéger en priorité.',
 
   // Secteurs
   '/secteurs': 'Cybersécurité par secteur : banque et finance, santé, tech, secteur public, retail et industrie, avec les réglementations propres à chacun.',

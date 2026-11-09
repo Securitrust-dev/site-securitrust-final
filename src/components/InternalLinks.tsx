@@ -212,13 +212,6 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   ],
 
   // ─── AUTRES SERVICES ────────────────────────────────────────
-  'cybersecurite-operationnelle': [
-    { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion pour valider votre sécurité opérationnelle en conditions réelles.' },
-    { title: 'Audit Cybersécurité', href: '/audit-cybersecurite', desc: 'Audit complet de votre posture opérationnelle technique et organisationnelle.' },
-    { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour piloter votre cybersécurité opérationnelle.' },
-    { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Gouvernance et conformité pour structurer votre sécurité opérationnelle.' },
-    { title: 'PCA / PRA', href: '/pcapra', desc: 'Plans de continuité et de reprise d\'activité.' },
-  ],
   'gouvernance-conformite': [
     { title: 'GRC Cyber', href: '/grc-cyber', desc: 'Service GRC complet pour piloter votre gouvernance et conformité au quotidien.' },
     { title: 'RSSI Externalisé', href: '/rssi-externalise', desc: 'Un RSSI externalisé pour incarner et piloter votre gouvernance cybersécurité.' },

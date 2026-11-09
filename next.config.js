@@ -66,9 +66,11 @@ const nextConfig = {
       { source: '/certification-iso-27001', destination: '/iso27001', permanent: true },
       { source: '/test-site-web', destination: '/pentest-web', permanent: true },
       // Fusions du 29/10/2026 : pages faibles supprimées, redirigées vers la page qui reprend le sujet.
-      { source: '/cybersecurite-operationnelle/proteger-chiffre-affaires', destination: '/cybersecurite-operationnelle', permanent: true },
-      { source: '/cybersecurite-operationnelle/exigences-reglementaires', destination: '/cybersecurite-operationnelle', permanent: true },
-      { source: '/cybersecurite-operationnelle/preserver-image-confiance', destination: '/cybersecurite-operationnelle', permanent: true },
+      // Fusionnée dans /pentest le 9 novembre 2026 (contenu repris dans « Quel test pour quel enjeu ? »)
+      { source: '/cybersecurite-operationnelle', destination: '/pentest', statusCode: 301 },
+      { source: '/cybersecurite-operationnelle/proteger-chiffre-affaires', destination: '/pentest', permanent: true },
+      { source: '/cybersecurite-operationnelle/exigences-reglementaires', destination: '/pentest', permanent: true },
+      { source: '/cybersecurite-operationnelle/preserver-image-confiance', destination: '/pentest', permanent: true },
       { source: '/gouvernance-conformite/services-externalises', destination: '/rssi-externalise', permanent: true },
       { source: '/gouvernance-conformite/audits', destination: '/audit-cybersecurite', permanent: true },
       { source: '/gouvernance-conformite/domaines-expertise', destination: '/gouvernance-conformite', permanent: true },
@@ -77,7 +79,7 @@ const nextConfig = {
       { source: '/audit-conformite', destination: '/gap-analysis', permanent: true },
       { source: '/gestion-risques', destination: '/ebios-rm', permanent: true },
       { source: '/cyber-vigilance-humaine', destination: '/sensibilisation-formation', permanent: true },
-      { source: '/protection-ransomware', destination: '/cybersecurite-operationnelle', permanent: true },
+      { source: '/protection-ransomware', destination: '/pentest', permanent: true },
       { source: '/strategie-cybersecurite', destination: '/rssi-externalise', permanent: true },
       { source: '/osint', destination: '/pentest-externe', permanent: true },
       { source: '/accueil-2', destination: '/', permanent: true },

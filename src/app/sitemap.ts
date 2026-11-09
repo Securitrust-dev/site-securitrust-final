@@ -30,7 +30,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/contact',
     '/equipe',
     '/certifications',
-    '/cybersecurite-operationnelle',
     '/dora',
     '/dpa-rgpd',
     '/dpo-externalise',
