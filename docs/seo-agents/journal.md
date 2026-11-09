@@ -112,3 +112,16 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   server hash mode » dans PostHog, service « posthog » dans Axeptio, mention dans la
   politique de cookies (page légale). Constat : le projet Axeptio publié ne contient aucun
   service ni étape Consent Mode ; le consentement GA4 n'est probablement jamais accordé.
+
+- 2026-11-09 · Claude (demande explicite de l'utilisateur, validation de la direction pour
+  les montants et pour la page gelée /pentest-externe) · tarifs indicatifs des tests
+  d'intrusion · /pentest (section « Quel est le prix d'un test d'intrusion ? » + FAQ),
+  /pentest-web (FAQ), /pentest-externe (FAQ, bandeau du haut, appel à l'action),
+  /pentest-interne (bloc tarif + FAQ avec données structurées FAQPage), meta descriptions
+  des 4 pages, exception ajoutée à la règle 2 de CLAUDE.md · fourchettes HT : web 3 500 à
+  5 500 €, externe 2 000 à 3 500 €, interne 2 500 à 4 500 €, combiné web + infrastructure
+  5 000 à 9 000 € · capter les requêtes « prix / tarif / combien coûte un pentest » et
+  améliorer le CTR (montants visibles dans les extraits) tout en qualifiant les leads.
+  /pentest-externe est gelée jusqu'au 15 décembre : modification validée par l'humain,
+  contenu existant inchangé (ajouts seulement). Attendu : hausse du CTR des 4 pages et
+  impressions sur les requêtes de prix. Contrôle mi-décembre.

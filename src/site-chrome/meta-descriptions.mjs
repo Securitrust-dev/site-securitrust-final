@@ -49,11 +49,11 @@ export const META_DESCRIPTIONS = {
   '/rgpd': 'Mise en conformité RGPD : audit, registre des traitements, AIPD, contrats de sous-traitance, DPO externalisé et sensibilisation des équipes.',
 
   // Tests d'intrusion et audits techniques
-  '/pentest': 'Test d’intrusion (pentest) à Paris : tests externes, internes, web, mobile, Active Directory, physiques et Red Team, menés par des experts certifiés OSCP.',
+  '/pentest': 'Test d’intrusion (pentest) à Paris par des experts certifiés OSCP : externe dès 2 000 € HT, interne, web, Active Directory. Tarifs indicatifs et devis en 24 h.',
   '/pentest-paris': 'Test d’intrusion à Paris : nos pentesteurs certifiés OSCP et CEH évaluent vos applications, votre réseau et votre Active Directory depuis notre cabinet du 16e.',
-  '/pentest-externe': 'Test d’intrusion externe : nos pentesteurs certifiés OSCP attaquent votre périmètre Internet (sites, API, VPN, messagerie) en boîte noire, grise ou blanche.',
-  '/pentest-interne': 'Pentest interne : simulation d’un attaquant déjà présent sur votre réseau, mouvements latéraux, escalade de privilèges et efficacité de la segmentation.',
-  '/pentest-web': 'Pentest d’application web et d’API selon l’OWASP WSTG : failles d’authentification, d’autorisation et de logique métier, rapport CVSS et re-test inclus.',
+  '/pentest-externe': 'Test d’intrusion externe de 2 000 à 3 500 € HT : nos pentesteurs certifiés OSCP attaquent vos sites, API, VPN et messagerie. Rapport CVSS et retest inclus.',
+  '/pentest-interne': 'Pentest interne de 2 500 à 4 500 € HT : simulation d’un attaquant présent sur votre réseau, mouvements latéraux, Active Directory et segmentation.',
+  '/pentest-web': 'Pentest d’application web et d’API de 3 500 à 5 500 € HT, selon l’OWASP WSTG : authentification, droits, logique métier. Rapport CVSS et re-test inclus.',
   '/pentest-mobile': 'Pentest d’application mobile iOS et Android selon l’OWASP MASVS : analyse statique et dynamique, stockage local, communications et API du backend.',
   '/pentest-ad': 'Pentest Active Directory : chemins d’attaque jusqu’aux droits d’administrateur du domaine, comptes à privilèges, délégations et durcissement à prévoir.',
   '/pentest-physique': 'Test d’intrusion physique de vos locaux : contrôle d’accès, badges, ingénierie sociale sur site et sécurité périmétrique, avec un rapport d’amélioration.',

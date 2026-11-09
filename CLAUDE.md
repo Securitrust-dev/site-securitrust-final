@@ -31,8 +31,12 @@ Langue du site et des messages de commit : **français**.
    date ou de résultat qui ne figure pas déjà dans le dépôt ou qui n'a pas été fourni par
    SecuriTrust. En cas de doute, ne pas écrire : le signaler dans le rapport.
 2. **Aucun montant** (TJM, prix, budget en euros pour SecuriTrust) : arbitrage de la
-   direction. Seule exception déjà publiée : le coût d'un RSSI salarié (80 000 à
-   120 000 € chargés par an) dans les comparatifs.
+   direction. Exceptions publiées : le coût d'un RSSI salarié (80 000 à
+   120 000 € chargés par an) dans les comparatifs, et les tarifs indicatifs HT des tests
+   d'intrusion validés par la direction le 9 novembre 2026 — pentest web 3 500 à
+   5 500 €, externe 2 000 à 3 500 €, interne 2 500 à 4 500 €, audit combiné (web +
+   infrastructure) 5 000 à 9 000 € — sur /pentest, /pentest-web, /pentest-externe et
+   /pentest-interne. Ne pas en créer d'autres ni les modifier sans nouvelle validation.
 3. **Cas clients** : ni prix, ni dates, ni nombre de jours ; jamais de lien entre un
    client nommé et un test d'intrusion, une vulnérabilité ou un incident. On parle
    d'« audit de sécurité » et d'« accompagnement ».
