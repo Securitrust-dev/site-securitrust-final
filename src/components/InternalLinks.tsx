@@ -19,7 +19,8 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
   ],
   'pentest-externe': [
     { title: 'Pentest Interne', href: '/pentest-interne', desc: 'Simulation d\'un attaquant déjà dans votre réseau : mouvement latéral, Active Directory.' },
-    { title: 'Pentest Web & Mobile', href: '/pentest-web', desc: 'Audit OWASP de vos applications web, API REST et mobiles iOS/Android.' },
+    { title: 'Pentest Web', href: '/pentest-web', desc: 'Audit OWASP de vos applications web et API REST.' },
+    { title: 'Pentest Mobile', href: '/pentest-mobile', desc: 'Audit OWASP MASVS de vos applications iOS et Android.' },
     { title: 'Red Team', href: '/red-team', desc: 'Simulation APT complète sur plusieurs semaines pour tester votre détection réelle.' },
     { title: 'Pentest', href: '/pentest', desc: 'Tests d\'intrusion externe, interne, web et mobile menés par des experts certifiés OSCP.' },
   ],
@@ -81,7 +82,8 @@ const LINKS_MAP: Record<string, LinkItem[]> = {
     { title: 'Audit de code source', href: '/audit-code-source', desc: 'Détecter les vulnérabilités applicatives directement dans le code.' },
   ],
   'audit-code-source': [
-    { title: 'Pentest Web & Mobile', href: '/pentest-web', desc: 'Complétez l\'analyse statique de code par des tests d\'intrusion sur vos applications.' },
+    { title: 'Pentest Web', href: '/pentest-web', desc: 'Complétez l\'analyse statique de code par des tests d\'intrusion sur vos applications web et API.' },
+    { title: 'Pentest Mobile', href: '/pentest-mobile', desc: 'Le même contrôle en conditions réelles pour vos applications iOS et Android.' },
     { title: 'Audit Sécurité Technique', href: '/audit-securite-technique', desc: 'Étendez l\'audit à toute l\'infrastructure hébergeant vos applications.' },
     { title: 'Secteur tech & SaaS', href: '/secteurs/tech', desc: 'Sécuriser le développement et l\'infrastructure sans freiner les équipes.' },
   ],

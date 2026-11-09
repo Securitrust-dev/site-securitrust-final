@@ -87,3 +87,11 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   ChatSEO). Le H1 de /services contient encore « prestataire en cybersécurité ».
   Attendu : /pentest consolide les signaux de l'ancienne URL ; l'accueil seul sur
   « prestataire cybersécurité ». Contrôle mi-décembre.
+
+- 2026-11-09 · Claude (demande explicite de l'utilisateur) · pentest web, mobile et Active
+  Directory présentés séparément · /pentest (grille des tests et section enjeux),
+  /audit-code-source (maillage) · la carte « Pentest Web & Mobile » de /pentest renvoyait
+  le web et le mobile vers /pentest-web, et /pentest-ad n'avait pas de carte : la page hub
+  ne transmettait pas de lien distinct à /pentest-mobile et /pentest-ad · une carte par
+  page (web, mobile, AD), descriptions reprises des meta descriptions de chaque page.
+  Attendu : chaque page de pentest reçoit son propre lien depuis la page hub.
