@@ -1,5 +1,6 @@
 "use client";
 
+import posthog from "posthog-js";
 import { useEffect, useRef } from "react";
 
 type ReporterProps = {
@@ -75,6 +76,8 @@ export default function ErrorReporter({ error, reset }: ReporterProps) {
   /* ─ extra postMessage when on the global-error route ─ */
   useEffect(() => {
     if (!error) return;
+
+    posthog.captureException(error);
     window.parent.postMessage(
       {
         type: "global-error-reset",

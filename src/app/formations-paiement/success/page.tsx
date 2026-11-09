@@ -6,6 +6,7 @@ import { Navbar } from '@/components/sections/navbar';
 import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
+import posthog from 'posthog-js';
 
 function FormationsSuccessContent() {
   const searchParams = useSearchParams();
@@ -24,6 +25,9 @@ function FormationsSuccessContent() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          if (data.analytics?.distinctId) {
+            posthog.identify(data.analytics.distinctId, data.analytics.personProperties);
+          }
           setStatus('success');
           setFormationSlug(data.formationSlug || '');
           setFormationTitle(data.formationTitle || '');
@@ -71,6 +75,7 @@ function FormationsSuccessContent() {
                 </p>
                 <a
                   href={`/formations/apprendre/${formationSlug}`}
+                  onClick={() => posthog.capture('formation_started', { formation_slug: formationSlug })}
                   className="btn-brand"
                 >
                   Commencer la formation

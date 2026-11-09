@@ -7,6 +7,7 @@ import { Footer } from '@/components/sections/footer';
 import { getFormationBySlug } from '@/lib/formations-data';
 import { Play, CheckCircle, ChevronLeft, ChevronRight, BookOpen, Clock } from 'lucide-react';
 import type { FormationModule } from '@/lib/formations-data';
+import posthog from 'posthog-js';
 
 export default function FormationLearnPage() {
   const params = useParams();
@@ -15,6 +16,20 @@ export default function FormationLearnPage() {
   const [activeModuleId, setActiveModuleId] = useState(1);
   const [completedModules, setCompletedModules] = useState<number[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Restore the authenticated purchaser identity after a refresh or return visit.
+  useEffect(() => {
+    if (!slug) return;
+
+    fetch(`/api/formations/verify-access?formation_slug=${encodeURIComponent(slug)}`, { method: 'POST' })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.analytics?.distinctId) {
+          posthog.identify(data.analytics.distinctId, data.analytics.personProperties);
+        }
+      })
+      .catch(() => {});
+  }, [slug]);
 
   // Load progress from localStorage
   useEffect(() => {
@@ -56,6 +71,13 @@ export default function FormationLearnPage() {
   }
 
   function goToModule(module: FormationModule) {
+    if (module.id !== activeModuleId) {
+      posthog.capture('formation_module_selected', {
+        formation_slug: slug,
+        module_id: module.id,
+        module_position: formation.modules.findIndex((item) => item.id === module.id) + 1,
+      });
+    }
     markComplete(activeModuleId);
     setActiveModuleId(module.id);
   }

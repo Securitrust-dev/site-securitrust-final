@@ -2,19 +2,67 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { db } from '@/db';
 import { formationPurchases } from '@/db/schema';
-import { eq } from 'drizzle-orm';
-import { generateAccessToken, setFormationAccessCookie } from '@/lib/formations-auth';
+import { and, eq } from 'drizzle-orm';
+import { generateAccessToken, setFormationAccessCookie, verifyAccessToken } from '@/lib/formations-auth';
 import { getFormationBySlug } from '@/lib/formations-data';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-11-17.clover',
 });
 
+function analyticsIdentity(purchase: {
+  id: number;
+  stripeCustomerId: string | null;
+  email: string;
+  customerName: string | null;
+  purchaseType: string;
+}) {
+  return {
+    distinctId: purchase.stripeCustomerId || `formation_purchase:${purchase.id}`,
+    personProperties: {
+      email: purchase.email,
+      name: purchase.customerName || undefined,
+      purchase_type: purchase.purchaseType,
+    },
+  };
+}
+
 // POST: Called from success page to verify session and create access
 export async function POST(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const sessionId = searchParams.get('session_id');
+    const formationSlugFromAccess = searchParams.get('formation_slug');
+
+    // Restore identity when an authenticated learner returns to a course.
+    if (!sessionId && formationSlugFromAccess) {
+      const token = req.cookies.get(`formation_access_${formationSlugFromAccess}`)?.value;
+      if (!token) {
+        return NextResponse.json({ success: false, error: 'Acces non autorise' }, { status: 401 });
+      }
+
+      const access = await verifyAccessToken(token);
+      if (!access.valid || access.formationSlug !== formationSlugFromAccess) {
+        return NextResponse.json({ success: false, error: 'Acces non autorise' }, { status: 401 });
+      }
+
+      const purchases = await db
+        .select()
+        .from(formationPurchases)
+        .where(and(
+          eq(formationPurchases.accessToken, token),
+          eq(formationPurchases.formationSlug, formationSlugFromAccess),
+          eq(formationPurchases.status, 'active'),
+        ))
+        .limit(1);
+      const purchase = purchases[0];
+
+      if (!purchase) {
+        return NextResponse.json({ success: false, error: 'Acces non autorise' }, { status: 401 });
+      }
+
+      return NextResponse.json({ success: true, analytics: analyticsIdentity(purchase) });
+    }
 
     if (!sessionId) {
       return NextResponse.json({ success: false, error: 'Session ID manquant' }, { status: 400 });
@@ -36,6 +84,7 @@ export async function POST(req: NextRequest) {
         success: true,
         formationSlug: purchase.formationSlug,
         formationTitle: formation?.title || '',
+        analytics: analyticsIdentity(purchase),
       });
     }
 
@@ -84,10 +133,22 @@ export async function POST(req: NextRequest) {
     // Set cookie
     await setFormationAccessCookie(formationSlug, token);
 
+    const createdPurchases = await db
+      .select()
+      .from(formationPurchases)
+      .where(eq(formationPurchases.stripeSessionId, sessionId))
+      .limit(1);
+    const createdPurchase = createdPurchases[0];
+
+    if (!createdPurchase) {
+      throw new Error('Formation purchase could not be loaded after creation');
+    }
+
     return NextResponse.json({
       success: true,
       formationSlug,
       formationTitle: formation.title,
+      analytics: analyticsIdentity(createdPurchase),
     });
   } catch (error) {
     console.error('[VERIFY_ACCESS_ERROR]', error);

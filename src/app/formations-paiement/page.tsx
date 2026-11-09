@@ -7,6 +7,7 @@ import { PromoBanner } from '@/components/sections/promo-banner';
 import { Footer } from '@/components/sections/footer';
 import { getFormationBySlug, getPublishedFormations, formatPrice } from '@/lib/formations-data';
 import { CheckCircle, CreditCard, ArrowRight, Shield, Lock } from 'lucide-react';
+import posthog from 'posthog-js';
 
 function FormationsPaiementContent() {
   const searchParams = useSearchParams();
@@ -30,6 +31,10 @@ function FormationsPaiementContent() {
     if (!formation || !email || !name) return;
     setLoading(true);
     setError('');
+    posthog.capture('formation_checkout_started', {
+      formation_slug: formation.slug,
+      purchase_type: purchaseType,
+    });
 
     try {
       const res = await fetch('/api/formations/checkout', {

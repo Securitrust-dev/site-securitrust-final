@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Search, Database, Building, Gavel, ChartLine, Globe, Share2, Link as LinkIcon, Landmark, CheckCircle, Rocket, Users, Star, Archive, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
+import posthog from 'posthog-js';
 
 interface OSINTSource {
   name: string;
@@ -180,6 +181,9 @@ export function OSINTSearchSection() {
       const result = await response.json();
       setCollectedData(result.data);
       setShowResults(true);
+      posthog.capture('osint_search_completed', {
+        source_count: sourceKeys.length,
+      });
       toast.success('Données collectées avec succès !');
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erreur lors de la recherche OSINT';

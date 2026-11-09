@@ -80,6 +80,7 @@ export function buildCsp({ nonce, hashes = [], dev = false } = {}) {
       'https://ad.doubleclick.net',
       'https://challenges.cloudflare.com',
     ].join(' '),
+    "worker-src 'self' blob:",
     "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://calendly.com https://www.youtube.com https://challenges.cloudflare.com",
     "object-src 'none'",
     // Équivalent moderne de X-Frame-Options (conservé pour les anciens navigateurs).
