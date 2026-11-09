@@ -26,7 +26,7 @@ export const META_DESCRIPTIONS = {
   '/cgv': 'Conditions générales de vente des prestations de conseil, d’audit et de tests d’intrusion de SecuriTrust : commande, tarifs, exécution, responsabilité.',
 
   // Offre RSSI et gouvernance
-  '/rssi-externalise': 'RSSI externalisé à Paris pour PME et ETI : un RSSI senior à temps partagé, sans recruter. Missions, tarifs, cas clients. Cabinet certifié ISO 27001.',
+  '/rssi-externalise': 'RSSI externalisé à Paris à 850 € HT/jour : RSSI senior multi-certifié, plus de 5 ans d’expérience, à temps partagé pour PME et ETI. Cabinet certifié ISO 27001.',
   '/en/outsourced-ciso': 'Outsourced CISO on a fractional basis for SMEs: security roadmap, governance, ISO 27001, NIS2 and DORA compliance, by a Paris-based cybersecurity firm.',
   '/gouvernance-conformite': 'Gouvernance et conformité cybersécurité : NIS2, DORA, ISO 27001, HDS, TISAX et RGPD, de l’audit d’écart au pilotage du SMSI. Cabinet SecuriTrust, Paris.',
   '/gouvernance-conformite/accompagnement': 'Accompagnement à la conformité pas à pas : cadrage, analyse de risques, politiques, mise en œuvre et préparation à l’audit ISO 27001, NIS2, DORA ou HDS.',

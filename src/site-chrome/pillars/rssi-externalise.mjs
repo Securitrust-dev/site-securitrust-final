@@ -7,7 +7,7 @@ export default {
   path: '/rssi-externalise',
   name: 'RSSI externalisé',
   service: 'RSSI externalisé',
-  updated: '2026-11-02',
+  updated: '2026-11-09',
   author: {
     name: 'Jad Joumblat',
     role: 'président-fondateur de SecuriTrust, plus de 20 ans d’expérience en cybersécurité',
@@ -84,7 +84,7 @@ export default {
     {
       question: 'Combien coûte un RSSI externalisé ?',
       answer:
-        'Le prix dépend du nombre de jours d’intervention par mois, facturés au tarif journalier d’un consultant senior. Ce volume est fixé après un premier diagnostic selon la taille du système d’information, les obligations réglementaires, la maturité de départ et la phase de la mission. Le budget reste très inférieur au coût d’un RSSI salarié à temps plein, de 80 000 à 120 000 euros chargés par an.',
+        'Un RSSI externalisé SecuriTrust est facturé 850 € HT par jour : un RSSI senior, avec plus de 5 ans d’expérience et plusieurs certifications reconnues. Le budget dépend du nombre de jours d’intervention par mois. Ce volume est fixé après un premier diagnostic selon la taille du système d’information, les obligations réglementaires, la maturité de départ et la phase de la mission. Le budget reste très inférieur au coût d’un RSSI salarié à temps plein, de 80 000 à 120 000 euros chargés par an.',
     },
     {
       question: 'Combien de jours par mois faut-il prévoir ?',

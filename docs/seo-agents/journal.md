@@ -125,3 +125,15 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   /pentest-externe est gelée jusqu'au 15 décembre : modification validée par l'humain,
   contenu existant inchangé (ajouts seulement). Attendu : hausse du CTR des 4 pages et
   impressions sur les requêtes de prix. Contrôle mi-décembre.
+
+- 2026-11-09 · Claude (demande explicite de l'utilisateur ; tarif validé par la direction,
+  remplace l'arbitrage « pas de TJM affiché » ; modification de la page gelée
+  /rssi-externalise validée par l'humain) · tarif journalier du RSSI externalisé ·
+  /rssi-externalise (encadré « 850 € HT par jour » dans la section prix, texte du prix,
+  ligne « Coût » du comparatif, phrase sur l'expérience dans « Expertise », FAQ « Combien
+  coûte un RSSI externalisé ? »), meta description, CLAUDE.md · RSSI senior, plus de
+  5 ans d'expérience, multi-certifié, 850 € HT par jour · répondre aux recherches de prix
+  et qualifier les demandes. La LP Google Ads /lp/rssi-externalise (même composant) reste
+  sans montant (variant "ads"). Attention : la page était en évaluation Google jusqu'au
+  15 décembre, l'effet de la refonte du 2 novembre ne pourra plus être isolé. Contrôle
+  mi-décembre.

@@ -11,8 +11,10 @@
    pentest, compteur pentests…, ce qui diluait le sujet pour Google et dégradait
    le niveau de qualité des annonces).
 
-   Règles conservées : aucun montant (arbitrage de Charles : pas de TJM affiché),
-   cas clients sans prix, dates ni nombre de jours.
+   Tarif : 850 € HT par jour affiché sur la page SEO uniquement (décision de la
+   direction du 9 novembre 2026, qui remplace l'arbitrage « pas de TJM affiché ») ;
+   la LP Google Ads (variant "ads") reste sans montant. Cas clients sans prix, dates
+   ni nombre de jours.
    ============================================================================ */
 
 import { useRef, useState, type ReactNode } from "react";
@@ -359,7 +361,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
           <div className="wrap">
             <p className="eyebrow">Expertise</p>
             <h2>Un cabinet certifié ISO&nbsp;27001 derrière votre RSSI</h2>
-            <p className="lead" style={{ marginBottom: "26px" }}>Depuis 2016, nos RSSI seniors pilotent la sécurité d&apos;organisations à forts enjeux, du premier diagnostic au maintien de la conformité.</p>
+            <p className="lead" style={{ marginBottom: "26px" }}>Depuis 2016, nos RSSI seniors pilotent la sécurité d&apos;organisations à forts enjeux, du premier diagnostic au maintien de la conformité.{!isAds && <> Chaque RSSI justifie de <strong>plus de 5&nbsp;ans d&apos;expérience</strong> et cumule plusieurs certifications reconnues.</>}</p>
 
             <div className="stats-wall">
               <div className="stat-box"><div className="num">+2 500</div><div className="lbl">jours-homme de RSSI externalisé</div></div>
@@ -399,7 +401,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
                   <div className="cmp-ext" role="columnheader"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg><span className="cmp-th">RSSI externalisé</span></div>
                 </div>
                 {[
-                  ["Coût", "80 000 à 120 000 €/an chargé, à temps plein", "Uniquement les jours réellement utiles"],
+                  ["Coût", "80 000 à 120 000 €/an chargé, à temps plein", isAds ? "Uniquement les jours réellement utiles" : "850 € HT par jour, uniquement les jours réellement utiles"],
                   ["Délai de démarrage", "Plusieurs mois de recrutement", "Expertise senior immédiate"],
                   ["Charge RH et turnover", "Recrutement, management, risque de départ", "Aucune charge RH, continuité garantie"],
                   ["Absences", "Poste vacant pendant les congés ou après un départ", "Relais assuré par le cabinet"],
@@ -418,14 +420,21 @@ export function RssiLanding({ variant, cas, children }: Props) {
         </section>
 
         {/* ======================= PRIX ======================= */}
-        {/* Aucun montant affiché (arbitrage de Charles). On explique comment le budget se calcule. */}
+        {/* Tarif journalier affiché sur la page SEO (décision de la direction du 9/11/2026) ; LP Ads sans montant. */}
         <section className="section" id="prix">
           <div className="wrap">
             <p className="eyebrow">Prix et tarif</p>
             <h2>Combien coûte un RSSI externalisé&nbsp;?</h2>
+            {!isAds && (
+              <div className="cost-rate" style={{ border: "1px solid rgba(34,211,238,.35)", borderRadius: 14, padding: "22px 24px", margin: "0 0 22px", background: "rgba(34,211,238,.06)" }}>
+                <p style={{ margin: 0, fontSize: 13, letterSpacing: ".12em", textTransform: "uppercase", opacity: .8 }}>Tarif journalier</p>
+                <p style={{ margin: "6px 0 8px", fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 700, lineHeight: 1.1 }}>850&nbsp;€&nbsp;HT <span style={{ fontSize: ".5em", fontWeight: 500 }}>par jour</span></p>
+                <p style={{ margin: 0 }}>Un RSSI senior, <strong>plus de 5&nbsp;ans d&apos;expérience</strong>, <a href="#preuves">multi-certifié</a>. Vous ne payez que les jours d&apos;intervention.</p>
+              </div>
+            )}
             <p className="lead">
               Le prix d&apos;un RSSI externalisé dépend du <strong>nombre de jours d&apos;intervention par mois</strong>,
-              facturés au tarif journalier d&apos;un consultant senior. Vous ne payez que le temps utile&nbsp;: le volume
+              {isAds ? <> facturés au tarif journalier d&apos;un consultant senior.</> : <> facturés 850&nbsp;€&nbsp;HT par jour.</>} Vous ne payez que le temps utile&nbsp;: le volume
               est fixé après un premier diagnostic, puis ajusté mois après mois. Quatre critères déterminent ce volume&nbsp;:
             </p>
             <div className="cost-grid">
