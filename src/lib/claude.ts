@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { aiObservabilityOptions, createAnthropicClient, flushAiObservability } from '@/lib/posthog-ai';
 
 export interface SynthesizedArticle {
   titleFr: string;
@@ -43,22 +43,25 @@ export async function synthesizeArticle(articleContent: {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY not set');
 
-  const anthropic = new Anthropic({
-    apiKey,
-    baseURL: 'https://api.anthropic.com',
-  });
-
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 8000,
-    system: SYSTEM_PROMPT,
-    messages: [
-      {
-        role: 'user',
-        content: `Synthétise et traduis en français l'article suivant pour le blog SecuriTrust :\n\nTitre original : ${articleContent.title}\n\nRésumé : ${articleContent.excerpt}\n\nContenu : ${articleContent.content}\n\nSource : ${articleContent.sourceUrl}`,
-      },
-    ],
-  });
+  const anthropic = createAnthropicClient(apiKey);
+  const response = await (async () => {
+    try {
+      return await anthropic.messages.create({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8000,
+        system: SYSTEM_PROMPT,
+        messages: [
+          {
+            role: 'user',
+            content: `Synthétise et traduis en français l'article suivant pour le blog SecuriTrust :\n\nTitre original : ${articleContent.title}\n\nRésumé : ${articleContent.excerpt}\n\nContenu : ${articleContent.content}\n\nSource : ${articleContent.sourceUrl}`,
+          },
+        ],
+        ...aiObservabilityOptions(),
+      });
+    } finally {
+      await flushAiObservability();
+    }
+  })();
 
   const textContent =
     response.content[0]?.type === 'text' ? response.content[0].text : '';

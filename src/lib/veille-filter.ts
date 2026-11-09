@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { aiObservabilityOptions, createAnthropicClient, flushAiObservability } from '@/lib/posthog-ai';
 
 /**
  * Ligne éditoriale de la veille automatique (validée le 29/10/2026).
@@ -41,12 +41,13 @@ export async function checkVeilleRelevance(item: { title: string; excerpt?: stri
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return { pertinent: true, raison: 'ANTHROPIC_API_KEY absente : filtre non appliqué' };
   try {
-    const anthropic = new Anthropic({ apiKey, baseURL: 'https://api.anthropic.com' });
+    const anthropic = createAnthropicClient(apiKey);
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 200,
       system: PROMPT,
       messages: [{ role: 'user', content: `Titre : ${item.title}\n\nRésumé : ${(item.excerpt || '').slice(0, 600)}` }],
+      ...aiObservabilityOptions(),
     });
     const text = response.content[0]?.type === 'text' ? response.content[0].text : '';
     const parsed = JSON.parse(text.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim());
@@ -54,5 +55,7 @@ export async function checkVeilleRelevance(item: { title: string; excerpt?: stri
   } catch (error) {
     console.error('[veille] filtre éditorial indisponible, actualité conservée', error);
     return { pertinent: true, raison: 'filtre indisponible' };
+  } finally {
+    await flushAiObservability();
   }
 }

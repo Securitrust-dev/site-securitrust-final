@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { after, NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { z } from 'zod';
 import { handleApiError, AppError } from '@/lib/errorHandler';
 import { getFormationBySlug } from '@/lib/formations-data';
+import { posthogLogsLogger, posthogLogsProvider, SeverityNumber } from '@/instrumentation';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-11-17.clover',
@@ -35,6 +36,15 @@ export async function POST(req: NextRequest) {
     const price = validated.purchaseType === 'one_time' 
       ? formation.price 
       : formation.priceMonthly;
+
+    posthogLogsLogger?.emit({
+      body: 'formation_checkout_validated',
+      severityNumber: SeverityNumber.INFO,
+      attributes: {
+        formation_slug: validated.formationSlug,
+        purchase_type: validated.purchaseType,
+      },
+    });
 
     const origin = process.env.NEXT_PUBLIC_APP_URL || 'https://www.securitrust.fr';
 
@@ -71,6 +81,19 @@ export async function POST(req: NextRequest) {
     };
 
     const session = await stripe.checkout.sessions.create(sessionConfig);
+
+    posthogLogsLogger?.emit({
+      body: 'formation_checkout_session_created',
+      severityNumber: SeverityNumber.INFO,
+      attributes: {
+        formation_slug: validated.formationSlug,
+        purchase_type: validated.purchaseType,
+      },
+    });
+
+    after(async () => {
+      await posthogLogsProvider?.forceFlush().catch(() => {});
+    });
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
