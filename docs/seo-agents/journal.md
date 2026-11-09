@@ -95,3 +95,20 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   ne transmettait pas de lien distinct à /pentest-mobile et /pentest-ad · une carte par
   page (web, mobile, AD), descriptions reprises des meta descriptions de chaque page.
   Attendu : chaque page de pentest reçoit son propre lien depuis la page hub.
+
+- 2026-11-09 · Claude (demande explicite de l'utilisateur, zones interdites : suivi et
+  consentement, API, dépendances) · PostHog installé par le wizard (PR #3), corrigé avant
+  publication · toutes les pages · analyse des parcours, heatmaps, enregistrement de
+  sessions, erreurs JavaScript, logs serveur et suivi des appels Claude · corrections :
+  dépendances manquantes ajoutées (posthog-node, @posthog/ai, OpenTelemetry) et
+  package-lock.json régénéré (le build aurait échoué) ; mode sans cookie par défaut et
+  opt-in via le service « posthog » d'Axeptio ; chargement différé ; pages statiques
+  couvertes (public/site-tracking.js, clé lue via GET /api/contact) ; e-mail et nom des
+  acheteurs de formations retirés, identification seulement après consentement ;
+  contenu des prompts Claude jamais envoyé (privacyMode) ; instrumentation-client.ts
+  déplacé dans src/ (ignoré à la racine), logs serveur déplacés dans src/lib/posthog-logs.ts.
+  Logique de paiement Stripe inchangée (ajout de logs seulement). À faire côté humain :
+  variables Vercel NEXT_PUBLIC_POSTHOG_KEY et NEXT_PUBLIC_POSTHOG_HOST, « Cookieless
+  server hash mode » dans PostHog, service « posthog » dans Axeptio, mention dans la
+  politique de cookies (page légale). Constat : le projet Axeptio publié ne contient aucun
+  service ni étape Consent Mode ; le consentement GA4 n'est probablement jamais accordé.

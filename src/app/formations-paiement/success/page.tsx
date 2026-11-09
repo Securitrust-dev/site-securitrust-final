@@ -25,7 +25,7 @@ function FormationsSuccessContent() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          if (data.analytics?.distinctId) {
+          if (data.analytics?.distinctId && posthog.has_opted_in_capturing?.()) {
             posthog.identify(data.analytics.distinctId, data.analytics.personProperties);
           }
           setStatus('success');

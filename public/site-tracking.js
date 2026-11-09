@@ -13,6 +13,10 @@
  *   email_click      clic sur un lien mailto:                   link_location
  * Les pages React poussent generate_lead / lead_form_error elles-mêmes
  * (src/lib/analytics.ts) ; ce script s'occupe du reste.
+ *
+ * PostHog : tous ces événements lui sont aussi relayés (sans e-mail ni téléphone).
+ * Sur les pages statiques, ce script charge PostHog lui-même (voir startPostHog) ;
+ * sur les pages React, c'est src/instrumentation-client.ts.
  */
 (function () {
   if (window.__stTracking) return;
@@ -23,8 +27,19 @@
     var payload = { event: event, form_location: location.pathname };
     for (var k in params) if (params[k] !== undefined) payload[k] = params[k];
     dl.push(payload);
+    phCapture(event, payload);
   }
   window.stTrack = track;
+
+  // Relais PostHog : sans les champs techniques ni les données personnelles (user_data).
+  function phCapture(event, props) {
+    var ph = window.posthog;
+    if (!ph || typeof ph.capture !== 'function') return;
+    var clean = {};
+    for (var k in props) if (k !== 'event' && k !== 'user_data' && props[k] !== undefined) clean[k] = props[k];
+    ph.capture(event, clean);
+  }
+  window.stPhCapture = phCapture;
 
   function zone(el) {
     if (el.closest('#sc-header')) return 'header';
@@ -76,14 +91,95 @@
   var tsKeyPromise = null;
   var tsScriptPromise = null;
 
+  // Configuration publique (clés captcha et PostHog), lue une fois par page.
+  var configPromise = null;
+  function siteConfig() {
+    if (!configPromise) {
+      configPromise = fetch('/api/contact', { method: 'GET', credentials: 'same-origin' })
+        .then(function (res) { return res.ok ? res.json() : {}; })
+        .catch(function () { configPromise = null; return {}; });
+    }
+    return configPromise;
+  }
+
   function captchaKey() {
     if (!tsKeyPromise) {
-      tsKeyPromise = fetch('/api/contact', { method: 'GET', credentials: 'same-origin' })
-        .then(function (res) { return res.ok ? res.json() : {}; })
-        .then(function (data) { return (data && data.turnstileSiteKey) || ''; })
-        .catch(function () { tsKeyPromise = null; return ''; });
+      tsKeyPromise = siteConfig().then(function (data) { return (data && data.turnstileSiteKey) || ''; });
     }
     return tsKeyPromise;
+  }
+
+  /* ─── PostHog sur les pages statiques ───────────────────────────────────────
+   * Mêmes réglages que src/instrumentation-client.ts (pages React) : sans cookie par
+   * défaut, opt-in si le service « posthog » est accepté dans Axeptio, enregistrement
+   * de session et heatmaps après accord uniquement. Clé et région lues dans les
+   * variables Vercel NEXT_PUBLIC_POSTHOG_KEY / NEXT_PUBLIC_POSTHOG_HOST via /api/contact.
+   */
+  function isReactPage() {
+    return !!document.querySelector('script[src*="/_next/"]');
+  }
+
+  function loadPostHog(key, host) {
+    if (window.posthog && window.posthog.__loaded) return;
+    // Amorce officielle PostHog : file d'attente des appels jusqu'au chargement d'array.js.
+    (function (t, e) {
+      var o, n, p, r;
+      if (e.__SV) return;
+      window.posthog = e; e._i = [];
+      e.init = function (i, s, a) {
+        function g(t, e) {
+          var o = e.split('.');
+          if (o.length == 2) { t = t[o[0]]; e = o[1]; }
+          t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); };
+        }
+        p = t.createElement('script'); p.type = 'text/javascript'; p.crossOrigin = 'anonymous'; p.async = true;
+        p.src = s.api_host.replace('.i.posthog.com', '-assets.i.posthog.com') + '/static/array.js';
+        r = t.getElementsByTagName('script')[0]; r.parentNode.insertBefore(p, r);
+        var u = e;
+        if (a !== undefined) u = e[a] = []; else a = 'posthog';
+        u.people = u.people || [];
+        u.toString = function (t) { var e = 'posthog'; if (a !== 'posthog') e += '.' + a; if (!t) e += ' (stub)'; return e; };
+        u.people.toString = function () { return u.toString(1) + ' (stub)'; };
+        o = 'init capture register register_once register_for_session unregister unregister_for_session identify reset get_distinct_id get_session_id set_config startSessionRecording stopSessionRecording captureException opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug'.split(' ');
+        for (n = 0; n < o.length; n++) g(u, o[n]);
+        e._i.push([i, s, a]);
+      };
+      e.__SV = 1;
+    })(document, window.posthog || []);
+
+    window.posthog.init(key, {
+      api_host: host || 'https://eu.i.posthog.com',
+      defaults: '2025-05-24',
+      person_profiles: 'identified_only',
+      cookieless_mode: 'on_reject',
+      opt_out_capturing_by_default: true,
+      capture_exceptions: true,
+      enable_heatmaps: true,
+      session_recording: { maskAllInputs: true, maskTextSelector: 'form' },
+    });
+
+    window._axcb = window._axcb || [];
+    window._axcb.push(function (axeptio) {
+      axeptio.on('cookies:complete', function (choices) {
+        if (choices && choices.posthog === true) window.posthog.opt_in_capturing();
+        else window.posthog.opt_out_capturing();
+      });
+    });
+  }
+
+  function startPostHog() {
+    if (isReactPage()) return;
+    var done = 0, ev = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove'];
+    function go() {
+      if (done) return; done = 1;
+      ev.forEach(function (e) { window.removeEventListener(e, go, { passive: true }); });
+      siteConfig().then(function (cfg) {
+        if (cfg && cfg.posthogKey) loadPostHog(cfg.posthogKey, cfg.posthogHost);
+      });
+    }
+    ev.forEach(function (e) { window.addEventListener(e, go, { passive: true }); });
+    if (document.readyState === 'complete') setTimeout(go, 5000);
+    else window.addEventListener('load', function () { setTimeout(go, 5000); });
   }
 
   function loadTurnstile() {
@@ -287,4 +383,5 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+  startPostHog();
 })();

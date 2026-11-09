@@ -69,12 +69,17 @@ const PUBLIC_REASONS = new Set([
 const publicReason = (r: string) => (PUBLIC_REASONS.has(r) ? r : 'resend_error');
 
 /**
- * Clé publique du captcha Turnstile, lue par les pages statiques (public/site-tracking.js).
- * Chaîne vide tant que le captcha n'est pas configuré : les formulaires restent inchangés.
+ * Configuration publique lue par les pages statiques (public/site-tracking.js) :
+ * clé du captcha Turnstile et projet PostHog (clés publiques par nature).
+ * Chaînes vides tant que les variables ne sont pas définies : fonctions inactives.
  */
 export async function GET() {
   return NextResponse.json(
-    { turnstileSiteKey: captchaSiteKey() },
+    {
+      turnstileSiteKey: captchaSiteKey(),
+      posthogKey: process.env.NEXT_PUBLIC_POSTHOG_KEY || '',
+      posthogHost: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
+    },
     { headers: { 'Cache-Control': 'public, max-age=300, s-maxage=300' } },
   );
 }

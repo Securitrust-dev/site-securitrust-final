@@ -24,7 +24,7 @@ export default function FormationLearnPage() {
     fetch(`/api/formations/verify-access?formation_slug=${encodeURIComponent(slug)}`, { method: 'POST' })
       .then((res) => res.json())
       .then((data) => {
-        if (data.success && data.analytics?.distinctId) {
+        if (data.success && data.analytics?.distinctId && posthog.has_opted_in_capturing?.()) {
           posthog.identify(data.analytics.distinctId, data.analytics.personProperties);
         }
       })

@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { trackLead, trackLeadError } from '@/lib/analytics';
 import { Captcha, captchaToken } from '@/components/brand/Captcha';
 import { isProEmail, PRO_EMAIL_MESSAGE } from '@/lib/email-pro';
-import posthog from 'posthog-js';
 
 // Formulaire de demande commun aux pages d'offre (charte RSSI, thème statique).
 // Envoie vers /api/contact (e-mail + Dolibarr + Notion) avec la source de la page.
@@ -81,10 +80,6 @@ export function LeadForm({
       return;
     }
     trackLead(formId, source);
-    posthog.capture('lead_form_submitted', {
-      form_id: formId,
-      lead_service: source,
-    });
     setDone(true);
   }
 

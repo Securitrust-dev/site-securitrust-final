@@ -4,13 +4,14 @@ import { randomUUID } from 'crypto';
 import { PostHog } from 'posthog-node';
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
 const aiSessionId = randomUUID();
 
 const posthog = posthogKey && posthogHost
   ? new PostHog(posthogKey, {
       host: posthogHost,
-      privacyMode: false,
+      // Contenu des prompts et réponses jamais envoyé : seulement modèle, jetons, coût, latence.
+      privacyMode: true,
       flushAt: 1,
       flushInterval: 0,
       requestTimeout: 2000,

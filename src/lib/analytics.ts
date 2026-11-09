@@ -2,13 +2,19 @@
 // Même schéma que public/site-tracking.js, qui gère les clics Calendly / tel /
 // mailto et le début de saisie (attribut data-lead-form sur le <form>).
 
-type DataLayerWindow = Window & { dataLayer?: Record<string, unknown>[] };
+type DataLayerWindow = Window & {
+  dataLayer?: Record<string, unknown>[];
+  // Relais PostHog défini par public/site-tracking.js (retire e-mail et téléphone).
+  stPhCapture?: (event: string, props: Record<string, unknown>) => void;
+};
 
 export function trackEvent(event: string, params: Record<string, string | undefined> = {}) {
   if (typeof window === 'undefined') return;
   const w = window as DataLayerWindow;
   w.dataLayer = w.dataLayer || [];
-  w.dataLayer.push({ event, form_location: window.location.pathname, ...params });
+  const payload = { event, form_location: window.location.pathname, ...params };
+  w.dataLayer.push(payload);
+  w.stPhCapture?.(event, payload);
 }
 
 /**
@@ -40,6 +46,12 @@ export function trackLead(
     user_data: email || phone ? { email, phone_number: phone } : undefined,
   });
   w.dataLayer.push({ user_data: undefined });
+  w.stPhCapture?.('generate_lead', {
+    form_location: window.location.pathname,
+    form_id: formId,
+    lead_service: leadService,
+    lead_id: extra.leadId,
+  });
 }
 
 /** Téléphone au format E.164 attendu par Google (FR par défaut). */

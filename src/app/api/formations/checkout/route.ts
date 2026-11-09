@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import { z } from 'zod';
 import { handleApiError, AppError } from '@/lib/errorHandler';
 import { getFormationBySlug } from '@/lib/formations-data';
-import { posthogLogsLogger, posthogLogsProvider, SeverityNumber } from '@/instrumentation';
+import { posthogLogsLogger, posthogLogsProvider, SeverityNumber } from '@/lib/posthog-logs';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-11-17.clover',

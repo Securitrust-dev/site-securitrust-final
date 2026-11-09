@@ -1,10 +1,12 @@
+// Logs serveur envoyés à PostHog (OpenTelemetry, côté Node uniquement).
+// Inactif sans NEXT_PUBLIC_POSTHOG_KEY. Aucune donnée personnelle dans les attributs.
 import { SeverityNumber } from '@opentelemetry/api-logs';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-http';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { BatchLogRecordProcessor, LoggerProvider } from '@opentelemetry/sdk-logs';
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
 const posthogLogsConfigured = Boolean(posthogKey && posthogHost);
 
 if (!posthogLogsConfigured && process.env.NODE_ENV !== 'production') {
@@ -33,4 +35,3 @@ export const posthogLogsProvider = posthogLogsConfigured
 export const posthogLogsLogger = posthogLogsProvider?.getLogger('securitrust-posthog-logs');
 export { SeverityNumber };
 
-export function register() {}

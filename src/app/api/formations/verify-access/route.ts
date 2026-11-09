@@ -19,9 +19,8 @@ function analyticsIdentity(purchase: {
 }) {
   return {
     distinctId: purchase.stripeCustomerId || `formation_purchase:${purchase.id}`,
+    // Identifiant pseudonyme (client Stripe) : ni e-mail ni nom envoyés à PostHog.
     personProperties: {
-      email: purchase.email,
-      name: purchase.customerName || undefined,
       purchase_type: purchase.purchaseType,
     },
   };
