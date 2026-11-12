@@ -30,7 +30,7 @@ const riskBadges = [
   { grade: 'C', label: 'Conformité RGPD',   color: 'yellow' },
 ];
 const badgeColors: Record<string, string> = {
-  cyan:   'border text-[#76a6d1]',
+  cyan:   'border text-[#80ace1]',
   green:  'bg-emerald-500/15 border-emerald-500/30 text-emerald-400',
   yellow: 'bg-amber-500/15 border-amber-500/30 text-amber-400',
   red:    'bg-red-500/15 border-red-500/30 text-red-400',
@@ -54,24 +54,24 @@ const ScoreCardPreview = () => (
     <div className="relative py-4 flex flex-col items-center gap-2" style={{ background: 'rgba(15,23,42,0.8)' }}>
       {/* Blurred background */}
       <div className="absolute inset-0 pointer-events-none select-none blur-sm opacity-30 flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border-2" style={{ borderColor: '#76a6d1' }} />
+        <div className="w-12 h-12 rounded-full border-2" style={{ borderColor: '#80ace1' }} />
       </div>
       {/* Score badge */}
       <div className="relative">
         <div className="w-16 h-16 rounded-full flex items-center justify-center"
           style={{
-            border: '2.5px solid #76a6d1',
+            border: '2.5px solid #80ace1',
             boxShadow: '0 0 20px rgba(118,166,209,0.45), 0 0 40px rgba(118,166,209,0.12)',
             background: 'rgba(2,8,23,0.92)',
           }}>
           <div className="text-center">
             <span className="text-white font-black text-xl leading-none" style={{ fontFamily: "'Sora', sans-serif" }}>62</span>
-            <span className="text-[9px] block leading-none font-semibold" style={{ color: '#76a6d1' }}>/100</span>
+            <span className="text-[9px] block leading-none font-semibold" style={{ color: '#80ace1' }}>/100</span>
           </div>
         </div>
-        <div className="absolute inset-0 rounded-full animate-ping opacity-[0.15]" style={{ border: '1.5px solid #76a6d1' }} />
+        <div className="absolute inset-0 rounded-full animate-ping opacity-[0.15]" style={{ border: '1.5px solid #80ace1' }} />
       </div>
-      <p className="text-[10px] font-semibold flex items-center gap-1" style={{ color: '#76a6d1' }}>
+      <p className="text-[10px] font-semibold flex items-center gap-1" style={{ color: '#80ace1' }}>
         <FileText className="w-3 h-3" />Score de maturité cyber
       </p>
       <div className="flex items-center gap-1 text-[9px] text-slate-400 border border-slate-700/80 rounded-full px-2.5 py-0.5 bg-slate-900/70">
@@ -157,11 +157,11 @@ const LeadForm = () => {
         disabled={status === 'loading' || !fields.email}
         className="w-full flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-bold text-sm text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         style={{
-          background: 'linear-gradient(135deg, #f97316, #ea580c)',
-          boxShadow: '0 0 32px rgba(249,115,22,.5), 0 4px 20px rgba(249,115,22,.3)',
+          background: 'linear-gradient(135deg, #496383, #3d5470)',
+          boxShadow: '0 0 32px rgba(73,99,131,.5), 0 4px 20px rgba(73,99,131,.3)',
         }}
-        onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 48px rgba(249,115,22,.7), 0 6px 28px rgba(249,115,22,.4)')}
-        onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 0 32px rgba(249,115,22,.5), 0 4px 20px rgba(249,115,22,.3)')}
+        onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 48px rgba(73,99,131,.7), 0 6px 28px rgba(73,99,131,.4)')}
+        onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 0 32px rgba(73,99,131,.5), 0 4px 20px rgba(73,99,131,.3)')}
       >
         {status === 'loading' ? 'Analyse en cours…' : <>Lancer mon audit gratuit maintenant <ArrowRight className="w-4 h-4" /></>}
       </button>
@@ -180,7 +180,7 @@ export const HeroSectionV2 = () => {
       {/* Background glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-32 left-1/4 w-[700px] h-[700px] rounded-full opacity-[0.07]"
-          style={{ background: 'radial-gradient(circle, #76a6d1 0%, transparent 65%)' }} />
+          style={{ background: 'radial-gradient(circle, #80ace1 0%, transparent 65%)' }} />
         <div className="absolute top-1/2 -right-32 w-[500px] h-[500px] rounded-full opacity-[0.05]"
           style={{ background: 'radial-gradient(circle, #5a90be 0%, transparent 65%)' }} />
         {/* Grid */}
@@ -194,8 +194,8 @@ export const HeroSectionV2 = () => {
           <div className="space-y-6">
             {/* Label pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide border"
-              style={{ background: 'rgba(118,166,209,0.08)', borderColor: 'rgba(118,166,209,0.25)', color: '#76a6d1' }}>
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#76a6d1' }} />
+              style={{ background: 'rgba(118,166,209,0.08)', borderColor: 'rgba(118,166,209,0.25)', color: '#80ace1' }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#80ace1' }} />
               Pentest · Audit · RSSI Externalisé
             </div>
 
@@ -203,7 +203,7 @@ export const HeroSectionV2 = () => {
             <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.12] text-white text-left"
               style={{ fontFamily: "'Sora', sans-serif" }}>
               Identifiez vos failles{' '}
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #76a6d1, #5a90be)' }}>
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #80ace1, #5a90be)' }}>
                 avant les attaquants.
               </span>
             </h1>
@@ -222,7 +222,7 @@ export const HeroSectionV2 = () => {
               ].map(({ label, color }) => (
                 <span key={label} className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium border
                   ${color === 'cyan'
-                    ? 'border text-[#76a6d1]'
+                    ? 'border text-[#80ace1]'
                     : 'bg-slate-800 border-slate-700 text-slate-400'
                   }`}
                   style={color === 'cyan' ? { background: 'rgba(118,166,209,0.08)', borderColor: 'rgba(118,166,209,0.25)' } : {}}>
@@ -239,7 +239,7 @@ export const HeroSectionV2 = () => {
                 { value: '+100', label: 'Accompagnements ISO 27001' },
               ].map(({ value, label }) => (
                 <div key={label}>
-                  <p className="text-2xl font-bold" style={{ color: '#76a6d1', fontFamily: "'Sora', sans-serif" }}>{value}</p>
+                  <p className="text-2xl font-bold" style={{ color: '#80ace1', fontFamily: "'Sora', sans-serif" }}>{value}</p>
                   <p className="text-slate-500 text-xs mt-0.5">{label}</p>
                 </div>
               ))}
@@ -291,7 +291,7 @@ export const HeroSectionV2 = () => {
           <div className="lg:sticky lg:top-28">
             <div className="relative rounded-2xl overflow-hidden border border-slate-700/60 bg-slate-900/50 backdrop-blur-sm shadow-[0_0_60px_rgba(2,8,23,.8)]">
               {/* Top gradient accent */}
-              <div className="h-1 w-full" style={{ background: 'linear-gradient(90deg, #76a6d1, #5a90be)' }} />
+              <div className="h-1 w-full" style={{ background: 'linear-gradient(90deg, #80ace1, #5a90be)' }} />
 
               <div className="p-7">
                 <div className="mb-5">
@@ -312,7 +312,7 @@ export const HeroSectionV2 = () => {
                 <div className="mt-6 pt-5 border-t border-slate-800 flex items-start gap-3">
                   <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 border"
                     style={{ background: 'rgba(118,166,209,0.1)', borderColor: 'rgba(118,166,209,0.25)' }}>
-                    <Shield className="w-4 h-4" style={{ color: '#76a6d1' }} />
+                    <Shield className="w-4 h-4" style={{ color: '#80ace1' }} />
                   </div>
                   <p className="text-slate-500 text-xs leading-relaxed">
                     <strong className="text-slate-300">+100 entreprises</strong> nous font confiance — RGPD conforme, données hébergées en France.

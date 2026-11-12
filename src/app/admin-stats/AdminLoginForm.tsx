@@ -62,7 +62,7 @@ export default function AdminLoginForm() {
             <button
               type="submit"
               disabled={loading || !password}
-              className="w-full bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 disabled:cursor-not-allowed text-white py-3 rounded-lg text-sm font-medium tracking-wider uppercase transition-colors"
+              className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:opacity-40 disabled:cursor-not-allowed text-white py-3 rounded-lg text-sm font-medium tracking-wider uppercase transition-colors"
             >
               {loading ? 'Vérification...' : 'Accéder au dashboard'}
             </button>

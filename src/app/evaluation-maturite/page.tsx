@@ -92,9 +92,9 @@ export default function EvaluationMaturitePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-cyan-500/30 shadow-[0_0_15px_rgba(128,172,225,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="mb-6 inline-flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-black/50 text-cyan-400 shadow-[0_0_10px_rgba(128,172,225,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <Target className="w-6 h-6" />
                   </div>
                   <h4 className="text-xl font-medium text-white mb-4">Gouvernance</h4>
@@ -206,7 +206,7 @@ export default function EvaluationMaturitePage() {
                 <p className="text-xs text-slate-400">Mesure et pilotage continu</p>
               </div>
 
-              <div className="glass-panel p-6 rounded-xl border border-cyan-500/30 text-center shadow-[0_0_15px_rgba(56,189,248,0.1)]">
+              <div className="glass-panel p-6 rounded-xl border border-cyan-500/30 text-center shadow-[0_0_15px_rgba(128,172,225,0.1)]">
                 <div className="text-3xl font-bold text-green-400 mb-2">Niveau 5</div>
                 <h4 className="text-sm font-semibold text-white mb-2">Optimisé</h4>
                 <p className="text-xs text-slate-400">Amélioration continue</p>

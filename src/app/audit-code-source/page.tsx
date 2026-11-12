@@ -127,7 +127,7 @@ export default function AuditCodeSourcePage() {
               </div>
 
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-orange-500/30 shadow-[0_0_15px_rgba(73,99,131,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
                   <div className="inline-block px-2.5 py-0.5 rounded-full bg-orange-500/20 text-orange-400 text-[0.65rem] font-bold mb-3 tracking-wider">
                     ÉLEVÉ
@@ -165,7 +165,7 @@ export default function AuditCodeSourcePage() {
               </div>
 
               <div className="tilt-card group relative z-10 p-1">
-                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-orange-500/30 shadow-[0_0_15px_rgba(249,115,22,0.1)]">
+                <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden border-orange-500/30 shadow-[0_0_15px_rgba(73,99,131,0.1)]">
                   <div className="absolute -right-4 -top-4 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
                   <div className="inline-block px-2.5 py-0.5 rounded-full bg-orange-500/20 text-orange-400 text-[0.65rem] font-bold mb-3 tracking-wider">
                     ÉLEVÉ

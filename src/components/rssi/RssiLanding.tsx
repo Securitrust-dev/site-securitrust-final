@@ -426,7 +426,7 @@ export function RssiLanding({ variant, cas, children }: Props) {
             <p className="eyebrow">Prix et tarif</p>
             <h2>Combien coûte un RSSI externalisé&nbsp;?</h2>
             {!isAds && (
-              <div className="cost-rate" style={{ border: "1px solid rgba(34,211,238,.35)", borderRadius: 14, padding: "22px 24px", margin: "0 0 22px", background: "rgba(34,211,238,.06)" }}>
+              <div className="cost-rate" style={{ border: "1px solid rgba(128,172,225,.35)", borderRadius: 14, padding: "22px 24px", margin: "0 0 22px", background: "rgba(128,172,225,.06)" }}>
                 <p style={{ margin: 0, fontSize: 13, letterSpacing: ".12em", textTransform: "uppercase", opacity: .8 }}>Tarif journalier</p>
                 <p style={{ margin: "6px 0 8px", fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 700, lineHeight: 1.1 }}>850&nbsp;€&nbsp;HT <span style={{ fontSize: ".5em", fontWeight: 500 }}>par jour</span></p>
                 <p style={{ margin: 0 }}>Un RSSI senior, <strong>plus de 5&nbsp;ans d&apos;expérience</strong>, <a href="#preuves">multi-certifié</a>. Vous ne payez que les jours d&apos;intervention.</p>

@@ -92,13 +92,13 @@ export async function POST(req: NextRequest) {
             subject: `Confirmation - ${formation.title}`,
             html: `
               <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #e2e8f0; padding: 40px; border-radius: 12px;">
-                <h1 style="color: #22d3ee; font-size: 24px; margin-bottom: 20px;">Paiement confirme !</h1>
+                <h1 style="color: #80ace1; font-size: 24px; margin-bottom: 20px;">Paiement confirme !</h1>
                 <p style="margin-bottom: 16px;">Bonjour ${escapeHtml(customerName)},</p>
                 <p style="margin-bottom: 16px;">Votre acces a la formation <strong style="color: white;">${escapeHtml(formation.title)}</strong> est maintenant actif.</p>
                 <div style="background: #111; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; margin: 24px 0;">
-                  <p style="margin: 0 0 8px 0;"><strong style="color: #22d3ee;">Formation :</strong> ${formation.title}</p>
-                  <p style="margin: 0 0 8px 0;"><strong style="color: #22d3ee;">Duree :</strong> ${formation.duration}</p>
-                  <p style="margin: 0;"><strong style="color: #22d3ee;">Modules :</strong> ${formation.modules.length} modules video</p>
+                  <p style="margin: 0 0 8px 0;"><strong style="color: #80ace1;">Formation :</strong> ${formation.title}</p>
+                  <p style="margin: 0 0 8px 0;"><strong style="color: #80ace1;">Duree :</strong> ${formation.duration}</p>
+                  <p style="margin: 0;"><strong style="color: #80ace1;">Modules :</strong> ${formation.modules.length} modules video</p>
                 </div>
                 <a href="${appUrl}/formations-paiement/success?session_id=${session.id}" style="display: inline-block; background: #4378a8; color: white; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-top: 16px;">
                   Acceder a ma formation

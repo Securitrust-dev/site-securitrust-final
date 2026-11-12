@@ -137,3 +137,9 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   sans montant (variant "ads"). Attention : la page était en évaluation Google jusqu'au
   15 décembre, l'effet de la refonte du 2 novembre ne pourra plus être isolé. Contrôle
   mi-décembre.
+
+- 2026-11-12 · Claude (demande explicite de l'utilisateur) · charte graphique alignée
+  sur le logo, sur tout le site (pages gelées comprises, validé par l'utilisateur :
+  seules les couleurs changent, aucun texte) : accents cyan → #80ace1, boutons orange →
+  ardoise #496383 avec texte blanc, fond sombre conservé. Échelles Tailwind cyan/sky/
+  blue/orange/amber/yellow recalées sur ces deux couleurs. Contrastes AA vérifiés.

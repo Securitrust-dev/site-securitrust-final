@@ -31,7 +31,7 @@ export const HeroSection = () => {
 
       {/* Decorative Gradient Overlay */}
       <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
-        <div className="absolute -left-40 top-10 h-[40vh] sm:h-[50vh] lg:h-[50vh] w-[40vh] sm:w-[50vh] rounded-full blur-3xl opacity-20 sm:opacity-30" style={{ background: 'radial-gradient(closest-side, rgba(6,182,212,0.3), rgba(0,0,0,0))' }}></div>
+        <div className="absolute -left-40 top-10 h-[40vh] sm:h-[50vh] lg:h-[50vh] w-[40vh] sm:w-[50vh] rounded-full blur-3xl opacity-20 sm:opacity-30" style={{ background: 'radial-gradient(closest-side, rgba(108,155,212,0.3), rgba(0,0,0,0))' }}></div>
       </div>
 
       <div className="max-w-7xl w-full mx-auto relative z-10">
@@ -47,7 +47,7 @@ export const HeroSection = () => {
 
             <div className="space-y-3 sm:space-y-4">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-light tracking-tight leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                <span className="text-white font-normal uppercase drop-shadow-[0_2px_20px_rgba(6,182,212,0.8)]">
+                <span className="text-white font-normal uppercase drop-shadow-[0_2px_20px_rgba(108,155,212,0.8)]">
                   Testez la sécurité de votre SI
                 </span>
               </h1>

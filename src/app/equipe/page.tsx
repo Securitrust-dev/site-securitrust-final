@@ -32,7 +32,7 @@ export default function EquipePage() {
                     width: 64, height: 64, borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontFamily: 'var(--sfont-jetbrains-mono), monospace', fontSize: 22, fontWeight: 600,
-                    color: '#0a1420', background: 'linear-gradient(135deg,#76a6d1,#4d9fe8)', marginBottom: 18,
+                    color: '#0a1420', background: 'linear-gradient(135deg,#80ace1,#4d9fe8)', marginBottom: 18,
                   }}
                 >
                   {initials(e.name)}

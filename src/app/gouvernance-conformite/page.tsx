@@ -11,7 +11,7 @@ const pillars = [
     href: '/secteurs',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
-    glow: 'shadow-[0_0_15px_rgba(56,189,248,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(128,172,225,0.1)]',
     badgeBg: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20',
     num: '01',
     title: "Domaines d'Expertise",
@@ -59,7 +59,7 @@ const pillars = [
 
 export default function GouvernanceConformitePage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black">
+    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-600 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen" />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60" />

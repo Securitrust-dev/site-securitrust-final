@@ -14,8 +14,8 @@
 /* Définition (extrait de résultat de recherche visé) */
 #lp-root#lp-root .def-box{
   margin-top:22px;max-width:880px;
-  background:linear-gradient(180deg,rgba(56,189,248,.07),rgba(6,182,212,.03));
-  border:1px solid rgba(56,189,248,.32);border-left:4px solid var(--sky);
+  background:linear-gradient(180deg,rgba(128,172,225,.07),rgba(108,155,212,.03));
+  border:1px solid rgba(128,172,225,.32);border-left:4px solid var(--sky);
   border-radius:var(--radius);padding:24px 26px;
 }
 #lp-root#lp-root .def-box p{font-size:1.06rem;line-height:1.7;color:#e8f0fb;margin:0}
@@ -27,7 +27,7 @@
 
 /* Liens dans les cartes de missions */
 #lp-root#lp-root .feat-card p a,#lp-root#lp-root .rich a,#lp-root#lp-root .lead a{
-  color:var(--sky);text-decoration:underline;text-decoration-color:rgba(56,189,248,.45);text-underline-offset:3px;
+  color:var(--sky);text-decoration:underline;text-decoration-color:rgba(128,172,225,.45);text-underline-offset:3px;
 }
 #lp-root#lp-root .feat-card p a:hover,#lp-root#lp-root .rich a:hover{text-decoration-color:var(--sky)}
 

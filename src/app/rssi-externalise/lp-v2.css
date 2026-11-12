@@ -31,11 +31,11 @@
 /* L'offre phare (RSSI externalisé) est surlignée, comme la carte `.featured` de la LP */
 #lp-root#lp-root .offer.offer-lead{
   border-color:var(--sky);
-  box-shadow:0 0 0 1px rgba(56,189,248,.25),0 18px 50px rgba(0,0,0,.4);
+  box-shadow:0 0 0 1px rgba(128,172,225,.25),0 18px 50px rgba(0,0,0,.4);
 }
 #lp-root#lp-root .offer-tag{
   display:inline-block;align-self:flex-start;
-  background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:var(--sky);
+  background:rgba(128,172,225,.12);border:1px solid rgba(128,172,225,.35);color:var(--sky);
   font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
   padding:5px 12px;border-radius:999px;margin-bottom:16px;
 }
@@ -71,7 +71,7 @@
 #lp-root#lp-root .feat-card:hover{transform:translateY(-3px);border-color:var(--cyhair)}
 #lp-root#lp-root .feat-ico{
   width:42px;height:42px;border-radius:12px;margin-bottom:16px;
-  background:rgba(56,189,248,.10);border:1px solid rgba(56,189,248,.28);
+  background:rgba(128,172,225,.10);border:1px solid rgba(128,172,225,.28);
   display:flex;align-items:center;justify-content:center;flex:none;
 }
 #lp-root#lp-root .feat-ico svg{width:21px;height:21px;color:var(--sky)}
@@ -98,7 +98,7 @@
 }
 #lp-root#lp-root .field-consent input[type="checkbox"]{
   appearance:none;-webkit-appearance:none;flex:0 0 16px;width:16px;height:16px;margin-top:2px;
-  background:rgba(2,8,23,.7);border:1.5px solid rgba(56,189,248,.35);border-radius:4px;cursor:pointer;
+  background:rgba(2,8,23,.7);border:1.5px solid rgba(128,172,225,.35);border-radius:4px;cursor:pointer;
   position:relative;transition:background .2s ease,border-color .2s ease;
 }
 #lp-root#lp-root .field-consent input[type="checkbox"]:checked{background:var(--sky);border-color:var(--sky)}
@@ -107,7 +107,7 @@
   border:solid #041225;border-width:0 2px 2px 0;transform:rotate(45deg);
 }
 #lp-root#lp-root .field-consent input[type="checkbox"]:focus-visible{
-  outline:none;box-shadow:0 0 0 3px rgba(56,189,248,.2);
+  outline:none;box-shadow:0 0 0 3px rgba(128,172,225,.2);
 }
 #lp-root#lp-root .field-consent label{cursor:pointer;flex:1}
 

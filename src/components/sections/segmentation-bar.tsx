@@ -44,7 +44,7 @@ export const SegmentationBar = () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {segments.map(({ icon: Icon, title, sub, desc, href, badge }) => (
           <Link key={title} href={href}
-            className="group relative flex flex-col gap-4 p-6 rounded-2xl border border-slate-800 bg-slate-900/40 hover:border-cyan-500/40 hover:bg-slate-900/70 transition-all duration-200 hover:shadow-[0_0_32px_rgba(34,211,238,.06)]">
+            className="group relative flex flex-col gap-4 p-6 rounded-2xl border border-slate-800 bg-slate-900/40 hover:border-cyan-500/40 hover:bg-slate-900/70 transition-all duration-200 hover:shadow-[0_0_32px_rgba(128,172,225,.06)]">
 
             {/* Badge */}
             {badge && (

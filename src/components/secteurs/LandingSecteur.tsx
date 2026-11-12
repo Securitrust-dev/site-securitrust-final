@@ -38,7 +38,7 @@ export default function LandingSecteur({ data }: { data: any }) {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 65%)", filter: "blur(40px)" }} />
+            style={{ background: "radial-gradient(circle, rgba(128,172,225,0.12) 0%, transparent 65%)", filter: "blur(40px)" }} />
         </div>
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{
@@ -47,8 +47,8 @@ export default function LandingSecteur({ data }: { data: any }) {
           }} />
 
         <div className="relative max-w-5xl mx-auto px-6 pt-32 pb-24">
-          <span className="inline-flex items-center gap-2 text-[#38bdf8] text-xs font-semibold uppercase tracking-[0.12em] border border-[#38bdf8]/25 px-4 py-2 rounded-full mb-8"
-            style={{ background: "rgba(56,189,248,0.06)" }}>
+          <span className="inline-flex items-center gap-2 text-[#80ace1] text-xs font-semibold uppercase tracking-[0.12em] border border-[#80ace1]/25 px-4 py-2 rounded-full mb-8"
+            style={{ background: "rgba(128,172,225,0.06)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z" /><path d="m9 12 2 2 4-4" />
             </svg>
@@ -79,7 +79,7 @@ export default function LandingSecteur({ data }: { data: any }) {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/[0.08]">
             {data.stats.map((s: { valeur: string; legende: string }, i: number) => (
               <div key={i}>
-                <div className="text-3xl font-extrabold text-[#38bdf8] tracking-tight">{s.valeur}</div>
+                <div className="text-3xl font-extrabold text-[#80ace1] tracking-tight">{s.valeur}</div>
                 <div className="text-slate-400 text-sm mt-1 leading-snug">{s.legende}</div>
               </div>
             ))}
@@ -95,10 +95,10 @@ export default function LandingSecteur({ data }: { data: any }) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {data.pourquoi.points.map((p: { titre: string; texte: string }, i: number) => (
-              <div key={i} className="rounded-2xl p-7 border border-white/[0.08] hover:border-[#38bdf8]/30 transition-colors duration-300"
+              <div key={i} className="rounded-2xl p-7 border border-white/[0.08] hover:border-[#80ace1]/30 transition-colors duration-300"
                 style={{ background: "linear-gradient(180deg,#0a1f35 0%,#030d1a 100%)" }}>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-orange-400 mb-5 border border-orange-500/20"
-                  style={{ background: "rgba(249,115,22,0.08)" }}>
+                  style={{ background: "rgba(73,99,131,0.08)" }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" /><path d="M12 9v4M12 17h.01" />
                   </svg>
@@ -114,7 +114,7 @@ export default function LandingSecteur({ data }: { data: any }) {
       {/* ── NORMES ───────────────────────────────────────────── */}
       <section className="py-24 bg-[#04060e] border-y border-white/[0.06]">
         <div className="max-w-5xl mx-auto px-6">
-          <span className="text-[#38bdf8] text-xs font-bold uppercase tracking-[0.12em] mb-3 block">Conformité réglementaire</span>
+          <span className="text-[#80ace1] text-xs font-bold uppercase tracking-[0.12em] mb-3 block">Conformité réglementaire</span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">{data.normes.titre}</h2>
           <p className="text-slate-400 text-base mb-12 max-w-2xl">
             Certifications, audits annuels, échéances : voici ce que votre secteur impose et ce que SecuriTrust prend en charge.
@@ -122,7 +122,7 @@ export default function LandingSecteur({ data }: { data: any }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {data.normes.items.map((n: { nom: string; statut: string; desc: string }, i: number) => (
-              <div key={i} className="rounded-xl p-6 border border-white/[0.08] hover:border-[#38bdf8]/30 transition-colors duration-300"
+              <div key={i} className="rounded-xl p-6 border border-white/[0.08] hover:border-[#80ace1]/30 transition-colors duration-300"
                 style={{ background: "#0a1f35" }}>
                 <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
                   <h3 className="text-white font-bold text-base leading-snug">{n.nom}</h3>
@@ -145,13 +145,13 @@ export default function LandingSecteur({ data }: { data: any }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
             {data.accompagnement.etapes.map((e: { titre: string; texte: string }, i: number) => (
               <div key={i} className="flex gap-5">
-                <div className="text-4xl font-extrabold leading-none shrink-0 w-10 text-right" style={{ color: "rgba(56,189,248,0.18)" }}>
+                <div className="text-4xl font-extrabold leading-none shrink-0 w-10 text-right" style={{ color: "rgba(128,172,225,0.18)" }}>
                   {String(i + 1).padStart(2, "0")}
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-base mb-2 flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md flex items-center justify-center shrink-0 text-[#38bdf8]"
-                      style={{ background: "rgba(56,189,248,0.1)" }}>
+                    <span className="w-5 h-5 rounded-md flex items-center justify-center shrink-0 text-[#80ace1]"
+                      style={{ background: "rgba(128,172,225,0.1)" }}>
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
                     </span>
                     {e.titre}
@@ -168,7 +168,7 @@ export default function LandingSecteur({ data }: { data: any }) {
       <section id="contact" className="py-28 bg-[#04060e] relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full"
-            style={{ background: "radial-gradient(circle,rgba(56,189,248,0.07) 0%,transparent 65%)", filter: "blur(60px)" }} />
+            style={{ background: "radial-gradient(circle,rgba(128,172,225,0.07) 0%,transparent 65%)", filter: "blur(60px)" }} />
         </div>
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-5 leading-tight"

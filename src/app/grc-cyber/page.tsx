@@ -118,7 +118,7 @@ export default function GRCCyberPage() {
                 { icon: TrendingUp, title: 'Amélioration continue', desc: 'Pilotage et optimisation permanente' }
               ].map((item, index) => (
                 <div key={index} className="tilt-card group relative z-10 p-1">
-                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(56,189,248,0.1)]">
+                  <div className="glass-panel h-full p-8 rounded-xl relative overflow-hidden text-center border-cyan-500/30 shadow-[0_0_15px_rgba(128,172,225,0.1)]">
                     <div className="absolute -right-4 -top-4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
                     <div className="w-16 h-16 mx-auto mb-6 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <item.icon className="w-8 h-8 text-cyan-400" />

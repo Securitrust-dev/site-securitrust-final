@@ -10,7 +10,7 @@ const conformiteComplete = [
     title: 'ISO 27001',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
-    glow: 'shadow-[0_0_15px_rgba(56,189,248,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(128,172,225,0.1)]',
     description: 'Certification internationale du Système de Management de la Sécurité de l\'Information.',
     etapes: ['Analyse d\'écart initiale', 'Définition du périmètre SMSI', 'Traitement des risques', 'Déploiement des contrôles', 'Audit de certification'],
     duree: '6 à 18 mois',
@@ -61,7 +61,7 @@ const livrables = [
     title: 'Analyse de risques EBIOS RM',
     accent: 'text-orange-400',
     border: 'border-orange-500/30',
-    glow: 'shadow-[0_0_15px_rgba(249,115,22,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(73,99,131,0.1)]',
     contenu: "Identification structurée des scénarios de risques cyber selon la méthode de référence ANSSI. Le rapport couvre la cartographie des valeurs métier, l'identification des sources de risques, la modélisation des scénarios stratégiques et opérationnels, et le plan de traitement du risque.",
     casUsage: "Homologation RGS, conformité NIS2, préparation à la certification ISO 27001, réponse aux exigences des donneurs d'ordre OIV/OSE, appels d'offres publics.",
     href: '/ebios-rm',
@@ -70,7 +70,7 @@ const livrables = [
     title: 'PSSI',
     accent: 'text-cyan-400',
     border: 'border-cyan-500/30',
-    glow: 'shadow-[0_0_15px_rgba(56,189,248,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(128,172,225,0.1)]',
     contenu: "Politique de Sécurité des Systèmes d'Information définissant les règles, responsabilités et engagements de l'organisation en matière de protection de l'information. Adaptée au contexte métier, elle couvre la gouvernance, la gestion des accès, la continuité et la gestion des incidents.",
     casUsage: "Prérequis ISO 27001 (contrôle A.5.1), conformité DORA, réponse aux questionnaires de qualification fournisseurs, documentation de maturité sécurité à destination des clients et partenaires.",
   },
@@ -125,7 +125,7 @@ const tousLesReferentiels = [
 
 export default function AccompagnementPage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-500 selection:text-black">
+    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-600 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen" />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60" />

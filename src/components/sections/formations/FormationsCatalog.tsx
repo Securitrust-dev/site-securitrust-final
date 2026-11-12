@@ -30,7 +30,7 @@ export function FormationsCatalog() {
               onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs uppercase tracking-wider transition-all ${
                 activeCategory === cat
-                  ? 'bg-cyan-500 text-black font-medium'
+                  ? 'bg-cyan-600 text-black font-medium'
                   : 'border border-white/10 text-slate-400 hover:text-white hover:border-white/30'
               }`}
             >
