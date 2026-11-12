@@ -165,3 +165,5 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   appliquer la CSP à nonce des pages React, 308 de /index.html et /accueil-v2 vers « / ».
   Équipe affichée en prénom + initiale du nom (Jad J., Brice G., Camelia M.). À surveiller :
   positions et clics de « / » dans Search Console sur les 2 à 4 semaines suivantes.
+- 2026-11-12 · Claude (demande explicite de l'utilisateur) · accueil : logo 3D retiré
+  derrière le titre (scène Three.js supprimée, le reste de la page est inchangé).

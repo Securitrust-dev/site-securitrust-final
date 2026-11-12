@@ -5,7 +5,6 @@ import { ArrowRight, BadgeCheck, Bug, CalendarClock, Check, ChevronDown, Clipboa
 import { Button } from "@/components/accueil-v2/ui/button";
 import { contact, team } from "@/lib/accueil-v2/securitrust-content";
 import { SecuriTrustHeader } from "@/components/accueil-v2/securitrust-header";
-import { CyberVisual } from "@/components/accueil-v2/cyber-visual";
 import { ContactCaptcha } from "@/components/accueil-v2/contact-captcha";
 import { contactSchema, sendContact } from "@/lib/accueil-v2/securitrust-contact";
 import logo from "@/assets/accueil-v2/logo-securitrust-original.png";
@@ -84,7 +83,6 @@ export function SecuriTrustHome() {
     <SecuriTrustHeader />
 
     <section className="cyber-hero border-b border-border">
-      <CyberVisual />
       <div className="hero-content mx-auto max-w-6xl px-5 md:px-6">
         <div className="hero-copy">
           <p className="mb-5 flex items-center gap-2 text-base font-medium text-accent"><ShieldCheck className="size-4" /> SecuriTrust · Depuis 2016</p>
