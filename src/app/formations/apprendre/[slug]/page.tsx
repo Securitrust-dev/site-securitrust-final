@@ -200,7 +200,7 @@ export default function FormationLearnPage() {
                   className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm transition-all ${
                     completedModules.includes(activeModuleId)
                       ? 'bg-cyan-500/10 border border-cyan-500/30 text-cyan-400'
-                      : 'bg-cyan-600 hover:bg-cyan-700 text-white'
+                      : 'bg-cyan-400 hover:bg-cyan-300 text-[#0b1526]'
                   }`}
                 >
                   <CheckCircle className="w-4 h-4" />

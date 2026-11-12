@@ -7,7 +7,7 @@ import { Swords, CheckCircle, Target, Zap, AlertTriangle, ArrowRight, Box, Cpu }
 
 export default function RedTeamPage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-600 selection:text-black">
+    <div className="relative min-h-screen antialiased text-[#0b1526] selection:bg-cyan-400 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen"></div>
 
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">

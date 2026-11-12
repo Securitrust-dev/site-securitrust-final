@@ -21,13 +21,13 @@ export const FloatingCTA = () => {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => hideCTA()}
-        className="group relative inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-white overflow-hidden transition-all duration-300 hover:scale-[1.04] active:scale-[0.97] whitespace-nowrap"
+        className="group relative inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-[#0b1526] overflow-hidden transition-all duration-300 hover:scale-[1.04] active:scale-[0.97] whitespace-nowrap"
         style={{
-          background: 'linear-gradient(135deg, #496383, #3d5470)',
-          boxShadow: '0 0 24px rgba(73,99,131,.5)',
+          background: 'linear-gradient(135deg, #a6c5ea, #80ace1)',
+          boxShadow: '0 0 24px rgba(128,172,225,.5)',
         }}
       >
-        <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%)' }} />
+        <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%)' }} />
         <Shield className="w-4 h-4 flex-shrink-0 drop-shadow" />
         <span className="tracking-wide drop-shadow">Un expert vous contacte sous 2h</span>
         <ArrowRight className="w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1" />

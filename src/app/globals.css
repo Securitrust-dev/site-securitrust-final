@@ -14,7 +14,7 @@
   --brand-hair: rgba(255, 255, 255, 0.09);
   --brand-cyhair: rgba(128, 172, 225, 0.22);
   --brand-card: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
-  --brand-orange: linear-gradient(135deg, #5a7699, #496383);
+  --brand-orange: linear-gradient(135deg, #a6c5ea, #80ace1);
   --brand-mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   --font-sans: var(--font-text), "Inter", system-ui, sans-serif;
   --font-display: var(--font-brand), "Space Grotesk", system-ui, sans-serif;
@@ -390,8 +390,8 @@ body:has(.lp-root)::after{display:none}
 
 /* boutons de la charte */
 .btn-brand,.btn-brand-ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--font-display);font-weight:600;font-size:1rem;letter-spacing:0;text-transform:none;padding:15px 26px;border-radius:12px;transition:transform .15s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease}
-.btn-brand{background:var(--brand-orange);color:#fff;box-shadow:0 10px 26px -8px rgba(73,99,131,.6),inset 0 1px 0 rgba(255,255,255,.25)}
-.btn-brand:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(73,99,131,.45)}
+.btn-brand{background:var(--brand-orange);color:#0b1526;box-shadow:0 10px 26px -8px rgba(128,172,225,.6),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-brand:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(128,172,225,.45)}
 .btn-brand-ghost{border:1px solid rgba(128,172,225,.55);color:var(--brand-sky);background:rgba(128,172,225,.05)}
 .btn-brand-ghost:hover{background:rgba(128,172,225,.12);transform:translateY(-2px)}
 

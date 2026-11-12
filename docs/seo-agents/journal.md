@@ -143,3 +143,7 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   seules les couleurs changent, aucun texte) : accents cyan → #80ace1, boutons orange →
   ardoise #496383 avec texte blanc, fond sombre conservé. Échelles Tailwind cyan/sky/
   blue/orange/amber/yellow recalées sur ces deux couleurs. Contrastes AA vérifiés.
+- 2026-11-12 · Claude (demande explicite de l'utilisateur) · boutons d'action passés
+  en bleu clair #80ace1 (dégradé #a6c5ea → #80ace1) avec texte foncé #0b1526, sur tout
+  le site, au lieu de l'ardoise : meilleure visibilité sur le fond sombre (8,4:1),
+  texte 7,7:1. Aucun texte modifié. Build OK, aucun défaut de contraste (axe).

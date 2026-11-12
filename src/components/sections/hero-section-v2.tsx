@@ -155,13 +155,13 @@ const LeadForm = () => {
       <button
         onClick={submit}
         disabled={status === 'loading' || !fields.email}
-        className="w-full flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-bold text-sm text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        className="w-full flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-bold text-sm text-[#0b1526] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         style={{
-          background: 'linear-gradient(135deg, #496383, #3d5470)',
-          boxShadow: '0 0 32px rgba(73,99,131,.5), 0 4px 20px rgba(73,99,131,.3)',
+          background: 'linear-gradient(135deg, #a6c5ea, #80ace1)',
+          boxShadow: '0 0 32px rgba(128,172,225,.5), 0 4px 20px rgba(128,172,225,.3)',
         }}
-        onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 48px rgba(73,99,131,.7), 0 6px 28px rgba(73,99,131,.4)')}
-        onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 0 32px rgba(73,99,131,.5), 0 4px 20px rgba(73,99,131,.3)')}
+        onMouseEnter={e => (e.currentTarget.style.boxShadow = '0 0 48px rgba(128,172,225,.7), 0 6px 28px rgba(128,172,225,.4)')}
+        onMouseLeave={e => (e.currentTarget.style.boxShadow = '0 0 32px rgba(128,172,225,.5), 0 4px 20px rgba(128,172,225,.3)')}
       >
         {status === 'loading' ? 'Analyse en cours…' : <>Lancer mon audit gratuit maintenant <ArrowRight className="w-4 h-4" /></>}
       </button>

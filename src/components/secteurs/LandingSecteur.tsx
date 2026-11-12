@@ -98,7 +98,7 @@ export default function LandingSecteur({ data }: { data: any }) {
               <div key={i} className="rounded-2xl p-7 border border-white/[0.08] hover:border-[#80ace1]/30 transition-colors duration-300"
                 style={{ background: "linear-gradient(180deg,#0a1f35 0%,#030d1a 100%)" }}>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-orange-400 mb-5 border border-orange-500/20"
-                  style={{ background: "rgba(73,99,131,0.08)" }}>
+                  style={{ background: "rgba(128,172,225,0.08)" }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" /><path d="M12 9v4M12 17h.01" />
                   </svg>

@@ -67,8 +67,8 @@
   font-weight:600;font-size:15px;transition:transform .25s var(--ease),box-shadow .25s,background .25s;cursor:pointer;
   border:none;font-family:var(--sfont-space-grotesk),'Space Grotesk',sans-serif;
 }
-#static-theme-root#static-theme-root.static-theme .btn-primary{background:linear-gradient(135deg,#5a7699,#496383);color:#fff;box-shadow:0 10px 26px -8px rgba(73,99,131,.6),inset 0 1px 0 rgba(255,255,255,.25)}
-#static-theme-root#static-theme-root.static-theme .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(73,99,131,.45)}
+#static-theme-root#static-theme-root.static-theme .btn-primary{background:linear-gradient(135deg,#a6c5ea,#80ace1);color:#0b1526;box-shadow:0 10px 26px -8px rgba(128,172,225,.6),inset 0 1px 0 rgba(255,255,255,.25)}
+#static-theme-root#static-theme-root.static-theme .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(128,172,225,.45)}
 #static-theme-root#static-theme-root.static-theme .btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
 #static-theme-root#static-theme-root.static-theme .btn-ghost{background:rgba(128,172,225,.05);color:var(--cyan);border:1px solid rgba(128,172,225,.55)}
 #static-theme-root#static-theme-root.static-theme .btn-ghost:hover{background:rgba(128,172,225,.12)}

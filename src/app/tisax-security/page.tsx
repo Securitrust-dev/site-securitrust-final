@@ -271,7 +271,7 @@ export default function TISAXPage() {
                   href="https://calendly.com/expert-securitrust"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
+                  className="inline-flex items-center gap-2 bg-cyan-400 hover:bg-cyan-300 text-[#0b1526] px-8 py-4 rounded font-medium tracking-widest uppercase transition-all shadow-[0_0_20px_rgba(118,166,209,0.3)] hover:shadow-[0_0_30px_rgba(118,166,209,0.5)]"
                 >
                   Demander un audit
                   <ArrowRight className="w-5 h-5" />

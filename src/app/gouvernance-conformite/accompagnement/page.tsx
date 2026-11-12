@@ -61,7 +61,7 @@ const livrables = [
     title: 'Analyse de risques EBIOS RM',
     accent: 'text-orange-400',
     border: 'border-orange-500/30',
-    glow: 'shadow-[0_0_15px_rgba(73,99,131,0.1)]',
+    glow: 'shadow-[0_0_15px_rgba(128,172,225,0.1)]',
     contenu: "Identification structurée des scénarios de risques cyber selon la méthode de référence ANSSI. Le rapport couvre la cartographie des valeurs métier, l'identification des sources de risques, la modélisation des scénarios stratégiques et opérationnels, et le plan de traitement du risque.",
     casUsage: "Homologation RGS, conformité NIS2, préparation à la certification ISO 27001, réponse aux exigences des donneurs d'ordre OIV/OSE, appels d'offres publics.",
     href: '/ebios-rm',
@@ -125,7 +125,7 @@ const tousLesReferentiels = [
 
 export default function AccompagnementPage() {
   return (
-    <div className="relative min-h-screen antialiased text-white selection:bg-cyan-600 selection:text-black">
+    <div className="relative min-h-screen antialiased text-[#0b1526] selection:bg-cyan-400 selection:text-black">
       <div className="fixed inset-0 scanlines pointer-events-none h-screen w-screen" />
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute w-full h-full bg-void opacity-60" />
