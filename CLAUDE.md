@@ -87,10 +87,15 @@ Pages refaites, **gelées jusqu'au 15 décembre 2026** (évaluation Google en co
 
 ## Données
 
-Via le connecteur Supermetrics (compte analystesite@gmail.com) :
-- Search Console : source `GW`, compte `sc-domain:securitrust.fr`, report_type `STANDARD`.
-- Google Analytics 4 : source `GAWA`, propriété `543893918` ; événement clé `generate_lead`.
-- Google Ads (AW-704286147) : source `AW`, si connectée.
+Via les API Google (Supermetrics n'est plus utilisé depuis le 12 novembre 2026), avec
+`scripts/seo_data.py` et le compte de service en lecture seule
+`seo-agents@securitrust-seo.iam.gserviceaccount.com` (clé dans la variable
+d'environnement `GOOGLE_SA_KEY_B64`, jamais dans le dépôt) :
+- Search Console : `python3 scripts/seo_data.py gsc --days 28 --dims query` (propriété
+  `sc-domain:securitrust.fr` ; données disponibles avec 2 à 3 jours de retard).
+- Google Analytics 4 : `python3 scripts/seo_data.py ga4 --days 7 --dims sessionDefaultChannelGroup`
+  (propriété `543893918` ; événement clé `generate_lead`, filtre `--event generate_lead`).
+- Google Ads (AW-704286147) : pas encore relié.
 Le domaine canonique est `https://www.securitrust.fr` (l'ancienne adresse sans www
 redirige en 308 ; Google consolide encore).
 
