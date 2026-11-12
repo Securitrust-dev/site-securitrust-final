@@ -6,7 +6,7 @@ export const contact = {
 };
 
 export const team = [
-  { name: "Jad Joumblat", role: "Président & fondateur", initials: "JJ", description: "Stratégie cybersécurité, RSSI externalisé et accompagnement des directions." },
-  { name: "Brice Gilbert", role: "Consultant senior · Gouvernance, risques & conformité", initials: "BG", description: "Gestion des risques et accompagnement NIS2, DORA et ISO 27001." },
-  { name: "Camelia Megherbi", role: "Consultante cybersécurité", initials: "CM", description: "Missions de cybersécurité et de conformité aux côtés de vos équipes." },
+  { name: "Jad J.", role: "Président & fondateur", initials: "JJ", description: "Stratégie cybersécurité, RSSI externalisé et accompagnement des directions." },
+  { name: "Brice G.", role: "Consultant senior · Gouvernance, risques & conformité", initials: "BG", description: "Gestion des risques et accompagnement NIS2, DORA et ISO 27001." },
+  { name: "Camelia M.", role: "Consultante cybersécurité", initials: "CM", description: "Missions de cybersécurité et de conformité aux côtés de vos équipes." },
 ];

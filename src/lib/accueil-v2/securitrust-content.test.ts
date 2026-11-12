@@ -7,6 +7,6 @@ describe("SecuriTrust contact rules", () => {
     expect(contact.phoneHref).toBe("tel:+33186044431");
   });
   it("identifies only the real team", () => {
-    expect(team.map(person => person.name)).toEqual(["Jad Joumblat", "Brice Gilbert", "Camelia Megherbi"]);
+    expect(team.map(person => person.name)).toEqual(["Jad J.", "Brice G.", "Camelia M."]);
   });
 });

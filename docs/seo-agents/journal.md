@@ -157,3 +157,11 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   l'API /api/contact existante (Turnstile et Notion inchangés), suivi via stTrack. Rendu
   comparé à l'export compilé (1215, 1280, 360 et 390 px) : hauteurs identiques, seuls
   quelques pixels de la 3D diffèrent.
+- 2026-11-12 · Claude (demande explicite de l'utilisateur, qui lève pour cela le gel de
+  l'accueil) · l'accueil v2 (export Lovable) devient la page d'accueil « / » : servie par
+  src/app/page.tsx, title et description repris de l'export (src/routes/index.tsx),
+  canonique « / », indexable. public/index.html reste dans le dépôt mais n'est plus servi :
+  rewrite « / » retiré de next.config.js, « / » retiré de STATIC_PAGES (csp.mjs) pour
+  appliquer la CSP à nonce des pages React, 308 de /index.html et /accueil-v2 vers « / ».
+  Équipe affichée en prénom + initiale du nom (Jad J., Brice G., Camelia M.). À surveiller :
+  positions et clics de « / » dans Search Console sur les 2 à 4 semaines suivantes.

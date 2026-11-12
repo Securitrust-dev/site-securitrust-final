@@ -1,4 +1,4 @@
-/* Accueil v2 (export Lovable) : copie de src/styles.css, chargée uniquement sur /accueil-v2.
+/* Accueil (export Lovable) : copie de src/styles.css, chargée uniquement sur la page d'accueil.
    Seuls changent le chemin @source et le bloc « Intégration au site » en fin de fichier. */
 /*
  * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
@@ -8,7 +8,7 @@
  *   src/routes/__root.tsx and name the family in a --font-* token in @theme inline below.
  */
 @import "tailwindcss" source(none);
-@source "../../components/accueil-v2";
+@source "../components/accueil-v2";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -199,7 +199,7 @@
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
 
-/* ---- Intégration au site (n'agit que sur /accueil-v2, seule page qui charge ce fichier) ----
+/* ---- Intégration au site (n'agit que sur l'accueil, seule page qui charge ce fichier) ----
    globals.css redéfinit --font-sans / --font-display hors couche (Inter, Space Grotesk) et pose
    un fond dégradé + un grain sur body::before / ::after : on rétablit les valeurs de l'export. */
 :root { --font-sans: "Manrope", sans-serif; --font-display: "Sora", sans-serif; }

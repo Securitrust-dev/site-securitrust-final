@@ -1,36 +1,35 @@
-import { Navbar } from '@/components/sections/navbar';
-import { Footer } from '@/components/sections/footer';
-import { HeroSection } from '@/components/sections/hero-section';
-import { MetricsSection } from '@/components/sections/metrics-section';
-import { ServicesSection } from '@/components/sections/services-section';
-import { TrustedClientsCarousel } from '@/components/sections/trusted-clients-carousel';
-import { OfficialAuditorSection } from '@/components/sections/official-auditor-section';
-import { ExpertCTAButton } from '@/components/sections/expert-cta-button';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import { SecuriTrustHome } from '@/components/accueil-v2/securitrust-home';
+import './accueil.css';
 
+// Accueil (export Lovable, validé le 12/11/2026). Remplace la page statique public/index.html,
+// conservée dans le dépôt mais plus servie (/index.html redirige ici).
+// Métadonnées reprises de src/routes/index.tsx de l'export.
 export const metadata: Metadata = {
-  title: 'SecuriTrust | Expert en Pentest & Audit Cybersécurité',
-  description: 'Cabinet de conseil en cybersécurité spécialisé en pentest, audit de sécurité et conformité GRC. Sécurisez votre entreprise avec nos experts.',
-  alternates: {
-    canonical: '/',
+  title: { absolute: 'SecuriTrust — Cabinet de cybersécurité à Paris' },
+  description:
+    'Cabinet de cybersécurité à Paris : accompagnement ISO 27001, NIS2 et DORA, pentest et RSSI externalisé. Échangez avec les experts SecuriTrust.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'SecuriTrust — Cabinet de cybersécurité à Paris',
+    description: 'Partez de votre besoin : certification, conformité, tests d’intrusion ou pilotage de votre sécurité.',
+    type: 'website',
+    url: '/',
   },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <HeroSection />
-      <MetricsSection />
-      <ServicesSection />
-      <TrustedClientsCarousel />
-      <OfficialAuditorSection />
-      
-      <section className="relative py-16 px-6 text-center">
-        <ExpertCTAButton />
-      </section>
-      
-      <Footer />
-    </div>
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+        precedence="default"
+      />
+      <SecuriTrustHome />
+    </>
   );
 }

@@ -92,8 +92,9 @@ export function buildCsp({ nonce, hashes = [], dev = false } = {}) {
 }
 
 /** Pages servies depuis public/*.html (réécritures de next.config.js) : CSP par empreintes. */
+// L'accueil (/) n'en fait plus partie depuis le 12/11/2026 : il est servi par src/app/page.tsx
+// avec la CSP à nonce du middleware (public/index.html reste dans le dépôt, /index.html redirige).
 export const STATIC_PAGES = {
-  '/': 'index.html',
   '/dora': 'dora.html',
   '/iso27001': 'iso27001.html',
   '/nis2': 'nis2.html',

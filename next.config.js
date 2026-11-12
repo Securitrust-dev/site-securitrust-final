@@ -83,6 +83,8 @@ const nextConfig = {
       { source: '/strategie-cybersecurite', destination: '/rssi-externalise', permanent: true },
       { source: '/osint', destination: '/pentest-externe', permanent: true },
       { source: '/accueil-2', destination: '/', permanent: true },
+      { source: '/accueil-v2', destination: '/', permanent: true },
+      { source: '/index.html', destination: '/', permanent: true },
       { source: '/rssi-a-temps-partage', destination: '/rssi-externalise', permanent: true },
       { source: '/cybersecurite-rssi-externalise-temps-partage', destination: '/rssi-externalise', permanent: true },
       // Doublons (cannibalisation) : l'ancienne page React renvoie vers la landing page
@@ -134,10 +136,9 @@ const nextConfig = {
   async rewrites() {
     return {
       // beforeFiles : prioritaire sur les routes Next.js existantes (nécessaire pour
-      // remplacer la home app router par la page statique public/index.html, et pour
-      // /dora qui a une route React concurrente sous src/app/dora/).
+      // /dora qui a une route React concurrente sous src/app/dora/). L'accueil est servi
+      // par src/app/page.tsx depuis le 12/11/2026 (ancienne page statique : public/index.html).
       beforeFiles: [
-        { source: '/', destination: '/index.html' },
         { source: '/dora', destination: '/dora.html' },
       ],
       // afterFiles : ces sources n'ont pas de route Next.js concurrente, un rewrite
