@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@source not "../components/accueil-v2"; /* accueil v2 : compilé à part (src/app/accueil-v2/accueil-v2.css) */
 @custom-variant dark (&:is(.dark *));
 
 :root {

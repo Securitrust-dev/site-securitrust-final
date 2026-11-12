@@ -147,3 +147,13 @@ Une entrée par action publiée ou proposée, la plus récente en haut :
   en bleu clair #80ace1 (dégradé #a6c5ea → #80ace1) avec texte foncé #0b1526, sur tout
   le site, au lieu de l'ardoise : meilleure visibilité sur le fond sombre (8,4:1),
   texte 7,7:1. Aucun texte modifié. Build OK, aucun défaut de contraste (axe).
+- 2026-11-12 · Claude (demande explicite de l'utilisateur) · préproduction de l'accueil v2
+  (export Lovable « 3D + formulaire à droite ») sur /accueil-v2, en noindex, nofollow,
+  hors plan du site. L'accueil actuel n'est pas modifié. Sources de l'export reprises
+  telles quelles dans src/{components,lib,assets}/accueil-v2 (imports, « use client »,
+  images Next et zod/v3 adaptés). Le CSS de l'export est compilé à part et chargé
+  seulement sur cette page : le CSS global des autres pages est identique octet pour octet.
+  Ajout : sans WebGL, la 3D est retirée au lieu de vider la page. Le formulaire passe par
+  l'API /api/contact existante (Turnstile et Notion inchangés), suivi via stTrack. Rendu
+  comparé à l'export compilé (1215, 1280, 360 et 390 px) : hauteurs identiques, seuls
+  quelques pixels de la 3D diffèrent.
